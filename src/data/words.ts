@@ -13,6 +13,7 @@ export interface Word {
   ipa?: string;      // britancha (RP) transkripsiya; ˈ — urg'uli bo'g'in oldidan
   emoji?: string;    // kartadagi rasm
   image?: string;    // o'zingiz qo'shgan surat (telefondagi fayl manzili)
+  cloze?: string;    // misol gapda so'z boshqa shaklda bo'lsa (came up with) — test uchun
   deck: 'work' | 'it' | 'phrasal' | 'my';
 }
 
@@ -69,18 +70,18 @@ export const WORDS: Word[] = [
     example: 'The server must be scalable for many users.' },
   { id: 'i-backend', ipa: '/ˈbæk.end/', emoji: '🖥️', deck: 'it', word: 'backend', translation: 'server tomoni',
     example: 'The backend is written in Python with FastAPI.' },
-  { id: 'i-timeout', ipa: '/ˈtaɪm.aʊt/', emoji: '⌛', deck: 'it', word: 'timeout', translation: 'kutish vaqti tugashi',
+  { id: 'i-timeout', cloze: 'timed out', ipa: '/ˈtaɪm.aʊt/', emoji: '⌛', deck: 'it', word: 'timeout', translation: 'kutish vaqti tugashi',
     example: 'The request timed out because the phone could not reach the PC.',
     note: 'Expo Go\'dagi birinchi xatoyingiz 🙂' },
 
   // ── Phrasal verbs ──
   { id: 'p-figure-out', ipa: '/ˌfɪɡ.ər ˈaʊt/', emoji: '🧠', deck: 'phrasal', word: 'to figure out', translation: 'tushunib yetmoq, hal qilmoq',
     example: "I'll figure out why the app crashes." },
-  { id: 'p-come-up-with', ipa: '/kʌm ˈʌp wɪð/', emoji: '💭', deck: 'phrasal', word: 'to come up with', translation: 'o\'ylab topmoq',
+  { id: 'p-come-up-with', cloze: 'came up with', ipa: '/kʌm ˈʌp wɪð/', emoji: '💭', deck: 'phrasal', word: 'to come up with', translation: 'o\'ylab topmoq',
     example: 'We came up with a new name: Nobu.' },
   { id: 'p-look-into', ipa: '/lʊk ˈɪn.tuː/', emoji: '🔎', deck: 'phrasal', word: 'to look into', translation: 'o\'rganib chiqmoq',
     example: "I'll look into the network problem." },
-  { id: 'p-run-out-of', ipa: '/rʌn ˈaʊt əv/', emoji: '🪫', deck: 'phrasal', word: 'to run out of', translation: 'tugab qolmoq',
+  { id: 'p-run-out-of', cloze: 'ran out of', ipa: '/rʌn ˈaʊt əv/', emoji: '🪫', deck: 'phrasal', word: 'to run out of', translation: 'tugab qolmoq',
     example: 'We ran out of time.' },
   { id: 'p-set-up', ipa: '/set ˈʌp/', emoji: '🛠️', deck: 'phrasal', word: 'to set up', translation: 'sozlamoq, o\'rnatmoq',
     example: 'It took an hour to set up the project.' },

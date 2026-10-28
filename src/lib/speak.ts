@@ -1,40 +1,104 @@
 /**
- * speak.ts — so'zni britancha (London, RP) erkak ovozida o'qish.
+ * speak.ts — so'z, gap va tarjimani ovozda o'qish.
  *
- * iPhone'da tayyor britan erkak ovozlari bor: Daniel (doim bor), Arthur, Oliver
- * (Sozlamalar → Accessibility → Spoken Content → Voices → English (UK) dan
- * "Enhanced" sifatlisini yuklab olsangiz — ovoz ancha tabiiy bo'ladi, ilova uni o'zi tanlaydi).
+ * 1-navbat: tayyor mp3 (Microsoft neyron ovozlari, GitHub'da yasaladi):
+ *    inglizcha — en-GB Ryan (London erkak ovozi), o'zbekcha — uz-UZ Sardor.
+ * 2-navbat (o'zingiz qo'shgan so'zlar yoki mp3 yo'q bo'lsa): telefonning britan erkak
+ *    ovozi — Daniel / Arthur. O'zbekcha uchun telefonda ovoz yo'q → false qaytadi.
+ *
+ * Tezlik (0.5× / 0.75× / 1×) telefonda saqlanadi va hamma joyda amal qiladi.
  */
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import * as Speech from 'expo-speech';
+import { useEffect, useState } from 'react';
+
+import { AUDIO } from '@/data/audio';
+
+export type Part = 'w' | 's' | 'uz';            // so'z, misol gap, o'zbekcha tarjima
+export type AudioMap = Record<string, Partial<Record<Part, number>>>;
+export const RATES = [0.5, 0.75, 1] as const;
+
+// ── Tezlik ──────────────────────────────────────────────────────────────────
+const RATE_KEY = 'dojo.rate';
+let rate = 1;
+const listeners = new Set<(r: number) => void>();
+AsyncStorage.getItem(RATE_KEY).then((v) => v && setRate(Number(v))).catch(() => {});
+
+export function setRate(r: number) {
+  rate = r;
+  AsyncStorage.setItem(RATE_KEY, String(r)).catch(() => {});
+  listeners.forEach((fn) => fn(r));
+}
+
+/** Ekranlar uchun: joriy tezlik va uni o'zgartirish. */
+export function useRate(): [number, (r: number) => void] {
+  const [value, setValue] = useState(rate);
+  useEffect(() => {
+    listeners.add(setValue);
+    return () => { listeners.delete(setValue); };
+  }, []);
+  return [value, setRate];
+}
+
+// ── Ijro ────────────────────────────────────────────────────────────────────
+let player: AudioPlayer | null = null;
+let ready = false;
+
+function getPlayer() {
+  if (!ready) {
+    ready = true;
+    // Telefon jim rejimda (silent) bo'lsa ham eshitilsin.
+    setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
+  }
+  player ??= createAudioPlayer(null);
+  return player;
+}
 
 const MALE_GB = ['arthur', 'daniel', 'oliver', 'malcolm', 'jamie'];
 let voice: string | undefined;
 let picked = false;
-
-async function pickVoice() {
+async function phoneVoice() {
   if (picked) return voice;
   picked = true;
   try {
     const gb = (await Speech.getAvailableVoicesAsync()).filter((v) => v.language === 'en-GB');
     const score = (v: Speech.Voice) => {
-      const name = v.name.toLowerCase();
-      const male = MALE_GB.findIndex((n) => name.includes(n));
-      return (male >= 0 ? 100 - male : 0) + (v.quality === Speech.VoiceQuality.Enhanced ? 50 : 0);
+      const i = MALE_GB.findIndex((n) => v.name.toLowerCase().includes(n));
+      return (i >= 0 ? 100 - i : 0) + (v.quality === Speech.VoiceQuality.Enhanced ? 50 : 0);
     };
     voice = gb.sort((a, b) => score(b) - score(a))[0]?.identifier;
   } catch {
-    voice = undefined;   // ro'yxat olinmasa — tizimning en-GB ovozi
+    voice = undefined;
   }
   return voice;
 }
 
-export async function speak(text: string, slow = false) {
-  const v = await pickVoice();
-  Speech.stop();
-  Speech.speak(text, { language: 'en-GB', voice: v, rate: slow ? 0.6 : 0.95, pitch: 1.0 });
+/**
+ * O'qish. id — so'z identifikatori (mp3 qidirish uchun), text — mp3 bo'lmasa telefon o'qiydi.
+ * Qaytaradi: ovoz chalindimi (o'zbekcha mp3 bo'lmasa — false).
+ */
+export async function say(id: string, part: Part, text: string): Promise<boolean> {
+  stopSpeaking();
+  const file = AUDIO[id]?.[part];
+  if (file) {
+    const p = getPlayer();
+    p.replace(file);
+    p.setPlaybackRate(rate, 'high');      // 'high' — sekinlashganda ovoz pasaymaydi
+    p.play();
+    return true;
+  }
+  if (part === 'uz' || !text) return false;
+  Speech.speak(text, { language: 'en-GB', voice: await phoneVoice(), rate: rate * 0.95 });
+  return true;
+}
+
+export function hasUzbekAudio(id: string) {
+  return Boolean(AUDIO[id]?.uz);
 }
 
 export function stopSpeaking() {
   Speech.stop();
+  player?.pause();
 }

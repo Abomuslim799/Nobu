@@ -18,8 +18,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/constants/theme';
 import { DECKS, WORDS, type Word } from '@/data/words';
 import { useProgress } from '@/lib/progress';
-import { speak, stopSpeaking } from '@/lib/speak';
+import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
 import { Bar, Button, Card, T } from '@/ui/kit';
+import { RateSwitch, SoundButton } from '@/ui/sound';
 
 const SESSION = 20;   // bir o'tirishda nechta karta
 
@@ -61,6 +62,7 @@ export default function CardsScreen() {
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={22}>✕</T></Pressable>
         <View style={{ flex: 1 }}><Bar value={queue.length ? pos / queue.length : 1} /></View>
         <T dim>{Math.min(pos + 1, queue.length)}/{queue.length}</T>
+        <RateSwitch />
       </View>
 
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
@@ -83,6 +85,20 @@ export default function CardsScreen() {
             {dueCount > 0 && <Button label="Yana" onPress={restart} />}
           </Card>
         )}
+
+        <Card style={{ gap: 10 }}>
+          <T bold>🧪 Test — 3 bosqich</T>
+          <T dim>Tarjima ↔ so'z · ovoz → so'z · gapdagi bo'sh joy</T>
+          <View style={s.wrap}>
+            {(Object.keys(DECKS) as Word['deck'][])
+              .filter((d) => all.filter((w) => w.deck === d).length >= 4)
+              .map((d) => (
+                <Pressable key={d} style={s.chip} onPress={() => router.push(`/quiz?deck=${d}`)}>
+                  <T bold color={C.green}>{DECKS[d]}</T>
+                </Pressable>
+              ))}
+          </View>
+        </Card>
 
         {adding ? (
           <AddWordForm onSave={(w) => { addWord(w); setAdding(false); }} onCancel={() => setAdding(false)} />
@@ -121,9 +137,9 @@ function FlipCard({ word }: { word: Word }) {
 
   // Karta chiqqanda so'z o'zi o'qiladi; ekrandan chiqsa — ovoz to'xtaydi.
   useEffect(() => {
-    speak(word.word);
+    say(word.id, 'w', word.word);
     return stopSpeaking;
-  }, [word.word]);
+  }, [word.id, word.word]);
 
   const flip = () => {
     Animated.spring(turn, { toValue: back ? 0 : 1, useNativeDriver: true, friction: 7 }).start();
@@ -134,27 +150,34 @@ function FlipCard({ word }: { word: Word }) {
 
   return (
     <Pressable onPress={flip}>
-      <Animated.View style={[s.face, { transform: [{ perspective: 1000 }, { rotateY: front }] }]}>
+      {/* pointerEvents — faqat ko'rinib turgan tomon bosilsin (avval orqa tomon old tomonni "to'sib" turardi). */}
+      <Animated.View pointerEvents={back ? 'none' : 'auto'}
+        style={[s.face, { transform: [{ perspective: 1000 }, { rotateY: front }] }]}>
         {word.image ? <Image source={{ uri: word.image }} style={s.photo} contentFit="cover" />
           : word.emoji ? <Text style={s.emoji}>{word.emoji}</Text> : null}
         <Text style={s.word} adjustsFontSizeToFit numberOfLines={2}>{word.word}</Text>
         {word.ipa ? <Text style={s.ipa}>{word.ipa}</Text> : null}
-        <View style={s.row}>
-          <Pressable style={s.sound} onPress={() => speak(word.word)} hitSlop={6}><T size={20}>🔊</T></Pressable>
-          <Pressable style={s.sound} onPress={() => speak(word.word, true)} hitSlop={6}><T size={20}>🐢</T></Pressable>
-        </View>
+        <Sounds word={word} />
         <T dim>kartani bosing — tarjimasi</T>
       </Animated.View>
-      <Animated.View style={[s.face, s.faceBack, { transform: [{ perspective: 1000 }, { rotateY: rear }] }]}>
+      <Animated.View pointerEvents={back ? 'auto' : 'none'}
+        style={[s.face, s.faceBack, { transform: [{ perspective: 1000 }, { rotateY: rear }] }]}>
         <Text style={s.translation}>{word.translation}</Text>
-        {word.example ? (
-          <Pressable onPress={() => speak(word.example)} hitSlop={6}>
-            <T style={{ textAlign: 'center', fontStyle: 'italic' }}>🔊 “{word.example}”</T>
-          </Pressable>
-        ) : null}
+        {word.example ? <T style={{ textAlign: 'center', fontStyle: 'italic' }}>“{word.example}”</T> : null}
         {word.note ? <T dim style={{ textAlign: 'center' }}>💡 {word.note}</T> : null}
+        <Sounds word={word} uz />
       </Animated.View>
     </Pressable>
+  );
+}
+
+function Sounds({ word, uz }: { word: Word; uz?: boolean }) {
+  return (
+    <View style={s.wrap}>
+      <SoundButton id={word.id} part="w" text={word.word} label="So'z" />
+      {word.example ? <SoundButton id={word.id} part="s" text={word.example} label="Gap" /> : null}
+      {uz && hasUzbekAudio(word.id) ? <SoundButton id={word.id} part="uz" text={word.translation} label="O'zbekcha" /> : null}
+    </View>
   );
 }
 
@@ -237,7 +260,8 @@ const s = StyleSheet.create({
   emoji: { fontSize: 64 },
   photo: { width: '100%', height: 150, borderRadius: R },
   ipa: { color: C.dim, fontSize: 18 },
-  sound: { paddingHorizontal: 18, paddingVertical: 8, borderRadius: 20, backgroundColor: C.greenSoft },
+  wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' },
+  chip: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: 14, backgroundColor: C.greenSoft },
   myRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   input: {
     color: C.text, fontSize: 16, padding: 12, borderRadius: 12,

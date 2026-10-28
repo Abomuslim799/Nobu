@@ -1,6 +1,6 @@
 # GitHub'ga push qilinganda ilovani avtomatik yangilaydi (EAS Update).
-# Telefonda Expo Go'ni qayta ochsangiz — yangi versiya keladi. PC terminal kerak emas.
-# Bir martalik sozlash: GitHub repo → Settings → Secrets → Actions → EXPO_TOKEN.
+# Telefonda Expo Go → Projects → nobu-dojo → main. PC terminal kerak emas.
+# Bir martalik sozlash: repo → Settings → Secrets → Actions → EXPO_TOKEN.
 name: publish
 on:
   push:
@@ -15,8 +15,24 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Versiya: 1.01, 1.02 ... (run_number 3 tadan keyin boshlanadi — oldingilar sinov edi)
+      - name: Versiya
+        run: |
+          n=$(( ${{ github.run_number }} - 3 ))
+          echo "EXPO_PUBLIC_VERSION=$(( 1 + n / 100 )).$(printf '%02d' $(( n % 100 )))" >> "$GITHUB_ENV"
+
+      # Ovozlar: London erkak (en-GB Ryan) va o'zbekcha (uz-UZ Sardor). Xato bo'lsa — telefon ovozi.
+      - name: Ovozlar
+        run: |
+          pip install -q edge-tts
+          python scripts/make_audio.py || echo "ovozlar yasalmadi — telefon ovozi ishlatiladi"
+
       - run: npm ci
       - run: npx tsc --noEmit
-      - run: npx eas-cli@latest update --branch main --message "${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+      - run: npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

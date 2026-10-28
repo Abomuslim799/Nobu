@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="lesson/[id]" options={{ presentation: 'fullScreenModal' }} />
         <Stack.Screen name="game/[id]" options={{ presentation: 'fullScreenModal' }} />
         <Stack.Screen name="cards" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="quiz" options={{ presentation: 'fullScreenModal' }} />
       </Stack>
     </ProgressProvider>
   );
