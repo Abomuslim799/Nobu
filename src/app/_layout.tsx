@@ -1,18 +1,27 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+/**
+ * _layout.tsx (ildiz) — ilovaning skeleti.
+ *
+ * Stack — sahifalar ustma-ust ochiladi: pastda tablar, dars ochilganda
+ * u tablar USTIGA chiqadi, "orqaga" bilan yopiladi.
+ * ProgressProvider — barcha ekranlarga natijalarni (streak, darslar) beradi.
+ */
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
-SplashScreen.preventAutoHideAsync();
+import { C } from '@/constants/theme';
+import { ProgressProvider } from '@/lib/progress';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <ProgressProvider>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg } }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="lesson/[id]" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="game/[id]" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="cards" options={{ presentation: 'fullScreenModal' }} />
+      </Stack>
+    </ProgressProvider>
   );
 }

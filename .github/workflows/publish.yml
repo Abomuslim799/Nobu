@@ -1,0 +1,22 @@
+# GitHub'ga push qilinganda ilovani avtomatik yangilaydi (EAS Update).
+# Telefonda Expo Go'ni qayta ochsangiz — yangi versiya keladi. PC terminal kerak emas.
+# Bir martalik sozlash: GitHub repo → Settings → Secrets → Actions → EXPO_TOKEN.
+name: publish
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npx eas-cli@latest update --branch main --message "${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

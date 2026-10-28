@@ -1,56 +1,63 @@
-# Welcome to your Expo app 👋
+# Nobu Dojo — til, IT va miya mashqlari
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+iPhone ilovasi (Expo / React Native). Darslardagi kod misollari — bizning
+loyihalarimizdan (Nobu, Nobu Dojo), qaysi faylda turgani ko'rsatilgan.
 
-## Get started
+## Ishga tushirish (Windows → iPhone)
 
-1. Install dependencies
-
-   ```bash
-   npm install
+1. **Node.js LTS** o'rnating: https://nodejs.org (bir marta).
+2. iPhone'ga App Store'dan **Expo Go** ilovasini o'rnating (bepul).
+3. Shu papkada terminal oching (papkada o'ng tugma → *Open in Terminal*):
    ```
-
-2. Start the app
-
-   ```bash
+   npm install
    npx expo start
    ```
+4. Ekranda QR kod chiqadi — iPhone **kamerasi** bilan skanerlang → Expo Go'da ochiladi.
+   Kompyuter va telefon **bitta Wi-Fi**da bo'lishi kerak.
+   Ulanmasa: `npx expo start --tunnel`.
 
-In the output, you'll find options to open the app in a
+Kodni o'zgartirsangiz — telefonda o'zi yangilanadi (saqlash bilan).
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Tuzilish
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/app/                 ← ekranlar (har fayl — bitta sahifa, Expo Router)
+  _layout.tsx            ← ilova skeleti: Stack + natijalar (ProgressProvider)
+  (tabs)/_layout.tsx     ← pastki 4 ta tab
+  (tabs)/index.tsx       ← Bugun: streak, kunlik maqsad, keyingi dars
+  (tabs)/learn.tsx       ← Darslar: yo'nalishlar va darslar
+  (tabs)/brain.tsx       ← Miya mashqlari
+  (tabs)/stats.tsx       ← Statistika
+  lesson/[id].tsx        ← interaktiv dars (matn → kod → test → to'ldirish)
+  game/[id].tsx          ← Tezkor hisob o'yini
+src/data/
+  types.ts               ← dars qadamlari turlari (TypeScript 1-darsida misol)
+  tracks.ts              ← DARSLAR MAZMUNI — yangi dars shu yerga qo'shiladi
+  games.ts               ← mashqlar ro'yxati
+src/lib/
+  streak.ts              ← kun seriyasi hisobi (TypeScript 2-darsida misol)
+  progress.tsx           ← natijalarni telefonda saqlash (AsyncStorage)
+  speed-math.ts          ← o'yin uchun misol yasash
+src/ui/kit.tsx           ← umumiy tugma, karta, matn, progress chizig'i
+src/constants/theme.ts   ← ranglar (Nobu bilan bir xil: qora + yashil)
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+**O'qish tartibi:** `types.ts` → `tracks.ts` → `streak.ts` → `progress.tsx` → `lesson/[id].tsx`.
 
-### Other setup steps
+## Yo'nalishlar
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| | Darslar | Misollar manbasi |
+|---|---|---|
+| 🐍 Python | dataclass, regex, deque, interpolyatsiya | Nobu |
+| 🟦 TypeScript | union turlar, streak | shu ilova |
+| ☕ Java | dataclass → record | Nobu kodining Java'dagi ko'rinishi (Java loyihamiz hali yo'q) |
+| 🗄️ SQL | jadval, INSERT, yumshoq o'chirish | Nobu |
+| 🇬🇧 English | ish so'zlari, phrasal verbs | Nobu lug'ati |
 
-## Learn more
+## Keyingi bosqichlar
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Yangi darslar (har yo'nalishga) va qolgan 3 ta miya o'yini
+2. Railway server (FastAPI + PostgreSQL): natijalar barcha qurilmalarda, Telegram'dagi
+   to-do tracker ilovaga ko'chadi
+3. AI ustoz (Gemini) — xatoni tushuntiradi
+4. Boshqalar uchun: ro'yxatdan o'tish, App Store (Apple Developer $99/yil)
