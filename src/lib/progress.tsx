@@ -18,11 +18,33 @@ import { bestStreak, currentStreak, dayKey } from './streak';
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
-export interface DayActivity { lessons: number; games: number; cards?: number; xp: number }
+export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; xp: number }   // read — daqiqa
 /** So'z kartochkasi holati (Leitner tizimi — Nobu'dagidek). */
 export interface CardState { box: number; due: number }   // due — ms (Date.now() formati)
 export interface CustomWord { id: string; word: string; translation: string; example: string; image?: string }
 export interface GameStats { best: number; plays: number; last: number }
+
+// ── Kutubxona ──
+export interface Book {
+  id: string; title: string; author: string; lang: 'uz' | 'en' | 'ru';
+  pages?: number;            // jami sahifa (bo'lmasa — foizda kuzatiladi)
+  progress: number;          // 0..1 — qayergacha o'qildi
+  cover?: string;            // muqova surati (telefondagi fayl)
+  summary?: string;          // umumiy xulosa (o'zingiz yozasiz)
+  finished?: boolean;
+  created: number;
+}
+export interface ReadingSession {
+  id: string; bookId: string; day: string; start: number;
+  minutes: number; note: string; upto?: string;   // "120-bet" yoki "45%"
+}
+export interface Quote {
+  id: string; text: string; author: string; bookId?: string;
+  tags: string[]; fav: boolean; created: number;
+}
+/** Hozir o'qilayotgan kitob (Mutolaa'ga o'tib ketganda ham vaqt yo'qolmasin). */
+export interface ActiveRead { bookId: string; start: number }
+export const READ_MIN = 5;           // sessiya hisoblanishi uchun minimal daqiqa
 
 interface Data {
   version: 1;
@@ -31,10 +53,19 @@ interface Data {
   games: Record<string, GameStats>;           // gameId → rekordlar
   cards: Record<string, CardState>;           // wordId → quti va keyingi takror vaqti
   myWords: CustomWord[];                      // o'zingiz qo'shgan so'zlar
+  books: Book[];
+  sessions: ReadingSession[];
+  quotes: Quote[];
+  activeRead: ActiveRead | null;
+  settings: { readGoal: number };             // kunlik o'qish maqsadi (daqiqa)
 }
 
 const KEY = 'dojo.progress.v1';
-const EMPTY: Data = { version: 1, lessons: {}, days: {}, games: {}, cards: {}, myWords: [] };
+const EMPTY: Data = {
+  version: 1, lessons: {}, days: {}, games: {}, cards: {}, myWords: [],
+  books: [], sessions: [], quotes: [], activeRead: null, settings: { readGoal: 20 },
+};
+const uid = (prefix: string) => `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
 // Leitner oraliqlari: quti raqami → keyingi takrorgacha (ms). Bilsangiz quti oshadi.
 const MIN = 60_000, DAY = 86_400_000;
@@ -52,6 +83,20 @@ interface Progress {
   reviewCard: (wordId: string, knew: boolean) => void;
   addWord: (word: Omit<CustomWord, 'id'>) => void;
   removeWord: (id: string) => void;
+  // Kutubxona
+  todayRead: number;                                        // bugun o'qilgan daqiqa
+  saveBook: (b: Omit<Book, 'id' | 'created' | 'progress'> & Partial<Book>) => string;
+  removeBook: (id: string) => void;
+  startReading: (bookId: string) => void;
+  cancelReading: () => void;
+  finishReading: (s: { bookId: string; start: number; minutes: number; note: string; upto?: string; progress?: number }) => void;
+  removeSession: (id: string) => void;
+  saveQuote: (q: Omit<Quote, 'id' | 'created' | 'fav'> & Partial<Quote>) => void;
+  removeQuote: (id: string) => void;
+  setReadGoal: (minutes: number) => void;
+  // Zaxira
+  exportJSON: () => string;
+  importJSON: (raw: string) => boolean;
   reset: () => void;
 }
 
@@ -75,11 +120,96 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     if (ready) AsyncStorage.setItem(KEY, JSON.stringify(data)).catch(() => {});
   }, [data, ready]);
 
-  const bump = (d: Data, field: 'lessons' | 'games' | 'cards', xp: number): Data['days'] => {
-    const key = dayKey();
+  const bump = (d: Data, field: 'lessons' | 'games' | 'cards' | 'read', xp: number, amount = 1, key = dayKey()): Data['days'] => {
     const day = d.days[key] ?? { lessons: 0, games: 0, xp: 0 };
-    return { ...d.days, [key]: { ...day, [field]: (day[field] ?? 0) + 1, xp: day.xp + xp } };
+    return { ...d.days, [key]: { ...day, [field]: (day[field] ?? 0) + amount, xp: day.xp + xp } };
   };
+
+  // ── Kutubxona ──
+  const saveBook = useCallback((b: Omit<Book, 'id' | 'created' | 'progress'> & Partial<Book>) => {
+    const id = b.id ?? uid('book');
+    setData((d) => {
+      const old = d.books.find((x) => x.id === id);
+      const book: Book = { progress: 0, created: Date.now(), ...old, ...b, id };
+      return { ...d, books: old ? d.books.map((x) => (x.id === id ? book : x)) : [book, ...d.books] };
+    });
+    return id;
+  }, []);
+
+  const removeBook = useCallback((id: string) => {
+    setData((d) => ({
+      ...d,
+      books: d.books.filter((b) => b.id !== id),
+      sessions: d.sessions.filter((x) => x.bookId !== id),
+      quotes: d.quotes.map((q) => (q.bookId === id ? { ...q, bookId: undefined } : q)),
+      activeRead: d.activeRead?.bookId === id ? null : d.activeRead,
+    }));
+  }, []);
+
+  const startReading = useCallback((bookId: string) => {
+    setData((d) => ({ ...d, activeRead: { bookId, start: Date.now() } }));
+  }, []);
+  const cancelReading = useCallback(() => setData((d) => ({ ...d, activeRead: null })), []);
+
+  const finishReading = useCallback((x: { bookId: string; start: number; minutes: number; note: string; upto?: string; progress?: number }) => {
+    setData((d) => {
+      const day = dayKey(new Date(x.start));
+      const session: ReadingSession = { id: uid('read'), bookId: x.bookId, day, start: x.start,
+        minutes: x.minutes, note: x.note, upto: x.upto };
+      const counts = x.minutes >= READ_MIN && x.note.trim().length > 0;
+      return {
+        ...d,
+        activeRead: null,
+        sessions: [session, ...d.sessions],
+        books: d.books.map((b) => (b.id === x.bookId && x.progress !== undefined
+          ? { ...b, progress: x.progress, finished: x.progress >= 1 } : b)),
+        // 5 daqiqadan kam yoki tahlilsiz — saqlanadi, lekin kunlik maqsadga qo'shilmaydi.
+        days: counts ? bump(d, 'read', Math.round(x.minutes / 2), x.minutes, day) : d.days,
+      };
+    });
+  }, []);
+
+  const removeSession = useCallback((id: string) => {
+    setData((d) => {
+      const x = d.sessions.find((s) => s.id === id);
+      const counted = x && x.minutes >= READ_MIN && x.note.trim();
+      const day = x && d.days[x.day];
+      return {
+        ...d,
+        sessions: d.sessions.filter((s) => s.id !== id),
+        days: counted && day ? { ...d.days, [x.day]: { ...day, read: Math.max(0, (day.read ?? 0) - x.minutes),
+          xp: Math.max(0, day.xp - Math.round(x.minutes / 2)) } } : d.days,
+      };
+    });
+  }, []);
+
+  const saveQuote = useCallback((q: Omit<Quote, 'id' | 'created' | 'fav'> & Partial<Quote>) => {
+    setData((d) => {
+      const id = q.id ?? uid('quote');
+      const old = d.quotes.find((x) => x.id === id);
+      const quote: Quote = { fav: false, created: Date.now(), ...old, ...q, id };
+      return { ...d, quotes: old ? d.quotes.map((x) => (x.id === id ? quote : x)) : [quote, ...d.quotes] };
+    });
+  }, []);
+  const removeQuote = useCallback((id: string) => {
+    setData((d) => ({ ...d, quotes: d.quotes.filter((q) => q.id !== id) }));
+  }, []);
+  const setReadGoal = useCallback((minutes: number) => {
+    setData((d) => ({ ...d, settings: { ...d.settings, readGoal: minutes } }));
+  }, []);
+
+  // ── Zaxira: butun ma'lumot bitta JSON matnda ──
+  const exportJSON = useCallback(() => JSON.stringify(data), [data]);
+  const importJSON = useCallback((raw: string) => {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed?.version !== 1 || typeof parsed.days !== 'object') return false;
+      setData({ ...EMPTY, ...parsed });
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
 
   const reviewCard = useCallback((wordId: string, knew: boolean) => {
     setData((d) => {
@@ -136,9 +266,14 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       reviewCard,
       addWord,
       removeWord,
+      todayRead: data.days[dayKey()]?.read ?? 0,
+      saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
+      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON,
       reset,
     };
-  }, [data, ready, completeLesson, recordGame, reviewCard, addWord, removeWord, reset]);
+  }, [data, ready, completeLesson, recordGame, reviewCard, addWord, removeWord, reset,
+      saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
+      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON]);
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
 }

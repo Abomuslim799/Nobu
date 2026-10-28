@@ -10,17 +10,25 @@ import { ALL_LESSONS } from '@/data/tracks';
 import { useProgress } from '@/lib/progress';
 import { dayKey, lastDays } from '@/lib/streak';
 import { AUDIO } from '@/data/audio';
+import { quoteOfDay } from '@/lib/reading';
 import { VERSION } from '@/lib/version';
+import { QuoteCard } from '@/ui/quote-card';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
 const WEEKDAYS = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];   // Date.getDay(): 0 = yakshanba
-const GOAL = { lessons: 1, games: 1 };
 
 export default function Today() {
-  const { data, streak, best, today } = useProgress();
+  const { data, streak, best, today, todayRead } = useProgress();
+  const readGoal = data.settings.readGoal;
+  const quote = quoteOfDay(data.quotes);
   // Keyingi dars — hali tugatilmaganlarning birinchisi.
   const next = ALL_LESSONS.find(({ lesson }) => !data.lessons[lesson.id]);
-  const goalDone = Math.min(today.lessons, GOAL.lessons) + Math.min(today.games, GOAL.games);
+  const goals = [
+    { done: today.lessons >= 1, label: '1 dars' },
+    { done: today.games >= 1, label: '1 miya mashqi' },
+    { done: todayRead >= readGoal, label: `${todayRead}/${readGoal} daq kitob` },
+  ];
+  const goalDone = goals.filter((g) => g.done).length;
 
   return (
     <Screen>
@@ -35,9 +43,9 @@ export default function Today() {
       </Card>
 
       <Card>
-        <T bold>Kunlik maqsad · {goalDone}/2</T>
-        <Bar value={goalDone / 2} />
-        <T dim>{today.lessons >= 1 ? '✓' : '○'} 1 ta dars    {today.games >= 1 ? '✓' : '○'} 1 ta miya mashqi    ·  {today.xp} XP</T>
+        <T bold>Kunlik maqsad · {goalDone}/{goals.length}</T>
+        <Bar value={goalDone / goals.length} />
+        <T dim>{goals.map((g) => `${g.done ? '✓' : '○'} ${g.label}`).join('   ')}   · {today.xp} XP</T>
       </Card>
 
       <Card>
@@ -55,6 +63,11 @@ export default function Today() {
           })}
         </View>
       </Card>
+
+      {quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
+
+      <Button kind="ghost" label={data.activeRead ? '⏱ Kitob o\'qilmoqda — tugatish' : '📚 Kitob o\'qish'}
+        onPress={() => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library')} />
 
       {next ? (
         <Card>

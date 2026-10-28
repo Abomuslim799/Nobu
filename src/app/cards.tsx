@@ -156,7 +156,7 @@ function FlipCard({ word }: { word: Word }) {
         {word.image ? <Image source={{ uri: word.image }} style={s.photo} contentFit="cover" />
           : word.emoji ? <Text style={s.emoji}>{word.emoji}</Text> : null}
         <Text style={s.word} adjustsFontSizeToFit numberOfLines={2}>{word.word}</Text>
-        {word.ipa ? <Text style={s.ipa}>{word.ipa}</Text> : null}
+        {word.ipa ? <Stress ipa={word.ipa} /> : null}
         <Sounds word={word} />
         <T dim>kartani bosing — tarjimasi</T>
       </Animated.View>
@@ -168,6 +168,34 @@ function FlipCard({ word }: { word: Word }) {
         <Sounds word={word} uz />
       </Animated.View>
     </Pressable>
+  );
+}
+
+/**
+ * Urg'uni ko'rsatish: /ˈded.laɪn/ → DED · laɪn. ˈ — asosiy urg'u (yashil, katta),
+ * ˌ — ikkinchi darajali (oq), qolganlari — kulrang. Shu bo'g'inni kuchliroq ayting.
+ */
+function Stress({ ipa }: { ipa: string }) {
+  const words = ipa.replace(/^\/|\/$/g, '').split(/\s+/);
+  return (
+    <View style={{ alignItems: 'center', gap: 2 }}>
+      <Text style={s.ipa}>
+        {words.map((w, wi) => (
+          <Text key={wi}>
+            {wi > 0 ? '   ' : ''}
+            {w.split(/\.|(?=[ˈˌ])/).filter(Boolean).map((syl, i) => (
+              <Text key={i}>
+                {i > 0 ? <Text style={{ color: C.dim }}>·</Text> : null}
+                <Text style={syl.startsWith('ˈ') ? s.primary : syl.startsWith('ˌ') ? { color: C.text } : null}>
+                  {syl.replace(/[ˈˌ]/, '')}
+                </Text>
+              </Text>
+            ))}
+          </Text>
+        ))}
+      </Text>
+      <T dim size={11}>yashil — urg'uli bo'g'in</T>
+    </View>
   );
 }
 
@@ -259,7 +287,8 @@ const s = StyleSheet.create({
   translation: { color: C.green, fontSize: 26, fontWeight: '700', textAlign: 'center' },
   emoji: { fontSize: 64 },
   photo: { width: '100%', height: 150, borderRadius: R },
-  ipa: { color: C.dim, fontSize: 18 },
+  ipa: { color: C.dim, fontSize: 20, letterSpacing: 0.5 },
+  primary: { color: C.green, fontWeight: '800', fontSize: 24 },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' },
   chip: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: 14, backgroundColor: C.greenSoft },
   myRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },

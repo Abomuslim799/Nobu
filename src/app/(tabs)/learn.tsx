@@ -1,5 +1,5 @@
 /**
- * Darslar — yo'nalishlar (Python, TypeScript, Java, SQL, English) va ularning darslari.
+ * O'rganish — IT yo'nalishlari, ingliz tili va fizika (tez kunda).
  */
 
 import { router } from 'expo-router';
@@ -14,8 +14,17 @@ export default function Learn() {
   const { data } = useProgress();
   return (
     <Screen>
-      <Title sub="Har bir kod misoli — bizning loyihalarimizdan.">Darslar</Title>
-      <Button label="🎴 Inglizcha so'z kartochkalari" onPress={() => router.push('/cards')} />
+      <Title sub="IT · Ingliz tili · Fizika">O'rganish</Title>
+      <Card style={{ gap: 10 }}>
+        <T size={20} bold>🇬🇧 Ingliz tili</T>
+        <T dim size={14}>Kartochkalar, 3 bosqichli test, talaffuz. Film unitlari (Forrest Gump...) — tayyorlanmoqda.</T>
+        <Button label="🎴 So'z kartochkalari va test" onPress={() => router.push('/cards')} />
+      </Card>
+      <Card style={{ gap: 6, opacity: 0.6 }}>
+        <T size={20} bold>⚛️ Fizika</T>
+        <T dim size={14}>Tez kunda: mexanika → energiya → elektr, interaktiv simulyatsiyalar bilan.</T>
+      </Card>
+      <T dim>IT va til darslari</T>
       {TRACKS.map((track) => {
         const done = track.lessons.filter((l) => data.lessons[l.id]).length;
         return (

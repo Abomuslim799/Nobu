@@ -7,11 +7,26 @@ import { Alert, View } from 'react-native';
 import { C } from '@/constants/theme';
 import { TRACKS } from '@/data/tracks';
 import { useProgress } from '@/lib/progress';
+import { pickBackup, exportBackup } from '@/lib/backup';
 import { lastDays } from '@/lib/streak';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Stats() {
-  const { data, streak, best, reset } = useProgress();
+  const { data, streak, best, reset, setReadGoal, exportJSON, importJSON } = useProgress();
+  const readTotal = data.sessions.reduce((a, x) => a + x.minutes, 0);
+
+  const restore = async () => {
+    try {
+      const raw = await pickBackup();
+      if (raw === null) return;
+      Alert.alert('Zaxirani tiklash', 'Hozirgi natijalar fayldagisi bilan almashtiriladi.', [
+        { text: 'Bekor', style: 'cancel' },
+        { text: 'Tiklash', onPress: () => Alert.alert(importJSON(raw) ? 'Tiklandi ✓' : 'Fayl Nobu zaxirasi emas') },
+      ]);
+    } catch (e) {
+      Alert.alert('Xato', String(e));
+    }
+  };
   const results = Object.values(data.lessons);
   const correct = results.reduce((sum, r) => sum + r.correct, 0);
   const total = results.reduce((sum, r) => sum + r.total, 0);
@@ -52,6 +67,25 @@ export default function Stats() {
             </View>
           );
         })}
+      </Card>
+
+      <Card style={{ gap: 8 }}>
+        <T dim>Kitob o'qish · jami {readTotal} daqiqa, {data.books.length} kitob</T>
+        <T>Kunlik maqsad: {data.settings.readGoal} daqiqa</T>
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          {[10, 20, 30, 45, 60].map((m) => (
+            <View key={m} style={{ flex: 1 }}>
+              <Button kind={data.settings.readGoal === m ? 'primary' : 'ghost'} label={`${m}`} onPress={() => setReadGoal(m)} />
+            </View>
+          ))}
+        </View>
+      </Card>
+
+      <Card style={{ gap: 8 }}>
+        <T bold>💾 Zaxira</T>
+        <T dim size={13}>Natijalar faqat shu telefonda. Haftada bir marta faylni Telegram yoki iCloud'ga saqlab qo'ying.</T>
+        <Button label="Zaxira faylini yuborish" onPress={() => exportBackup(exportJSON()).catch((e) => Alert.alert('Xato', String(e)))} />
+        <Button kind="ghost" label="Fayldan tiklash" onPress={restore} />
       </Card>
 
       <Button kind="ghost" label="Natijalarni tozalash"
