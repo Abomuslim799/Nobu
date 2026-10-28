@@ -38,8 +38,21 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "84e962d4-d58f-4df4-b2cf-0403299c3178"
+      }
+    },
     "runtimeVersion": {
-      "policy": "sdkVersion"
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/84e962d4-d58f-4df4-b2cf-0403299c3178"
     }
   }
 }
