@@ -21,7 +21,7 @@ export interface LessonResult { day: string; correct: number; total: number }
 export interface DayActivity { lessons: number; games: number; cards?: number; xp: number }
 /** So'z kartochkasi holati (Leitner tizimi — Nobu'dagidek). */
 export interface CardState { box: number; due: number }   // due — ms (Date.now() formati)
-export interface CustomWord { id: string; word: string; translation: string; example: string }
+export interface CustomWord { id: string; word: string; translation: string; example: string; image?: string }
 export interface GameStats { best: number; plays: number; last: number }
 
 interface Data {

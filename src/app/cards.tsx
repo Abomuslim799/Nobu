@@ -8,13 +8,17 @@
  */
 
 import { router } from 'expo-router';
-import { useMemo, useRef, useState } from 'react';
-import { Animated, Pressable, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import { File, Paths } from 'expo-file-system';
+import { Image } from 'expo-image';
+import * as ImagePicker from 'expo-image-picker';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Alert, Animated, Pressable, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/constants/theme';
 import { DECKS, WORDS, type Word } from '@/data/words';
 import { useProgress } from '@/lib/progress';
+import { speak, stopSpeaking } from '@/lib/speak';
 import { Bar, Button, Card, T } from '@/ui/kit';
 
 const SESSION = 20;   // bir o'tirishda nechta karta
@@ -115,6 +119,12 @@ function FlipCard({ word }: { word: Word }) {
   const turn = useRef(new Animated.Value(0)).current;
   const [back, setBack] = useState(false);
 
+  // Karta chiqqanda so'z o'zi o'qiladi; ekrandan chiqsa — ovoz to'xtaydi.
+  useEffect(() => {
+    speak(word.word);
+    return stopSpeaking;
+  }, [word.word]);
+
   const flip = () => {
     Animated.spring(turn, { toValue: back ? 0 : 1, useNativeDriver: true, friction: 7 }).start();
     setBack(!back);
@@ -125,12 +135,23 @@ function FlipCard({ word }: { word: Word }) {
   return (
     <Pressable onPress={flip}>
       <Animated.View style={[s.face, { transform: [{ perspective: 1000 }, { rotateY: front }] }]}>
+        {word.image ? <Image source={{ uri: word.image }} style={s.photo} contentFit="cover" />
+          : word.emoji ? <Text style={s.emoji}>{word.emoji}</Text> : null}
         <Text style={s.word} adjustsFontSizeToFit numberOfLines={2}>{word.word}</Text>
-        <T dim>bosing — tarjimasi</T>
+        {word.ipa ? <Text style={s.ipa}>{word.ipa}</Text> : null}
+        <View style={s.row}>
+          <Pressable style={s.sound} onPress={() => speak(word.word)} hitSlop={6}><T size={20}>🔊</T></Pressable>
+          <Pressable style={s.sound} onPress={() => speak(word.word, true)} hitSlop={6}><T size={20}>🐢</T></Pressable>
+        </View>
+        <T dim>kartani bosing — tarjimasi</T>
       </Animated.View>
       <Animated.View style={[s.face, s.faceBack, { transform: [{ perspective: 1000 }, { rotateY: rear }] }]}>
         <Text style={s.translation}>{word.translation}</Text>
-        {word.example ? <T style={{ textAlign: 'center', fontStyle: 'italic' }}>“{word.example}”</T> : null}
+        {word.example ? (
+          <Pressable onPress={() => speak(word.example)} hitSlop={6}>
+            <T style={{ textAlign: 'center', fontStyle: 'italic' }}>🔊 “{word.example}”</T>
+          </Pressable>
+        ) : null}
         {word.note ? <T dim style={{ textAlign: 'center' }}>💡 {word.note}</T> : null}
       </Animated.View>
     </Pressable>
@@ -138,8 +159,9 @@ function FlipCard({ word }: { word: Word }) {
 }
 
 function AddWordForm({ onSave, onCancel }: {
-  onSave: (w: { word: string; translation: string; example: string }) => void; onCancel: () => void;
+  onSave: (w: { word: string; translation: string; example: string; image?: string }) => void; onCancel: () => void;
 }) {
+  const [image, setImage] = useState<string | undefined>();
   const [word, setWord] = useState('');
   const [translation, setTranslation] = useState('');
   const [example, setExample] = useState('');
@@ -153,15 +175,51 @@ function AddWordForm({ onSave, onCancel }: {
         value={translation} onChangeText={setTranslation} />
       <TextInput style={s.input} placeholder="misol gap (ixtiyoriy)" placeholderTextColor={C.dim}
         value={example} onChangeText={setExample} />
+      {image ? (
+        <Pressable onPress={() => setImage(undefined)}>
+          <Image source={{ uri: image }} style={s.photo} contentFit="cover" />
+          <T dim style={{ textAlign: 'center' }}>bosing — suratni olib tashlash</T>
+        </Pressable>
+      ) : (
+        <View style={s.row}>
+          <View style={{ flex: 1 }}><Button kind="ghost" label="🖼 Galereya" onPress={() => pickPhoto(false).then(setImage)} /></View>
+          <View style={{ flex: 1 }}><Button kind="ghost" label="📷 Kamera" onPress={() => pickPhoto(true).then(setImage)} /></View>
+        </View>
+      )}
       <View style={s.row}>
         <View style={{ flex: 1 }}><Button kind="ghost" label="Bekor" onPress={onCancel} /></View>
         <View style={{ flex: 1 }}>
           <Button label="Saqlash" onPress={() => ok && onSave({
-            word: word.trim(), translation: translation.trim(), example: example.trim() })} />
+            word: word.trim(), translation: translation.trim(), example: example.trim(), image })} />
         </View>
       </View>
     </Card>
   );
+}
+
+/**
+ * Surat tanlash. Tanlangan rasm vaqtinchalik papkada bo'ladi (iOS uni tozalab yuborishi mumkin),
+ * shuning uchun ilovaning doimiy papkasiga nusxalaymiz.
+ */
+async function pickPhoto(camera: boolean): Promise<string | undefined> {
+  const perm = camera
+    ? await ImagePicker.requestCameraPermissionsAsync()
+    : await ImagePicker.requestMediaLibraryPermissionsAsync();
+  if (!perm.granted) {
+    Alert.alert('Ruxsat yo\'q', 'Sozlamalar → Expo Go dan ruxsat bering.');
+    return undefined;
+  }
+  const opts: ImagePicker.ImagePickerOptions = { mediaTypes: ['images'], allowsEditing: true, aspect: [4, 3], quality: 0.5 };
+  const res = camera ? await ImagePicker.launchCameraAsync(opts) : await ImagePicker.launchImageLibraryAsync(opts);
+  if (res.canceled) return undefined;
+  try {
+    const src = new File(res.assets[0].uri);
+    const dest = new File(Paths.document, `word-${Date.now()}.jpg`);
+    src.copy(dest);
+    return dest.uri;
+  } catch {
+    return res.assets[0].uri;   // nusxa bo'lmasa — hech bo'lmasa vaqtinchalik manzil
+  }
 }
 
 const s = StyleSheet.create({
@@ -170,12 +228,16 @@ const s = StyleSheet.create({
   body: { padding: PAD, gap: 14, paddingBottom: 40 },
   row: { flexDirection: 'row', gap: 12 },
   face: {
-    minHeight: 260, borderRadius: R + 4, padding: 24, gap: 12, alignItems: 'center', justifyContent: 'center',
+    minHeight: 340, borderRadius: R + 4, padding: 24, gap: 12, alignItems: 'center', justifyContent: 'center',
     backgroundColor: C.card, borderWidth: 1, borderColor: C.cardBorder, backfaceVisibility: 'hidden',
   },
   faceBack: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderColor: C.green },
   word: { color: C.text, fontSize: 38, fontWeight: '800', textAlign: 'center' },
   translation: { color: C.green, fontSize: 26, fontWeight: '700', textAlign: 'center' },
+  emoji: { fontSize: 64 },
+  photo: { width: '100%', height: 150, borderRadius: R },
+  ipa: { color: C.dim, fontSize: 18 },
+  sound: { paddingHorizontal: 18, paddingVertical: 8, borderRadius: 20, backgroundColor: C.greenSoft },
   myRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   input: {
     color: C.text, fontSize: 16, padding: 12, borderRadius: 12,
