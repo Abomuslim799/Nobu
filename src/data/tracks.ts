@@ -1,6 +1,6 @@
 /**
  * tracks.ts — darslar mazmuni. Har bir kod misoli BIZNING loyihalarimizdan
- * olingan (Nobu, Nobu Dojo) va qaysi faylda turgani ko'rsatilgan — shunda
+ * olingan (Nobu PC yordamchisi va Nobu telefon ilovasi) va qaysi faylda turgani ko'rsatilgan — shunda
  * "bu qayerda ishlatiladi?" degan savolga darhol javob bor.
  *
  * Yangi dars qo'shish = shu ro'yxatga bitta obyekt qo'shish.
@@ -237,7 +237,7 @@ angle = a.angle + turn * k       # qilich burchagi`,
           {
             type: 'code',
             lang: 'typescript',
-            project: 'Nobu Dojo',
+            project: 'Nobu (telefon ilovasi)',
             file: 'src/data/types.ts',
             code: `export type Step =
   | { type: 'text'; body: string }
@@ -274,7 +274,7 @@ angle = a.angle + turn * k       # qilich burchagi`,
           {
             type: 'code',
             lang: 'typescript',
-            project: 'Nobu Dojo',
+            project: 'Nobu (telefon ilovasi)',
             file: 'src/lib/streak.ts',
             code: `export function currentStreak(active: Set<string>, today: string): number {
   let day = active.has(today) ? today : addDays(today, -1);

@@ -1,7 +1,7 @@
-# Nobu Dojo — til, IT va miya mashqlari
+# Nobu — til, IT va miya mashqlari (telefon ilovasi)
 
 iPhone ilovasi (Expo / React Native). Darslardagi kod misollari — bizning
-loyihalarimizdan (Nobu, Nobu Dojo), qaysi faylda turgani ko'rsatilgan.
+loyihalarimizdan (Nobu PC va telefon ilovasi), qaysi faylda turgani ko'rsatilgan.
 
 ## Ishga tushirish (Windows → iPhone)
 

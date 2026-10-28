@@ -16,7 +16,7 @@ export type Step =
   | {
       type: 'code';
       lang: string;           // 'python' | 'typescript' | 'java' | 'sql'
-      project: string;        // qaysi loyihadan: 'Nobu', 'Nobu Dojo'
+      project: string;        // qaysi loyihadan: 'Nobu', 'Nobu (telefon ilovasi)'
       file: string;           // fayl yo'li: 'nobu/config.py'
       code: string;
       explain: string;        // shu kod nima qilishi, nega shunday yozilgan

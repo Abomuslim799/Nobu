@@ -1,5 +1,5 @@
 /**
- * theme.ts — Nobu Dojo ranglari: Nobu bilan bir xil uslub — qora shisha + yashil.
+ * theme.ts — Nobu ilovasi ranglari: Nobu bilan bir xil uslub — qora shisha + yashil.
  */
 
 export const C = {

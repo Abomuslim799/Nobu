@@ -9,6 +9,7 @@ import { C } from '@/constants/theme';
 import { ALL_LESSONS } from '@/data/tracks';
 import { useProgress } from '@/lib/progress';
 import { dayKey, lastDays } from '@/lib/streak';
+import { AUDIO } from '@/data/audio';
 import { VERSION } from '@/lib/version';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
@@ -68,7 +69,7 @@ export default function Today() {
 
       <Button kind="ghost" label="⚡ Miya mashqi — 60 soniya" onPress={() => router.push('/game/speed-math')} />
       <Button kind="ghost" label="🎴 So'z kartochkalari" onPress={() => router.push('/cards')} />
-      <T dim size={12}>Nobu Dojo v{VERSION}</T>
+      <T dim size={12}>Nobu v{VERSION} · ovoz: {Object.keys(AUDIO).length ? `Ryan (${Object.keys(AUDIO).length} so'z)` : 'telefon'}</T>
     </Screen>
   );
 }
