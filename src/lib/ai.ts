@@ -28,14 +28,23 @@ async function toBase64(uri: string): Promise<string> {
   });
 }
 
-async function post<T>(path: string, body: object): Promise<T> {
+async function post<T>(path: string, body: object, timeoutMs = 150_000): Promise<T> {
   const cfg = await getConfig();
   if (!cfg) throw new Error("Server ulanmagan: Statistika → 🔗 Server (widget + AI) bo'limini to'ldiring");
-  const r = await fetch(`${cfg.url}${path}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), timeoutMs);
+  let r: Response;
+  try {
+    r = await fetch(`${cfg.url}${path}`, {
+      method: 'POST', signal: ctl.signal,
+      headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new Error(ctl.signal.aborted ? "AI juda uzoq javob bermadi — qayta urinib ko'ring" : "Serverga ulanib bo'lmadi (internet?)");
+  } finally {
+    clearTimeout(t);
+  }
   const d = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(d.error ?? `HTTP ${r.status}`);
   return d as T;

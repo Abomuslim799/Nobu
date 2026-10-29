@@ -190,15 +190,24 @@ export function MemoryGrid({ level, onDone }: GameProps) {
 export function NBack({ level, onDone }: GameProps) {
   const n = Math.min(4, Math.ceil(level / 2));                       // 1-back, 2-back ...
   const LEN = 20 + n;
+  // Aniq ~35% mos holat: qaysi o'rinlarda mos bo'lishini oldindan tanlaymiz, qolganlarida — ataylab farqli harf
   const seq = useMemo(() => {
     const letters = 'BCDFGHKLMPRST';
+    const slots = [...Array(LEN - n).keys()].map((k) => k + n).sort(() => Math.random() - 0.5);
+    const matchAt = new Set(slots.slice(0, Math.round((LEN - n) * 0.35)));
     const out: string[] = [];
-    for (let i = 0; i < LEN; i++) out.push(i >= n && Math.random() < 0.33 ? out[i - n] : letters[rnd(letters.length)]);
+    for (let i = 0; i < LEN; i++) {
+      if (matchAt.has(i)) { out.push(out[i - n]); continue; }
+      let c = letters[rnd(letters.length)];
+      while (i >= n && c === out[i - n]) c = letters[rnd(letters.length)];
+      out.push(c);
+    }
     return out;
   }, [n, LEN]);
   const [i, setI] = useState(-1);                                     // -1 — tushuntirish
   const [said, setSaid] = useState(false);
   const [fb, setFb] = useState<'ok' | 'bad' | null>(null);
+  const [msg, setMsg] = useState('');
   const res = useRef({ right: 0, total: 0, miss: [] as string[] });
 
   // Harf vaqti tugaganda — baholaymiz va keyingisiga o'tamiz
@@ -214,6 +223,8 @@ export function NBack({ level, onDone }: GameProps) {
         const match = seq[i] === seq[i - n];
         const r = res.current;
         r.total++;
+        setMsg(match ? (said ? `✓ To'g'ri — ${seq[i]} mos edi` : `✗ ${seq[i]} mos edi — bosish kerak edi`)
+          : (said ? `✗ ${seq[i - n]} ≠ ${seq[i]} — mos emasdi` : `✓ To'g'ri — mos emasdi`));
         if (match === said) { r.right++; setFb('ok'); }
         else { setFb('bad'); r.miss.push(match ? `${seq[i]} — mos edi, bosilmadi` : `${seq[i]} — mos emasdi, bosildi`); }
       }
@@ -246,24 +257,52 @@ export function NBack({ level, onDone }: GameProps) {
         said && { borderColor: C.green, backgroundColor: C.greenSoft }, pressed && { opacity: 0.7 }, i < n && { opacity: 0.4 }]}>
         <Text style={s.btnText}>{said ? '✓ Mos deb belgilandi' : 'Mos'}</Text>
       </Pressable>
-      {i < n && <T dim>Birinchi {n} ta harfni eslab qoling...</T>}
+      {i < n ? <T dim>Birinchi {n} ta harfni eslab qoling...</T>
+        : <T bold color={fb === 'bad' ? C.red : C.green} style={{ minHeight: 22 }}>{msg}</T>}
+      <T dim size={12} style={{ textAlign: 'center' }}>Har harf 2 soniya. Hozirgi harf {n} qadam oldingisi bilan bir xilmi? Ha — "Mos". Yo'q — kuting.</T>
     </View>
   );
 }
 
 // ── 🧩 Ketma-ketlik: keyingi son qaysi? ──────────────────────────────────────
-function makeSequence(level: number): { shown: number[]; answer: number; rule: string } {
-  const kinds = level < 3 ? ['add', 'mul'] : level < 5 ? ['add', 'mul', 'alt', 'sq'] : ['alt', 'sq', 'fib', 'add2'];
-  const k = kinds[rnd(kinds.length)];
-  const a = 1 + rnd(9), d = 2 + rnd(3 + level), xs: number[] = [];
-  if (k === 'add') for (let i = 0; i < 6; i++) xs.push(a + d * i);
-  if (k === 'mul') for (let i = 0; i < 6; i++) xs.push(a * 2 ** i);
-  if (k === 'alt') for (let i = 0; i < 6; i++) xs.push(i % 2 ? xs[i - 1] - d + 1 : (xs[i - 1] ?? a) + d * 2);
-  if (k === 'sq') for (let i = 0; i < 6; i++) xs.push((i + 1 + rnd(1)) ** 2 + (level > 4 ? a : 0));
-  if (k === 'fib') { xs.push(a, a + 1); for (let i = 2; i < 6; i++) xs.push(xs[i - 1] + xs[i - 2]); }
-  if (k === 'add2') { xs.push(a); for (let i = 1; i < 6; i++) xs.push(xs[i - 1] + d + i); }
-  const rules: Record<string, string> = { add: '+ bir xil son', mul: '× 2', alt: 'navbatma-navbat qo\'shish/ayirish', sq: 'kvadratlar', fib: 'oldingi ikkisining yig\'indisi', add2: 'qo\'shiluvchi har safar 1 ga oshadi' };
-  return { shown: xs.slice(0, 5), answer: xs[5], rule: rules[k] };
+function makeSequence(level: number): { shown: number[]; answer: number; rule: string; opts: number[] } {
+  const tiers = [
+    ['diff2', 'mulAdd', 'inter', 'sqPlus'],
+    ['diff2', 'mulAdd', 'inter', 'fibC', 'cube', 'mulInc'],
+    ['altOps', 'inter2', 'primes', 'fibC', 'mulInc', 'diff3'],
+  ];
+  const t = tiers[level <= 2 ? 0 : level <= 4 ? 1 : 2];
+  const k = t[rnd(t.length)];
+  const a = 2 + rnd(8), d = 2 + rnd(4), e = 1 + rnd(3), xs: number[] = [];
+  const N = 7;
+  const P = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43];
+  for (let i = 0; i < N; i++) {
+    if (k === 'diff2') xs.push(a + d * i + (e * i * (i - 1)) / 2);
+    if (k === 'diff3') xs.push(a + d * i + e * i * i * i);
+    if (k === 'mulAdd') xs.push(i ? xs[i - 1] * 2 + (e % 2 ? 1 : -1) : a);
+    if (k === 'inter') xs.push(i % 2 ? 30 - Math.floor(i / 2) * e : a + (i / 2) * d);
+    if (k === 'inter2') xs.push(i % 2 ? a * 2 ** Math.floor(i / 2) : 50 - (i / 2) * d);
+    if (k === 'sqPlus') xs.push((i + 1) ** 2 + e);
+    if (k === 'cube') xs.push((i + 1) ** 3 - e);
+    if (k === 'fibC') xs.push(i < 2 ? a + i : xs[i - 1] + xs[i - 2] - e);
+    if (k === 'mulInc') xs.push(i ? xs[i - 1] * (i + 1) : 1 + rnd(2));
+    if (k === 'altOps') xs.push(i ? (i % 2 ? xs[i - 1] + d : xs[i - 1] * 2) : a);
+    if (k === 'primes') xs.push(P[i + (level > 6 ? 2 : 0)] * 2 + e);
+  }
+  const rules: Record<string, string> = {
+    diff2: `ayirmalar har safar ${e} ga oshadi`, diff3: 'ayirmalar kub bilan o\'sadi (i³)',
+    mulAdd: `×2 ${e % 2 ? '+1' : '−1'}`, inter: 'ikki ketma-ketlik aralash: toq o\'rinlar +, juft o\'rinlar −',
+    inter2: 'ikki ketma-ketlik aralash: biri ×2, ikkinchisi kamayadi', sqPlus: `n² + ${e}`, cube: `n³ − ${e}`,
+    fibC: `oldingi ikkisining yig'indisi − ${e}`, mulInc: '×2, ×3, ×4 ... (har safar ko\'paytuvchi oshadi)',
+    altOps: `navbatma-navbat +${d} va ×2`, primes: `tub son × 2 + ${e}`,
+  };
+  const shown = xs.slice(0, N - 1), answer = xs[N - 1];
+  // Chalg'ituvchi variantlar — eng ko'p uchraydigan noto'g'ri qoidalar natijasi
+  const last = shown[shown.length - 1], diff = last - shown[shown.length - 2];
+  const wrong = [last + diff, answer + e, answer - d, last + (shown[1] - shown[0]), answer + 2 * d, answer - 1]
+    .filter((v) => v !== answer);
+  const opts = shuffle([answer, ...[...new Set(wrong)].slice(0, 3)]);
+  return { shown, answer, rule: rules[k], opts };
 }
 export function Sequence({ level, onDone }: GameProps) {
   const ROUNDS = 8;
@@ -272,7 +311,7 @@ export function Sequence({ level, onDone }: GameProps) {
   const [ok, setOk] = useState(0);
   const [miss, setMiss] = useState<string[]>([]);
   const [picked, setPicked] = useState<number | null>(null);
-  const opts = useMemo(() => shuffle([...new Set([q.answer, q.answer + 1 + rnd(3), q.answer - 1 - rnd(3), q.answer + 5 + rnd(5)])]), [q]);
+  const opts = q.opts;
   const pick = (v: number) => {
     if (picked !== null) return;
     setPicked(v);
@@ -285,7 +324,7 @@ export function Sequence({ level, onDone }: GameProps) {
   return (
     <View style={{ gap: 16 }}>
       <T dim>{r + 1}/{ROUNDS} · Keyingi son qaysi?</T>
-      <Text style={[s.big, { fontSize: 30 }]}>{q.shown.join(',  ')},  ?</Text>
+      <Text style={[s.big, { fontSize: 24 }]}>{q.shown.join(', ')}, ?</Text>
       <View style={s.grid}>
         {opts.map((o) => (
           <Pressable key={o} onPress={() => pick(o)} style={[s.btn, picked !== null && o === q.answer && { borderColor: C.green },
@@ -377,11 +416,25 @@ export function Sudoku({ level, onDone }: GameProps) {
 export function LogicAI({ level, onDone }: GameProps) {
   const [items, setItems] = useState<{ q: string; options: string[]; answer: string; why: string }[] | null>(null);
   const [err, setErr] = useState('');
+  const [sec, setSec] = useState(0);
+  const [tryN, setTryN] = useState(0);
   useEffect(() => {
-    logicSet(level).then(setItems).catch((e) => setErr(e instanceof Error ? e.message : String(e)));
-  }, [level]);
-  if (err) return <T color={C.red}>{err}</T>;
-  if (!items) return <T dim>⏳ AI masalalar tayyorlamoqda...</T>;
+    let alive = true;
+    setErr(''); setItems(null); setSec(0);
+    const tick = setInterval(() => setSec((x) => x + 1), 1000);
+    logicSet(level)
+      .then((xs) => { if (!alive) return; if (!xs.length) throw new Error("AI bo'sh javob qaytardi"); setItems(xs); })
+      .catch((e) => alive && setErr(e instanceof Error ? e.message : String(e)))
+      .finally(() => clearInterval(tick));
+    return () => { alive = false; clearInterval(tick); };
+  }, [level, tryN]);
+  if (err) return (
+    <View style={{ gap: 12 }}>
+      <T color={C.red}>{err}</T>
+      <Button label="🔄 Qayta urinish" onPress={() => setTryN((x) => x + 1)} />
+    </View>
+  );
+  if (!items) return <T dim>⏳ AI masalalar tayyorlamoqda... {sec}s (odatda 15–40 soniya)</T>;
   return <QuizRunner items={items} onFinish={(c) => onDone((c / items.length) * 100, [])} finishLabel="Natija" />;
 }
 

@@ -24,6 +24,7 @@ const SESSION = 5;
 const GLYPH_W: Record<string, string> = { k: '♔', q: '♕', r: '♖', b: '♗', n: '♘', p: '♙' };
 const GLYPH_B: Record<string, string> = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
 const glyph = (type: string, color: string) => (color === 'w' ? GLYPH_W : GLYPH_B)[type] + '\uFE0E';
+const pc = (color: string) => ({ fontSize: 34, lineHeight: 40, color, textAlign: 'center' as const, width: 42 });
 const FILES = 'abcdefgh';
 const THEME_UZ: Record<string, string> = {
   fork: 'vilka (ikki tomonlama hujum)', pin: 'bog\'lash', skewer: 'skewer (orqadagi donaga hujum)', mateIn1: 'mat 1 yurishda',
@@ -158,9 +159,14 @@ function Puzzle({ row, onFinish }: { row: Row; onFinish: (ok: boolean, p: Row) =
                     width: size, height: size, alignItems: 'center', justifyContent: 'center',
                     backgroundColor: hl ?? (light ? '#E8EDE9' : '#6E8F7E'),
                   }}>
-                    {p && <Text style={{ fontSize: 34, lineHeight: 40, color: p.color === 'w' ? '#FFFFFF' : '#0B0B0B',
-                      textShadowColor: p.color === 'w' ? '#000000' : 'transparent', textShadowRadius: p.color === 'w' ? 2 : 0 }}>
-                      {glyph(p.type, p.color)}</Text>}
+                    {p && p.color === 'b' && <Text style={pc('#0B0B0B')}>{glyph(p.type, 'b')}</Text>}
+                    {p && p.color === 'w' && (
+                      // Oq dona: to'la shakl oq rangda + ustidan qora kontur — har qanday katakda aniq ko'rinadi
+                      <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={pc('#FFFFFF')}>{glyph(p.type, 'b')}</Text>
+                        <Text style={[pc('#000000'), { position: 'absolute' }]}>{glyph(p.type, 'w')}</Text>
+                      </View>
+                    )}
                   </Pressable>
                 );
               })}
