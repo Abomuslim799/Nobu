@@ -58,12 +58,13 @@ interface Data {
   quotes: Quote[];
   activeRead: ActiveRead | null;
   settings: { readGoal: number };             // kunlik o'qish maqsadi (daqiqa)
+  unitSteps: Record<string, string[]>;        // unitId → bajarilgan qadamlar
 }
 
 const KEY = 'dojo.progress.v1';
 const EMPTY: Data = {
   version: 1, lessons: {}, days: {}, games: {}, cards: {}, myWords: [],
-  books: [], sessions: [], quotes: [], activeRead: null, settings: { readGoal: 20 },
+  books: [], sessions: [], quotes: [], activeRead: null, settings: { readGoal: 20 }, unitSteps: {},
 };
 const uid = (prefix: string) => `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
@@ -94,6 +95,7 @@ interface Progress {
   saveQuote: (q: Omit<Quote, 'id' | 'created' | 'fav'> & Partial<Quote>) => void;
   removeQuote: (id: string) => void;
   setReadGoal: (minutes: number) => void;
+  completeUnitStep: (unitId: string, step: string, score?: number) => void;
   // Zaxira
   exportJSON: () => string;
   importJSON: (raw: string) => boolean;
@@ -198,6 +200,19 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     setData((d) => ({ ...d, settings: { ...d.settings, readGoal: minutes } }));
   }, []);
 
+  // Unit qadami: birinchi marta bajarilganda dars sifatida hisoblanadi (kunlik maqsad).
+  const completeUnitStep = useCallback((unitId: string, step: string, score = 0) => {
+    setData((d) => {
+      const done = d.unitSteps[unitId] ?? [];
+      const first = !done.includes(step);
+      return {
+        ...d,
+        unitSteps: first ? { ...d.unitSteps, [unitId]: [...done, step] } : d.unitSteps,
+        days: bump(d, 'lessons', (first ? 8 : 3) + score),
+      };
+    });
+  }, []);
+
   // ── Zaxira: butun ma'lumot bitta JSON matnda ──
   const exportJSON = useCallback(() => JSON.stringify(data), [data]);
   const importJSON = useCallback((raw: string) => {
@@ -268,12 +283,12 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       removeWord,
       todayRead: data.days[dayKey()]?.read ?? 0,
       saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
-      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON,
+      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep,
       reset,
     };
   }, [data, ready, completeLesson, recordGame, reviewCard, addWord, removeWord, reset,
       saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
-      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON]);
+      saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep]);
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
 }

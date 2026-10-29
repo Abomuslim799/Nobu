@@ -7,7 +7,7 @@
  * Pastda — o'z so'zingizni qo'shish.
  */
 
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { File, Paths } from 'expo-file-system';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
@@ -22,12 +22,15 @@ import { useProgress } from '@/lib/progress';
 import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
 import { Bar, Button, Card, T } from '@/ui/kit';
 import { RateSwitch, SoundButton } from '@/ui/sound';
+import { Stress } from '@/ui/stress';
 
 const SESSION = 20;   // bir o'tirishda nechta karta
 
 export default function CardsScreen() {
   const insets = useSafeAreaInsets();
   const { data, reviewCard, addWord, removeWord } = useProgress();
+  // ?deck=fg1 — faqat shu to'plam (masalan unit so'zlari) va muddatidan qat'i nazar hammasi.
+  const { deck } = useLocalSearchParams<{ deck?: string }>();
 
   // Barcha so'zlar = tayyor ro'yxat + o'zingiznikilar.
   const all: Word[] = useMemo(
@@ -36,13 +39,15 @@ export default function CardsScreen() {
   );
 
   // Navbat sessiya boshida BIR MARTA tuziladi (aks holda har javobdan keyin qayta tartiblanadi).
-  const [queue, setQueue] = useState<Word[]>(() => buildQueue(all, data.cards));
+  const pool = useMemo(() => (deck ? all.filter((w) => w.deck === deck) : all), [all, deck]);
+  const build = () => (deck ? [...pool].sort(() => Math.random() - 0.5) : buildQueue(pool, data.cards));
+  const [queue, setQueue] = useState<Word[]>(build);
   const [pos, setPos] = useState(0);
   const [stats, setStats] = useState({ knew: 0, missed: 0 });
   const [adding, setAdding] = useState(false);
 
-  const dueCount = buildQueue(all, data.cards, 999).length;
-  const learned = all.filter((w) => (data.cards[w.id]?.box ?? 0) >= 3).length;
+  const dueCount = deck ? pool.length : buildQueue(pool, data.cards, 999).length;
+  const learned = pool.filter((w) => (data.cards[w.id]?.box ?? 0) >= 3).length;
   const card = queue[pos];
 
   const answer = (knew: boolean) => {
@@ -52,7 +57,7 @@ export default function CardsScreen() {
   };
 
   const restart = () => {
-    setQueue(buildQueue(all, data.cards));
+    setQueue(build());
     setPos(0);
     setStats({ knew: 0, missed: 0 });
   };
@@ -82,7 +87,7 @@ export default function CardsScreen() {
             <Text style={{ fontSize: 48 }}>{queue.length ? '🎴' : '✅'}</Text>
             <T size={22} bold>{queue.length ? 'Sessiya tugadi' : 'Hozircha takror yo\'q'}</T>
             {queue.length > 0 && <T dim>Bildim: {stats.knew} · Bilmadim: {stats.missed}</T>}
-            <T dim>O'rganilgan: {learned}/{all.length} · Navbatda: {dueCount}</T>
+            <T dim>O'rganilgan: {learned}/{pool.length} · Navbatda: {dueCount}</T>
             {dueCount > 0 && <Button label="Yana" onPress={restart} />}
           </Card>
         )}
@@ -169,34 +174,6 @@ function FlipCard({ word }: { word: Word }) {
         <Sounds word={word} uz />
       </Animated.View>
     </Pressable>
-  );
-}
-
-/**
- * Urg'uni ko'rsatish: /ˈded.laɪn/ → DED · laɪn. ˈ — asosiy urg'u (yashil, katta),
- * ˌ — ikkinchi darajali (oq), qolganlari — kulrang. Shu bo'g'inni kuchliroq ayting.
- */
-function Stress({ ipa }: { ipa: string }) {
-  const words = ipa.replace(/^\/|\/$/g, '').split(/\s+/);
-  return (
-    <View style={{ alignItems: 'center', gap: 2 }}>
-      <Text style={s.ipa}>
-        {words.map((w, wi) => (
-          <Text key={wi}>
-            {wi > 0 ? '   ' : ''}
-            {w.split(/\.|(?=[ˈˌ])/).filter(Boolean).map((syl, i) => (
-              <Text key={i}>
-                {i > 0 ? <Text style={{ color: C.dim }}>·</Text> : null}
-                <Text style={syl.startsWith('ˈ') ? s.primary : syl.startsWith('ˌ') ? { color: C.text } : null}>
-                  {syl.replace(/[ˈˌ]/, '')}
-                </Text>
-              </Text>
-            ))}
-          </Text>
-        ))}
-      </Text>
-      <T dim size={11}>yashil — urg'uli bo'g'in</T>
-    </View>
   );
 }
 
@@ -288,8 +265,6 @@ const s = StyleSheet.create({
   translation: { color: C.green, fontSize: 26, fontWeight: '700', textAlign: 'center' },
   emoji: { fontSize: 64 },
   photo: { width: '100%', height: 150, borderRadius: R },
-  ipa: { color: C.dim, fontSize: 20, letterSpacing: 0.5 },
-  primary: { color: C.green, fontWeight: '800', fontSize: 24 },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' },
   chip: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: 14, backgroundColor: C.greenSoft },
   myRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
