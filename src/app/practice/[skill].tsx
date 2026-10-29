@@ -20,7 +20,6 @@ import { grammarSet, skillsReport, writeCheck, type GrammarItem, type SkillsRepo
 import { getLog, logSkill, SKILLS, stats, summarize, type SkillEntry } from '@/lib/skills';
 import { say, stopSpeaking } from '@/lib/speak';
 import { QuizRunner, Rich } from '@/ui/choice';
-import { Conversation, useMic } from '@/ui/conversation';
 import { Bar, Button, Card, T } from '@/ui/kit';
 import { RateSwitch } from '@/ui/sound';
 
@@ -284,22 +283,16 @@ const TOPICS = [
 ];
 
 function SpeakingPractice() {
-  const mic = useMic();
-  const [topic, setTopic] = useState<string | null>(null);
-  if (!topic) {
-    return (
-      <>
-        <T dim>Mavzuni tanlang va AI bilan ovozli suhbat qiling. U javob beradi, savol beradi va xatolaringizni tuzatadi. Oxirida 🏁 bilan natijani saqlang.</T>
-        {TOPICS.map((t) => <Pick key={t} label={t} onPress={() => setTopic(t)} />)}
-        <T bold>Filmlar haqida</T>
-        {UNITS.map((u) => <Pick key={u.id} label={`${u.emoji} ${u.source}`} onPress={() => setTopic(`the film "${u.source}"`)} />)}
-      </>
-    );
-  }
+  const call = (topic: string, words = '') => router.push({ pathname: '/live', params: { topic, words } });
   return (
     <>
-      <Conversation topic={topic} title={`🗣 ${topic}`} words={[]} mic={mic} />
-      <Button kind="ghost" label="← Boshqa mavzu" onPress={() => { stopSpeaking(); setTopic(null); }} />
+      <T dim>Mavzuni tanlang — Nobu bilan jonli ovozli suhbat (telefon qo'ng'irog'idek). Oxirida AI ball va xatolaringizni ko'rsatadi, natija statistikaga yoziladi.</T>
+      {TOPICS.map((t) => <Pick key={t} label={`📞 ${t}`} onPress={() => call(t)} />)}
+      <T bold>Filmlar haqida</T>
+      {UNITS.map((u) => (
+        <Pick key={u.id} label={`📞 ${u.emoji} ${u.source}`}
+          onPress={() => call(`the film "${u.source}"`, [...u.vocab, ...u.collocations].map((w) => w.word).join(','))} />
+      ))}
     </>
   );
 }

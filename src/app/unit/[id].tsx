@@ -16,7 +16,7 @@ import { STEPS, UNITS, type StepId, type Unit } from '@/data/units';
 import { useProgress } from '@/lib/progress';
 import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/lib/ai';
 import { logSkill } from '@/lib/skills';
-import { Conversation, useMic } from '@/ui/conversation';
+import { useMic } from '@/ui/conversation';
 import { say, stopSpeaking } from '@/lib/speak';
 import { QuizRunner, Rich } from '@/ui/choice';
 import { Button, Card, T } from '@/ui/kit';
@@ -357,8 +357,13 @@ function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
           </Card>
         );
       })}
-      <Conversation topic={`the film "${unit.source}"`} title={`2) Suhbat — ${unit.source}`} mic={mic}
-        words={[...unit.vocab, ...unit.collocations].map((w) => w.word)} />
+      <Card style={{ gap: 6, marginTop: 8 }}>
+        <T bold>2) Jonli suhbat — {unit.source}</T>
+        <T dim size={14}>Telefon qo'ng'irog'idek: siz gapirasiz, Nobu darhol ovoz bilan javob beradi, uning gapini bo'lishingiz ham mumkin. Oxirida AI xatolaringiz va ballni ko'rsatadi.</T>
+        <Button label="📞 Jonli suhbatni boshlash" onPress={() => router.push({ pathname: '/live', params: {
+          topic: `the film "${unit.source}"`, words: [...unit.vocab, ...unit.collocations].map((w) => w.word).join(','),
+        } })} />
+      </Card>
       <Button label="Keyingisi: test →" onPress={onDone} />
     </>
   );
