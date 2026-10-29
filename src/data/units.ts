@@ -42,6 +42,7 @@ export interface Unit {
   grammar: { title: string; explain: string[]; exercises: { q: string; options: string[]; answer: string; why: string }[] };
   dictation: { text: string; gap: string }[];
   shadowing: string[];
+  writing: { task: string; minWords: number };
 }
 
 // Tartib — grammatika ketma-ketligi bo'yicha (oddiydan murakkabga)
@@ -70,16 +71,20 @@ export const UNITS: Unit[] = [
   peaky_blinders_1,
 ] as Unit[];
 
+// Tartib: Vocab → Grammar → Reading → Listening → Writing → Speaking → Test
 export const STEPS = [
-  { id: 'hook', title: 'Kirish', icon: '🎬' },
+  { id: 'vocab', title: 'Vocab', icon: '🎴' },
+  { id: 'grammar', title: 'Grammar', icon: '🧩' },
   { id: 'read', title: 'Reading', icon: '📖' },
-  { id: 'vocab', title: "So'zlar", icon: '🎴' },
-  { id: 'grammar', title: 'Grammatika', icon: '🧩' },
   { id: 'listen', title: 'Listening', icon: '🎧' },
+  { id: 'write', title: 'Writing', icon: '✍️' },
   { id: 'speak', title: 'Speaking', icon: '🗣' },
   { id: 'test', title: 'Test', icon: '🧪' },
 ] as const;
 export type StepId = (typeof STEPS)[number]['id'];
+
+/** Bajarilgan qadamlar soni (eski 'hook' kabi endi yo'q qadamlar hisoblanmaydi). */
+export const stepsDone = (done: string[] = []) => STEPS.filter((x) => done.includes(x.id)).length;
 
 /** Unit so'zlari kartochka/test uchun: deck = unit id. */
 export const UNIT_WORDS: Word[] = UNITS.flatMap((u) =>

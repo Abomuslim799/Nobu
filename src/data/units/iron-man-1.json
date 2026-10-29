@@ -20,35 +20,266 @@
     "Later Tony learns that the attack was planned by Stane himself. The two men fight, and the city is saved. At a press conference, Tony tells the world his secret."
   ],
   "questions": [
-    { "q": "What does Tony's company make?", "options": ["Weapons", "Cars", "Phones", "Medicine"], "answer": "Weapons" },
-    { "q": "What keeps Tony alive?", "options": ["A magnet", "A doctor", "A pill", "Yinsen's blood"], "answer": "A magnet" },
-    { "q": "What is the first suit made from?", "options": ["Old weapon parts", "Gold", "Wood", "Plastic"], "answer": "Old weapon parts" },
-    { "q": "What does Tony announce back home?", "options": ["His company will stop making weapons", "He will marry", "He will sell the company", "He will become president"], "answer": "His company will stop making weapons" },
-    { "q": "Who planned the attack?", "options": ["Obadiah Stane", "Yinsen", "The army", "Pepper"], "answer": "Obadiah Stane" }
+    {
+      "q": "What does Tony's company make?",
+      "options": [
+        "Weapons",
+        "Cars",
+        "Phones",
+        "Medicine"
+      ],
+      "answer": "Weapons"
+    },
+    {
+      "q": "What keeps Tony alive?",
+      "options": [
+        "A magnet",
+        "A doctor",
+        "A pill",
+        "Yinsen's blood"
+      ],
+      "answer": "A magnet"
+    },
+    {
+      "q": "What is the first suit made from?",
+      "options": [
+        "Old weapon parts",
+        "Gold",
+        "Wood",
+        "Plastic"
+      ],
+      "answer": "Old weapon parts"
+    },
+    {
+      "q": "What does Tony announce back home?",
+      "options": [
+        "His company will stop making weapons",
+        "He will marry",
+        "He will sell the company",
+        "He will become president"
+      ],
+      "answer": "His company will stop making weapons"
+    },
+    {
+      "q": "Who planned the attack?",
+      "options": [
+        "Obadiah Stane",
+        "Yinsen",
+        "The army",
+        "Pepper"
+      ],
+      "answer": "Obadiah Stane"
+    }
   ],
   "vocab": [
-    { "id": "im1-genius", "word": "genius", "ipa": "/ˈdʒiː.ni.əs/", "emoji": "🧠", "translation": "daho", "example": "Tony Stark is a genius and a billionaire." },
-    { "id": "im1-army", "word": "army", "ipa": "/ˈɑː.mi/", "emoji": "🪖", "translation": "armiya", "example": "They are sold to the army all over the world." },
-    { "id": "im1-kidnap", "word": "kidnap", "ipa": "/ˈkɪd.næp/", "emoji": "🚐", "translation": "o'g'irlab ketmoq (odamni)", "example": "Tony is attacked and kidnapped by terrorists." },
-    { "id": "im1-heart", "word": "heart", "ipa": "/hɑːt/", "emoji": "❤️", "translation": "yurak", "example": "A piece of metal has been left near his heart." },
-    { "id": "im1-magnet", "word": "magnet", "ipa": "/ˈmæɡ.nət/", "emoji": "🧲", "translation": "magnit", "example": "He is kept alive by a magnet." },
-    { "id": "im1-missile", "word": "missile", "ipa": "/ˈmɪs.aɪl/", "emoji": "🚀", "translation": "raketa", "example": "The terrorists want him to build a powerful missile.", "note": "BrE /ˈmɪs.aɪl/, AmE /ˈmɪs.əl/" },
-    { "id": "im1-prisoner", "word": "prisoner", "ipa": "/ˈprɪz.ən.ə/", "emoji": "⛓", "translation": "asir, mahbus", "example": "Tony and another prisoner secretly build a suit." },
-    { "id": "im1-suit", "word": "suit", "ipa": "/suːt/", "emoji": "🦾", "translation": "kostyum, zirh", "example": "They build an armoured suit." },
-    { "id": "im1-cave", "word": "cave", "ipa": "/keɪv/", "emoji": "🕳", "translation": "g'or", "example": "The suit is made in a dark cave." },
-    { "id": "im1-escape", "word": "escape", "ipa": "/ɪˈskeɪp/", "emoji": "🏃", "translation": "qochib qutulmoq", "example": "Tony escapes, but Yinsen is killed." },
-    { "id": "im1-shocked", "word": "shocked", "ipa": "/ʃɒkt/", "emoji": "😳", "translation": "hayratda, larzaga tushgan", "example": "Tony is shocked when he discovers the truth." },
-    { "id": "im1-announce", "word": "announce", "ipa": "/əˈnaʊns/", "emoji": "📣", "translation": "e'lon qilmoq", "example": "He announces that his company will no longer produce weapons." },
-    { "id": "im1-produce", "word": "produce", "ipa": "/prəˈdʒuːs/", "emoji": "🏭", "translation": "ishlab chiqarmoq", "example": "His company will no longer produce weapons." },
-    { "id": "im1-workshop", "word": "workshop", "ipa": "/ˈwɜːk.ʃɒp/", "emoji": "🔧", "translation": "ustaxona", "example": "In his workshop, a new suit is designed and built." },
-    { "id": "im1-attack", "word": "attack", "ipa": "/əˈtæk/", "emoji": "💥", "translation": "hujum; hujum qilmoq", "example": "The attack was planned by Stane himself." }
+    {
+      "id": "im1-genius",
+      "word": "genius",
+      "ipa": "/ˈdʒiː.ni.əs/",
+      "emoji": "🧠",
+      "translation": "daho",
+      "example": "Tony Stark is a genius and a billionaire."
+    },
+    {
+      "id": "im1-army",
+      "word": "army",
+      "ipa": "/ˈɑː.mi/",
+      "emoji": "🪖",
+      "translation": "armiya",
+      "example": "They are sold to the army all over the world."
+    },
+    {
+      "id": "im1-kidnap",
+      "word": "kidnap",
+      "ipa": "/ˈkɪd.næp/",
+      "emoji": "🚐",
+      "translation": "o'g'irlab ketmoq (odamni)",
+      "example": "Tony is attacked and kidnapped by terrorists."
+    },
+    {
+      "id": "im1-heart",
+      "word": "heart",
+      "ipa": "/hɑːt/",
+      "emoji": "❤️",
+      "translation": "yurak",
+      "example": "A piece of metal has been left near his heart."
+    },
+    {
+      "id": "im1-magnet",
+      "word": "magnet",
+      "ipa": "/ˈmæɡ.nət/",
+      "emoji": "🧲",
+      "translation": "magnit",
+      "example": "He is kept alive by a magnet."
+    },
+    {
+      "id": "im1-missile",
+      "word": "missile",
+      "ipa": "/ˈmɪs.aɪl/",
+      "emoji": "🚀",
+      "translation": "raketa",
+      "example": "The terrorists want him to build a powerful missile.",
+      "note": "BrE /ˈmɪs.aɪl/, AmE /ˈmɪs.əl/"
+    },
+    {
+      "id": "im1-prisoner",
+      "word": "prisoner",
+      "ipa": "/ˈprɪz.ən.ə/",
+      "emoji": "⛓",
+      "translation": "asir, mahbus",
+      "example": "Tony and another prisoner secretly build a suit."
+    },
+    {
+      "id": "im1-suit",
+      "word": "suit",
+      "ipa": "/suːt/",
+      "emoji": "🦾",
+      "translation": "kostyum, zirh",
+      "example": "They build an armoured suit."
+    },
+    {
+      "id": "im1-cave",
+      "word": "cave",
+      "ipa": "/keɪv/",
+      "emoji": "🕳",
+      "translation": "g'or",
+      "example": "The suit is made in a dark cave."
+    },
+    {
+      "id": "im1-escape",
+      "word": "escape",
+      "ipa": "/ɪˈskeɪp/",
+      "emoji": "🏃",
+      "translation": "qochib qutulmoq",
+      "example": "Tony escapes, but Yinsen is killed."
+    },
+    {
+      "id": "im1-shocked",
+      "word": "shocked",
+      "ipa": "/ʃɒkt/",
+      "emoji": "😳",
+      "translation": "hayratda, larzaga tushgan",
+      "example": "Tony is shocked when he discovers the truth."
+    },
+    {
+      "id": "im1-announce",
+      "word": "announce",
+      "ipa": "/əˈnaʊns/",
+      "emoji": "📣",
+      "translation": "e'lon qilmoq",
+      "example": "He announces that his company will no longer produce weapons."
+    },
+    {
+      "id": "im1-produce",
+      "word": "produce",
+      "ipa": "/prəˈdʒuːs/",
+      "emoji": "🏭",
+      "translation": "ishlab chiqarmoq",
+      "example": "His company will no longer produce weapons."
+    },
+    {
+      "id": "im1-workshop",
+      "word": "workshop",
+      "ipa": "/ˈwɜːk.ʃɒp/",
+      "emoji": "🔧",
+      "translation": "ustaxona",
+      "example": "In his workshop, a new suit is designed and built."
+    },
+    {
+      "id": "im1-attack",
+      "word": "attack",
+      "ipa": "/əˈtæk/",
+      "emoji": "💥",
+      "translation": "hujum; hujum qilmoq",
+      "example": "The attack was planned by Stane himself."
+    }
   ],
   "collocations": [
-    { "id": "im1-c-test", "word": "a weapons test", "ipa": "/ə ˈwep.ənz ˌtest/", "emoji": "🧪", "translation": "qurol sinovi", "example": "During a weapons test, Tony is attacked." },
-    { "id": "im1-c-alive", "word": "keep sb alive", "ipa": "/ˌkiːp ... əˈlaɪv/", "emoji": "💓", "translation": "tirik saqlamoq", "example": "He is kept alive by a magnet.", "cloze": "kept alive" },
-    { "id": "im1-c-longer", "word": "no longer", "ipa": "/ˌnəʊ ˈlɒŋ.ɡə/", "emoji": "🚫", "translation": "endi ... emas", "example": "His company will no longer produce weapons." },
-    { "id": "im1-c-press", "word": "press conference", "ipa": "/ˈpres ˌkɒn.fər.əns/", "emoji": "🎤", "translation": "matbuot anjumani", "example": "At a press conference, Tony tells the world his secret." },
-    { "id": "im1-c-again", "word": "again and again", "ipa": "/əˌɡen ən əˈɡen/", "emoji": "🔁", "translation": "qayta-qayta", "example": "Tony tests it again and again." }
+    {
+      "id": "im1-c-test",
+      "word": "a weapons test",
+      "ipa": "/ə ˈwep.ənz ˌtest/",
+      "emoji": "🧪",
+      "translation": "qurol sinovi",
+      "example": "During a weapons test, Tony is attacked."
+    },
+    {
+      "id": "im1-c-alive",
+      "word": "keep sb alive",
+      "ipa": "/ˌkiːp ... əˈlaɪv/",
+      "emoji": "💓",
+      "translation": "tirik saqlamoq",
+      "example": "He is kept alive by a magnet.",
+      "cloze": "kept alive"
+    },
+    {
+      "id": "im1-c-longer",
+      "word": "no longer",
+      "ipa": "/ˌnəʊ ˈlɒŋ.ɡə/",
+      "emoji": "🚫",
+      "translation": "endi ... emas",
+      "example": "His company will no longer produce weapons."
+    },
+    {
+      "id": "im1-c-press",
+      "word": "press conference",
+      "ipa": "/ˈpres ˌkɒn.fər.əns/",
+      "emoji": "🎤",
+      "translation": "matbuot anjumani",
+      "example": "At a press conference, Tony tells the world his secret."
+    },
+    {
+      "id": "im1-c-again",
+      "word": "again and again",
+      "ipa": "/əˌɡen ən əˈɡen/",
+      "emoji": "🔁",
+      "translation": "qayta-qayta",
+      "example": "Tony tests it again and again."
+    },
+    {
+      "id": "im1-c-sold",
+      "word": "be sold to",
+      "ipa": "/bi ˈsəʊld tə/",
+      "emoji": "🏷",
+      "translation": "... ga sotilmoq",
+      "example": "The weapons are sold to the army all over the world.",
+      "cloze": "are sold to"
+    },
+    {
+      "id": "im1-c-world",
+      "word": "all over the world",
+      "ipa": "/ˌɔːl ˌəʊ.və ðə ˈwɜːld/",
+      "emoji": "🌐",
+      "translation": "butun dunyoda",
+      "example": "They are sold all over the world.",
+      "cloze": "all over the world"
+    },
+    {
+      "id": "im1-c-secret",
+      "word": "tell sb a secret",
+      "ipa": "/ˌtel ... ə ˈsiː.krət/",
+      "emoji": "🤫",
+      "translation": "sirni aytmoq",
+      "example": "Tony tells the world his secret.",
+      "cloze": "tells the world his secret"
+    },
+    {
+      "id": "im1-c-part",
+      "word": "old parts",
+      "ipa": "/ˌəʊld ˈpɑːts/",
+      "emoji": "⚙️",
+      "translation": "eski ehtiyot qismlar",
+      "example": "The suit is made from old weapon parts.",
+      "cloze": "old weapon parts"
+    },
+    {
+      "id": "im1-c-board",
+      "word": "the board of directors",
+      "ipa": "/ðə ˌbɔːd əv daɪˈrek.təz/",
+      "emoji": "🧑‍💼",
+      "translation": "direktorlar kengashi",
+      "example": "The board of directors is not happy."
+    }
   ],
   "grammar": {
     "title": "Passive Voice: is made, was built",
@@ -59,27 +290,126 @@
       "Active → Passive: Terrorists use his weapons → His weapons **are used** by terrorists. Obyekt egaga aylanadi."
     ],
     "exercises": [
-      { "q": "The suit ___ from old weapon parts.", "options": ["is made", "makes", "is make", "made is"], "answer": "is made", "why": "Passive Present: is + V3." },
-      { "q": "Tony ___ by terrorists in Afghanistan.", "options": ["was kidnapped", "kidnapped", "is kidnap", "has kidnapped"], "answer": "was kidnapped", "why": "O'tmish passiv: was + V3." },
-      { "q": "The attack was planned ___ Stane himself.", "options": ["by", "from", "with", "of"], "answer": "by", "why": "Bajaruvchi: by." },
-      { "q": "His weapons ___ by the terrorists right now.", "options": ["are being used", "are using", "are used being", "being used"], "answer": "are being used", "why": "Hozir davom etayotgan passiv: are being + V3." },
-      { "q": "A piece of metal ___ near his heart.", "options": ["has been left", "has left", "have been left", "is leaving"], "answer": "has been left", "why": "Present Perfect passiv: has been + V3." },
-      { "q": "The new suit ___ next month.", "options": ["will be tested", "will test", "is test", "tested will"], "answer": "will be tested", "why": "Kelasi passiv: will be + V3." },
-      { "q": "English ___ in many countries.", "options": ["is spoken", "speaks", "is speaking", "spoken"], "answer": "is spoken", "why": "Umumiy fakt passiv: is spoken." },
-      { "q": "Active: \"Pepper wrote the speech.\" Passive: The speech ___ by Pepper.", "options": ["was written", "was wrote", "is written", "wrote"], "answer": "was written", "why": "write – wrote – written; o'tmish passiv: was written." }
+      {
+        "q": "The suit ___ from old weapon parts.",
+        "options": [
+          "is made",
+          "makes",
+          "is make",
+          "made is"
+        ],
+        "answer": "is made",
+        "why": "Passive Present: is + V3."
+      },
+      {
+        "q": "Tony ___ by terrorists in Afghanistan.",
+        "options": [
+          "was kidnapped",
+          "kidnapped",
+          "is kidnap",
+          "has kidnapped"
+        ],
+        "answer": "was kidnapped",
+        "why": "O'tmish passiv: was + V3."
+      },
+      {
+        "q": "The attack was planned ___ Stane himself.",
+        "options": [
+          "by",
+          "from",
+          "with",
+          "of"
+        ],
+        "answer": "by",
+        "why": "Bajaruvchi: by."
+      },
+      {
+        "q": "His weapons ___ by the terrorists right now.",
+        "options": [
+          "are being used",
+          "are using",
+          "are used being",
+          "being used"
+        ],
+        "answer": "are being used",
+        "why": "Hozir davom etayotgan passiv: are being + V3."
+      },
+      {
+        "q": "A piece of metal ___ near his heart.",
+        "options": [
+          "has been left",
+          "has left",
+          "have been left",
+          "is leaving"
+        ],
+        "answer": "has been left",
+        "why": "Present Perfect passiv: has been + V3."
+      },
+      {
+        "q": "The new suit ___ next month.",
+        "options": [
+          "will be tested",
+          "will test",
+          "is test",
+          "tested will"
+        ],
+        "answer": "will be tested",
+        "why": "Kelasi passiv: will be + V3."
+      },
+      {
+        "q": "English ___ in many countries.",
+        "options": [
+          "is spoken",
+          "speaks",
+          "is speaking",
+          "spoken"
+        ],
+        "answer": "is spoken",
+        "why": "Umumiy fakt passiv: is spoken."
+      },
+      {
+        "q": "Active: \"Pepper wrote the speech.\" Passive: The speech ___ by Pepper.",
+        "options": [
+          "was written",
+          "was wrote",
+          "is written",
+          "wrote"
+        ],
+        "answer": "was written",
+        "why": "write – wrote – written; o'tmish passiv: was written."
+      }
     ]
   },
   "dictation": [
-    { "text": "Tony Stark is a genius and a billionaire.", "gap": "genius" },
-    { "text": "He is kept alive by a magnet.", "gap": "magnet" },
-    { "text": "The suit is made in a dark cave.", "gap": "cave" },
-    { "text": "Tony escapes, but Yinsen is killed.", "gap": "escapes" },
-    { "text": "The attack was planned by Stane himself.", "gap": "planned" }
+    {
+      "text": "Tony Stark is a genius and a billionaire.",
+      "gap": "genius"
+    },
+    {
+      "text": "He is kept alive by a magnet.",
+      "gap": "magnet"
+    },
+    {
+      "text": "The suit is made in a dark cave.",
+      "gap": "cave"
+    },
+    {
+      "text": "Tony escapes, but Yinsen is killed.",
+      "gap": "escapes"
+    },
+    {
+      "text": "The attack was planned by Stane himself.",
+      "gap": "planned"
+    }
   ],
   "shadowing": [
     "I am Iron Man.",
     "The suit is made from old weapon parts in a dark cave.",
     "His own weapons are being used by the terrorists.",
     "The attack was planned by Stane himself."
-  ]
+  ],
+  "writing": {
+    "task": "Describe how something is made or done (tea, plov, a phone, a website). Use the passive voice at least 6 times and at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

@@ -20,35 +20,268 @@
     "At the end, Brian lets Dom go. He could have arrested him, but he chooses loyalty over the law. The decision changes his life forever."
   ],
   "questions": [
-    { "q": "What is Brian's real job?", "options": ["Undercover police officer", "Truck driver", "Mechanic", "Street racer"], "answer": "Undercover police officer" },
-    { "q": "What has been stolen on the highway?", "options": ["Trucks full of electronics", "Sports cars", "Money from banks", "Gold"], "answer": "Trucks full of electronics" },
-    { "q": "What is most important for Dom?", "options": ["Family", "Money", "Fame", "Speed"], "answer": "Family" },
-    { "q": "What happens in Brian's first race?", "options": ["He bets his car and loses", "He wins a lot of money", "He crashes into a truck", "He is arrested"], "answer": "He bets his car and loses" },
-    { "q": "What does Brian do at the end?", "options": ["He lets Dom go", "He arrests Dom", "He leaves the city", "He buys Dom's car"], "answer": "He lets Dom go" }
+    {
+      "q": "What is Brian's real job?",
+      "options": [
+        "Undercover police officer",
+        "Truck driver",
+        "Mechanic",
+        "Street racer"
+      ],
+      "answer": "Undercover police officer"
+    },
+    {
+      "q": "What has been stolen on the highway?",
+      "options": [
+        "Trucks full of electronics",
+        "Sports cars",
+        "Money from banks",
+        "Gold"
+      ],
+      "answer": "Trucks full of electronics"
+    },
+    {
+      "q": "What is most important for Dom?",
+      "options": [
+        "Family",
+        "Money",
+        "Fame",
+        "Speed"
+      ],
+      "answer": "Family"
+    },
+    {
+      "q": "What happens in Brian's first race?",
+      "options": [
+        "He bets his car and loses",
+        "He wins a lot of money",
+        "He crashes into a truck",
+        "He is arrested"
+      ],
+      "answer": "He bets his car and loses"
+    },
+    {
+      "q": "What does Brian do at the end?",
+      "options": [
+        "He lets Dom go",
+        "He arrests Dom",
+        "He leaves the city",
+        "He buys Dom's car"
+      ],
+      "answer": "He lets Dom go"
+    }
   ],
   "vocab": [
-    { "id": "ff1-undercover", "word": "undercover", "ipa": "/ˌʌn.dəˈkʌv.ə/", "emoji": "🕶", "translation": "yashirin (agent)", "example": "Brian O'Conner is an undercover police officer." },
-    { "id": "ff1-truck", "word": "truck", "ipa": "/trʌk/", "emoji": "🚛", "translation": "yuk mashinasi", "example": "Trucks full of electronics have been stolen." },
-    { "id": "ff1-highway", "word": "highway", "ipa": "/ˈhaɪ.weɪ/", "emoji": "🛣", "translation": "katta yo'l, avtomagistral", "example": "Trucks have been stolen on the highway." },
-    { "id": "ff1-responsible", "word": "responsible", "ipa": "/rɪˈspɒn.sə.bəl/", "emoji": "☝️", "translation": "javobgar, aybdor", "example": "The police think street racers are responsible.", "note": "responsible FOR sth" },
-    { "id": "ff1-pretend", "word": "pretend", "ipa": "/prɪˈtend/", "emoji": "🎭", "translation": "o'zini ... qilib ko'rsatmoq", "example": "Brian pretends to be a racer." },
-    { "id": "ff1-legend", "word": "legend", "ipa": "/ˈledʒ.ənd/", "emoji": "🏆", "translation": "afsona (mashhur odam)", "example": "Dom is a legend of illegal street racing." },
-    { "id": "ff1-tough", "word": "tough", "ipa": "/tʌf/", "emoji": "💪", "translation": "qattiqqo'l, chidamli", "example": "Dom is tough.", "note": "ough — /ʌf/ o'qiladi" },
-    { "id": "ff1-bet", "word": "bet", "ipa": "/bet/", "emoji": "🎲", "translation": "garov tikmoq", "example": "In his first race Brian bets his car and loses." },
-    { "id": "ff1-impress", "word": "impress", "ipa": "/ɪmˈpres/", "emoji": "🤩", "translation": "taassurot qoldirmoq", "example": "He wanted to impress Dom and his sister." },
-    { "id": "ff1-robbery", "word": "robbery", "ipa": "/ˈrɒb.ər.i/", "emoji": "💼", "translation": "talonchilik", "example": "Dom's team is behind the robberies.", "cloze": "robberies" },
-    { "id": "ff1-boss", "word": "boss", "ipa": "/bɒs/", "emoji": "👔", "translation": "boshliq", "example": "He should have told his boss immediately." },
-    { "id": "ff1-reveal", "word": "reveal", "ipa": "/rɪˈviːl/", "emoji": "🎬", "translation": "oshkor qilmoq", "example": "Brian reveals that he is a police officer." },
-    { "id": "ff1-arrest", "word": "arrest", "ipa": "/əˈrest/", "emoji": "🚔", "translation": "hibsga olmoq", "example": "He could have arrested him." },
-    { "id": "ff1-loyalty", "word": "loyalty", "ipa": "/ˈlɔɪ.əl.ti/", "emoji": "🤝", "translation": "sodiqlik", "example": "He chooses loyalty over the law." },
-    { "id": "ff1-decision", "word": "decision", "ipa": "/dɪˈsɪʒ.ən/", "emoji": "🧠", "translation": "qaror", "example": "The decision changes his life forever." }
+    {
+      "id": "ff1-undercover",
+      "word": "undercover",
+      "ipa": "/ˌʌn.dəˈkʌv.ə/",
+      "emoji": "🕶",
+      "translation": "yashirin (agent)",
+      "example": "Brian O'Conner is an undercover police officer."
+    },
+    {
+      "id": "ff1-truck",
+      "word": "truck",
+      "ipa": "/trʌk/",
+      "emoji": "🚛",
+      "translation": "yuk mashinasi",
+      "example": "Trucks full of electronics have been stolen."
+    },
+    {
+      "id": "ff1-highway",
+      "word": "highway",
+      "ipa": "/ˈhaɪ.weɪ/",
+      "emoji": "🛣",
+      "translation": "katta yo'l, avtomagistral",
+      "example": "Trucks have been stolen on the highway."
+    },
+    {
+      "id": "ff1-responsible",
+      "word": "responsible",
+      "ipa": "/rɪˈspɒn.sə.bəl/",
+      "emoji": "☝️",
+      "translation": "javobgar, aybdor",
+      "example": "The police think street racers are responsible.",
+      "note": "responsible FOR sth"
+    },
+    {
+      "id": "ff1-pretend",
+      "word": "pretend",
+      "ipa": "/prɪˈtend/",
+      "emoji": "🎭",
+      "translation": "o'zini ... qilib ko'rsatmoq",
+      "example": "Brian pretends to be a racer."
+    },
+    {
+      "id": "ff1-legend",
+      "word": "legend",
+      "ipa": "/ˈledʒ.ənd/",
+      "emoji": "🏆",
+      "translation": "afsona (mashhur odam)",
+      "example": "Dom is a legend of illegal street racing."
+    },
+    {
+      "id": "ff1-tough",
+      "word": "tough",
+      "ipa": "/tʌf/",
+      "emoji": "💪",
+      "translation": "qattiqqo'l, chidamli",
+      "example": "Dom is tough.",
+      "note": "ough — /ʌf/ o'qiladi"
+    },
+    {
+      "id": "ff1-bet",
+      "word": "bet",
+      "ipa": "/bet/",
+      "emoji": "🎲",
+      "translation": "garov tikmoq",
+      "example": "In his first race Brian bets his car and loses."
+    },
+    {
+      "id": "ff1-impress",
+      "word": "impress",
+      "ipa": "/ɪmˈpres/",
+      "emoji": "🤩",
+      "translation": "taassurot qoldirmoq",
+      "example": "He wanted to impress Dom and his sister."
+    },
+    {
+      "id": "ff1-robbery",
+      "word": "robbery",
+      "ipa": "/ˈrɒb.ər.i/",
+      "emoji": "💼",
+      "translation": "talonchilik",
+      "example": "Dom's team is behind the robberies.",
+      "cloze": "robberies"
+    },
+    {
+      "id": "ff1-boss",
+      "word": "boss",
+      "ipa": "/bɒs/",
+      "emoji": "👔",
+      "translation": "boshliq",
+      "example": "He should have told his boss immediately."
+    },
+    {
+      "id": "ff1-reveal",
+      "word": "reveal",
+      "ipa": "/rɪˈviːl/",
+      "emoji": "🎬",
+      "translation": "oshkor qilmoq",
+      "example": "Brian reveals that he is a police officer."
+    },
+    {
+      "id": "ff1-arrest",
+      "word": "arrest",
+      "ipa": "/əˈrest/",
+      "emoji": "🚔",
+      "translation": "hibsga olmoq",
+      "example": "He could have arrested him."
+    },
+    {
+      "id": "ff1-loyalty",
+      "word": "loyalty",
+      "ipa": "/ˈlɔɪ.əl.ti/",
+      "emoji": "🤝",
+      "translation": "sodiqlik",
+      "example": "He chooses loyalty over the law."
+    },
+    {
+      "id": "ff1-decision",
+      "word": "decision",
+      "ipa": "/dɪˈsɪʒ.ən/",
+      "emoji": "🧠",
+      "translation": "qaror",
+      "example": "The decision changes his life forever."
+    }
   ],
   "collocations": [
-    { "id": "ff1-c-close", "word": "get close to", "ipa": "/ˌɡet ˈkləʊs tə/", "emoji": "🫂", "translation": "... ga yaqinlashmoq (ishonchiga kirmoq)", "example": "He tries to get close to Dominic Toretto." },
-    { "id": "ff1-c-back", "word": "fight back", "ipa": "/ˌfaɪt ˈbæk/", "emoji": "🥊", "translation": "qarshilik ko'rsatmoq", "example": "The truck driver fights back.", "cloze": "fights back" },
-    { "id": "ff1-c-part", "word": "become part of", "ipa": "/bɪˌkʌm ˈpɑːt əv/", "emoji": "🧩", "translation": "... ning bir qismiga aylanmoq", "example": "Brian becomes part of Dom's team.", "cloze": "becomes part of" },
-    { "id": "ff1-c-over", "word": "choose A over B", "ipa": "/ˈtʃuːz ... ˈəʊ.və/", "emoji": "⚖️", "translation": "A ni B dan ustun qo'ymoq", "example": "He chooses loyalty over the law.", "cloze": "chooses loyalty over" },
-    { "id": "ff1-c-other", "word": "each other", "ipa": "/ˌiːtʃ ˈʌð.ə/", "emoji": "↔️", "translation": "bir-birini", "example": "They protect each other." }
+    {
+      "id": "ff1-c-close",
+      "word": "get close to",
+      "ipa": "/ˌɡet ˈkləʊs tə/",
+      "emoji": "🫂",
+      "translation": "... ga yaqinlashmoq (ishonchiga kirmoq)",
+      "example": "He tries to get close to Dominic Toretto."
+    },
+    {
+      "id": "ff1-c-back",
+      "word": "fight back",
+      "ipa": "/ˌfaɪt ˈbæk/",
+      "emoji": "🥊",
+      "translation": "qarshilik ko'rsatmoq",
+      "example": "The truck driver fights back.",
+      "cloze": "fights back"
+    },
+    {
+      "id": "ff1-c-part",
+      "word": "become part of",
+      "ipa": "/bɪˌkʌm ˈpɑːt əv/",
+      "emoji": "🧩",
+      "translation": "... ning bir qismiga aylanmoq",
+      "example": "Brian becomes part of Dom's team.",
+      "cloze": "becomes part of"
+    },
+    {
+      "id": "ff1-c-over",
+      "word": "choose A over B",
+      "ipa": "/ˈtʃuːz ... ˈəʊ.və/",
+      "emoji": "⚖️",
+      "translation": "A ni B dan ustun qo'ymoq",
+      "example": "He chooses loyalty over the law.",
+      "cloze": "chooses loyalty over"
+    },
+    {
+      "id": "ff1-c-other",
+      "word": "each other",
+      "ipa": "/ˌiːtʃ ˈʌð.ə/",
+      "emoji": "↔️",
+      "translation": "bir-birini",
+      "example": "They protect each other."
+    },
+    {
+      "id": "ff1-c-pretend",
+      "word": "pretend to be",
+      "ipa": "/prɪˈtend tə bi/",
+      "emoji": "🎭",
+      "translation": "o'zini ... qilib ko'rsatmoq",
+      "example": "Brian pretends to be a racer."
+    },
+    {
+      "id": "ff1-c-important",
+      "word": "more important than",
+      "ipa": "/ˌmɔːr ɪmˈpɔː.tənt ðən/",
+      "emoji": "❗",
+      "translation": "... dan muhimroq",
+      "example": "Nothing is more important than family."
+    },
+    {
+      "id": "ff1-c-life",
+      "word": "save sb's life",
+      "ipa": "/ˌseɪv ... ˈlaɪf/",
+      "emoji": "🛟",
+      "translation": "kimningdir hayotini saqlab qolmoq",
+      "example": "He calls a helicopter to save Vince's life.",
+      "cloze": "save Vince's life"
+    },
+    {
+      "id": "ff1-c-hurt",
+      "word": "badly hurt",
+      "ipa": "/ˌbæd.li ˈhɜːt/",
+      "emoji": "🤕",
+      "translation": "qattiq jarohatlangan",
+      "example": "Dom's friend Vince is badly hurt."
+    },
+    {
+      "id": "ff1-c-change",
+      "word": "change your life forever",
+      "ipa": "/ˌtʃeɪndʒ jə ˈlaɪf fəˈrev.ə/",
+      "emoji": "🔄",
+      "translation": "hayotini butunlay o'zgartirmoq",
+      "example": "The decision changes his life forever.",
+      "cloze": "changes his life forever"
+    }
   ],
   "grammar": {
     "title": "should have / could have / shouldn't have + V3",
@@ -59,27 +292,126 @@
       "Og'zaki nutqda qisqaradi: should've /ˈʃʊd.əv/, could've /ˈkʊd.əv/. Yozuvda \"should of\" — keng tarqalgan XATO, to'g'risi **should have**."
     ],
     "exercises": [
-      { "q": "Brian ___ told his boss immediately, but he didn't.", "options": ["should have", "should", "must", "could"], "answer": "should have", "why": "O'tmishda qilinmagan to'g'ri ish → should have + V3." },
-      { "q": "He ___ his car. Now he has no car!", "options": ["shouldn't have bet", "should have bet", "couldn't bet", "mustn't bet"], "answer": "shouldn't have bet", "why": "Qilingan xato → shouldn't have." },
-      { "q": "He ___ Dom, but he chose to let him go.", "options": ["could have arrested", "should arrested", "could arrest yesterday", "has arrested"], "answer": "could have arrested", "why": "Ishlatilmagan imkoniyat → could have + V3." },
-      { "q": "I'm so tired. I ___ to bed earlier last night.", "options": ["should have gone", "should go", "should have went", "should of gone"], "answer": "should have gone", "why": "go → gone (V3). \"should of\" — xato." },
-      { "q": "You ___ me! I would have helped you.", "options": ["could have called", "could call", "should called", "can have called"], "answer": "could have called", "why": "Imkon bor edi, qilinmadi → could have called." },
-      { "q": "We ___ so much. Now I feel sick.", "options": ["shouldn't have eaten", "should have eaten", "couldn't have eaten", "shouldn't eat"], "answer": "shouldn't have eaten", "why": "Qilingan, afsuslanilgan → shouldn't have." },
-      { "q": "She ___ the exam. She was well prepared, but she didn't go.", "options": ["could have passed", "should passed", "could pass", "must have passed"], "answer": "could have passed", "why": "Imkon bor edi → could have passed." },
-      { "q": "\"Should have\" og'zaki nutqda qanday aytiladi?", "options": ["should've", "should of", "shouldn't", "should a"], "answer": "should've", "why": "Qisqa shakl: should've /ˈʃʊd.əv/." }
+      {
+        "q": "Brian ___ told his boss immediately, but he didn't.",
+        "options": [
+          "should have",
+          "should",
+          "must",
+          "could"
+        ],
+        "answer": "should have",
+        "why": "O'tmishda qilinmagan to'g'ri ish → should have + V3."
+      },
+      {
+        "q": "He ___ his car. Now he has no car!",
+        "options": [
+          "shouldn't have bet",
+          "should have bet",
+          "couldn't bet",
+          "mustn't bet"
+        ],
+        "answer": "shouldn't have bet",
+        "why": "Qilingan xato → shouldn't have."
+      },
+      {
+        "q": "He ___ Dom, but he chose to let him go.",
+        "options": [
+          "could have arrested",
+          "should arrested",
+          "could arrest yesterday",
+          "has arrested"
+        ],
+        "answer": "could have arrested",
+        "why": "Ishlatilmagan imkoniyat → could have + V3."
+      },
+      {
+        "q": "I'm so tired. I ___ to bed earlier last night.",
+        "options": [
+          "should have gone",
+          "should go",
+          "should have went",
+          "should of gone"
+        ],
+        "answer": "should have gone",
+        "why": "go → gone (V3). \"should of\" — xato."
+      },
+      {
+        "q": "You ___ me! I would have helped you.",
+        "options": [
+          "could have called",
+          "could call",
+          "should called",
+          "can have called"
+        ],
+        "answer": "could have called",
+        "why": "Imkon bor edi, qilinmadi → could have called."
+      },
+      {
+        "q": "We ___ so much. Now I feel sick.",
+        "options": [
+          "shouldn't have eaten",
+          "should have eaten",
+          "couldn't have eaten",
+          "shouldn't eat"
+        ],
+        "answer": "shouldn't have eaten",
+        "why": "Qilingan, afsuslanilgan → shouldn't have."
+      },
+      {
+        "q": "She ___ the exam. She was well prepared, but she didn't go.",
+        "options": [
+          "could have passed",
+          "should passed",
+          "could pass",
+          "must have passed"
+        ],
+        "answer": "could have passed",
+        "why": "Imkon bor edi → could have passed."
+      },
+      {
+        "q": "\"Should have\" og'zaki nutqda qanday aytiladi?",
+        "options": [
+          "should've",
+          "should of",
+          "shouldn't",
+          "should a"
+        ],
+        "answer": "should've",
+        "why": "Qisqa shakl: should've /ˈʃʊd.əv/."
+      }
     ]
   },
   "dictation": [
-    { "text": "Brian pretends to be a racer.", "gap": "pretends" },
-    { "text": "Dom is a legend of illegal street racing.", "gap": "legend" },
-    { "text": "He wanted to impress Dom and his sister.", "gap": "impress" },
-    { "text": "He could have arrested him.", "gap": "arrested" },
-    { "text": "He chooses loyalty over the law.", "gap": "loyalty" }
+    {
+      "text": "Brian pretends to be a racer.",
+      "gap": "pretends"
+    },
+    {
+      "text": "Dom is a legend of illegal street racing.",
+      "gap": "legend"
+    },
+    {
+      "text": "He wanted to impress Dom and his sister.",
+      "gap": "impress"
+    },
+    {
+      "text": "He could have arrested him.",
+      "gap": "arrested"
+    },
+    {
+      "text": "He chooses loyalty over the law.",
+      "gap": "loyalty"
+    }
   ],
   "shadowing": [
     "I live my life a quarter mile at a time.",
     "He should have been more careful.",
     "He should have told his boss immediately, but he doesn't.",
     "He could have arrested him, but he chooses loyalty over the law."
-  ]
+  ],
+  "writing": {
+    "task": "Write about a mistake you made. What should you have done, what shouldn't you have done, and what could you have done instead? Use at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

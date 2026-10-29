@@ -20,35 +20,267 @@
     "Together they fight against Drake and another symbiote, Riot, who wants to bring an army of creatures to the planet."
   ],
   "questions": [
-    { "q": "What is Eddie's job?", "options": ["Journalist", "Scientist", "Doctor", "Pilot"], "answer": "Journalist" },
-    { "q": "What does the Life Foundation build?", "options": ["Rockets", "Cars", "Phones", "Houses"], "answer": "Rockets" },
-    { "q": "What does a symbiote need to survive on Earth?", "options": ["A host", "Water", "Sunlight", "Money"], "answer": "A host" },
-    { "q": "How does Venom first appear to Eddie?", "options": ["As a voice in his head", "As a dog", "On TV", "In a letter"], "answer": "As a voice in his head" },
-    { "q": "What does Riot want?", "options": ["To bring an army of creatures", "To become a journalist", "To go home", "To help Eddie"], "answer": "To bring an army of creatures" }
+    {
+      "q": "What is Eddie's job?",
+      "options": [
+        "Journalist",
+        "Scientist",
+        "Doctor",
+        "Pilot"
+      ],
+      "answer": "Journalist"
+    },
+    {
+      "q": "What does the Life Foundation build?",
+      "options": [
+        "Rockets",
+        "Cars",
+        "Phones",
+        "Houses"
+      ],
+      "answer": "Rockets"
+    },
+    {
+      "q": "What does a symbiote need to survive on Earth?",
+      "options": [
+        "A host",
+        "Water",
+        "Sunlight",
+        "Money"
+      ],
+      "answer": "A host"
+    },
+    {
+      "q": "How does Venom first appear to Eddie?",
+      "options": [
+        "As a voice in his head",
+        "As a dog",
+        "On TV",
+        "In a letter"
+      ],
+      "answer": "As a voice in his head"
+    },
+    {
+      "q": "What does Riot want?",
+      "options": [
+        "To bring an army of creatures",
+        "To become a journalist",
+        "To go home",
+        "To help Eddie"
+      ],
+      "answer": "To bring an army of creatures"
+    }
   ],
   "vocab": [
-    { "id": "ven1-journalist", "word": "journalist", "ipa": "/ˈdʒɜː.nə.lɪst/", "emoji": "📰", "translation": "jurnalist", "example": "Eddie Brock is a journalist." },
-    { "id": "ven1-popular", "word": "popular", "ipa": "/ˈpɒp.jə.lə/", "emoji": "🔥", "translation": "ommabop", "example": "He has a popular TV show." },
-    { "id": "ven1-interview", "word": "interview", "ipa": "/ˈɪn.tə.vjuː/", "emoji": "🎙", "translation": "intervyu olmoq", "example": "Eddie interviews Carlton Drake." },
-    { "id": "ven1-foundation", "word": "foundation", "ipa": "/faʊnˈdeɪ.ʃən/", "emoji": "🏛", "translation": "jamg'arma, fond", "example": "He is the head of the Life Foundation." },
-    { "id": "ven1-rocket", "word": "rocket", "ipa": "/ˈrɒk.ɪt/", "emoji": "🚀", "translation": "raketa", "example": "It is a company that builds rockets." },
-    { "id": "ven1-experiment", "word": "experiment", "ipa": "/ɪkˈsper.ɪ.mənt/", "emoji": "🧪", "translation": "tajriba", "example": "Eddie asks him about a secret experiment." },
-    { "id": "ven1-space", "word": "space", "ipa": "/speɪs/", "emoji": "🌌", "translation": "koinot, kosmos", "example": "They have brought back creatures from space.", "note": "koinot ma'nosida artiklsiz: in space" },
-    { "id": "ven1-host", "word": "host", "ipa": "/həʊst/", "emoji": "🧍", "translation": "xo'jayin (tana); boshlovchi", "example": "A symbiote can't survive without a host." },
-    { "id": "ven1-laboratory", "word": "laboratory", "ipa": "/ləˈbɒr.ə.tər.i/", "emoji": "🔬", "translation": "laboratoriya", "example": "Eddie sneaks into the laboratory.", "note": "BrE urg'u: laBOratory" },
-    { "id": "ven1-voice", "word": "voice", "ipa": "/vɔɪs/", "emoji": "🗣", "translation": "ovoz", "example": "Eddie hears a voice in his head." },
-    { "id": "ven1-hungry", "word": "hungry", "ipa": "/ˈhʌŋ.ɡri/", "emoji": "🍔", "translation": "och", "example": "It's hungry all the time." },
-    { "id": "ven1-humour", "word": "sense of humour", "ipa": "/ˌsens əv ˈhjuː.mə/", "emoji": "😂", "translation": "hazil tuyg'usi", "example": "It has a terrible sense of humour." },
-    { "id": "ven1-team", "word": "team", "ipa": "/tiːm/", "emoji": "🤝", "translation": "jamoa", "example": "Slowly they become a team." },
-    { "id": "ven1-planet", "word": "planet", "ipa": "/ˈplæn.ɪt/", "emoji": "🪐", "translation": "sayyora", "example": "Riot wants to bring an army to the planet." },
-    { "id": "ven1-against", "word": "against", "ipa": "/əˈɡenst/", "emoji": "🥊", "translation": "qarshi", "example": "They fight against Drake." }
+    {
+      "id": "ven1-journalist",
+      "word": "journalist",
+      "ipa": "/ˈdʒɜː.nə.lɪst/",
+      "emoji": "📰",
+      "translation": "jurnalist",
+      "example": "Eddie Brock is a journalist."
+    },
+    {
+      "id": "ven1-popular",
+      "word": "popular",
+      "ipa": "/ˈpɒp.jə.lə/",
+      "emoji": "🔥",
+      "translation": "ommabop",
+      "example": "He has a popular TV show."
+    },
+    {
+      "id": "ven1-interview",
+      "word": "interview",
+      "ipa": "/ˈɪn.tə.vjuː/",
+      "emoji": "🎙",
+      "translation": "intervyu olmoq",
+      "example": "Eddie interviews Carlton Drake."
+    },
+    {
+      "id": "ven1-foundation",
+      "word": "foundation",
+      "ipa": "/faʊnˈdeɪ.ʃən/",
+      "emoji": "🏛",
+      "translation": "jamg'arma, fond",
+      "example": "He is the head of the Life Foundation."
+    },
+    {
+      "id": "ven1-rocket",
+      "word": "rocket",
+      "ipa": "/ˈrɒk.ɪt/",
+      "emoji": "🚀",
+      "translation": "raketa",
+      "example": "It is a company that builds rockets."
+    },
+    {
+      "id": "ven1-experiment",
+      "word": "experiment",
+      "ipa": "/ɪkˈsper.ɪ.mənt/",
+      "emoji": "🧪",
+      "translation": "tajriba",
+      "example": "Eddie asks him about a secret experiment."
+    },
+    {
+      "id": "ven1-space",
+      "word": "space",
+      "ipa": "/speɪs/",
+      "emoji": "🌌",
+      "translation": "koinot, kosmos",
+      "example": "They have brought back creatures from space.",
+      "note": "koinot ma'nosida artiklsiz: in space"
+    },
+    {
+      "id": "ven1-host",
+      "word": "host",
+      "ipa": "/həʊst/",
+      "emoji": "🧍",
+      "translation": "xo'jayin (tana); boshlovchi",
+      "example": "A symbiote can't survive without a host."
+    },
+    {
+      "id": "ven1-laboratory",
+      "word": "laboratory",
+      "ipa": "/ləˈbɒr.ə.tər.i/",
+      "emoji": "🔬",
+      "translation": "laboratoriya",
+      "example": "Eddie sneaks into the laboratory.",
+      "note": "BrE urg'u: laBOratory"
+    },
+    {
+      "id": "ven1-voice",
+      "word": "voice",
+      "ipa": "/vɔɪs/",
+      "emoji": "🗣",
+      "translation": "ovoz",
+      "example": "Eddie hears a voice in his head."
+    },
+    {
+      "id": "ven1-hungry",
+      "word": "hungry",
+      "ipa": "/ˈhʌŋ.ɡri/",
+      "emoji": "🍔",
+      "translation": "och",
+      "example": "It's hungry all the time."
+    },
+    {
+      "id": "ven1-humour",
+      "word": "sense of humour",
+      "ipa": "/ˌsens əv ˈhjuː.mə/",
+      "emoji": "😂",
+      "translation": "hazil tuyg'usi",
+      "example": "It has a terrible sense of humour."
+    },
+    {
+      "id": "ven1-team",
+      "word": "team",
+      "ipa": "/tiːm/",
+      "emoji": "🤝",
+      "translation": "jamoa",
+      "example": "Slowly they become a team."
+    },
+    {
+      "id": "ven1-planet",
+      "word": "planet",
+      "ipa": "/ˈplæn.ɪt/",
+      "emoji": "🪐",
+      "translation": "sayyora",
+      "example": "Riot wants to bring an army to the planet."
+    },
+    {
+      "id": "ven1-against",
+      "word": "against",
+      "ipa": "/əˈɡenst/",
+      "emoji": "🥊",
+      "translation": "qarshi",
+      "example": "They fight against Drake."
+    }
   ],
   "collocations": [
-    { "id": "ven1-c-lose", "word": "lose your job", "ipa": "/ˌluːz jə ˈdʒɒb/", "emoji": "📦", "translation": "ishdan ayrilmoq", "example": "Eddie loses his job.", "cloze": "loses his job" },
-    { "id": "ven1-c-help", "word": "ask for help", "ipa": "/ˌɑːsk fə ˈhelp/", "emoji": "🙏", "translation": "yordam so'ramoq", "example": "A scientist asks Eddie for help.", "cloze": "asks Eddie for help" },
-    { "id": "ven1-c-time", "word": "all the time", "ipa": "/ˌɔːl ðə ˈtaɪm/", "emoji": "🔁", "translation": "doim, har doim", "example": "It's hungry all the time." },
-    { "id": "ven1-c-head", "word": "the head of", "ipa": "/ðə ˈhed əv/", "emoji": "👔", "translation": "... rahbari", "example": "He is the head of the Life Foundation." },
-    { "id": "ven1-c-fight", "word": "fight against", "ipa": "/ˈfaɪt əˌɡenst/", "emoji": "⚔️", "translation": "... ga qarshi kurashmoq", "example": "They fight against Drake." }
+    {
+      "id": "ven1-c-lose",
+      "word": "lose your job",
+      "ipa": "/ˌluːz jə ˈdʒɒb/",
+      "emoji": "📦",
+      "translation": "ishdan ayrilmoq",
+      "example": "Eddie loses his job.",
+      "cloze": "loses his job"
+    },
+    {
+      "id": "ven1-c-help",
+      "word": "ask for help",
+      "ipa": "/ˌɑːsk fə ˈhelp/",
+      "emoji": "🙏",
+      "translation": "yordam so'ramoq",
+      "example": "A scientist asks Eddie for help.",
+      "cloze": "asks Eddie for help"
+    },
+    {
+      "id": "ven1-c-time",
+      "word": "all the time",
+      "ipa": "/ˌɔːl ðə ˈtaɪm/",
+      "emoji": "🔁",
+      "translation": "doim, har doim",
+      "example": "It's hungry all the time."
+    },
+    {
+      "id": "ven1-c-head",
+      "word": "the head of",
+      "ipa": "/ðə ˈhed əv/",
+      "emoji": "👔",
+      "translation": "... rahbari",
+      "example": "He is the head of the Life Foundation."
+    },
+    {
+      "id": "ven1-c-fight",
+      "word": "fight against",
+      "ipa": "/ˈfaɪt əˌɡenst/",
+      "emoji": "⚔️",
+      "translation": "... ga qarshi kurashmoq",
+      "example": "They fight against Drake."
+    },
+    {
+      "id": "ven1-c-show",
+      "word": "a TV show",
+      "ipa": "/ə ˌtiː ˈviː ʃəʊ/",
+      "emoji": "📺",
+      "translation": "teleko'rsatuv",
+      "example": "He has a popular TV show."
+    },
+    {
+      "id": "ven1-c-voice",
+      "word": "hear a voice",
+      "ipa": "/ˌhɪər ə ˈvɔɪs/",
+      "emoji": "🗣",
+      "translation": "ovoz eshitmoq",
+      "example": "Eddie hears a voice in his head.",
+      "cloze": "hears a voice"
+    },
+    {
+      "id": "ven1-c-badly",
+      "word": "go badly",
+      "ipa": "/ˌɡəʊ ˈbæd.li/",
+      "emoji": "📉",
+      "translation": "yomon o'tmoq",
+      "example": "The interview goes badly.",
+      "cloze": "goes badly"
+    },
+    {
+      "id": "ven1-c-team",
+      "word": "become a team",
+      "ipa": "/bɪˌkʌm ə ˈtiːm/",
+      "emoji": "🤝",
+      "translation": "jamoaga aylanmoq",
+      "example": "Slowly they become a team."
+    },
+    {
+      "id": "ven1-c-truth",
+      "word": "tell the truth about",
+      "ipa": "/ˌtel ðə ˈtruːθ əˌbaʊt/",
+      "emoji": "📰",
+      "translation": "... haqida haqiqatni aytmoq",
+      "example": "He tells the truth about powerful people.",
+      "cloze": "tells the truth about"
+    }
   ],
   "grammar": {
     "title": "Artikllar: a / an / the / —",
@@ -59,27 +291,126 @@
       "Kasb bilan doim **a/an**: He is **a** journalist (He is journalist — xato). Superlativ bilan **the**: **the** best, **the** most famous."
     ],
     "exercises": [
-      { "q": "Eddie is ___ journalist.", "options": ["a", "an", "the", "—"], "answer": "a", "why": "Kasb → a/an." },
-      { "q": "He waited for ___ hour.", "options": ["an", "a", "the", "—"], "answer": "an", "why": "hour — h o'qilmaydi, unli tovush → an." },
-      { "q": "A creature entered his body. ___ creature was hungry.", "options": ["The", "A", "An", "—"], "answer": "The", "why": "Ikkinchi marta tilga olinmoqda → the." },
-      { "q": "___ Earth is not just food for Venom.", "options": ["The", "A", "An", "—"], "answer": "The", "why": "Yagona narsa → the Earth." },
-      { "q": "I love ___ music, especially rock.", "options": ["—", "the", "a", "an"], "answer": "—", "why": "Umumiy ma'nodagi sanalmaydigan ot → artiklsiz." },
-      { "q": "She studies at ___ university in London.", "options": ["a", "an", "the", "—"], "answer": "a", "why": "university — /juː/ undosh tovush → a." },
-      { "q": "This is ___ best film I've ever seen.", "options": ["the", "a", "—", "an"], "answer": "the", "why": "Superlativ → the." },
-      { "q": "He goes to ___ work by bus.", "options": ["—", "the", "a", "an"], "answer": "—", "why": "go to work — turg'un ibora, artiklsiz." }
+      {
+        "q": "Eddie is ___ journalist.",
+        "options": [
+          "a",
+          "an",
+          "the",
+          "—"
+        ],
+        "answer": "a",
+        "why": "Kasb → a/an."
+      },
+      {
+        "q": "He waited for ___ hour.",
+        "options": [
+          "an",
+          "a",
+          "the",
+          "—"
+        ],
+        "answer": "an",
+        "why": "hour — h o'qilmaydi, unli tovush → an."
+      },
+      {
+        "q": "A creature entered his body. ___ creature was hungry.",
+        "options": [
+          "The",
+          "A",
+          "An",
+          "—"
+        ],
+        "answer": "The",
+        "why": "Ikkinchi marta tilga olinmoqda → the."
+      },
+      {
+        "q": "___ Earth is not just food for Venom.",
+        "options": [
+          "The",
+          "A",
+          "An",
+          "—"
+        ],
+        "answer": "The",
+        "why": "Yagona narsa → the Earth."
+      },
+      {
+        "q": "I love ___ music, especially rock.",
+        "options": [
+          "—",
+          "the",
+          "a",
+          "an"
+        ],
+        "answer": "—",
+        "why": "Umumiy ma'nodagi sanalmaydigan ot → artiklsiz."
+      },
+      {
+        "q": "She studies at ___ university in London.",
+        "options": [
+          "a",
+          "an",
+          "the",
+          "—"
+        ],
+        "answer": "a",
+        "why": "university — /juː/ undosh tovush → a."
+      },
+      {
+        "q": "This is ___ best film I've ever seen.",
+        "options": [
+          "the",
+          "a",
+          "—",
+          "an"
+        ],
+        "answer": "the",
+        "why": "Superlativ → the."
+      },
+      {
+        "q": "He goes to ___ work by bus.",
+        "options": [
+          "—",
+          "the",
+          "a",
+          "an"
+        ],
+        "answer": "—",
+        "why": "go to work — turg'un ibora, artiklsiz."
+      }
     ]
   },
   "dictation": [
-    { "text": "Eddie Brock is a journalist.", "gap": "journalist" },
-    { "text": "Eddie asks him about a secret experiment.", "gap": "experiment" },
-    { "text": "Eddie sneaks into the laboratory.", "gap": "laboratory" },
-    { "text": "Eddie hears a voice in his head.", "gap": "voice" },
-    { "text": "Slowly they become a team.", "gap": "team" }
+    {
+      "text": "Eddie Brock is a journalist.",
+      "gap": "journalist"
+    },
+    {
+      "text": "Eddie asks him about a secret experiment.",
+      "gap": "experiment"
+    },
+    {
+      "text": "Eddie sneaks into the laboratory.",
+      "gap": "laboratory"
+    },
+    {
+      "text": "Eddie hears a voice in his head.",
+      "gap": "voice"
+    },
+    {
+      "text": "Slowly they become a team.",
+      "gap": "team"
+    }
   ],
   "shadowing": [
     "We are Venom.",
     "Eddie Brock is a journalist in San Francisco.",
     "A symbiote can't survive on Earth without a host.",
     "The Earth is not just food; it is a place worth protecting."
-  ]
+  ],
+  "writing": {
+    "task": "Describe your city or town for a tourist: a place to visit, the best food, the most interesting street. Check every a / an / the. Use at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

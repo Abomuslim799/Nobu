@@ -238,6 +238,49 @@
       "translation": "ishni bajarmoq",
       "example": "A robot comes and does the job.",
       "cloze": "does the job"
+    },
+    {
+      "id": "irb1-c-follow",
+      "word": "follow a law",
+      "ipa": "/ˌfɒl.əʊ ə ˈlɔː/",
+      "emoji": "📜",
+      "translation": "qonunga amal qilmoq",
+      "example": "Every robot follows three laws.",
+      "cloze": "follows three laws"
+    },
+    {
+      "id": "irb1-c-accident",
+      "word": "have an accident",
+      "ipa": "/ˌhæv ən ˈæk.sɪ.dənt/",
+      "emoji": "🚗",
+      "translation": "baxtsiz hodisaga uchramoq",
+      "example": "Years ago he had a car accident.",
+      "cloze": "had a car accident"
+    },
+    {
+      "id": "irb1-c-work",
+      "word": "work together",
+      "ipa": "/ˌwɜːk təˈɡeð.ə/",
+      "emoji": "🤝",
+      "translation": "birga ishlamoq",
+      "example": "Spooner and Sonny work together to stop VIKI."
+    },
+    {
+      "id": "irb1-c-freedom",
+      "word": "lose freedom",
+      "ipa": "/ˌluːz ˈfriː.dəm/",
+      "emoji": "🗽",
+      "translation": "erkinlikni yo'qotmoq",
+      "example": "Humans will lose their freedom.",
+      "cloze": "lose their freedom"
+    },
+    {
+      "id": "irb1-c-feel",
+      "word": "feel emotions",
+      "ipa": "/ˌfiːl ɪˈməʊ.ʃənz/",
+      "emoji": "❤️",
+      "translation": "his-tuyg'ularni his qilmoq",
+      "example": "He seems to feel emotions."
     }
   ],
   "grammar": {
@@ -388,5 +431,9 @@
     "If a human is in danger, a robot has to help.",
     "If you give them an order, they obey.",
     "If they don't stop her, humans will lose their freedom."
-  ]
+  ],
+  "writing": {
+    "task": "Will robots take our jobs? Write your opinion. Use zero and first conditionals at least 5 times, plus at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

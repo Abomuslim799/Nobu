@@ -20,35 +20,270 @@
     "In the final episode Walter finally admits the truth. He tells Skyler that he did it for himself, because he liked it and he was good at it."
   ],
   "questions": [
-    { "q": "What is Walter's job at the beginning?", "options": ["Chemistry teacher", "Police officer", "Doctor", "Businessman"], "answer": "Chemistry teacher" },
-    { "q": "What does Walter learn on his birthday?", "options": ["He has cancer", "He has lost his job", "He is rich", "He has a brother"], "answer": "He has cancer" },
-    { "q": "Who is Jesse Pinkman?", "options": ["A former student", "Walter's son", "A police officer", "A doctor"], "answer": "A former student" },
-    { "q": "What name does Walter choose?", "options": ["Heisenberg", "Pinkman", "Hank", "Saul"], "answer": "Heisenberg" },
-    { "q": "What does Walter admit at the end?", "options": ["He did it for himself", "He did it only for his family", "He never liked it", "Jesse forced him"], "answer": "He did it for himself" }
+    {
+      "q": "What is Walter's job at the beginning?",
+      "options": [
+        "Chemistry teacher",
+        "Police officer",
+        "Doctor",
+        "Businessman"
+      ],
+      "answer": "Chemistry teacher"
+    },
+    {
+      "q": "What does Walter learn on his birthday?",
+      "options": [
+        "He has cancer",
+        "He has lost his job",
+        "He is rich",
+        "He has a brother"
+      ],
+      "answer": "He has cancer"
+    },
+    {
+      "q": "Who is Jesse Pinkman?",
+      "options": [
+        "A former student",
+        "Walter's son",
+        "A police officer",
+        "A doctor"
+      ],
+      "answer": "A former student"
+    },
+    {
+      "q": "What name does Walter choose?",
+      "options": [
+        "Heisenberg",
+        "Pinkman",
+        "Hank",
+        "Saul"
+      ],
+      "answer": "Heisenberg"
+    },
+    {
+      "q": "What does Walter admit at the end?",
+      "options": [
+        "He did it for himself",
+        "He did it only for his family",
+        "He never liked it",
+        "Jesse forced him"
+      ],
+      "answer": "He did it for himself"
+    }
   ],
   "vocab": [
-    { "id": "bb1-chemistry", "word": "chemistry", "ipa": "/ˈkem.ɪ.stri/", "emoji": "⚗️", "translation": "kimyo", "example": "Walter White is a quiet chemistry teacher." },
-    { "id": "bb1-brilliant", "word": "brilliant", "ipa": "/ˈbrɪl.jənt/", "emoji": "💎", "translation": "juda iqtidorli, ajoyib", "example": "He is brilliant." },
-    { "id": "bb1-disappointment", "word": "disappointment", "ipa": "/ˌdɪs.əˈpɔɪnt.mənt/", "emoji": "😞", "translation": "umidsizlik, hafsalasi pir bo'lish", "example": "His life has been full of disappointments." },
-    { "id": "bb1-serious", "word": "serious", "ipa": "/ˈsɪə.ri.əs/", "emoji": "⚠️", "translation": "jiddiy, og'ir", "example": "He learns that he has serious cancer." },
-    { "id": "bb1-worried", "word": "worried", "ipa": "/ˈwʌr.id/", "emoji": "😟", "translation": "xavotirda", "example": "Walter is worried about money.", "note": "worried ABOUT sth" },
-    { "id": "bb1-former", "word": "former", "ipa": "/ˈfɔː.mə/", "emoji": "⏮", "translation": "sobiq", "example": "He meets Jesse Pinkman, a former student." },
-    { "id": "bb1-illegal", "word": "illegal", "ipa": "/ɪˈliː.ɡəl/", "emoji": "🚫", "translation": "noqonuniy", "example": "Jesse works in the illegal drug business." },
-    { "id": "bb1-partner", "word": "partner", "ipa": "/ˈpɑːt.nə/", "emoji": "🤝", "translation": "sherik", "example": "Walter wants to become his partner." },
-    { "id": "bb1-enjoy", "word": "enjoy", "ipa": "/ɪnˈdʒɔɪ/", "emoji": "😊", "translation": "zavqlanmoq", "example": "He discovers that he enjoys being powerful.", "note": "enjoy + -ing" },
-    { "id": "bb1-powerful", "word": "powerful", "ipa": "/ˈpaʊə.fəl/", "emoji": "⚡", "translation": "qudratli", "example": "He enjoys being powerful and feared." },
-    { "id": "bb1-feared", "word": "feared", "ipa": "/fɪəd/", "emoji": "😱", "translation": "qo'rqishadigan", "example": "He enjoys being powerful and feared." },
-    { "id": "bb1-hunt", "word": "hunt", "ipa": "/hʌnt/", "emoji": "🔎", "translation": "ov qilmoq, izlamoq", "example": "Hank is hunting for Heisenberg.", "note": "hunt FOR sb" },
-    { "id": "bb1-episode", "word": "episode", "ipa": "/ˈep.ɪ.səʊd/", "emoji": "📺", "translation": "qism (serial)", "example": "In the final episode Walter admits the truth." },
-    { "id": "bb1-admit", "word": "admit", "ipa": "/ədˈmɪt/", "emoji": "🙋", "translation": "tan olmoq", "example": "Walter finally admits the truth." },
-    { "id": "bb1-finally", "word": "finally", "ipa": "/ˈfaɪ.nəl.i/", "emoji": "🏁", "translation": "nihoyat", "example": "Walter finally admits the truth." }
+    {
+      "id": "bb1-chemistry",
+      "word": "chemistry",
+      "ipa": "/ˈkem.ɪ.stri/",
+      "emoji": "⚗️",
+      "translation": "kimyo",
+      "example": "Walter White is a quiet chemistry teacher."
+    },
+    {
+      "id": "bb1-brilliant",
+      "word": "brilliant",
+      "ipa": "/ˈbrɪl.jənt/",
+      "emoji": "💎",
+      "translation": "juda iqtidorli, ajoyib",
+      "example": "He is brilliant."
+    },
+    {
+      "id": "bb1-disappointment",
+      "word": "disappointment",
+      "ipa": "/ˌdɪs.əˈpɔɪnt.mənt/",
+      "emoji": "😞",
+      "translation": "umidsizlik, hafsalasi pir bo'lish",
+      "example": "His life has been full of disappointments."
+    },
+    {
+      "id": "bb1-serious",
+      "word": "serious",
+      "ipa": "/ˈsɪə.ri.əs/",
+      "emoji": "⚠️",
+      "translation": "jiddiy, og'ir",
+      "example": "He learns that he has serious cancer."
+    },
+    {
+      "id": "bb1-worried",
+      "word": "worried",
+      "ipa": "/ˈwʌr.id/",
+      "emoji": "😟",
+      "translation": "xavotirda",
+      "example": "Walter is worried about money.",
+      "note": "worried ABOUT sth"
+    },
+    {
+      "id": "bb1-former",
+      "word": "former",
+      "ipa": "/ˈfɔː.mə/",
+      "emoji": "⏮",
+      "translation": "sobiq",
+      "example": "He meets Jesse Pinkman, a former student."
+    },
+    {
+      "id": "bb1-illegal",
+      "word": "illegal",
+      "ipa": "/ɪˈliː.ɡəl/",
+      "emoji": "🚫",
+      "translation": "noqonuniy",
+      "example": "Jesse works in the illegal drug business."
+    },
+    {
+      "id": "bb1-partner",
+      "word": "partner",
+      "ipa": "/ˈpɑːt.nə/",
+      "emoji": "🤝",
+      "translation": "sherik",
+      "example": "Walter wants to become his partner."
+    },
+    {
+      "id": "bb1-enjoy",
+      "word": "enjoy",
+      "ipa": "/ɪnˈdʒɔɪ/",
+      "emoji": "😊",
+      "translation": "zavqlanmoq",
+      "example": "He discovers that he enjoys being powerful.",
+      "note": "enjoy + -ing"
+    },
+    {
+      "id": "bb1-powerful",
+      "word": "powerful",
+      "ipa": "/ˈpaʊə.fəl/",
+      "emoji": "⚡",
+      "translation": "qudratli",
+      "example": "He enjoys being powerful and feared."
+    },
+    {
+      "id": "bb1-feared",
+      "word": "feared",
+      "ipa": "/fɪəd/",
+      "emoji": "😱",
+      "translation": "qo'rqishadigan",
+      "example": "He enjoys being powerful and feared."
+    },
+    {
+      "id": "bb1-hunt",
+      "word": "hunt",
+      "ipa": "/hʌnt/",
+      "emoji": "🔎",
+      "translation": "ov qilmoq, izlamoq",
+      "example": "Hank is hunting for Heisenberg.",
+      "note": "hunt FOR sb"
+    },
+    {
+      "id": "bb1-episode",
+      "word": "episode",
+      "ipa": "/ˈep.ɪ.səʊd/",
+      "emoji": "📺",
+      "translation": "qism (serial)",
+      "example": "In the final episode Walter admits the truth."
+    },
+    {
+      "id": "bb1-admit",
+      "word": "admit",
+      "ipa": "/ədˈmɪt/",
+      "emoji": "🙋",
+      "translation": "tan olmoq",
+      "example": "Walter finally admits the truth."
+    },
+    {
+      "id": "bb1-finally",
+      "word": "finally",
+      "ipa": "/ˈfaɪ.nəl.i/",
+      "emoji": "🏁",
+      "translation": "nihoyat",
+      "example": "Walter finally admits the truth."
+    }
   ],
   "collocations": [
-    { "id": "bb1-c-chance", "word": "by chance", "ipa": "/baɪ ˈtʃɑːns/", "emoji": "🎲", "translation": "tasodifan", "example": "By chance, he meets Jesse Pinkman." },
-    { "id": "bb1-c-idea", "word": "have no idea", "ipa": "/ˌhæv nəʊ aɪˈdɪə/", "emoji": "🤷", "translation": "umuman bilmaslik", "example": "Hank has no idea who the criminal is.", "cloze": "has no idea" },
-    { "id": "bb1-c-late", "word": "work late", "ipa": "/ˌwɜːk ˈleɪt/", "emoji": "🌙", "translation": "kech qolib ishlamoq", "example": "He tells his wife that he is working late at school.", "cloze": "working late" },
-    { "id": "bb1-c-good", "word": "be good at", "ipa": "/bi ˈɡʊd ət/", "emoji": "🏅", "translation": "... ni yaxshi uddalamoq", "example": "He liked it and he was good at it.", "cloze": "was good at" },
-    { "id": "bb1-c-truth", "word": "admit the truth", "ipa": "/ədˌmɪt ðə ˈtruːθ/", "emoji": "🗣", "translation": "haqiqatni tan olmoq", "example": "Walter finally admits the truth.", "cloze": "admits the truth" }
+    {
+      "id": "bb1-c-chance",
+      "word": "by chance",
+      "ipa": "/baɪ ˈtʃɑːns/",
+      "emoji": "🎲",
+      "translation": "tasodifan",
+      "example": "By chance, he meets Jesse Pinkman."
+    },
+    {
+      "id": "bb1-c-idea",
+      "word": "have no idea",
+      "ipa": "/ˌhæv nəʊ aɪˈdɪə/",
+      "emoji": "🤷",
+      "translation": "umuman bilmaslik",
+      "example": "Hank has no idea who the criminal is.",
+      "cloze": "has no idea"
+    },
+    {
+      "id": "bb1-c-late",
+      "word": "work late",
+      "ipa": "/ˌwɜːk ˈleɪt/",
+      "emoji": "🌙",
+      "translation": "kech qolib ishlamoq",
+      "example": "He tells his wife that he is working late at school.",
+      "cloze": "working late"
+    },
+    {
+      "id": "bb1-c-good",
+      "word": "be good at",
+      "ipa": "/bi ˈɡʊd ət/",
+      "emoji": "🏅",
+      "translation": "... ni yaxshi uddalamoq",
+      "example": "He liked it and he was good at it.",
+      "cloze": "was good at"
+    },
+    {
+      "id": "bb1-c-truth",
+      "word": "admit the truth",
+      "ipa": "/ədˌmɪt ðə ˈtruːθ/",
+      "emoji": "🗣",
+      "translation": "haqiqatni tan olmoq",
+      "example": "Walter finally admits the truth.",
+      "cloze": "admits the truth"
+    },
+    {
+      "id": "bb1-c-live",
+      "word": "a few years to live",
+      "ipa": "/ə ˌfjuː ˌjɪəz tə ˈlɪv/",
+      "emoji": "⏳",
+      "translation": "yashashga bir necha yil",
+      "example": "He has only a few years to live."
+    },
+    {
+      "id": "bb1-c-business",
+      "word": "drug business",
+      "ipa": "/ˈdrʌɡ ˌbɪz.nɪs/",
+      "emoji": "🚫",
+      "translation": "giyohvand savdosi",
+      "example": "Jesse works in the illegal drug business."
+    },
+    {
+      "id": "bb1-c-name",
+      "word": "choose a name",
+      "ipa": "/ˌtʃuːz ə ˈneɪm/",
+      "emoji": "🏷",
+      "translation": "nom tanlamoq",
+      "example": "He even chooses a new name for himself.",
+      "cloze": "chooses a new name"
+    },
+    {
+      "id": "bb1-c-table",
+      "word": "at the dinner table",
+      "ipa": "/ət ðə ˈdɪn.ə ˌteɪ.bəl/",
+      "emoji": "🍽",
+      "translation": "kechki ovqat stolida",
+      "example": "The criminal is sitting at the same dinner table.",
+      "cloze": "at the same dinner table"
+    },
+    {
+      "id": "bb1-c-become",
+      "word": "become a partner",
+      "ipa": "/bɪˌkʌm ə ˈpɑːt.nə/",
+      "emoji": "🤝",
+      "translation": "sherik bo'lmoq",
+      "example": "Walter wants to become his partner.",
+      "cloze": "become his partner"
+    }
   ],
   "grammar": {
     "title": "Reported Speech: he said that...",
@@ -59,27 +294,126 @@
       "Olmosh va vaqt ham o'zgaradi: \"I'm working late **today**\" → He said **he** was working late **that day**. Savollar: \"Where **are** you?\" → She asked **where I was** (so'z tartibi oddiy gapdek)."
     ],
     "exercises": [
-      { "q": "\"I am worried about money.\" → Walter said he ___ worried about money.", "options": ["was", "is", "has been", "were"], "answer": "was", "why": "am → was." },
-      { "q": "\"I will help you.\" → Jesse said he ___ help me.", "options": ["would", "will", "can", "is going"], "answer": "would", "why": "will → would." },
-      { "q": "He ___ his wife that he was working late.", "options": ["told", "said", "says to", "spoke"], "answer": "told", "why": "Odam bilan: tell sb." },
-      { "q": "She ___ that she was tired.", "options": ["said", "told", "told to", "said me"], "answer": "said", "why": "Odam aytilmagan: said (that)." },
-      { "q": "\"I can't do it.\" → He said he ___ do it.", "options": ["couldn't", "can't", "doesn't", "wouldn't can"], "answer": "couldn't", "why": "can → could." },
-      { "q": "\"I have lost my keys.\" → She said she ___ her keys.", "options": ["had lost", "has lost", "lost have", "was losing"], "answer": "had lost", "why": "have done → had done." },
-      { "q": "\"Where are you?\" → Skyler asked where ___.", "options": ["he was", "was he", "is he", "he is being"], "answer": "he was", "why": "Bilvosita savolda so'z tartibi oddiy: he was." },
-      { "q": "\"I'm meeting Jesse today.\" → He said he was meeting Jesse ___.", "options": ["that day", "today yesterday", "tomorrow", "this day ago"], "answer": "that day", "why": "today → that day." }
+      {
+        "q": "\"I am worried about money.\" → Walter said he ___ worried about money.",
+        "options": [
+          "was",
+          "is",
+          "has been",
+          "were"
+        ],
+        "answer": "was",
+        "why": "am → was."
+      },
+      {
+        "q": "\"I will help you.\" → Jesse said he ___ help me.",
+        "options": [
+          "would",
+          "will",
+          "can",
+          "is going"
+        ],
+        "answer": "would",
+        "why": "will → would."
+      },
+      {
+        "q": "He ___ his wife that he was working late.",
+        "options": [
+          "told",
+          "said",
+          "says to",
+          "spoke"
+        ],
+        "answer": "told",
+        "why": "Odam bilan: tell sb."
+      },
+      {
+        "q": "She ___ that she was tired.",
+        "options": [
+          "said",
+          "told",
+          "told to",
+          "said me"
+        ],
+        "answer": "said",
+        "why": "Odam aytilmagan: said (that)."
+      },
+      {
+        "q": "\"I can't do it.\" → He said he ___ do it.",
+        "options": [
+          "couldn't",
+          "can't",
+          "doesn't",
+          "wouldn't can"
+        ],
+        "answer": "couldn't",
+        "why": "can → could."
+      },
+      {
+        "q": "\"I have lost my keys.\" → She said she ___ her keys.",
+        "options": [
+          "had lost",
+          "has lost",
+          "lost have",
+          "was losing"
+        ],
+        "answer": "had lost",
+        "why": "have done → had done."
+      },
+      {
+        "q": "\"Where are you?\" → Skyler asked where ___.",
+        "options": [
+          "he was",
+          "was he",
+          "is he",
+          "he is being"
+        ],
+        "answer": "he was",
+        "why": "Bilvosita savolda so'z tartibi oddiy: he was."
+      },
+      {
+        "q": "\"I'm meeting Jesse today.\" → He said he was meeting Jesse ___.",
+        "options": [
+          "that day",
+          "today yesterday",
+          "tomorrow",
+          "this day ago"
+        ],
+        "answer": "that day",
+        "why": "today → that day."
+      }
     ]
   },
   "dictation": [
-    { "text": "Walter White is a quiet chemistry teacher.", "gap": "chemistry" },
-    { "text": "Walter is worried about money.", "gap": "worried" },
-    { "text": "He meets Jesse Pinkman, a former student.", "gap": "former" },
-    { "text": "Hank is hunting for Heisenberg.", "gap": "hunting" },
-    { "text": "Walter finally admits the truth.", "gap": "admits" }
+    {
+      "text": "Walter White is a quiet chemistry teacher.",
+      "gap": "chemistry"
+    },
+    {
+      "text": "Walter is worried about money.",
+      "gap": "worried"
+    },
+    {
+      "text": "He meets Jesse Pinkman, a former student.",
+      "gap": "former"
+    },
+    {
+      "text": "Hank is hunting for Heisenberg.",
+      "gap": "hunting"
+    },
+    {
+      "text": "Walter finally admits the truth.",
+      "gap": "admits"
+    }
   ],
   "shadowing": [
     "I am the one who knocks!",
     "He said that his family would have nothing after he died.",
     "He told his wife that he was working late at school.",
     "He did it for himself, because he liked it and he was good at it."
-  ]
+  ],
+  "writing": {
+    "task": "Report a conversation you had this week. Start with: \"My friend told me that...\" and \"He asked me if...\". Use reported speech at least 8 times and at least 6 words from this movie.",
+    "minWords": 100
+  }
 }

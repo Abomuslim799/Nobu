@@ -20,35 +20,270 @@
     "In the end, a lot of buildings are destroyed, but Sam saves the world. He learns that every small person can make a big difference."
   ],
   "questions": [
-    { "q": "What colour is Sam's car?", "options": ["Yellow", "Red", "Black", "Blue"], "answer": "Yellow" },
-    { "q": "What can Bumblebee do?", "options": ["Change his shape", "Read minds", "Become invisible", "Speak every language"], "answer": "Change his shape" },
-    { "q": "What is the AllSpark?", "options": ["A cube with a lot of power", "A planet", "A weapon of the army", "A car"], "answer": "A cube with a lot of power" },
-    { "q": "Where are the clues hidden?", "options": ["In old glasses", "In a book", "In the car", "In a phone"], "answer": "In old glasses" },
-    { "q": "What does Sam learn?", "options": ["A small person can make a big difference", "Robots are dangerous", "Money is everything", "War is fun"], "answer": "A small person can make a big difference" }
+    {
+      "q": "What colour is Sam's car?",
+      "options": [
+        "Yellow",
+        "Red",
+        "Black",
+        "Blue"
+      ],
+      "answer": "Yellow"
+    },
+    {
+      "q": "What can Bumblebee do?",
+      "options": [
+        "Change his shape",
+        "Read minds",
+        "Become invisible",
+        "Speak every language"
+      ],
+      "answer": "Change his shape"
+    },
+    {
+      "q": "What is the AllSpark?",
+      "options": [
+        "A cube with a lot of power",
+        "A planet",
+        "A weapon of the army",
+        "A car"
+      ],
+      "answer": "A cube with a lot of power"
+    },
+    {
+      "q": "Where are the clues hidden?",
+      "options": [
+        "In old glasses",
+        "In a book",
+        "In the car",
+        "In a phone"
+      ],
+      "answer": "In old glasses"
+    },
+    {
+      "q": "What does Sam learn?",
+      "options": [
+        "A small person can make a big difference",
+        "Robots are dangerous",
+        "Money is everything",
+        "War is fun"
+      ],
+      "answer": "A small person can make a big difference"
+    }
   ],
   "vocab": [
-    { "id": "tf1-ordinary", "word": "ordinary", "ipa": "/ˈɔː.dən.ri/", "emoji": "🙂", "translation": "oddiy", "example": "Sam Witwicky is an ordinary teenager." },
-    { "id": "tf1-teenager", "word": "teenager", "ipa": "/ˈtiːnˌeɪ.dʒə/", "emoji": "🧑", "translation": "o'smir (13–19 yosh)", "example": "Sam Witwicky is an ordinary teenager." },
-    { "id": "tf1-shape", "word": "shape", "ipa": "/ʃeɪp/", "emoji": "🔷", "translation": "shakl", "example": "He can change his shape." },
-    { "id": "tf1-war", "word": "war", "ipa": "/wɔː/", "emoji": "💣", "translation": "urush", "example": "There was a war on the planet Cybertron." },
-    { "id": "tf1-group", "word": "group", "ipa": "/ɡruːp/", "emoji": "👥", "translation": "guruh", "example": "There was a war between two groups of robots." },
-    { "id": "tf1-cube", "word": "cube", "ipa": "/kjuːb/", "emoji": "🧊", "translation": "kub", "example": "The AllSpark is a cube with a lot of power." },
-    { "id": "tf1-location", "word": "location", "ipa": "/ləʊˈkeɪ.ʃən/", "emoji": "📍", "translation": "joylashuv", "example": "A few clues about its location are hidden in the glasses." },
-    { "id": "tf1-glasses", "word": "glasses", "ipa": "/ˈɡlɑː.sɪz/", "emoji": "👓", "translation": "ko'zoynak", "example": "The clues are hidden in the glasses.", "note": "doim ko'plikda: my glasses ARE..." },
-    { "id": "tf1-experience", "word": "experience", "ipa": "/ɪkˈspɪə.ri.əns/", "emoji": "🧭", "translation": "tajriba", "example": "Sam has very little experience of danger." },
-    { "id": "tf1-soldier", "word": "soldier", "ipa": "/ˈsəʊl.dʒə/", "emoji": "🪖", "translation": "askar", "example": "Sam gets help from a few soldiers." },
-    { "id": "tf1-building", "word": "building", "ipa": "/ˈbɪl.dɪŋ/", "emoji": "🏢", "translation": "bino", "example": "A lot of buildings are destroyed." },
-    { "id": "tf1-difference", "word": "difference", "ipa": "/ˈdɪf.ər.əns/", "emoji": "⚖️", "translation": "farq", "example": "Every small person can make a big difference." },
-    { "id": "tf1-grandfather", "word": "grandfather", "ipa": "/ˈɡræn.fɑː.ðə/", "emoji": "👴", "translation": "bobo", "example": "The clues are in his great-great-grandfather's glasses.", "cloze": "grandfather" },
-    { "id": "tf1-yellow", "word": "yellow", "ipa": "/ˈjel.əʊ/", "emoji": "🟨", "translation": "sariq", "example": "He buys an old yellow car." },
-    { "id": "tf1-power", "word": "power", "ipa": "/ˈpaʊ.ə/", "emoji": "⚡", "translation": "kuch, quvvat", "example": "The AllSpark is a cube with a lot of power." }
+    {
+      "id": "tf1-ordinary",
+      "word": "ordinary",
+      "ipa": "/ˈɔː.dən.ri/",
+      "emoji": "🙂",
+      "translation": "oddiy",
+      "example": "Sam Witwicky is an ordinary teenager."
+    },
+    {
+      "id": "tf1-teenager",
+      "word": "teenager",
+      "ipa": "/ˈtiːnˌeɪ.dʒə/",
+      "emoji": "🧑",
+      "translation": "o'smir (13–19 yosh)",
+      "example": "Sam Witwicky is an ordinary teenager."
+    },
+    {
+      "id": "tf1-shape",
+      "word": "shape",
+      "ipa": "/ʃeɪp/",
+      "emoji": "🔷",
+      "translation": "shakl",
+      "example": "He can change his shape."
+    },
+    {
+      "id": "tf1-war",
+      "word": "war",
+      "ipa": "/wɔː/",
+      "emoji": "💣",
+      "translation": "urush",
+      "example": "There was a war on the planet Cybertron."
+    },
+    {
+      "id": "tf1-group",
+      "word": "group",
+      "ipa": "/ɡruːp/",
+      "emoji": "👥",
+      "translation": "guruh",
+      "example": "There was a war between two groups of robots."
+    },
+    {
+      "id": "tf1-cube",
+      "word": "cube",
+      "ipa": "/kjuːb/",
+      "emoji": "🧊",
+      "translation": "kub",
+      "example": "The AllSpark is a cube with a lot of power."
+    },
+    {
+      "id": "tf1-location",
+      "word": "location",
+      "ipa": "/ləʊˈkeɪ.ʃən/",
+      "emoji": "📍",
+      "translation": "joylashuv",
+      "example": "A few clues about its location are hidden in the glasses."
+    },
+    {
+      "id": "tf1-glasses",
+      "word": "glasses",
+      "ipa": "/ˈɡlɑː.sɪz/",
+      "emoji": "👓",
+      "translation": "ko'zoynak",
+      "example": "The clues are hidden in the glasses.",
+      "note": "doim ko'plikda: my glasses ARE..."
+    },
+    {
+      "id": "tf1-experience",
+      "word": "experience",
+      "ipa": "/ɪkˈspɪə.ri.əns/",
+      "emoji": "🧭",
+      "translation": "tajriba",
+      "example": "Sam has very little experience of danger."
+    },
+    {
+      "id": "tf1-soldier",
+      "word": "soldier",
+      "ipa": "/ˈsəʊl.dʒə/",
+      "emoji": "🪖",
+      "translation": "askar",
+      "example": "Sam gets help from a few soldiers."
+    },
+    {
+      "id": "tf1-building",
+      "word": "building",
+      "ipa": "/ˈbɪl.dɪŋ/",
+      "emoji": "🏢",
+      "translation": "bino",
+      "example": "A lot of buildings are destroyed."
+    },
+    {
+      "id": "tf1-difference",
+      "word": "difference",
+      "ipa": "/ˈdɪf.ər.əns/",
+      "emoji": "⚖️",
+      "translation": "farq",
+      "example": "Every small person can make a big difference."
+    },
+    {
+      "id": "tf1-grandfather",
+      "word": "grandfather",
+      "ipa": "/ˈɡræn.fɑː.ðə/",
+      "emoji": "👴",
+      "translation": "bobo",
+      "example": "The clues are in his great-great-grandfather's glasses.",
+      "cloze": "grandfather"
+    },
+    {
+      "id": "tf1-yellow",
+      "word": "yellow",
+      "ipa": "/ˈjel.əʊ/",
+      "emoji": "🟨",
+      "translation": "sariq",
+      "example": "He buys an old yellow car."
+    },
+    {
+      "id": "tf1-power",
+      "word": "power",
+      "ipa": "/ˈpaʊ.ə/",
+      "emoji": "⚡",
+      "translation": "kuch, quvvat",
+      "example": "The AllSpark is a cube with a lot of power."
+    }
   ],
   "collocations": [
-    { "id": "tf1-c-diff", "word": "make a difference", "ipa": "/ˌmeɪk ə ˈdɪf.ər.əns/", "emoji": "🌟", "translation": "o'zgarish yasamoq, ta'sir qilmoq", "example": "Every small person can make a big difference.", "cloze": "make a big difference" },
-    { "id": "tf1-c-shape", "word": "change shape", "ipa": "/ˌtʃeɪndʒ ˈʃeɪp/", "emoji": "🔄", "translation": "shaklini o'zgartirmoq", "example": "He can change his shape.", "cloze": "change his shape" },
-    { "id": "tf1-c-all", "word": "not at all", "ipa": "/ˌnɒt ət ˈɔːl/", "emoji": "🚫", "translation": "umuman ... emas", "example": "The car is not a car at all.", "cloze": "at all" },
-    { "id": "tf1-c-lookfor", "word": "look for", "ipa": "/ˈlʊk fɔː/", "emoji": "🔎", "translation": "qidirmoq", "example": "Both groups are looking for the AllSpark.", "cloze": "looking for" },
-    { "id": "tf1-c-save", "word": "save the world", "ipa": "/ˌseɪv ðə ˈwɜːld/", "emoji": "🌍", "translation": "dunyoni qutqarmoq", "example": "Sam saves the world.", "cloze": "saves the world" }
+    {
+      "id": "tf1-c-diff",
+      "word": "make a difference",
+      "ipa": "/ˌmeɪk ə ˈdɪf.ər.əns/",
+      "emoji": "🌟",
+      "translation": "o'zgarish yasamoq, ta'sir qilmoq",
+      "example": "Every small person can make a big difference.",
+      "cloze": "make a big difference"
+    },
+    {
+      "id": "tf1-c-shape",
+      "word": "change shape",
+      "ipa": "/ˌtʃeɪndʒ ˈʃeɪp/",
+      "emoji": "🔄",
+      "translation": "shaklini o'zgartirmoq",
+      "example": "He can change his shape.",
+      "cloze": "change his shape"
+    },
+    {
+      "id": "tf1-c-all",
+      "word": "not at all",
+      "ipa": "/ˌnɒt ət ˈɔːl/",
+      "emoji": "🚫",
+      "translation": "umuman ... emas",
+      "example": "The car is not a car at all.",
+      "cloze": "at all"
+    },
+    {
+      "id": "tf1-c-lookfor",
+      "word": "look for",
+      "ipa": "/ˈlʊk fɔː/",
+      "emoji": "🔎",
+      "translation": "qidirmoq",
+      "example": "Both groups are looking for the AllSpark.",
+      "cloze": "looking for"
+    },
+    {
+      "id": "tf1-c-save",
+      "word": "save the world",
+      "ipa": "/ˌseɪv ðə ˈwɜːld/",
+      "emoji": "🌍",
+      "translation": "dunyoni qutqarmoq",
+      "example": "Sam saves the world.",
+      "cloze": "saves the world"
+    },
+    {
+      "id": "tf1-c-money",
+      "word": "a little money",
+      "ipa": "/ə ˌlɪt.əl ˈmʌn.i/",
+      "emoji": "💵",
+      "translation": "ozgina pul",
+      "example": "He buys an old car with the little money his father gives him.",
+      "cloze": "little money"
+    },
+    {
+      "id": "tf1-c-years",
+      "word": "many years ago",
+      "ipa": "/ˌmen.i ˌjɪəz əˈɡəʊ/",
+      "emoji": "📜",
+      "translation": "ko'p yillar oldin",
+      "example": "Many years ago, there was a war on Cybertron."
+    },
+    {
+      "id": "tf1-c-hidden",
+      "word": "be hidden in",
+      "ipa": "/bi ˈhɪd.ən ɪn/",
+      "emoji": "🙈",
+      "translation": "... ichida yashirilgan bo'lmoq",
+      "example": "A few clues are hidden in the glasses.",
+      "cloze": "are hidden in"
+    },
+    {
+      "id": "tf1-c-protect",
+      "word": "protect sth",
+      "ipa": "/prəˈtekt/",
+      "emoji": "🛡",
+      "translation": "himoya qilmoq",
+      "example": "He decides to protect the cube.",
+      "cloze": "protect the cube"
+    },
+    {
+      "id": "tf1-c-time",
+      "word": "very little time",
+      "ipa": "/ˌver.i ˌlɪt.əl ˈtaɪm/",
+      "emoji": "⏰",
+      "translation": "juda kam vaqt",
+      "example": "There is very little time to stop them."
+    }
   ],
   "grammar": {
     "title": "Countable / uncountable: much, many, a lot of, a few, a little",
@@ -59,27 +294,126 @@
       "Ehtiyot bo'ling: information, advice, news, furniture, money — sanalmaydi: \"many informations\" — xato, **much information**, **a piece of** advice."
     ],
     "exercises": [
-      { "q": "Sam doesn't have ___ money.", "options": ["much", "many", "a few", "few"], "answer": "much", "why": "money — sanalmaydi, inkor → much." },
-      { "q": "There aren't ___ Autobots on Earth.", "options": ["many", "much", "a little", "little"], "answer": "many", "why": "Autobots — sanaladi, inkor → many." },
-      { "q": "The Decepticons have ___ weapons.", "options": ["a lot of", "much", "a little", "little"], "answer": "a lot of", "why": "Ijobiy gap, ko'p miqdor → a lot of." },
-      { "q": "There is very ___ time to stop them.", "options": ["little", "few", "many", "a few"], "answer": "little", "why": "time — sanalmaydi, juda oz (salbiy) → little." },
-      { "q": "He found ___ clues in the glasses.", "options": ["a few", "a little", "much", "little"], "answer": "a few", "why": "clues — sanaladi, oz lekin bor → a few." },
-      { "q": "How ___ information do you need?", "options": ["much", "many", "few", "a few"], "answer": "much", "why": "information — sanalmaydi → How much." },
-      { "q": "Can I give you ___ advice?", "options": ["some", "an", "many", "a few"], "answer": "some", "why": "advice — sanalmaydi: some advice / a piece of advice." },
-      { "q": "How ___ buildings were destroyed?", "options": ["many", "much", "little", "a little"], "answer": "many", "why": "buildings — sanaladi → How many." }
+      {
+        "q": "Sam doesn't have ___ money.",
+        "options": [
+          "much",
+          "many",
+          "a few",
+          "few"
+        ],
+        "answer": "much",
+        "why": "money — sanalmaydi, inkor → much."
+      },
+      {
+        "q": "There aren't ___ Autobots on Earth.",
+        "options": [
+          "many",
+          "much",
+          "a little",
+          "little"
+        ],
+        "answer": "many",
+        "why": "Autobots — sanaladi, inkor → many."
+      },
+      {
+        "q": "The Decepticons have ___ weapons.",
+        "options": [
+          "a lot of",
+          "much",
+          "a little",
+          "little"
+        ],
+        "answer": "a lot of",
+        "why": "Ijobiy gap, ko'p miqdor → a lot of."
+      },
+      {
+        "q": "There is very ___ time to stop them.",
+        "options": [
+          "little",
+          "few",
+          "many",
+          "a few"
+        ],
+        "answer": "little",
+        "why": "time — sanalmaydi, juda oz (salbiy) → little."
+      },
+      {
+        "q": "He found ___ clues in the glasses.",
+        "options": [
+          "a few",
+          "a little",
+          "much",
+          "little"
+        ],
+        "answer": "a few",
+        "why": "clues — sanaladi, oz lekin bor → a few."
+      },
+      {
+        "q": "How ___ information do you need?",
+        "options": [
+          "much",
+          "many",
+          "few",
+          "a few"
+        ],
+        "answer": "much",
+        "why": "information — sanalmaydi → How much."
+      },
+      {
+        "q": "Can I give you ___ advice?",
+        "options": [
+          "some",
+          "an",
+          "many",
+          "a few"
+        ],
+        "answer": "some",
+        "why": "advice — sanalmaydi: some advice / a piece of advice."
+      },
+      {
+        "q": "How ___ buildings were destroyed?",
+        "options": [
+          "many",
+          "much",
+          "little",
+          "a little"
+        ],
+        "answer": "many",
+        "why": "buildings — sanaladi → How many."
+      }
     ]
   },
   "dictation": [
-    { "text": "Sam Witwicky is an ordinary teenager.", "gap": "ordinary" },
-    { "text": "He can change his shape.", "gap": "shape" },
-    { "text": "The AllSpark is a cube with a lot of power.", "gap": "cube" },
-    { "text": "Sam has very little experience of danger.", "gap": "experience" },
-    { "text": "A lot of buildings are destroyed.", "gap": "buildings" }
+    {
+      "text": "Sam Witwicky is an ordinary teenager.",
+      "gap": "ordinary"
+    },
+    {
+      "text": "He can change his shape.",
+      "gap": "shape"
+    },
+    {
+      "text": "The AllSpark is a cube with a lot of power.",
+      "gap": "cube"
+    },
+    {
+      "text": "Sam has very little experience of danger.",
+      "gap": "experience"
+    },
+    {
+      "text": "A lot of buildings are destroyed.",
+      "gap": "buildings"
+    }
   ],
   "shadowing": [
     "Autobots, roll out!",
     "He doesn't have much money.",
     "There aren't many Autobots on Earth, and there is very little time.",
     "Every small person can make a big difference."
-  ]
+  ],
+  "writing": {
+    "task": "Write about your kitchen or your bag: what is there a lot of, a few, a little, not much, not many? Use countable and uncountable nouns correctly and at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

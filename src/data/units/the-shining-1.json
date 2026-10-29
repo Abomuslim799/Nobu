@@ -20,35 +20,266 @@
     "As the snow was falling outside, the family realised that they were trapped, and that the hotel itself seemed to be alive."
   ],
   "questions": [
-    { "q": "Why did Jack take the job?", "options": ["He wanted a quiet place to write", "He needed to cook", "He loved skiing", "He owned the hotel"], "answer": "He wanted a quiet place to write" },
-    { "q": "Why does the hotel close in winter?", "options": ["The roads become impossible to use", "Nobody likes it", "It's too hot", "The owner is ill"], "answer": "The roads become impossible to use" },
-    { "q": "What can Danny do?", "options": ["See the past and the future", "Fly", "Speak to animals", "Read very fast"], "answer": "See the past and the future" },
-    { "q": "What did Wendy find on Jack's pages?", "options": ["The same sentence again and again", "A great novel", "A letter to her", "Nothing"], "answer": "The same sentence again and again" },
-    { "q": "What was happening outside at the end?", "options": ["Snow was falling", "The sun was shining", "It was raining", "People were arriving"], "answer": "Snow was falling" }
+    {
+      "q": "Why did Jack take the job?",
+      "options": [
+        "He wanted a quiet place to write",
+        "He needed to cook",
+        "He loved skiing",
+        "He owned the hotel"
+      ],
+      "answer": "He wanted a quiet place to write"
+    },
+    {
+      "q": "Why does the hotel close in winter?",
+      "options": [
+        "The roads become impossible to use",
+        "Nobody likes it",
+        "It's too hot",
+        "The owner is ill"
+      ],
+      "answer": "The roads become impossible to use"
+    },
+    {
+      "q": "What can Danny do?",
+      "options": [
+        "See the past and the future",
+        "Fly",
+        "Speak to animals",
+        "Read very fast"
+      ],
+      "answer": "See the past and the future"
+    },
+    {
+      "q": "What did Wendy find on Jack's pages?",
+      "options": [
+        "The same sentence again and again",
+        "A great novel",
+        "A letter to her",
+        "Nothing"
+      ],
+      "answer": "The same sentence again and again"
+    },
+    {
+      "q": "What was happening outside at the end?",
+      "options": [
+        "Snow was falling",
+        "The sun was shining",
+        "It was raining",
+        "People were arriving"
+      ],
+      "answer": "Snow was falling"
+    }
   ],
   "vocab": [
-    { "id": "sh1-novel", "word": "novel", "ipa": "/ˈnɒv.əl/", "emoji": "📕", "translation": "roman", "example": "He was looking for a quiet place to write a novel." },
-    { "id": "sh1-caretaker", "word": "caretaker", "ipa": "/ˈkeəˌteɪ.kə/", "emoji": "🔑", "translation": "qorovul, nazoratchi", "example": "He got a job as the winter caretaker." },
-    { "id": "sh1-mountain", "word": "mountain", "ipa": "/ˈmaʊn.tɪn/", "emoji": "🏔", "translation": "tog'", "example": "The hotel is high in the mountains." },
-    { "id": "sh1-manager", "word": "manager", "ipa": "/ˈmæn.ɪ.dʒə/", "emoji": "🧑‍💼", "translation": "menejer, rahbar", "example": "The manager was showing them the hotel." },
-    { "id": "sh1-mention", "word": "mention", "ipa": "/ˈmen.ʃən/", "emoji": "💬", "translation": "tilga olmoq", "example": "He mentioned something strange." },
-    { "id": "sh1-previous", "word": "previous", "ipa": "/ˈpriː.vi.əs/", "emoji": "⏮", "translation": "oldingi", "example": "A previous caretaker had gone mad there." },
-    { "id": "sh1-special", "word": "special", "ipa": "/ˈspeʃ.əl/", "emoji": "✨", "translation": "maxsus, alohida", "example": "Danny has a special ability." },
-    { "id": "sh1-corridor", "word": "corridor", "ipa": "/ˈkɒr.ɪ.dɔː/", "emoji": "🚪", "translation": "yo'lak", "example": "He was riding along the empty corridors." },
-    { "id": "sh1-typewriter", "word": "typewriter", "ipa": "/ˈtaɪpˌraɪ.tə/", "emoji": "⌨️", "translation": "yozuv mashinkasi", "example": "Jack was sitting at his typewriter." },
-    { "id": "sh1-silence", "word": "silence", "ipa": "/ˈsaɪ.ləns/", "emoji": "🤫", "translation": "sukunat", "example": "The silence was slowly changing him." },
-    { "id": "sh1-isolation", "word": "isolation", "ipa": "/ˌaɪ.səlˈeɪ.ʃən/", "emoji": "🏝", "translation": "yolg'izlik, ajralib qolish", "example": "The silence and the isolation were slowly changing him." },
-    { "id": "sh1-hall", "word": "hall", "ipa": "/hɔːl/", "emoji": "🏛", "translation": "zal, dahliz", "example": "Wendy was walking through the hall." },
-    { "id": "sh1-sentence", "word": "sentence", "ipa": "/ˈsen.təns/", "emoji": "✍️", "translation": "gap, jumla", "example": "He had typed the same sentence again and again." },
-    { "id": "sh1-snow", "word": "snow", "ipa": "/snəʊ/", "emoji": "❄️", "translation": "qor", "example": "The snow was falling outside." },
-    { "id": "sh1-trapped", "word": "trapped", "ipa": "/træpt/", "emoji": "🪤", "translation": "qamalib qolgan", "example": "They realised that they were trapped." }
+    {
+      "id": "sh1-novel",
+      "word": "novel",
+      "ipa": "/ˈnɒv.əl/",
+      "emoji": "📕",
+      "translation": "roman",
+      "example": "He was looking for a quiet place to write a novel."
+    },
+    {
+      "id": "sh1-caretaker",
+      "word": "caretaker",
+      "ipa": "/ˈkeəˌteɪ.kə/",
+      "emoji": "🔑",
+      "translation": "qorovul, nazoratchi",
+      "example": "He got a job as the winter caretaker."
+    },
+    {
+      "id": "sh1-mountain",
+      "word": "mountain",
+      "ipa": "/ˈmaʊn.tɪn/",
+      "emoji": "🏔",
+      "translation": "tog'",
+      "example": "The hotel is high in the mountains."
+    },
+    {
+      "id": "sh1-manager",
+      "word": "manager",
+      "ipa": "/ˈmæn.ɪ.dʒə/",
+      "emoji": "🧑‍💼",
+      "translation": "menejer, rahbar",
+      "example": "The manager was showing them the hotel."
+    },
+    {
+      "id": "sh1-mention",
+      "word": "mention",
+      "ipa": "/ˈmen.ʃən/",
+      "emoji": "💬",
+      "translation": "tilga olmoq",
+      "example": "He mentioned something strange."
+    },
+    {
+      "id": "sh1-previous",
+      "word": "previous",
+      "ipa": "/ˈpriː.vi.əs/",
+      "emoji": "⏮",
+      "translation": "oldingi",
+      "example": "A previous caretaker had gone mad there."
+    },
+    {
+      "id": "sh1-special",
+      "word": "special",
+      "ipa": "/ˈspeʃ.əl/",
+      "emoji": "✨",
+      "translation": "maxsus, alohida",
+      "example": "Danny has a special ability."
+    },
+    {
+      "id": "sh1-corridor",
+      "word": "corridor",
+      "ipa": "/ˈkɒr.ɪ.dɔː/",
+      "emoji": "🚪",
+      "translation": "yo'lak",
+      "example": "He was riding along the empty corridors."
+    },
+    {
+      "id": "sh1-typewriter",
+      "word": "typewriter",
+      "ipa": "/ˈtaɪpˌraɪ.tə/",
+      "emoji": "⌨️",
+      "translation": "yozuv mashinkasi",
+      "example": "Jack was sitting at his typewriter."
+    },
+    {
+      "id": "sh1-silence",
+      "word": "silence",
+      "ipa": "/ˈsaɪ.ləns/",
+      "emoji": "🤫",
+      "translation": "sukunat",
+      "example": "The silence was slowly changing him."
+    },
+    {
+      "id": "sh1-isolation",
+      "word": "isolation",
+      "ipa": "/ˌaɪ.səlˈeɪ.ʃən/",
+      "emoji": "🏝",
+      "translation": "yolg'izlik, ajralib qolish",
+      "example": "The silence and the isolation were slowly changing him."
+    },
+    {
+      "id": "sh1-hall",
+      "word": "hall",
+      "ipa": "/hɔːl/",
+      "emoji": "🏛",
+      "translation": "zal, dahliz",
+      "example": "Wendy was walking through the hall."
+    },
+    {
+      "id": "sh1-sentence",
+      "word": "sentence",
+      "ipa": "/ˈsen.təns/",
+      "emoji": "✍️",
+      "translation": "gap, jumla",
+      "example": "He had typed the same sentence again and again."
+    },
+    {
+      "id": "sh1-snow",
+      "word": "snow",
+      "ipa": "/snəʊ/",
+      "emoji": "❄️",
+      "translation": "qor",
+      "example": "The snow was falling outside."
+    },
+    {
+      "id": "sh1-trapped",
+      "word": "trapped",
+      "ipa": "/træpt/",
+      "emoji": "🪤",
+      "translation": "qamalib qolgan",
+      "example": "They realised that they were trapped."
+    }
   ],
   "collocations": [
-    { "id": "sh1-c-job", "word": "get a job", "ipa": "/ˌɡet ə ˈdʒɒb/", "emoji": "💼", "translation": "ishga kirmoq", "example": "He got a job as the winter caretaker.", "cloze": "got a job" },
-    { "id": "sh1-c-mad", "word": "go mad", "ipa": "/ˌɡəʊ ˈmæd/", "emoji": "🤯", "translation": "aqldan ozmoq", "example": "A previous caretaker had gone mad there.", "cloze": "gone mad" },
-    { "id": "sh1-c-look", "word": "look for", "ipa": "/ˈlʊk fɔː/", "emoji": "🔍", "translation": "qidirmoq", "example": "He was looking for a quiet place.", "cloze": "looking for" },
-    { "id": "sh1-c-quiet", "word": "a quiet place", "ipa": "/ə ˌkwaɪ.ət ˈpleɪs/", "emoji": "🌲", "translation": "sokin joy", "example": "He was looking for a quiet place to write." },
-    { "id": "sh1-c-again", "word": "again and again", "ipa": "/əˌɡen ən əˈɡen/", "emoji": "🔁", "translation": "qayta-qayta", "example": "He had typed the same sentence again and again." }
+    {
+      "id": "sh1-c-job",
+      "word": "get a job",
+      "ipa": "/ˌɡet ə ˈdʒɒb/",
+      "emoji": "💼",
+      "translation": "ishga kirmoq",
+      "example": "He got a job as the winter caretaker.",
+      "cloze": "got a job"
+    },
+    {
+      "id": "sh1-c-mad",
+      "word": "go mad",
+      "ipa": "/ˌɡəʊ ˈmæd/",
+      "emoji": "🤯",
+      "translation": "aqldan ozmoq",
+      "example": "A previous caretaker had gone mad there.",
+      "cloze": "gone mad"
+    },
+    {
+      "id": "sh1-c-look",
+      "word": "look for",
+      "ipa": "/ˈlʊk fɔː/",
+      "emoji": "🔍",
+      "translation": "qidirmoq",
+      "example": "He was looking for a quiet place.",
+      "cloze": "looking for"
+    },
+    {
+      "id": "sh1-c-quiet",
+      "word": "a quiet place",
+      "ipa": "/ə ˌkwaɪ.ət ˈpleɪs/",
+      "emoji": "🌲",
+      "translation": "sokin joy",
+      "example": "He was looking for a quiet place to write."
+    },
+    {
+      "id": "sh1-c-again",
+      "word": "again and again",
+      "ipa": "/əˌɡen ən əˈɡen/",
+      "emoji": "🔁",
+      "translation": "qayta-qayta",
+      "example": "He had typed the same sentence again and again."
+    },
+    {
+      "id": "sh1-c-place",
+      "word": "the same place",
+      "ipa": "/ðə ˌseɪm ˈpleɪs/",
+      "emoji": "📍",
+      "translation": "o'sha joy",
+      "example": "He stayed in the same place all winter."
+    },
+    {
+      "id": "sh1-c-move",
+      "word": "move to",
+      "ipa": "/ˈmuːv tə/",
+      "emoji": "🚚",
+      "translation": "... ga ko'chib o'tmoq",
+      "example": "Jack moves there with his wife and son.",
+      "cloze": "moves there"
+    },
+    {
+      "id": "sh1-c-close",
+      "word": "close for the winter",
+      "ipa": "/ˌkləʊz fə ðə ˈwɪn.tə/",
+      "emoji": "🔒",
+      "translation": "qishga yopilmoq",
+      "example": "The hotel closes every winter.",
+      "cloze": "closes every winter"
+    },
+    {
+      "id": "sh1-c-ability",
+      "word": "a special ability",
+      "ipa": "/ə ˌspeʃ.əl əˈbɪl.ə.ti/",
+      "emoji": "✨",
+      "translation": "alohida qobiliyat",
+      "example": "Danny has a special ability called the shining."
+    },
+    {
+      "id": "sh1-c-slowly",
+      "word": "slowly change",
+      "ipa": "/ˌsləʊ.li ˈtʃeɪndʒ/",
+      "emoji": "🐢",
+      "translation": "asta-sekin o'zgarmoq",
+      "example": "The isolation was slowly changing him.",
+      "cloze": "slowly changing"
+    }
   ],
   "grammar": {
     "title": "Past Continuous va Past Simple: while / when",
@@ -59,27 +290,126 @@
       "Ikki parallel jarayon: While Wendy **was walking**, Jack **was typing**. Holat fe'llari (know, want, like) continuous olmaydi: I **knew** him (I was knowing emas)."
     ],
     "exercises": [
-      { "q": "While Danny ___ his tricycle, he saw two girls.", "options": ["was riding", "rode", "is riding", "were riding"], "answer": "was riding", "why": "Uzoq jarayon: was riding." },
-      { "q": "Wendy was walking through the hall when she ___ the pages.", "options": ["saw", "was seeing", "sees", "has seen"], "answer": "saw", "why": "Qisqa voqea: Past Simple." },
-      { "q": "At 8 o'clock yesterday, I ___ dinner.", "options": ["was having", "had having", "am having", "have"], "answer": "was having", "why": "Ma'lum paytda davom etayotgan: was having." },
-      { "q": "The phone rang ___ I was taking a shower.", "options": ["while", "during", "for", "since"], "answer": "while", "why": "while + jarayon (gap)." },
-      { "q": "They ___ TV when the lights went out.", "options": ["were watching", "was watching", "watched were", "watch"], "answer": "were watching", "why": "They → were + -ing." },
-      { "q": "I ___ the answer, so I told her.", "options": ["knew", "was knowing", "were knowing", "know"], "answer": "knew", "why": "know — holat fe'li, continuous yo'q." },
-      { "q": "What ___ you doing at midnight?", "options": ["were", "did", "was", "are"], "answer": "were", "why": "Savol: What were you doing?" },
-      { "q": "It was snowing and the wind ___.", "options": ["was blowing", "blew was", "is blowing", "blowed"], "answer": "was blowing", "why": "Parallel fon jarayoni: was blowing." }
+      {
+        "q": "While Danny ___ his tricycle, he saw two girls.",
+        "options": [
+          "was riding",
+          "rode",
+          "is riding",
+          "were riding"
+        ],
+        "answer": "was riding",
+        "why": "Uzoq jarayon: was riding."
+      },
+      {
+        "q": "Wendy was walking through the hall when she ___ the pages.",
+        "options": [
+          "saw",
+          "was seeing",
+          "sees",
+          "has seen"
+        ],
+        "answer": "saw",
+        "why": "Qisqa voqea: Past Simple."
+      },
+      {
+        "q": "At 8 o'clock yesterday, I ___ dinner.",
+        "options": [
+          "was having",
+          "had having",
+          "am having",
+          "have"
+        ],
+        "answer": "was having",
+        "why": "Ma'lum paytda davom etayotgan: was having."
+      },
+      {
+        "q": "The phone rang ___ I was taking a shower.",
+        "options": [
+          "while",
+          "during",
+          "for",
+          "since"
+        ],
+        "answer": "while",
+        "why": "while + jarayon (gap)."
+      },
+      {
+        "q": "They ___ TV when the lights went out.",
+        "options": [
+          "were watching",
+          "was watching",
+          "watched were",
+          "watch"
+        ],
+        "answer": "were watching",
+        "why": "They → were + -ing."
+      },
+      {
+        "q": "I ___ the answer, so I told her.",
+        "options": [
+          "knew",
+          "was knowing",
+          "were knowing",
+          "know"
+        ],
+        "answer": "knew",
+        "why": "know — holat fe'li, continuous yo'q."
+      },
+      {
+        "q": "What ___ you doing at midnight?",
+        "options": [
+          "were",
+          "did",
+          "was",
+          "are"
+        ],
+        "answer": "were",
+        "why": "Savol: What were you doing?"
+      },
+      {
+        "q": "It was snowing and the wind ___.",
+        "options": [
+          "was blowing",
+          "blew was",
+          "is blowing",
+          "blowed"
+        ],
+        "answer": "was blowing",
+        "why": "Parallel fon jarayoni: was blowing."
+      }
     ]
   },
   "dictation": [
-    { "text": "He was looking for a quiet place to write a novel.", "gap": "novel" },
-    { "text": "The hotel is high in the mountains.", "gap": "mountains" },
-    { "text": "A previous caretaker had gone mad there.", "gap": "previous" },
-    { "text": "The silence was slowly changing him.", "gap": "silence" },
-    { "text": "They realised that they were trapped.", "gap": "trapped" }
+    {
+      "text": "He was looking for a quiet place to write a novel.",
+      "gap": "novel"
+    },
+    {
+      "text": "The hotel is high in the mountains.",
+      "gap": "mountains"
+    },
+    {
+      "text": "A previous caretaker had gone mad there.",
+      "gap": "previous"
+    },
+    {
+      "text": "The silence was slowly changing him.",
+      "gap": "silence"
+    },
+    {
+      "text": "They realised that they were trapped.",
+      "gap": "trapped"
+    }
   ],
   "shadowing": [
     "All work and no play makes Jack a dull boy.",
     "While he was riding along the corridors, he saw two little girls.",
     "Every day Jack was sitting at his typewriter, but he wasn't writing a book.",
     "As the snow was falling outside, they realised they were trapped."
-  ]
+  ],
+  "writing": {
+    "task": "Describe an evening when something strange happened to you. What were you doing when it happened? Use Past Continuous and Past Simple, and at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

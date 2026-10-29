@@ -243,6 +243,48 @@
       "example": "A council meets to discuss the danger.",
       "cloze": "discuss the danger",
       "note": "discuss ABOUT emas — discuss sth"
+    },
+    {
+      "id": "lotr1-c-ring",
+      "word": "a gold ring",
+      "ipa": "/ə ˌɡəʊld ˈrɪŋ/",
+      "emoji": "💍",
+      "translation": "oltin uzuk",
+      "example": "His uncle gives him a gold ring."
+    },
+    {
+      "id": "lotr1-c-world",
+      "word": "rule the world",
+      "ipa": "/ˌruːl ðə ˈwɜːld/",
+      "emoji": "🌍",
+      "translation": "dunyoga hukmronlik qilmoq",
+      "example": "He will rule the whole world.",
+      "cloze": "rule the whole world"
+    },
+    {
+      "id": "lotr1-c-journey",
+      "word": "continue a journey",
+      "ipa": "/kənˌtɪn.juː ə ˈdʒɜː.ni/",
+      "emoji": "🗺",
+      "translation": "safarni davom ettirmoq",
+      "example": "The two friends continue the journey together.",
+      "cloze": "continue the journey"
+    },
+    {
+      "id": "lotr1-c-hard",
+      "word": "a hard choice",
+      "ipa": "/ə ˌhɑːd ˈtʃɔɪs/",
+      "emoji": "⚖️",
+      "translation": "qiyin tanlov",
+      "example": "He makes a hard choice."
+    },
+    {
+      "id": "lotr1-c-together",
+      "word": "go together",
+      "ipa": "/ˌɡəʊ təˈɡeð.ə/",
+      "emoji": "👫",
+      "translation": "birga bormoq",
+      "example": "Sam decides to go with him, and they go together."
     }
   ],
   "grammar": {
@@ -393,5 +435,9 @@
     "If Sauron gets it back, he will rule the whole world.",
     "I'm going to take it.",
     "I'm leaving tomorrow, and I will go alone."
-  ]
+  ],
+  "writing": {
+    "task": "Write about your plans for the next year. What are you going to do, what will probably happen, and what have you already arranged? Use will, going to and Present Continuous, plus at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

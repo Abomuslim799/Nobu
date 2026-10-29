@@ -20,35 +20,268 @@
     "Cooper falls into the black hole and discovers that he can send a message to Murph across time. The strange signs in her room were from him all along."
   ],
   "questions": [
-    { "q": "What has been destroying the crops?", "options": ["Dust storms", "Floods", "Insects", "Fires"], "answer": "Dust storms" },
-    { "q": "What did Cooper use to do?", "options": ["He was a NASA pilot", "He was a teacher", "He was a doctor", "He was a soldier"], "answer": "He was a NASA pilot" },
-    { "q": "What have scientists found near Saturn?", "options": ["A wormhole", "A new planet", "Water", "Another spaceship"], "answer": "A wormhole" },
-    { "q": "On the first planet, one hour equals...", "options": ["seven years on Earth", "one day on Earth", "a minute on Earth", "a hundred years on Earth"], "answer": "seven years on Earth" },
-    { "q": "Who sent the strange signs to Murph?", "options": ["Cooper", "A ghost", "Her brother", "NASA"], "answer": "Cooper" }
+    {
+      "q": "What has been destroying the crops?",
+      "options": [
+        "Dust storms",
+        "Floods",
+        "Insects",
+        "Fires"
+      ],
+      "answer": "Dust storms"
+    },
+    {
+      "q": "What did Cooper use to do?",
+      "options": [
+        "He was a NASA pilot",
+        "He was a teacher",
+        "He was a doctor",
+        "He was a soldier"
+      ],
+      "answer": "He was a NASA pilot"
+    },
+    {
+      "q": "What have scientists found near Saturn?",
+      "options": [
+        "A wormhole",
+        "A new planet",
+        "Water",
+        "Another spaceship"
+      ],
+      "answer": "A wormhole"
+    },
+    {
+      "q": "On the first planet, one hour equals...",
+      "options": [
+        "seven years on Earth",
+        "one day on Earth",
+        "a minute on Earth",
+        "a hundred years on Earth"
+      ],
+      "answer": "seven years on Earth"
+    },
+    {
+      "q": "Who sent the strange signs to Murph?",
+      "options": [
+        "Cooper",
+        "A ghost",
+        "Her brother",
+        "NASA"
+      ],
+      "answer": "Cooper"
+    }
   ],
   "vocab": [
-    { "id": "int1-dust", "word": "dust", "ipa": "/dʌst/", "emoji": "🌫", "translation": "chang", "example": "Dust storms have been destroying crops for years." },
-    { "id": "int1-storm", "word": "storm", "ipa": "/stɔːm/", "emoji": "⛈", "translation": "bo'ron", "example": "Dust storms have been destroying crops for years." },
-    { "id": "int1-crop", "word": "crop", "ipa": "/krɒp/", "emoji": "🌾", "translation": "hosil, ekin", "example": "Dust storms have been destroying crops." },
-    { "id": "int1-pilot", "word": "pilot", "ipa": "/ˈpaɪ.lət/", "emoji": "🧑‍✈️", "translation": "uchuvchi", "example": "Cooper used to be a pilot for NASA." },
-    { "id": "int1-sign", "word": "sign", "ipa": "/saɪn/", "emoji": "🪧", "translation": "belgi", "example": "Murph has been noticing strange signs in her bedroom.", "note": "g o'qilmaydi" },
-    { "id": "int1-shelf", "word": "shelf", "ipa": "/ʃelf/", "emoji": "📚", "translation": "javon tokchasi", "example": "Books fall from the shelves for no reason.", "cloze": "shelves", "note": "ko'plik: shelves" },
-    { "id": "int1-humanity", "word": "humanity", "ipa": "/hjuːˈmæn.ə.ti/", "emoji": "🌍", "translation": "insoniyat", "example": "Scientists have been working on a plan to save humanity." },
-    { "id": "int1-galaxy", "word": "galaxy", "ipa": "/ˈɡæl.ək.si/", "emoji": "🌌", "translation": "galaktika", "example": "The wormhole leads to another galaxy." },
-    { "id": "int1-mission", "word": "mission", "ipa": "/ˈmɪʃ.ən/", "emoji": "🚀", "translation": "missiya, vazifa", "example": "Cooper agrees to fly the mission." },
-    { "id": "int1-furious", "word": "furious", "ipa": "/ˈfjʊə.ri.əs/", "emoji": "😤", "translation": "qattiq jahli chiqqan", "example": "Murph is furious." },
-    { "id": "int1-equal", "word": "equal", "ipa": "/ˈiː.kwəl/", "emoji": "🟰", "translation": "teng bo'lmoq", "example": "One hour there equals seven years on Earth." },
-    { "id": "int1-colleague", "word": "colleague", "ipa": "/ˈkɒl.iːɡ/", "emoji": "👩‍🔬", "translation": "hamkasb", "example": "Their colleague has been waiting for them for twenty-three years." },
-    { "id": "int1-scientist", "word": "scientist", "ipa": "/ˈsaɪən.tɪst/", "emoji": "🔬", "translation": "olim", "example": "Murph has become a scientist." },
-    { "id": "int1-equation", "word": "equation", "ipa": "/ɪˈkweɪ.ʒən/", "emoji": "🧮", "translation": "tenglama", "example": "She has been trying to solve the equation." },
-    { "id": "int1-discover", "word": "discover", "ipa": "/dɪˈskʌv.ə/", "emoji": "🔭", "translation": "kashf qilmoq, bilib olmoq", "example": "Cooper discovers that he can send a message across time." }
+    {
+      "id": "int1-dust",
+      "word": "dust",
+      "ipa": "/dʌst/",
+      "emoji": "🌫",
+      "translation": "chang",
+      "example": "Dust storms have been destroying crops for years."
+    },
+    {
+      "id": "int1-storm",
+      "word": "storm",
+      "ipa": "/stɔːm/",
+      "emoji": "⛈",
+      "translation": "bo'ron",
+      "example": "Dust storms have been destroying crops for years."
+    },
+    {
+      "id": "int1-crop",
+      "word": "crop",
+      "ipa": "/krɒp/",
+      "emoji": "🌾",
+      "translation": "hosil, ekin",
+      "example": "Dust storms have been destroying crops."
+    },
+    {
+      "id": "int1-pilot",
+      "word": "pilot",
+      "ipa": "/ˈpaɪ.lət/",
+      "emoji": "🧑‍✈️",
+      "translation": "uchuvchi",
+      "example": "Cooper used to be a pilot for NASA."
+    },
+    {
+      "id": "int1-sign",
+      "word": "sign",
+      "ipa": "/saɪn/",
+      "emoji": "🪧",
+      "translation": "belgi",
+      "example": "Murph has been noticing strange signs in her bedroom.",
+      "note": "g o'qilmaydi"
+    },
+    {
+      "id": "int1-shelf",
+      "word": "shelf",
+      "ipa": "/ʃelf/",
+      "emoji": "📚",
+      "translation": "javon tokchasi",
+      "example": "Books fall from the shelves for no reason.",
+      "cloze": "shelves",
+      "note": "ko'plik: shelves"
+    },
+    {
+      "id": "int1-humanity",
+      "word": "humanity",
+      "ipa": "/hjuːˈmæn.ə.ti/",
+      "emoji": "🌍",
+      "translation": "insoniyat",
+      "example": "Scientists have been working on a plan to save humanity."
+    },
+    {
+      "id": "int1-galaxy",
+      "word": "galaxy",
+      "ipa": "/ˈɡæl.ək.si/",
+      "emoji": "🌌",
+      "translation": "galaktika",
+      "example": "The wormhole leads to another galaxy."
+    },
+    {
+      "id": "int1-mission",
+      "word": "mission",
+      "ipa": "/ˈmɪʃ.ən/",
+      "emoji": "🚀",
+      "translation": "missiya, vazifa",
+      "example": "Cooper agrees to fly the mission."
+    },
+    {
+      "id": "int1-furious",
+      "word": "furious",
+      "ipa": "/ˈfjʊə.ri.əs/",
+      "emoji": "😤",
+      "translation": "qattiq jahli chiqqan",
+      "example": "Murph is furious."
+    },
+    {
+      "id": "int1-equal",
+      "word": "equal",
+      "ipa": "/ˈiː.kwəl/",
+      "emoji": "🟰",
+      "translation": "teng bo'lmoq",
+      "example": "One hour there equals seven years on Earth."
+    },
+    {
+      "id": "int1-colleague",
+      "word": "colleague",
+      "ipa": "/ˈkɒl.iːɡ/",
+      "emoji": "👩‍🔬",
+      "translation": "hamkasb",
+      "example": "Their colleague has been waiting for them for twenty-three years."
+    },
+    {
+      "id": "int1-scientist",
+      "word": "scientist",
+      "ipa": "/ˈsaɪən.tɪst/",
+      "emoji": "🔬",
+      "translation": "olim",
+      "example": "Murph has become a scientist."
+    },
+    {
+      "id": "int1-equation",
+      "word": "equation",
+      "ipa": "/ɪˈkweɪ.ʒən/",
+      "emoji": "🧮",
+      "translation": "tenglama",
+      "example": "She has been trying to solve the equation."
+    },
+    {
+      "id": "int1-discover",
+      "word": "discover",
+      "ipa": "/dɪˈskʌv.ə/",
+      "emoji": "🔭",
+      "translation": "kashf qilmoq, bilib olmoq",
+      "example": "Cooper discovers that he can send a message across time."
+    }
   ],
   "collocations": [
-    { "id": "int1-c-run", "word": "run out of", "ipa": "/ˌrʌn ˈaʊt əv/", "emoji": "🪫", "translation": "tugab qolmoq", "example": "The world is slowly running out of food.", "cloze": "running out of" },
-    { "id": "int1-c-grow", "word": "grow up", "ipa": "/ˌɡrəʊ ˈʌp/", "emoji": "🧒", "translation": "ulg'aymoq", "example": "Murph has grown up.", "cloze": "grown up" },
-    { "id": "int1-c-reason", "word": "for no reason", "ipa": "/fə ˌnəʊ ˈriː.zən/", "emoji": "🤷", "translation": "hech qanday sababsiz", "example": "Books fall from the shelves for no reason." },
-    { "id": "int1-c-promise", "word": "make a promise", "ipa": "/ˌmeɪk ə ˈprɒm.ɪs/", "emoji": "🤞", "translation": "va'da bermoq", "example": "He makes a promise to come back." },
-    { "id": "int1-c-along", "word": "all along", "ipa": "/ˌɔːl əˈlɒŋ/", "emoji": "🔁", "translation": "boshidan beri", "example": "The signs were from him all along." }
+    {
+      "id": "int1-c-run",
+      "word": "run out of",
+      "ipa": "/ˌrʌn ˈaʊt əv/",
+      "emoji": "🪫",
+      "translation": "tugab qolmoq",
+      "example": "The world is slowly running out of food.",
+      "cloze": "running out of"
+    },
+    {
+      "id": "int1-c-grow",
+      "word": "grow up",
+      "ipa": "/ˌɡrəʊ ˈʌp/",
+      "emoji": "🧒",
+      "translation": "ulg'aymoq",
+      "example": "Murph has grown up.",
+      "cloze": "grown up"
+    },
+    {
+      "id": "int1-c-reason",
+      "word": "for no reason",
+      "ipa": "/fə ˌnəʊ ˈriː.zən/",
+      "emoji": "🤷",
+      "translation": "hech qanday sababsiz",
+      "example": "Books fall from the shelves for no reason."
+    },
+    {
+      "id": "int1-c-promise",
+      "word": "make a promise",
+      "ipa": "/ˌmeɪk ə ˈprɒm.ɪs/",
+      "emoji": "🤞",
+      "translation": "va'da bermoq",
+      "example": "He makes a promise to come back."
+    },
+    {
+      "id": "int1-c-along",
+      "word": "all along",
+      "ipa": "/ˌɔːl əˈlɒŋ/",
+      "emoji": "🔁",
+      "translation": "boshidan beri",
+      "example": "The signs were from him all along."
+    },
+    {
+      "id": "int1-c-lead",
+      "word": "lead to",
+      "ipa": "/ˈliːd tə/",
+      "emoji": "➡️",
+      "translation": "... ga olib bormoq",
+      "example": "The signs lead Cooper to a secret NASA base.",
+      "cloze": "lead Cooper to"
+    },
+    {
+      "id": "int1-c-save",
+      "word": "save humanity",
+      "ipa": "/ˌseɪv hjuːˈmæn.ə.ti/",
+      "emoji": "🌍",
+      "translation": "insoniyatni qutqarmoq",
+      "example": "They have a plan to save humanity."
+    },
+    {
+      "id": "int1-c-solve",
+      "word": "solve an equation",
+      "ipa": "/ˌsɒlv ən ɪˈkweɪ.ʒən/",
+      "emoji": "🧮",
+      "translation": "tenglamani yechmoq",
+      "example": "She has been trying to solve the equation.",
+      "cloze": "solve the equation"
+    },
+    {
+      "id": "int1-c-fly",
+      "word": "fly a mission",
+      "ipa": "/ˌflaɪ ə ˈmɪʃ.ən/",
+      "emoji": "🚀",
+      "translation": "missiyani boshqarib uchmoq",
+      "example": "Cooper agrees to fly the mission.",
+      "cloze": "fly the mission"
+    },
+    {
+      "id": "int1-c-near",
+      "word": "the near future",
+      "ipa": "/ðə ˌnɪə ˈfjuː.tʃə/",
+      "emoji": "🔮",
+      "translation": "yaqin kelajak",
+      "example": "In the near future, dust storms destroy crops."
+    }
   ],
   "grammar": {
     "title": "Present Perfect Continuous",
@@ -59,27 +292,126 @@
       "Continuous bilan farqi: I **have read** the book (tugatdim, natija) / I **have been reading** the book (jarayon, hali tugamagan bo'lishi mumkin). Holat fe'llari (know, like, own) continuous olmaydi: I've **known** him for years."
     ],
     "exercises": [
-      { "q": "Scientists ___ on the plan for ten years.", "options": ["have been working", "are working since", "work", "had working"], "answer": "have been working", "why": "for + hozirgacha davom → Present Perfect Continuous." },
-      { "q": "How long ___ you been learning English?", "options": ["have", "are", "do", "did"], "answer": "have", "why": "Savol: How long have you been + -ing?" },
-      { "q": "Murph ___ strange signs since she was a child.", "options": ["has been noticing", "is noticing", "notices", "have been noticing"], "answer": "has been noticing", "why": "3-shaxs birlik: has been." },
-      { "q": "Your eyes are red. ___ you been crying?", "options": ["Have", "Has", "Are", "Did"], "answer": "Have", "why": "Hozirgi natija sababi: Have you been crying?" },
-      { "q": "I ___ him since school.", "options": ["have known", "have been knowing", "am knowing", "know since"], "answer": "have known", "why": "know — holat fe'li, continuous olmaydi." },
-      { "q": "It ___ all day. The streets are wet.", "options": ["has been raining", "rains", "is raining since", "had rain"], "answer": "has been raining", "why": "Davomli jarayon + ko'rinib turgan natija." },
-      { "q": "I've been writing emails ___ 9 o'clock.", "options": ["since", "for", "ago", "during"], "answer": "since", "why": "Boshlanish nuqtasi → since." },
-      { "q": "I ___ three chapters today. (natija: 3 ta tugadi)", "options": ["have read", "have been reading", "am reading", "read since"], "answer": "have read", "why": "Miqdor/natija muhim → Present Perfect Simple." }
+      {
+        "q": "Scientists ___ on the plan for ten years.",
+        "options": [
+          "have been working",
+          "are working since",
+          "work",
+          "had working"
+        ],
+        "answer": "have been working",
+        "why": "for + hozirgacha davom → Present Perfect Continuous."
+      },
+      {
+        "q": "How long ___ you been learning English?",
+        "options": [
+          "have",
+          "are",
+          "do",
+          "did"
+        ],
+        "answer": "have",
+        "why": "Savol: How long have you been + -ing?"
+      },
+      {
+        "q": "Murph ___ strange signs since she was a child.",
+        "options": [
+          "has been noticing",
+          "is noticing",
+          "notices",
+          "have been noticing"
+        ],
+        "answer": "has been noticing",
+        "why": "3-shaxs birlik: has been."
+      },
+      {
+        "q": "Your eyes are red. ___ you been crying?",
+        "options": [
+          "Have",
+          "Has",
+          "Are",
+          "Did"
+        ],
+        "answer": "Have",
+        "why": "Hozirgi natija sababi: Have you been crying?"
+      },
+      {
+        "q": "I ___ him since school.",
+        "options": [
+          "have known",
+          "have been knowing",
+          "am knowing",
+          "know since"
+        ],
+        "answer": "have known",
+        "why": "know — holat fe'li, continuous olmaydi."
+      },
+      {
+        "q": "It ___ all day. The streets are wet.",
+        "options": [
+          "has been raining",
+          "rains",
+          "is raining since",
+          "had rain"
+        ],
+        "answer": "has been raining",
+        "why": "Davomli jarayon + ko'rinib turgan natija."
+      },
+      {
+        "q": "I've been writing emails ___ 9 o'clock.",
+        "options": [
+          "since",
+          "for",
+          "ago",
+          "during"
+        ],
+        "answer": "since",
+        "why": "Boshlanish nuqtasi → since."
+      },
+      {
+        "q": "I ___ three chapters today. (natija: 3 ta tugadi)",
+        "options": [
+          "have read",
+          "have been reading",
+          "am reading",
+          "read since"
+        ],
+        "answer": "have read",
+        "why": "Miqdor/natija muhim → Present Perfect Simple."
+      }
     ]
   },
   "dictation": [
-    { "text": "The world is slowly running out of food.", "gap": "food" },
-    { "text": "Cooper used to be a pilot for NASA.", "gap": "pilot" },
-    { "text": "Cooper agrees to fly the mission.", "gap": "mission" },
-    { "text": "Murph has grown up and become a scientist.", "gap": "scientist" },
-    { "text": "She has been trying to solve the equation.", "gap": "equation" }
+    {
+      "text": "The world is slowly running out of food.",
+      "gap": "food"
+    },
+    {
+      "text": "Cooper used to be a pilot for NASA.",
+      "gap": "pilot"
+    },
+    {
+      "text": "Cooper agrees to fly the mission.",
+      "gap": "mission"
+    },
+    {
+      "text": "Murph has grown up and become a scientist.",
+      "gap": "scientist"
+    },
+    {
+      "text": "She has been trying to solve the equation.",
+      "gap": "equation"
+    }
   ],
   "shadowing": [
     "Mankind was born on Earth. It was never meant to die here.",
     "Scientists have been working on a plan to save humanity.",
     "Their colleague has been waiting for them for twenty-three years.",
     "The signs were from him all along."
-  ]
+  ],
+  "writing": {
+    "task": "Write about something you have been doing for a long time (a hobby, sport, learning). How long have you been doing it and why? Use Present Perfect Continuous and at least 6 words from this movie.",
+    "minWords": 100
+  }
 }

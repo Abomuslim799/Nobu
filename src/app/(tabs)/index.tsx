@@ -11,7 +11,7 @@ import { useProgress } from '@/lib/progress';
 import { dayKey, lastDays } from '@/lib/streak';
 import { AUDIO } from '@/data/audio';
 import { quoteOfDay } from '@/lib/reading';
-import { STEPS, UNITS } from '@/data/units';
+import { STEPS, UNITS, stepsDone } from '@/data/units';
 import { FRIENDS } from '@/lib/edition';
 import { VERSION } from '@/lib/version';
 import { QuoteCard } from '@/ui/quote-card';
@@ -31,7 +31,7 @@ export default function Today() {
     ...(FRIENDS ? [{ done: (today.cards ?? 0) >= 10, label: `${today.cards ?? 0}/10 kartochka` }]
       : [{ done: todayRead >= readGoal, label: `${todayRead}/${readGoal} daq kitob` }]),
   ];
-  const unit = UNITS.find((u) => (data.unitSteps[u.id]?.length ?? 0) < STEPS.length) ?? UNITS[0];
+  const unit = UNITS.find((u) => stepsDone(data.unitSteps[u.id]) < STEPS.length) ?? UNITS[0];
   const goalDone = goals.filter((g) => g.done).length;
 
   return (
@@ -72,7 +72,7 @@ export default function Today() {
         <Card>
           <T dim>Ingliz tili · {unit.emoji} {unit.source}</T>
           <T size={18} bold>{unit.title}</T>
-          <T dim>{data.unitSteps[unit.id]?.length ?? 0}/{STEPS.length} qadam</T>
+          <T dim>{stepsDone(data.unitSteps[unit.id])}/{STEPS.length} qadam</T>
           <Button label="Davom etish" onPress={() => router.push(`/unit/${unit.id}`)} />
         </Card>
       ) : null}

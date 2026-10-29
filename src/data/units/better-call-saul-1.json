@@ -20,35 +20,265 @@
     "Watching the show, you keep thinking: he must have known where this road would take him. Or maybe he couldn't have stopped even if he had wanted to."
   ],
   "questions": [
-    { "q": "Where is Jimmy's first office?", "options": ["In the back of a nail salon", "In a big firm", "At home", "In a court"], "answer": "In the back of a nail salon" },
-    { "q": "What was Jimmy in the past?", "options": ["A con man", "A doctor", "A police officer", "A teacher"], "answer": "A con man" },
-    { "q": "What does Chuck secretly believe?", "options": ["Jimmy can't have changed", "Jimmy is a genius", "Jimmy should be a doctor", "Jimmy is honest"], "answer": "Jimmy can't have changed" },
-    { "q": "Who sees the good side of Jimmy?", "options": ["Kim Wexler", "Chuck", "His clients", "The police"], "answer": "Kim Wexler" },
-    { "q": "Who does Saul Goodman help?", "options": ["Criminals", "Children", "Doctors", "Farmers"], "answer": "Criminals" }
+    {
+      "q": "Where is Jimmy's first office?",
+      "options": [
+        "In the back of a nail salon",
+        "In a big firm",
+        "At home",
+        "In a court"
+      ],
+      "answer": "In the back of a nail salon"
+    },
+    {
+      "q": "What was Jimmy in the past?",
+      "options": [
+        "A con man",
+        "A doctor",
+        "A police officer",
+        "A teacher"
+      ],
+      "answer": "A con man"
+    },
+    {
+      "q": "What does Chuck secretly believe?",
+      "options": [
+        "Jimmy can't have changed",
+        "Jimmy is a genius",
+        "Jimmy should be a doctor",
+        "Jimmy is honest"
+      ],
+      "answer": "Jimmy can't have changed"
+    },
+    {
+      "q": "Who sees the good side of Jimmy?",
+      "options": [
+        "Kim Wexler",
+        "Chuck",
+        "His clients",
+        "The police"
+      ],
+      "answer": "Kim Wexler"
+    },
+    {
+      "q": "Who does Saul Goodman help?",
+      "options": [
+        "Criminals",
+        "Children",
+        "Doctors",
+        "Farmers"
+      ],
+      "answer": "Criminals"
+    }
   ],
   "vocab": [
-    { "id": "bcs1-lawyer", "word": "lawyer", "ipa": "/ˈlɔɪ.ə/", "emoji": "👨‍⚖️", "translation": "advokat, huquqshunos", "example": "Jimmy McGill is a small-time lawyer." },
-    { "id": "bcs1-tiny", "word": "tiny", "ipa": "/ˈtaɪ.ni/", "emoji": "🐜", "translation": "juda kichkina", "example": "He works from a tiny office." },
-    { "id": "bcs1-charm", "word": "charm", "ipa": "/tʃɑːm/", "emoji": "😏", "translation": "jozibadorlik", "example": "He has a lot of energy and charm." },
-    { "id": "bcs1-client", "word": "client", "ipa": "/ˈklaɪ.ənt/", "emoji": "🧑‍💼", "translation": "mijoz", "example": "He has very few clients." },
-    { "id": "bcs1-trick", "word": "trick", "ipa": "/trɪk/", "emoji": "🃏", "translation": "aldamoq; hiyla", "example": "He must have tricked hundreds of people." },
-    { "id": "bcs1-respected", "word": "respected", "ipa": "/rɪˈspek.tɪd/", "emoji": "🎩", "translation": "hurmatli, obro'li", "example": "Chuck is a respected lawyer at a big firm." },
-    { "id": "bcs1-firm", "word": "firm", "ipa": "/fɜːm/", "emoji": "🏢", "translation": "firma, kompaniya", "example": "Chuck works at a big firm." },
-    { "id": "bcs1-support", "word": "support", "ipa": "/səˈpɔːt/", "emoji": "🫂", "translation": "qo'llab-quvvatlamoq", "example": "He seems to support Jimmy." },
-    { "id": "bcs1-secretly", "word": "secretly", "ipa": "/ˈsiː.krət.li/", "emoji": "🤫", "translation": "yashirincha", "example": "Secretly he believes that Jimmy can't have changed." },
-    { "id": "bcs1-cheat", "word": "cheat", "ipa": "/tʃiːt/", "emoji": "🎭", "translation": "aldamoq, firibgarlik qilmoq", "example": "He might have cheated again." },
-    { "id": "bcs1-whenever", "word": "whenever", "ipa": "/wenˈev.ə/", "emoji": "🔁", "translation": "har safar ...ganda", "example": "Whenever he fails, people blame him." },
-    { "id": "bcs1-dishonest", "word": "dishonest", "ipa": "/dɪˈsɒn.ɪst/", "emoji": "🐍", "translation": "insofsiz", "example": "Jimmy chooses the easy, dishonest way." },
-    { "id": "bcs1-colourful", "word": "colourful", "ipa": "/ˈkʌl.ə.fəl/", "emoji": "🌈", "translation": "rang-barang, yorqin (xarakter)", "example": "He becomes Saul Goodman, a colourful lawyer." },
-    { "id": "bcs1-closest", "word": "closest", "ipa": "/ˈkləʊ.sɪst/", "emoji": "💞", "translation": "eng yaqin", "example": "Kim is Jimmy's closest friend." },
-    { "id": "bcs1-rule", "word": "rule", "ipa": "/ruːl/", "emoji": "📏", "translation": "qoida", "example": "He could be a great lawyer if he followed the rules." }
+    {
+      "id": "bcs1-lawyer",
+      "word": "lawyer",
+      "ipa": "/ˈlɔɪ.ə/",
+      "emoji": "👨‍⚖️",
+      "translation": "advokat, huquqshunos",
+      "example": "Jimmy McGill is a small-time lawyer."
+    },
+    {
+      "id": "bcs1-tiny",
+      "word": "tiny",
+      "ipa": "/ˈtaɪ.ni/",
+      "emoji": "🐜",
+      "translation": "juda kichkina",
+      "example": "He works from a tiny office."
+    },
+    {
+      "id": "bcs1-charm",
+      "word": "charm",
+      "ipa": "/tʃɑːm/",
+      "emoji": "😏",
+      "translation": "jozibadorlik",
+      "example": "He has a lot of energy and charm."
+    },
+    {
+      "id": "bcs1-client",
+      "word": "client",
+      "ipa": "/ˈklaɪ.ənt/",
+      "emoji": "🧑‍💼",
+      "translation": "mijoz",
+      "example": "He has very few clients."
+    },
+    {
+      "id": "bcs1-trick",
+      "word": "trick",
+      "ipa": "/trɪk/",
+      "emoji": "🃏",
+      "translation": "aldamoq; hiyla",
+      "example": "He must have tricked hundreds of people."
+    },
+    {
+      "id": "bcs1-respected",
+      "word": "respected",
+      "ipa": "/rɪˈspek.tɪd/",
+      "emoji": "🎩",
+      "translation": "hurmatli, obro'li",
+      "example": "Chuck is a respected lawyer at a big firm."
+    },
+    {
+      "id": "bcs1-firm",
+      "word": "firm",
+      "ipa": "/fɜːm/",
+      "emoji": "🏢",
+      "translation": "firma, kompaniya",
+      "example": "Chuck works at a big firm."
+    },
+    {
+      "id": "bcs1-support",
+      "word": "support",
+      "ipa": "/səˈpɔːt/",
+      "emoji": "🫂",
+      "translation": "qo'llab-quvvatlamoq",
+      "example": "He seems to support Jimmy."
+    },
+    {
+      "id": "bcs1-secretly",
+      "word": "secretly",
+      "ipa": "/ˈsiː.krət.li/",
+      "emoji": "🤫",
+      "translation": "yashirincha",
+      "example": "Secretly he believes that Jimmy can't have changed."
+    },
+    {
+      "id": "bcs1-cheat",
+      "word": "cheat",
+      "ipa": "/tʃiːt/",
+      "emoji": "🎭",
+      "translation": "aldamoq, firibgarlik qilmoq",
+      "example": "He might have cheated again."
+    },
+    {
+      "id": "bcs1-whenever",
+      "word": "whenever",
+      "ipa": "/wenˈev.ə/",
+      "emoji": "🔁",
+      "translation": "har safar ...ganda",
+      "example": "Whenever he fails, people blame him."
+    },
+    {
+      "id": "bcs1-dishonest",
+      "word": "dishonest",
+      "ipa": "/dɪˈsɒn.ɪst/",
+      "emoji": "🐍",
+      "translation": "insofsiz",
+      "example": "Jimmy chooses the easy, dishonest way."
+    },
+    {
+      "id": "bcs1-colourful",
+      "word": "colourful",
+      "ipa": "/ˈkʌl.ə.fəl/",
+      "emoji": "🌈",
+      "translation": "rang-barang, yorqin (xarakter)",
+      "example": "He becomes Saul Goodman, a colourful lawyer."
+    },
+    {
+      "id": "bcs1-closest",
+      "word": "closest",
+      "ipa": "/ˈkləʊ.sɪst/",
+      "emoji": "💞",
+      "translation": "eng yaqin",
+      "example": "Kim is Jimmy's closest friend."
+    },
+    {
+      "id": "bcs1-rule",
+      "word": "rule",
+      "ipa": "/ruːl/",
+      "emoji": "📏",
+      "translation": "qoida",
+      "example": "He could be a great lawyer if he followed the rules."
+    }
   ],
   "collocations": [
-    { "id": "bcs1-c-follow", "word": "follow the rules", "ipa": "/ˌfɒl.əʊ ðə ˈruːlz/", "emoji": "✅", "translation": "qoidalarga amal qilmoq", "example": "He could be a great lawyer if he followed the rules.", "cloze": "followed the rules" },
-    { "id": "bcs1-c-life", "word": "start a new life", "ipa": "/ˌstɑːt ə ˌnjuː ˈlaɪf/", "emoji": "🌱", "translation": "yangi hayot boshlamoq", "example": "Chuck helped him start a new life." },
-    { "id": "bcs1-c-step", "word": "step by step", "ipa": "/ˌstep baɪ ˈstep/", "emoji": "👣", "translation": "qadamma-qadam", "example": "Step by step, Jimmy chooses the easy way." },
-    { "id": "bcs1-c-side", "word": "the good side", "ipa": "/ðə ˌɡʊd ˈsaɪd/", "emoji": "😇", "translation": "yaxshi tomoni", "example": "Kim sees the good side of him." },
-    { "id": "bcs1-c-hard", "word": "work hard", "ipa": "/ˌwɜːk ˈhɑːd/", "emoji": "💪", "translation": "astoydil ishlamoq", "example": "Jimmy works hard and studies law.", "cloze": "works hard", "note": "hardly = deyarli ... emas! work hardly — xato" }
+    {
+      "id": "bcs1-c-follow",
+      "word": "follow the rules",
+      "ipa": "/ˌfɒl.əʊ ðə ˈruːlz/",
+      "emoji": "✅",
+      "translation": "qoidalarga amal qilmoq",
+      "example": "He could be a great lawyer if he followed the rules.",
+      "cloze": "followed the rules"
+    },
+    {
+      "id": "bcs1-c-life",
+      "word": "start a new life",
+      "ipa": "/ˌstɑːt ə ˌnjuː ˈlaɪf/",
+      "emoji": "🌱",
+      "translation": "yangi hayot boshlamoq",
+      "example": "Chuck helped him start a new life."
+    },
+    {
+      "id": "bcs1-c-step",
+      "word": "step by step",
+      "ipa": "/ˌstep baɪ ˈstep/",
+      "emoji": "👣",
+      "translation": "qadamma-qadam",
+      "example": "Step by step, Jimmy chooses the easy way."
+    },
+    {
+      "id": "bcs1-c-side",
+      "word": "the good side",
+      "ipa": "/ðə ˌɡʊd ˈsaɪd/",
+      "emoji": "😇",
+      "translation": "yaxshi tomoni",
+      "example": "Kim sees the good side of him."
+    },
+    {
+      "id": "bcs1-c-hard",
+      "word": "work hard",
+      "ipa": "/ˌwɜːk ˈhɑːd/",
+      "emoji": "💪",
+      "translation": "astoydil ishlamoq",
+      "example": "Jimmy works hard and studies law.",
+      "cloze": "works hard",
+      "note": "hardly = deyarli ... emas! work hardly — xato"
+    },
+    {
+      "id": "bcs1-c-firm",
+      "word": "a big firm",
+      "ipa": "/ə ˌbɪɡ ˈfɜːm/",
+      "emoji": "🏢",
+      "translation": "yirik firma",
+      "example": "Chuck is a respected lawyer at a big firm."
+    },
+    {
+      "id": "bcs1-c-law",
+      "word": "study law",
+      "ipa": "/ˌstʌd.i ˈlɔː/",
+      "emoji": "📚",
+      "translation": "huquqshunoslikni o'qimoq",
+      "example": "Jimmy studies law by post.",
+      "cloze": "studies law"
+    },
+    {
+      "id": "bcs1-c-way",
+      "word": "the easy way",
+      "ipa": "/ði ˌiː.zi ˈweɪ/",
+      "emoji": "🛣",
+      "translation": "oson yo'l",
+      "example": "Jimmy chooses the easy, dishonest way.",
+      "cloze": "the easy, dishonest way"
+    },
+    {
+      "id": "bcs1-c-energy",
+      "word": "a lot of energy",
+      "ipa": "/ə ˌlɒt əv ˈen.ə.dʒi/",
+      "emoji": "⚡",
+      "translation": "katta g'ayrat",
+      "example": "He has a lot of energy and charm."
+    },
+    {
+      "id": "bcs1-c-change",
+      "word": "change its spots",
+      "ipa": "/ˌtʃeɪndʒ ɪts ˈspɒts/",
+      "emoji": "🐆",
+      "translation": "(ibora) tabiatini o'zgartirmoq",
+      "example": "A leopard can't change its spots."
+    }
   ],
   "grammar": {
     "title": "Taxmin modallari: must / might / can't (have done)",
@@ -59,27 +289,126 @@
       "**couldn't have** — o'tmishda imkonsiz bo'lgan: He **couldn't have stopped** even if he had wanted to."
     ],
     "exercises": [
-      { "q": "The lights are off. They ___ be at home.", "options": ["can't", "mustn't", "must", "should"], "answer": "can't", "why": "Imkonsiz deb o'ylaymiz → can't (mustn't emas)." },
-      { "q": "He has three cars. He ___ be rich.", "options": ["must", "can't", "mustn't", "might not"], "answer": "must", "why": "Kuchli dalil → must." },
-      { "q": "Jimmy ___ tricked hundreds of people. Everyone knows his past.", "options": ["must have", "can't have", "must", "might"], "answer": "must have", "why": "O'tmish taxmini, ishonch: must have + V3." },
-      { "q": "I'm not sure where Kim is. She ___ have gone to court.", "options": ["might", "must", "can't", "mustn't"], "answer": "might", "why": "Ishonch yo'q → might have." },
-      { "q": "Chuck thinks Jimmy ___ have changed.", "options": ["can't", "mustn't", "must", "should"], "answer": "can't", "why": "Bo'lishi mumkin emas → can't have." },
-      { "q": "You ___ have seen him yesterday. He was in another city.", "options": ["can't", "must", "might", "should"], "answer": "can't", "why": "Imkonsiz o'tmish → can't have seen." },
-      { "q": "The floor is wet. It ___ have rained.", "options": ["must", "can't", "mustn't", "won't"], "answer": "must", "why": "Dalil bor → must have rained." },
-      { "q": "She ___ forgotten our meeting — she's never late. Maybe she's ill.", "options": ["can't have", "must have", "has", "mustn't have"], "answer": "can't have", "why": "Bu unga xos emas → can't have forgotten." }
+      {
+        "q": "The lights are off. They ___ be at home.",
+        "options": [
+          "can't",
+          "mustn't",
+          "must",
+          "should"
+        ],
+        "answer": "can't",
+        "why": "Imkonsiz deb o'ylaymiz → can't (mustn't emas)."
+      },
+      {
+        "q": "He has three cars. He ___ be rich.",
+        "options": [
+          "must",
+          "can't",
+          "mustn't",
+          "might not"
+        ],
+        "answer": "must",
+        "why": "Kuchli dalil → must."
+      },
+      {
+        "q": "Jimmy ___ tricked hundreds of people. Everyone knows his past.",
+        "options": [
+          "must have",
+          "can't have",
+          "must",
+          "might"
+        ],
+        "answer": "must have",
+        "why": "O'tmish taxmini, ishonch: must have + V3."
+      },
+      {
+        "q": "I'm not sure where Kim is. She ___ have gone to court.",
+        "options": [
+          "might",
+          "must",
+          "can't",
+          "mustn't"
+        ],
+        "answer": "might",
+        "why": "Ishonch yo'q → might have."
+      },
+      {
+        "q": "Chuck thinks Jimmy ___ have changed.",
+        "options": [
+          "can't",
+          "mustn't",
+          "must",
+          "should"
+        ],
+        "answer": "can't",
+        "why": "Bo'lishi mumkin emas → can't have."
+      },
+      {
+        "q": "You ___ have seen him yesterday. He was in another city.",
+        "options": [
+          "can't",
+          "must",
+          "might",
+          "should"
+        ],
+        "answer": "can't",
+        "why": "Imkonsiz o'tmish → can't have seen."
+      },
+      {
+        "q": "The floor is wet. It ___ have rained.",
+        "options": [
+          "must",
+          "can't",
+          "mustn't",
+          "won't"
+        ],
+        "answer": "must",
+        "why": "Dalil bor → must have rained."
+      },
+      {
+        "q": "She ___ forgotten our meeting — she's never late. Maybe she's ill.",
+        "options": [
+          "can't have",
+          "must have",
+          "has",
+          "mustn't have"
+        ],
+        "answer": "can't have",
+        "why": "Bu unga xos emas → can't have forgotten."
+      }
     ]
   },
   "dictation": [
-    { "text": "He works from a tiny office.", "gap": "tiny" },
-    { "text": "He has very few clients.", "gap": "clients" },
-    { "text": "Chuck is a respected lawyer at a big firm.", "gap": "respected" },
-    { "text": "He might have cheated again.", "gap": "cheated" },
-    { "text": "Jimmy chooses the easy, dishonest way.", "gap": "dishonest" }
+    {
+      "text": "He works from a tiny office.",
+      "gap": "tiny"
+    },
+    {
+      "text": "He has very few clients.",
+      "gap": "clients"
+    },
+    {
+      "text": "Chuck is a respected lawyer at a big firm.",
+      "gap": "respected"
+    },
+    {
+      "text": "He might have cheated again.",
+      "gap": "cheated"
+    },
+    {
+      "text": "Jimmy chooses the easy, dishonest way.",
+      "gap": "dishonest"
+    }
   ],
   "shadowing": [
     "S'all good, man!",
     "He must have tricked hundreds of people.",
     "He believes that Jimmy can't have changed.",
     "He might have cheated again."
-  ]
+  ],
+  "writing": {
+    "task": "Look at a photo of a stranger (or imagine one). Who might they be? What must they have done today? What can't they be? Write 10 sentences with must / might / can't (have).Use at least 6 words from this movie.",
+    "minWords": 100
+  }
 }

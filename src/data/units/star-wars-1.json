@@ -20,35 +20,273 @@
     "The story shows that you don't have to be a hero from the start. You can become one if you are brave enough to try."
   ],
   "questions": [
-    { "q": "Where does Luke live at the beginning?", "options": ["On a desert planet", "On the Death Star", "In a city", "On a spaceship"], "answer": "On a desert planet" },
-    { "q": "What is inside R2-D2?", "options": ["A secret message", "Money", "A weapon", "A map of the farm"], "answer": "A secret message" },
-    { "q": "Why does Han Solo agree to help?", "options": ["He needs money", "He loves the princess", "He is a Jedi", "He hates the Empire"], "answer": "He needs money" },
-    { "q": "What is the Force?", "options": ["An energy that connects living things", "A kind of spaceship", "A group of soldiers", "A secret plan"], "answer": "An energy that connects living things" },
-    { "q": "How does Luke hit the target?", "options": ["He trusts the Force", "His computer helps him", "Han shoots for him", "He uses a map"], "answer": "He trusts the Force" }
+    {
+      "q": "Where does Luke live at the beginning?",
+      "options": [
+        "On a desert planet",
+        "On the Death Star",
+        "In a city",
+        "On a spaceship"
+      ],
+      "answer": "On a desert planet"
+    },
+    {
+      "q": "What is inside R2-D2?",
+      "options": [
+        "A secret message",
+        "Money",
+        "A weapon",
+        "A map of the farm"
+      ],
+      "answer": "A secret message"
+    },
+    {
+      "q": "Why does Han Solo agree to help?",
+      "options": [
+        "He needs money",
+        "He loves the princess",
+        "He is a Jedi",
+        "He hates the Empire"
+      ],
+      "answer": "He needs money"
+    },
+    {
+      "q": "What is the Force?",
+      "options": [
+        "An energy that connects living things",
+        "A kind of spaceship",
+        "A group of soldiers",
+        "A secret plan"
+      ],
+      "answer": "An energy that connects living things"
+    },
+    {
+      "q": "How does Luke hit the target?",
+      "options": [
+        "He trusts the Force",
+        "His computer helps him",
+        "Han shoots for him",
+        "He uses a map"
+      ],
+      "answer": "He trusts the Force"
+    }
   ],
   "vocab": [
-    { "id": "sw1-desert", "word": "desert", "ipa": "/ˈdez.ət/", "emoji": "🏜", "translation": "cho'l, sahro", "example": "Luke Skywalker lives on a dry desert planet.", "note": "dessert /dɪˈzɜːt/ — shirinlik, adashtirmang" },
-    { "id": "sw1-adventure", "word": "adventure", "ipa": "/ədˈven.tʃə/", "emoji": "🧭", "translation": "sarguzasht", "example": "He dreams of flying spaceships and having adventures." },
-    { "id": "sw1-message", "word": "message", "ipa": "/ˈmes.ɪdʒ/", "emoji": "✉️", "translation": "xabar", "example": "Inside R2-D2 there is a secret message." },
-    { "id": "sw1-deliver", "word": "deliver", "ipa": "/dɪˈlɪv.ə/", "emoji": "📦", "translation": "yetkazib bermoq", "example": "She must deliver the plans of the Death Star." },
-    { "id": "sw1-weapon", "word": "weapon", "ipa": "/ˈwep.ən/", "emoji": "⚔️", "translation": "qurol", "example": "The Death Star is a huge weapon.", "note": "ea — /e/ o'qiladi: weapon, bread" },
-    { "id": "sw1-destroy", "word": "destroy", "ipa": "/dɪˈstrɔɪ/", "emoji": "💥", "translation": "yo'q qilmoq, vayron qilmoq", "example": "It can destroy whole planets." },
-    { "id": "sw1-energy", "word": "energy", "ipa": "/ˈen.ə.dʒi/", "emoji": "⚡", "translation": "kuch, energiya", "example": "The Force is an energy that connects all living things." },
-    { "id": "sw1-connect", "word": "connect", "ipa": "/kəˈnekt/", "emoji": "🔗", "translation": "bog'lamoq", "example": "The Force connects all living things." },
-    { "id": "sw1-train", "word": "train", "ipa": "/treɪn/", "emoji": "🥋", "translation": "mashq qilmoq, o'qitmoq", "example": "A Jedi has to train for many years.", "note": "ot sifatida — poyezd" },
-    { "id": "sw1-hire", "word": "hire", "ipa": "/haɪə/", "emoji": "🤝", "translation": "yollamoq, ishga olmoq", "example": "They hire a pilot, Han Solo." },
-    { "id": "sw1-debt", "word": "debt", "ipa": "/det/", "emoji": "💸", "translation": "qarz", "example": "He just has to pay his debts.", "note": "b o'qilmaydi: /det/" },
-    { "id": "sw1-rebel", "word": "rebel", "ipa": "/ˈreb.əl/", "emoji": "✊", "translation": "isyonchi", "example": "In the end the rebels attack the Death Star.", "note": "fe'l: rebel /rɪˈbel/ — urg'u ko'chadi" },
-    { "id": "sw1-target", "word": "target", "ipa": "/ˈtɑː.ɡɪt/", "emoji": "🎯", "translation": "nishon, maqsad", "example": "Their computers can't help Luke hit the target." },
-    { "id": "sw1-succeed", "word": "succeed", "ipa": "/səkˈsiːd/", "emoji": "🏆", "translation": "muvaffaqiyatga erishmoq", "example": "He could easily fail, but he succeeds.", "note": "succeed IN doing sth" },
-    { "id": "sw1-brave", "word": "brave", "ipa": "/breɪv/", "emoji": "🦁", "translation": "jasur", "example": "You can become a hero if you are brave enough to try." }
+    {
+      "id": "sw1-desert",
+      "word": "desert",
+      "ipa": "/ˈdez.ət/",
+      "emoji": "🏜",
+      "translation": "cho'l, sahro",
+      "example": "Luke Skywalker lives on a dry desert planet.",
+      "note": "dessert /dɪˈzɜːt/ — shirinlik, adashtirmang"
+    },
+    {
+      "id": "sw1-adventure",
+      "word": "adventure",
+      "ipa": "/ədˈven.tʃə/",
+      "emoji": "🧭",
+      "translation": "sarguzasht",
+      "example": "He dreams of flying spaceships and having adventures."
+    },
+    {
+      "id": "sw1-message",
+      "word": "message",
+      "ipa": "/ˈmes.ɪdʒ/",
+      "emoji": "✉️",
+      "translation": "xabar",
+      "example": "Inside R2-D2 there is a secret message."
+    },
+    {
+      "id": "sw1-deliver",
+      "word": "deliver",
+      "ipa": "/dɪˈlɪv.ə/",
+      "emoji": "📦",
+      "translation": "yetkazib bermoq",
+      "example": "She must deliver the plans of the Death Star."
+    },
+    {
+      "id": "sw1-weapon",
+      "word": "weapon",
+      "ipa": "/ˈwep.ən/",
+      "emoji": "⚔️",
+      "translation": "qurol",
+      "example": "The Death Star is a huge weapon.",
+      "note": "ea — /e/ o'qiladi: weapon, bread"
+    },
+    {
+      "id": "sw1-destroy",
+      "word": "destroy",
+      "ipa": "/dɪˈstrɔɪ/",
+      "emoji": "💥",
+      "translation": "yo'q qilmoq, vayron qilmoq",
+      "example": "It can destroy whole planets."
+    },
+    {
+      "id": "sw1-energy",
+      "word": "energy",
+      "ipa": "/ˈen.ə.dʒi/",
+      "emoji": "⚡",
+      "translation": "kuch, energiya",
+      "example": "The Force is an energy that connects all living things."
+    },
+    {
+      "id": "sw1-connect",
+      "word": "connect",
+      "ipa": "/kəˈnekt/",
+      "emoji": "🔗",
+      "translation": "bog'lamoq",
+      "example": "The Force connects all living things."
+    },
+    {
+      "id": "sw1-train",
+      "word": "train",
+      "ipa": "/treɪn/",
+      "emoji": "🥋",
+      "translation": "mashq qilmoq, o'qitmoq",
+      "example": "A Jedi has to train for many years.",
+      "note": "ot sifatida — poyezd"
+    },
+    {
+      "id": "sw1-hire",
+      "word": "hire",
+      "ipa": "/haɪə/",
+      "emoji": "🤝",
+      "translation": "yollamoq, ishga olmoq",
+      "example": "They hire a pilot, Han Solo."
+    },
+    {
+      "id": "sw1-debt",
+      "word": "debt",
+      "ipa": "/det/",
+      "emoji": "💸",
+      "translation": "qarz",
+      "example": "He just has to pay his debts.",
+      "note": "b o'qilmaydi: /det/"
+    },
+    {
+      "id": "sw1-rebel",
+      "word": "rebel",
+      "ipa": "/ˈreb.əl/",
+      "emoji": "✊",
+      "translation": "isyonchi",
+      "example": "In the end the rebels attack the Death Star.",
+      "note": "fe'l: rebel /rɪˈbel/ — urg'u ko'chadi"
+    },
+    {
+      "id": "sw1-target",
+      "word": "target",
+      "ipa": "/ˈtɑː.ɡɪt/",
+      "emoji": "🎯",
+      "translation": "nishon, maqsad",
+      "example": "Their computers can't help Luke hit the target."
+    },
+    {
+      "id": "sw1-succeed",
+      "word": "succeed",
+      "ipa": "/səkˈsiːd/",
+      "emoji": "🏆",
+      "translation": "muvaffaqiyatga erishmoq",
+      "example": "He could easily fail, but he succeeds.",
+      "note": "succeed IN doing sth"
+    },
+    {
+      "id": "sw1-brave",
+      "word": "brave",
+      "ipa": "/breɪv/",
+      "emoji": "🦁",
+      "translation": "jasur",
+      "example": "You can become a hero if you are brave enough to try."
+    }
   ],
   "collocations": [
-    { "id": "sw1-c-pay", "word": "pay a debt", "ipa": "/ˌpeɪ ə ˈdet/", "emoji": "💰", "translation": "qarzni to'lamoq", "example": "He just has to pay his debts.", "cloze": "pay his debts" },
-    { "id": "sw1-c-hit", "word": "hit the target", "ipa": "/ˌhɪt ðə ˈtɑː.ɡɪt/", "emoji": "🎯", "translation": "nishonga tegmoq", "example": "He tries to hit the target." },
-    { "id": "sw1-c-switch", "word": "switch off", "ipa": "/ˌswɪtʃ ˈɒf/", "emoji": "🔌", "translation": "o'chirmoq", "example": "He switches them off and trusts the Force.", "cloze": "switches them off", "note": "olmosh o'rtada: switch IT off, switch off IT emas" },
-    { "id": "sw1-c-decision", "word": "make a decision", "ipa": "/ˌmeɪk ə dɪˈsɪʒ.ən/", "emoji": "🧠", "translation": "qaror qabul qilmoq", "example": "Luke has to make a decision.", "note": "do a decision emas — MAKE" },
-    { "id": "sw1-c-agree", "word": "agree to do", "ipa": "/əˈɡriː tə duː/", "emoji": "👍", "translation": "biror ishga rozi bo'lmoq", "example": "Still, he agrees to take them.", "cloze": "agrees to take" }
+    {
+      "id": "sw1-c-pay",
+      "word": "pay a debt",
+      "ipa": "/ˌpeɪ ə ˈdet/",
+      "emoji": "💰",
+      "translation": "qarzni to'lamoq",
+      "example": "He just has to pay his debts.",
+      "cloze": "pay his debts"
+    },
+    {
+      "id": "sw1-c-hit",
+      "word": "hit the target",
+      "ipa": "/ˌhɪt ðə ˈtɑː.ɡɪt/",
+      "emoji": "🎯",
+      "translation": "nishonga tegmoq",
+      "example": "He tries to hit the target."
+    },
+    {
+      "id": "sw1-c-switch",
+      "word": "switch off",
+      "ipa": "/ˌswɪtʃ ˈɒf/",
+      "emoji": "🔌",
+      "translation": "o'chirmoq",
+      "example": "He switches them off and trusts the Force.",
+      "cloze": "switches them off",
+      "note": "olmosh o'rtada: switch IT off, switch off IT emas"
+    },
+    {
+      "id": "sw1-c-decision",
+      "word": "make a decision",
+      "ipa": "/ˌmeɪk ə dɪˈsɪʒ.ən/",
+      "emoji": "🧠",
+      "translation": "qaror qabul qilmoq",
+      "example": "Luke has to make a decision.",
+      "note": "do a decision emas — MAKE"
+    },
+    {
+      "id": "sw1-c-agree",
+      "word": "agree to do",
+      "ipa": "/əˈɡriː tə duː/",
+      "emoji": "👍",
+      "translation": "biror ishga rozi bo'lmoq",
+      "example": "Still, he agrees to take them.",
+      "cloze": "agrees to take"
+    },
+    {
+      "id": "sw1-c-dream",
+      "word": "dream of doing",
+      "ipa": "/ˈdriːm əv ˌduː.ɪŋ/",
+      "emoji": "💭",
+      "translation": "... ni orzu qilmoq",
+      "example": "He dreams of flying spaceships.",
+      "cloze": "dreams of flying"
+    },
+    {
+      "id": "sw1-c-message",
+      "word": "a secret message",
+      "ipa": "/ə ˌsiː.krət ˈmes.ɪdʒ/",
+      "emoji": "✉️",
+      "translation": "maxfiy xabar",
+      "example": "Inside R2-D2 there is a secret message."
+    },
+    {
+      "id": "sw1-c-trust",
+      "word": "trust your feelings",
+      "ipa": "/ˌtrʌst jə ˈfiː.lɪŋz/",
+      "emoji": "🫀",
+      "translation": "his-tuyg'ularga ishonmoq",
+      "example": "He switches off the computer and trusts the Force.",
+      "cloze": "trusts the Force"
+    },
+    {
+      "id": "sw1-c-years",
+      "word": "for many years",
+      "ipa": "/fə ˌmen.i ˈjɪəz/",
+      "emoji": "⏳",
+      "translation": "ko'p yillar davomida",
+      "example": "A Jedi has to train for many years."
+    },
+    {
+      "id": "sw1-c-brave",
+      "word": "brave enough",
+      "ipa": "/ˌbreɪv ɪˈnʌf/",
+      "emoji": "🦁",
+      "translation": "yetarlicha jasur",
+      "example": "You can become a hero if you are brave enough to try."
+    }
   ],
   "grammar": {
     "title": "Modallar: can / could, must / have to",
@@ -59,29 +297,148 @@
       "Modal fe'ldan keyin fe'l doim asosiy shaklda, \"to\"siz: can fly, must go. Lekin **have to**da \"to\" bor va u zamonda o'zgaradi: has to, had to, will have to."
     ],
     "exercises": [
-      { "q": "A Jedi ___ feel the Force.", "options": ["can", "cans", "can to", "is can"], "answer": "can", "why": "Modal fe'l -s olmaydi va to'g'ridan-to'g'ri fe'l bilan keladi." },
-      { "q": "Han ___ pay his debts, or he will be in trouble.", "options": ["has to", "have to", "must to", "has"], "answer": "has to", "why": "Tashqi majburiyat, 3-shaxs birlik: has to." },
-      { "q": "When Luke was young, he ___ fly very well.", "options": ["could", "can", "must", "has to"], "answer": "could", "why": "O'tmishdagi qobiliyat: could." },
-      { "q": "You ___ be a hero from the start. You can learn.", "options": ["don't have to", "mustn't", "can't to", "haven't"], "answer": "don't have to", "why": "Shart emas ma'nosi: don't have to." },
-      { "q": "Soldiers ___ enter this room. It is forbidden.", "options": ["mustn't", "don't have to", "couldn't to", "haven't to"], "answer": "mustn't", "why": "Taqiq: mustn't." },
-      { "q": "Luke decided: \"I ___ leave the farm and help her.\"", "options": ["must", "musts", "must to", "am must"], "answer": "must", "why": "O'z qarori, ichki majburiyat: must + fe'l." },
-      { "q": "Yesterday Luke ___ work on the farm all day.", "options": ["had to", "must", "has to", "musted"], "answer": "had to", "why": "must ning o'tmishi yo'q — had to ishlatiladi." },
-      { "q": "The computer ___ help him hit the target.", "options": ["couldn't", "couldn't to", "didn't could", "not could"], "answer": "couldn't", "why": "O'tmishda imkon yo'q: couldn't + fe'l." },
-      { "q": "___ you speak another language?", "options": ["Can", "Do can", "Are can", "Have"], "answer": "Can", "why": "Savolda modal oldinga chiqadi: Can you...?" },
-      { "q": "Tomorrow we ___ get up early for the mission.", "options": ["will have to", "will must", "must to", "have"], "answer": "will have to", "why": "Kelasi zamonda must emas: will have to." }
+      {
+        "q": "A Jedi ___ feel the Force.",
+        "options": [
+          "can",
+          "cans",
+          "can to",
+          "is can"
+        ],
+        "answer": "can",
+        "why": "Modal fe'l -s olmaydi va to'g'ridan-to'g'ri fe'l bilan keladi."
+      },
+      {
+        "q": "Han ___ pay his debts, or he will be in trouble.",
+        "options": [
+          "has to",
+          "have to",
+          "must to",
+          "has"
+        ],
+        "answer": "has to",
+        "why": "Tashqi majburiyat, 3-shaxs birlik: has to."
+      },
+      {
+        "q": "When Luke was young, he ___ fly very well.",
+        "options": [
+          "could",
+          "can",
+          "must",
+          "has to"
+        ],
+        "answer": "could",
+        "why": "O'tmishdagi qobiliyat: could."
+      },
+      {
+        "q": "You ___ be a hero from the start. You can learn.",
+        "options": [
+          "don't have to",
+          "mustn't",
+          "can't to",
+          "haven't"
+        ],
+        "answer": "don't have to",
+        "why": "Shart emas ma'nosi: don't have to."
+      },
+      {
+        "q": "Soldiers ___ enter this room. It is forbidden.",
+        "options": [
+          "mustn't",
+          "don't have to",
+          "couldn't to",
+          "haven't to"
+        ],
+        "answer": "mustn't",
+        "why": "Taqiq: mustn't."
+      },
+      {
+        "q": "Luke decided: \"I ___ leave the farm and help her.\"",
+        "options": [
+          "must",
+          "musts",
+          "must to",
+          "am must"
+        ],
+        "answer": "must",
+        "why": "O'z qarori, ichki majburiyat: must + fe'l."
+      },
+      {
+        "q": "Yesterday Luke ___ work on the farm all day.",
+        "options": [
+          "had to",
+          "must",
+          "has to",
+          "musted"
+        ],
+        "answer": "had to",
+        "why": "must ning o'tmishi yo'q — had to ishlatiladi."
+      },
+      {
+        "q": "The computer ___ help him hit the target.",
+        "options": [
+          "couldn't",
+          "couldn't to",
+          "didn't could",
+          "not could"
+        ],
+        "answer": "couldn't",
+        "why": "O'tmishda imkon yo'q: couldn't + fe'l."
+      },
+      {
+        "q": "___ you speak another language?",
+        "options": [
+          "Can",
+          "Do can",
+          "Are can",
+          "Have"
+        ],
+        "answer": "Can",
+        "why": "Savolda modal oldinga chiqadi: Can you...?"
+      },
+      {
+        "q": "Tomorrow we ___ get up early for the mission.",
+        "options": [
+          "will have to",
+          "will must",
+          "must to",
+          "have"
+        ],
+        "answer": "will have to",
+        "why": "Kelasi zamonda must emas: will have to."
+      }
     ]
   },
   "dictation": [
-    { "text": "He dreams of flying spaceships and having adventures.", "gap": "adventures" },
-    { "text": "There is a secret message from Princess Leia.", "gap": "message" },
-    { "text": "A Jedi has to train for many years.", "gap": "train" },
-    { "text": "He just has to pay his debts.", "gap": "debts" },
-    { "text": "In the end the rebels attack the Death Star.", "gap": "rebels" }
+    {
+      "text": "He dreams of flying spaceships and having adventures.",
+      "gap": "adventures"
+    },
+    {
+      "text": "There is a secret message from Princess Leia.",
+      "gap": "message"
+    },
+    {
+      "text": "A Jedi has to train for many years.",
+      "gap": "train"
+    },
+    {
+      "text": "He just has to pay his debts.",
+      "gap": "debts"
+    },
+    {
+      "text": "In the end the rebels attack the Death Star.",
+      "gap": "rebels"
+    }
   ],
   "shadowing": [
     "May the Force be with you.",
     "A Jedi can feel it and use it, but he has to train for many years.",
     "He must leave home and help the princess.",
     "You don't have to be a hero from the start."
-  ]
+  ],
+  "writing": {
+    "task": "Write about the rules in your job or home. What must you do, what do you have to do, what don't you have to do? Use can, could, must and have to, plus at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

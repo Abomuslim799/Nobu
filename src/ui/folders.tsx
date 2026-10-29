@@ -9,7 +9,7 @@ import { Pressable, Text, View } from 'react-native';
 import { C } from '@/constants/theme';
 import { IT_TRACKS } from '@/data/subjects';
 import type { Track } from '@/data/types';
-import { STEPS, UNITS } from '@/data/units';
+import { STEPS, UNITS, stepsDone } from '@/data/units';
 import { useProgress } from '@/lib/progress';
 import { Bar, Button, Card, T } from '@/ui/kit';
 
@@ -33,9 +33,9 @@ export function EnglishFolder() {
   const { data } = useProgress();
   return (
     <>
-      <T bold size={18}>🎬 Film unitlari</T>
+      <T bold size={18}>🎬 Movies</T>
       {UNITS.map((u) => {
-        const done = data.unitSteps[u.id]?.length ?? 0;
+        const done = stepsDone(data.unitSteps[u.id]);
         return (
           <Pressable key={u.id} onPress={() => router.push(`/unit/${u.id}`)}>
             <Card style={{ gap: 8, borderColor: C.green }}>
@@ -47,7 +47,7 @@ export function EnglishFolder() {
                 </View>
               </View>
               <Bar value={done / STEPS.length} />
-              <T dim size={13}>{done}/{STEPS.length} qadam · 15 so'z + 5 collocation</T>
+              <T dim size={13}>{done}/{STEPS.length} qadam · {u.vocab.length} so'z + {u.collocations.length} collocation</T>
             </Card>
           </Pressable>
         );

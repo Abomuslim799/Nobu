@@ -20,35 +20,268 @@
     "In the end, they find the ships, but they can't take much gold with them. Still, Nate has found something more important: a partner, and a clue that his brother is still alive."
   ],
   "questions": [
-    { "q": "Where did Nate grow up?", "options": ["In an orphanage in Boston", "In Barcelona", "On a ship", "In a museum"], "answer": "In an orphanage in Boston" },
-    { "q": "What does Nate work as?", "options": ["A bartender", "A pilot", "A teacher", "A police officer"], "answer": "A bartender" },
-    { "q": "Why does Nate agree to help Sully?", "options": ["He hopes to find his brother", "He needs a job", "Sully is his father", "He loves Spain"], "answer": "He hopes to find his brother" },
-    { "q": "Whose lost ships are they looking for?", "options": ["Magellan's", "Columbus's", "Drake's", "Moncada's"], "answer": "Magellan's" },
-    { "q": "What does Nate find at the end?", "options": ["A partner and a clue about Sam", "A lot of gold", "A new house", "A map of Boston"], "answer": "A partner and a clue about Sam" }
+    {
+      "q": "Where did Nate grow up?",
+      "options": [
+        "In an orphanage in Boston",
+        "In Barcelona",
+        "On a ship",
+        "In a museum"
+      ],
+      "answer": "In an orphanage in Boston"
+    },
+    {
+      "q": "What does Nate work as?",
+      "options": [
+        "A bartender",
+        "A pilot",
+        "A teacher",
+        "A police officer"
+      ],
+      "answer": "A bartender"
+    },
+    {
+      "q": "Why does Nate agree to help Sully?",
+      "options": [
+        "He hopes to find his brother",
+        "He needs a job",
+        "Sully is his father",
+        "He loves Spain"
+      ],
+      "answer": "He hopes to find his brother"
+    },
+    {
+      "q": "Whose lost ships are they looking for?",
+      "options": [
+        "Magellan's",
+        "Columbus's",
+        "Drake's",
+        "Moncada's"
+      ],
+      "answer": "Magellan's"
+    },
+    {
+      "q": "What does Nate find at the end?",
+      "options": [
+        "A partner and a clue about Sam",
+        "A lot of gold",
+        "A new house",
+        "A map of Boston"
+      ],
+      "answer": "A partner and a clue about Sam"
+    }
   ],
   "vocab": [
-    { "id": "unc1-orphanage", "word": "orphanage", "ipa": "/ˈɔː.fən.ɪdʒ/", "emoji": "🏠", "translation": "bolalar uyi, yetimxona", "example": "Nathan Drake grew up in an orphanage." },
-    { "id": "unc1-sneak", "word": "sneak", "ipa": "/sniːk/", "emoji": "🥷", "translation": "yashirincha kirmoq", "example": "They used to sneak into museums." },
-    { "id": "unc1-treasure", "word": "treasure", "ipa": "/ˈtreʒ.ə/", "emoji": "💰", "translation": "xazina", "example": "They dream about finding lost treasure." },
-    { "id": "unc1-bartender", "word": "bartender", "ipa": "/ˈbɑːˌten.də/", "emoji": "🍸", "translation": "barmen", "example": "Nate works as a bartender." },
-    { "id": "unc1-customer", "word": "customer", "ipa": "/ˈkʌs.tə.mə/", "emoji": "🧑", "translation": "xaridor, mijoz", "example": "He picks up small things from rich customers' pockets." },
-    { "id": "unc1-pocket", "word": "pocket", "ipa": "/ˈpɒk.ɪt/", "emoji": "👖", "translation": "cho'ntak", "example": "He takes things from customers' pockets." },
-    { "id": "unc1-hunter", "word": "hunter", "ipa": "/ˈhʌn.tə/", "emoji": "🏹", "translation": "ovchi, izlovchi", "example": "A treasure hunter turns up at the bar." },
-    { "id": "unc1-gold", "word": "gold", "ipa": "/ɡəʊld/", "emoji": "🥇", "translation": "oltin", "example": "They look for the gold of Magellan's lost ships." },
-    { "id": "unc1-chance", "word": "chance", "ipa": "/tʃɑːns/", "emoji": "🎟", "translation": "imkoniyat", "example": "He can't turn down the chance to find his brother." },
-    { "id": "unc1-clue", "word": "clue", "ipa": "/kluː/", "emoji": "🧩", "translation": "kalit, ishora (topishmoq uchun)", "example": "They have to work out old clues hidden in maps." },
-    { "id": "unc1-hidden", "word": "hidden", "ipa": "/ˈhɪd.ən/", "emoji": "🙈", "translation": "yashirilgan", "example": "Old clues are hidden in maps, churches and tunnels." },
-    { "id": "unc1-tunnel", "word": "tunnel", "ipa": "/ˈtʌn.əl/", "emoji": "🚇", "translation": "tunnel, yer osti yo'li", "example": "Clues are hidden in churches and tunnels." },
-    { "id": "unc1-plane", "word": "plane", "ipa": "/pleɪn/", "emoji": "✈️", "translation": "samolyot", "example": "Nate falls out of a plane." },
-    { "id": "unc1-hang", "word": "hang", "ipa": "/hæŋ/", "emoji": "🪝", "translation": "osilib turmoq", "example": "Boxes are hanging in the air.", "note": "hang – hung – hung" },
-    { "id": "unc1-important", "word": "important", "ipa": "/ɪmˈpɔː.tənt/", "emoji": "❗", "translation": "muhim", "example": "Nate has found something more important." }
+    {
+      "id": "unc1-orphanage",
+      "word": "orphanage",
+      "ipa": "/ˈɔː.fən.ɪdʒ/",
+      "emoji": "🏠",
+      "translation": "bolalar uyi, yetimxona",
+      "example": "Nathan Drake grew up in an orphanage."
+    },
+    {
+      "id": "unc1-sneak",
+      "word": "sneak",
+      "ipa": "/sniːk/",
+      "emoji": "🥷",
+      "translation": "yashirincha kirmoq",
+      "example": "They used to sneak into museums."
+    },
+    {
+      "id": "unc1-treasure",
+      "word": "treasure",
+      "ipa": "/ˈtreʒ.ə/",
+      "emoji": "💰",
+      "translation": "xazina",
+      "example": "They dream about finding lost treasure."
+    },
+    {
+      "id": "unc1-bartender",
+      "word": "bartender",
+      "ipa": "/ˈbɑːˌten.də/",
+      "emoji": "🍸",
+      "translation": "barmen",
+      "example": "Nate works as a bartender."
+    },
+    {
+      "id": "unc1-customer",
+      "word": "customer",
+      "ipa": "/ˈkʌs.tə.mə/",
+      "emoji": "🧑",
+      "translation": "xaridor, mijoz",
+      "example": "He picks up small things from rich customers' pockets."
+    },
+    {
+      "id": "unc1-pocket",
+      "word": "pocket",
+      "ipa": "/ˈpɒk.ɪt/",
+      "emoji": "👖",
+      "translation": "cho'ntak",
+      "example": "He takes things from customers' pockets."
+    },
+    {
+      "id": "unc1-hunter",
+      "word": "hunter",
+      "ipa": "/ˈhʌn.tə/",
+      "emoji": "🏹",
+      "translation": "ovchi, izlovchi",
+      "example": "A treasure hunter turns up at the bar."
+    },
+    {
+      "id": "unc1-gold",
+      "word": "gold",
+      "ipa": "/ɡəʊld/",
+      "emoji": "🥇",
+      "translation": "oltin",
+      "example": "They look for the gold of Magellan's lost ships."
+    },
+    {
+      "id": "unc1-chance",
+      "word": "chance",
+      "ipa": "/tʃɑːns/",
+      "emoji": "🎟",
+      "translation": "imkoniyat",
+      "example": "He can't turn down the chance to find his brother."
+    },
+    {
+      "id": "unc1-clue",
+      "word": "clue",
+      "ipa": "/kluː/",
+      "emoji": "🧩",
+      "translation": "kalit, ishora (topishmoq uchun)",
+      "example": "They have to work out old clues hidden in maps."
+    },
+    {
+      "id": "unc1-hidden",
+      "word": "hidden",
+      "ipa": "/ˈhɪd.ən/",
+      "emoji": "🙈",
+      "translation": "yashirilgan",
+      "example": "Old clues are hidden in maps, churches and tunnels."
+    },
+    {
+      "id": "unc1-tunnel",
+      "word": "tunnel",
+      "ipa": "/ˈtʌn.əl/",
+      "emoji": "🚇",
+      "translation": "tunnel, yer osti yo'li",
+      "example": "Clues are hidden in churches and tunnels."
+    },
+    {
+      "id": "unc1-plane",
+      "word": "plane",
+      "ipa": "/pleɪn/",
+      "emoji": "✈️",
+      "translation": "samolyot",
+      "example": "Nate falls out of a plane."
+    },
+    {
+      "id": "unc1-hang",
+      "word": "hang",
+      "ipa": "/hæŋ/",
+      "emoji": "🪝",
+      "translation": "osilib turmoq",
+      "example": "Boxes are hanging in the air.",
+      "note": "hang – hung – hung"
+    },
+    {
+      "id": "unc1-important",
+      "word": "important",
+      "ipa": "/ɪmˈpɔː.tənt/",
+      "emoji": "❗",
+      "translation": "muhim",
+      "example": "Nate has found something more important."
+    }
   ],
   "collocations": [
-    { "id": "unc1-c-turnup", "word": "turn up", "ipa": "/ˌtɜːn ˈʌp/", "emoji": "🚪", "translation": "kutilmaganda paydo bo'lmoq", "example": "A treasure hunter turns up at the bar.", "cloze": "turns up" },
-    { "id": "unc1-c-turndown", "word": "turn down", "ipa": "/ˌtɜːn ˈdaʊn/", "emoji": "🙅", "translation": "rad etmoq (taklifni)", "example": "He can't turn down the chance." },
-    { "id": "unc1-c-setoff", "word": "set off", "ipa": "/ˌset ˈɒf/", "emoji": "🧭", "translation": "yo'lga chiqmoq", "example": "They set off together on a dangerous journey." },
-    { "id": "unc1-c-workout", "word": "work out", "ipa": "/ˌwɜːk ˈaʊt/", "emoji": "🧠", "translation": "tushunib/yechib olmoq", "example": "They have to work out old clues.", "note": "boshqa ma'nosi: sport bilan shug'ullanmoq" },
-    { "id": "unc1-c-holdon", "word": "hold on to", "ipa": "/ˌhəʊld ˈɒn tuː/", "emoji": "✊", "translation": "mahkam ushlab turmoq", "example": "He has to hold on to boxes in the air." }
+    {
+      "id": "unc1-c-turnup",
+      "word": "turn up",
+      "ipa": "/ˌtɜːn ˈʌp/",
+      "emoji": "🚪",
+      "translation": "kutilmaganda paydo bo'lmoq",
+      "example": "A treasure hunter turns up at the bar.",
+      "cloze": "turns up"
+    },
+    {
+      "id": "unc1-c-turndown",
+      "word": "turn down",
+      "ipa": "/ˌtɜːn ˈdaʊn/",
+      "emoji": "🙅",
+      "translation": "rad etmoq (taklifni)",
+      "example": "He can't turn down the chance."
+    },
+    {
+      "id": "unc1-c-setoff",
+      "word": "set off",
+      "ipa": "/ˌset ˈɒf/",
+      "emoji": "🧭",
+      "translation": "yo'lga chiqmoq",
+      "example": "They set off together on a dangerous journey."
+    },
+    {
+      "id": "unc1-c-workout",
+      "word": "work out",
+      "ipa": "/ˌwɜːk ˈaʊt/",
+      "emoji": "🧠",
+      "translation": "tushunib/yechib olmoq",
+      "example": "They have to work out old clues.",
+      "note": "boshqa ma'nosi: sport bilan shug'ullanmoq"
+    },
+    {
+      "id": "unc1-c-holdon",
+      "word": "hold on to",
+      "ipa": "/ˌhəʊld ˈɒn tuː/",
+      "emoji": "✊",
+      "translation": "mahkam ushlab turmoq",
+      "example": "He has to hold on to boxes in the air."
+    },
+    {
+      "id": "unc1-c-grow",
+      "word": "grow up",
+      "ipa": "/ˌɡrəʊ ˈʌp/",
+      "emoji": "🧒",
+      "translation": "ulg'aymoq",
+      "example": "Nathan Drake grew up in an orphanage.",
+      "cloze": "grew up"
+    },
+    {
+      "id": "unc1-c-run",
+      "word": "run away",
+      "ipa": "/ˌrʌn əˈweɪ/",
+      "emoji": "🏃",
+      "translation": "qochib ketmoq",
+      "example": "When Sam ran away, he promised to come back.",
+      "cloze": "ran away"
+    },
+    {
+      "id": "unc1-c-back",
+      "word": "come back for sb",
+      "ipa": "/ˌkʌm ˈbæk fə/",
+      "emoji": "↩️",
+      "translation": "kimningdir ortidan qaytib kelmoq",
+      "example": "He promised to come back for Nate.",
+      "cloze": "come back for"
+    },
+    {
+      "id": "unc1-c-after",
+      "word": "be after sth",
+      "ipa": "/bi ˈɑːf.tə/",
+      "emoji": "🎯",
+      "translation": "... ning ortidan quvmoq",
+      "example": "A rich man is also after the treasure.",
+      "cloze": "is also after"
+    },
+    {
+      "id": "unc1-c-out",
+      "word": "fall out of",
+      "ipa": "/ˌfɔːl ˈaʊt əv/",
+      "emoji": "🪂",
+      "translation": "... dan tushib ketmoq",
+      "example": "Nate falls out of a plane.",
+      "cloze": "falls out of"
+    }
   ],
   "grammar": {
     "title": "Phrasal verbs: ajraladigan va ajralmaydigan",
@@ -59,27 +292,126 @@
       "To'ldiruvchisiz phrasal verbs: **set off**, **turn up**, **grow up**, **run away** — ular ortidan obyekt kelmaydi: Sam **ran away**."
     ],
     "exercises": [
-      { "q": "Nate can't turn ___ the chance to find his brother.", "options": ["down", "up", "off", "out"], "answer": "down", "why": "turn down = rad etmoq." },
-      { "q": "A treasure hunter ___ at the bar one evening.", "options": ["turns up", "turns down", "sets off", "gives up"], "answer": "turns up", "why": "turn up = kutilmaganda kelmoq." },
-      { "q": "They offered him a job, but he turned ___.", "options": ["it down", "down it", "it up", "up it"], "answer": "it down", "why": "Olmosh o'rtada: turn it down." },
-      { "q": "We ___ early in the morning to catch the train.", "options": ["set off", "set up", "turned down", "worked out"], "answer": "set off", "why": "set off = yo'lga chiqmoq." },
-      { "q": "Can you look ___ my cat while I'm away?", "options": ["after", "up", "out", "down"], "answer": "after", "why": "look after = g'amxo'rlik qilmoq." },
-      { "q": "I can't ___ this puzzle. It's too difficult.", "options": ["work out", "set off", "turn up", "hold on"], "answer": "work out", "why": "work out = yechmoq, tushunmoq." },
-      { "q": "Don't give ___! You're almost there.", "options": ["up", "down", "off", "away"], "answer": "up", "why": "give up = taslim bo'lmoq." },
-      { "q": "When Sam was sixteen, he ran ___ from the orphanage.", "options": ["away", "up", "into", "over"], "answer": "away", "why": "run away = qochib ketmoq." }
+      {
+        "q": "Nate can't turn ___ the chance to find his brother.",
+        "options": [
+          "down",
+          "up",
+          "off",
+          "out"
+        ],
+        "answer": "down",
+        "why": "turn down = rad etmoq."
+      },
+      {
+        "q": "A treasure hunter ___ at the bar one evening.",
+        "options": [
+          "turns up",
+          "turns down",
+          "sets off",
+          "gives up"
+        ],
+        "answer": "turns up",
+        "why": "turn up = kutilmaganda kelmoq."
+      },
+      {
+        "q": "They offered him a job, but he turned ___.",
+        "options": [
+          "it down",
+          "down it",
+          "it up",
+          "up it"
+        ],
+        "answer": "it down",
+        "why": "Olmosh o'rtada: turn it down."
+      },
+      {
+        "q": "We ___ early in the morning to catch the train.",
+        "options": [
+          "set off",
+          "set up",
+          "turned down",
+          "worked out"
+        ],
+        "answer": "set off",
+        "why": "set off = yo'lga chiqmoq."
+      },
+      {
+        "q": "Can you look ___ my cat while I'm away?",
+        "options": [
+          "after",
+          "up",
+          "out",
+          "down"
+        ],
+        "answer": "after",
+        "why": "look after = g'amxo'rlik qilmoq."
+      },
+      {
+        "q": "I can't ___ this puzzle. It's too difficult.",
+        "options": [
+          "work out",
+          "set off",
+          "turn up",
+          "hold on"
+        ],
+        "answer": "work out",
+        "why": "work out = yechmoq, tushunmoq."
+      },
+      {
+        "q": "Don't give ___! You're almost there.",
+        "options": [
+          "up",
+          "down",
+          "off",
+          "away"
+        ],
+        "answer": "up",
+        "why": "give up = taslim bo'lmoq."
+      },
+      {
+        "q": "When Sam was sixteen, he ran ___ from the orphanage.",
+        "options": [
+          "away",
+          "up",
+          "into",
+          "over"
+        ],
+        "answer": "away",
+        "why": "run away = qochib ketmoq."
+      }
     ]
   },
   "dictation": [
-    { "text": "Nathan Drake grew up in an orphanage.", "gap": "orphanage" },
-    { "text": "They dream about finding lost treasure.", "gap": "treasure" },
-    { "text": "Nate works as a bartender.", "gap": "bartender" },
-    { "text": "They have to work out old clues hidden in maps.", "gap": "clues" },
-    { "text": "Nate has found something more important.", "gap": "important" }
+    {
+      "text": "Nathan Drake grew up in an orphanage.",
+      "gap": "orphanage"
+    },
+    {
+      "text": "They dream about finding lost treasure.",
+      "gap": "treasure"
+    },
+    {
+      "text": "Nate works as a bartender.",
+      "gap": "bartender"
+    },
+    {
+      "text": "They have to work out old clues hidden in maps.",
+      "gap": "clues"
+    },
+    {
+      "text": "Nate has found something more important.",
+      "gap": "important"
+    }
   ],
   "shadowing": [
     "Sic parvis magna.",
     "A treasure hunter turns up at the bar.",
     "He can't turn down the chance to find his brother.",
     "They set off together on a dangerous journey."
-  ]
+  ],
+  "writing": {
+    "task": "Write about your best trip or adventure. Use at least 8 phrasal verbs (set off, turn up, work out, give up...) and at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

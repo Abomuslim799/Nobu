@@ -242,6 +242,50 @@
       "translation": "kimgadir bitim taklif qilmoq",
       "example": "A rich businessman offers Cobb a deal.",
       "cloze": "offers Cobb a deal"
+    },
+    {
+      "id": "inc1-c-enter",
+      "word": "enter sb's dreams",
+      "ipa": "/ˈen.tə ... ˈdriːmz/",
+      "emoji": "💤",
+      "translation": "tushiga kirmoq",
+      "example": "He enters people's dreams and steals their secrets.",
+      "cloze": "enters people's dreams"
+    },
+    {
+      "id": "inc1-c-steal",
+      "word": "steal a secret",
+      "ipa": "/ˌstiːl ə ˈsiː.krət/",
+      "emoji": "🗝",
+      "translation": "sirni o'g'irlamoq",
+      "example": "He steals their secrets.",
+      "cloze": "steals their secrets"
+    },
+    {
+      "id": "inc1-c-team",
+      "word": "build a team",
+      "ipa": "/ˌbɪld ə ˈtiːm/",
+      "emoji": "👥",
+      "translation": "jamoa tuzmoq",
+      "example": "Cobb builds a team.",
+      "cloze": "builds a team"
+    },
+    {
+      "id": "inc1-c-plant",
+      "word": "plant an idea",
+      "ipa": "/ˌplɑːnt ən aɪˈdɪə/",
+      "emoji": "🌱",
+      "translation": "g'oyani singdirmoq",
+      "example": "The job is not to steal an idea but to plant one.",
+      "cloze": "plant one"
+    },
+    {
+      "id": "inc1-c-check",
+      "word": "check if",
+      "ipa": "/ˈtʃek ɪf/",
+      "emoji": "✅",
+      "translation": "... ekanini tekshirmoq",
+      "example": "He spins his top to check if he is awake."
     }
   ],
   "grammar": {
@@ -370,5 +414,9 @@
     "He had learned this skill long before the story began.",
     "Before they entered the dream, Cobb hadn't told them the truth.",
     "A few minutes in reality can feel like years in a dream."
-  ]
+  ],
+  "writing": {
+    "task": "Tell a story about a time you were late, lost or confused. What had happened before that? Use Past Perfect at least 4 times and at least 6 words from this movie.",
+    "minWords": 100
+  }
 }

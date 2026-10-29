@@ -244,6 +244,51 @@
       "translation": "butun qalbi bilan",
       "example": "He did it with all his heart.",
       "cloze": "with all his heart"
+    },
+    {
+      "id": "fg1-c-believe",
+      "word": "believe in sb",
+      "ipa": "/bɪˈliːv ɪn/",
+      "emoji": "🙏",
+      "translation": "kimgadir ishonmoq",
+      "example": "His mother always believed in him.",
+      "cloze": "believed in"
+    },
+    {
+      "id": "fg1-c-advice",
+      "word": "give advice",
+      "ipa": "/ˌɡɪv ədˈvaɪs/",
+      "emoji": "💬",
+      "translation": "maslahat bermoq",
+      "example": "She gave him simple advice for difficult moments.",
+      "cloze": "gave him simple advice",
+      "note": "advice — sanalmaydi: an advice emas"
+    },
+    {
+      "id": "fg1-c-join",
+      "word": "join the army",
+      "ipa": "/ˌdʒɔɪn ði ˈɑː.mi/",
+      "emoji": "🪖",
+      "translation": "armiyaga qo'shilmoq",
+      "example": "Later he joined the army and went to Vietnam.",
+      "cloze": "joined the army"
+    },
+    {
+      "id": "fg1-c-luck",
+      "word": "bad luck",
+      "ipa": "/ˌbæd ˈlʌk/",
+      "emoji": "🍀",
+      "translation": "omadsizlik",
+      "example": "After a long period of bad luck, the company became successful."
+    },
+    {
+      "id": "fg1-c-laugh",
+      "word": "laugh at sb",
+      "ipa": "/ˈlɑːf ət/",
+      "emoji": "😆",
+      "translation": "kimustidan kulmoq",
+      "example": "Other children used to laugh at him.",
+      "cloze": "laugh at"
     }
   ],
   "grammar": {
@@ -394,5 +439,9 @@
     "You never know what you're gonna get.",
     "Forrest kept his promise.",
     "He did it with all his heart."
-  ]
+  ],
+  "writing": {
+    "task": "Write about a person who believed in you when others didn't. Who were they, what did they do, and how did it change you? Use at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

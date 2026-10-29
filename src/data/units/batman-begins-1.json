@@ -20,35 +20,269 @@
     "\"You're not going to give up, are you?\" Alfred asks when things go badly. Bruce isn't. He has learned that falling is not the end. It is a chance to rise."
   ],
   "questions": [
-    { "q": "What happens to Bruce as a child?", "options": ["He falls into a well full of bats", "He loses his dog", "He goes to prison", "He breaks his arm"], "answer": "He falls into a well full of bats" },
-    { "q": "Where were his parents before they were shot?", "options": ["At the opera", "At the cinema", "At home", "At a restaurant"], "answer": "At the opera" },
-    { "q": "Why does Bruce travel around the world?", "options": ["To understand how criminals think", "To find a wife", "To study medicine", "To build a company"], "answer": "To understand how criminals think" },
-    { "q": "Why does Bruce leave the League of Shadows?", "options": ["He refuses to kill a man", "He is too tired", "He wants money", "Alfred calls him"], "answer": "He refuses to kill a man" },
-    { "q": "Why does he choose the bat as his symbol?", "options": ["It was what he was afraid of", "It is cheap", "Alfred likes bats", "It is the city's symbol"], "answer": "It was what he was afraid of" }
+    {
+      "q": "What happens to Bruce as a child?",
+      "options": [
+        "He falls into a well full of bats",
+        "He loses his dog",
+        "He goes to prison",
+        "He breaks his arm"
+      ],
+      "answer": "He falls into a well full of bats"
+    },
+    {
+      "q": "Where were his parents before they were shot?",
+      "options": [
+        "At the opera",
+        "At the cinema",
+        "At home",
+        "At a restaurant"
+      ],
+      "answer": "At the opera"
+    },
+    {
+      "q": "Why does Bruce travel around the world?",
+      "options": [
+        "To understand how criminals think",
+        "To find a wife",
+        "To study medicine",
+        "To build a company"
+      ],
+      "answer": "To understand how criminals think"
+    },
+    {
+      "q": "Why does Bruce leave the League of Shadows?",
+      "options": [
+        "He refuses to kill a man",
+        "He is too tired",
+        "He wants money",
+        "Alfred calls him"
+      ],
+      "answer": "He refuses to kill a man"
+    },
+    {
+      "q": "Why does he choose the bat as his symbol?",
+      "options": [
+        "It was what he was afraid of",
+        "It is cheap",
+        "Alfred likes bats",
+        "It is the city's symbol"
+      ],
+      "answer": "It was what he was afraid of"
+    }
   ],
   "vocab": [
-    { "id": "bat1-well", "word": "well", "ipa": "/wel/", "emoji": "🕳", "translation": "quduq", "example": "He falls into an old well full of bats.", "note": "ravish sifatida — yaxshi" },
-    { "id": "bat1-terrified", "word": "terrified", "ipa": "/ˈter.ə.faɪd/", "emoji": "😱", "translation": "dahshatga tushgan", "example": "He becomes terrified of them." },
-    { "id": "bat1-guilty", "word": "guilty", "ipa": "/ˈɡɪl.ti/", "emoji": "😔", "translation": "aybdor", "example": "Bruce feels guilty and angry for years.", "note": "u o'qilmaydi" },
-    { "id": "bat1-angry", "word": "angry", "ipa": "/ˈæŋ.ɡri/", "emoji": "😠", "translation": "jahldor", "example": "Bruce feels guilty and angry for years." },
-    { "id": "bat1-travel", "word": "travel", "ipa": "/ˈtræv.əl/", "emoji": "🧳", "translation": "sayohat qilmoq", "example": "He travels around the world." },
-    { "id": "bat1-mysterious", "word": "mysterious", "ipa": "/mɪˈstɪə.ri.əs/", "emoji": "🕶", "translation": "sirli", "example": "A mysterious man invites him to join a secret group." },
-    { "id": "bat1-invite", "word": "invite", "ipa": "/ɪnˈvaɪt/", "emoji": "💌", "translation": "taklif qilmoq", "example": "A mysterious man invites him to join a group." },
-    { "id": "bat1-fear", "word": "fear", "ipa": "/fɪə/", "emoji": "😨", "translation": "qo'rquv", "example": "Bruce learns to control his fear." },
-    { "id": "bat1-justice", "word": "justice", "ipa": "/ˈdʒʌs.tɪs/", "emoji": "⚖️", "translation": "adolat", "example": "He wants justice, not revenge." },
-    { "id": "bat1-revenge", "word": "revenge", "ipa": "/rɪˈvendʒ/", "emoji": "🗡", "translation": "qasos", "example": "He wants justice, not revenge." },
-    { "id": "bat1-butler", "word": "butler", "ipa": "/ˈbʌt.lə/", "emoji": "🤵", "translation": "bosh xizmatkor (uy boshqaruvchisi)", "example": "His butler Alfred helps him." },
-    { "id": "bat1-identity", "word": "identity", "ipa": "/aɪˈden.tə.ti/", "emoji": "🪪", "translation": "shaxsiyat, kimlik", "example": "He creates a new identity." },
-    { "id": "bat1-symbol", "word": "symbol", "ipa": "/ˈsɪm.bəl/", "emoji": "🔣", "translation": "ramz", "example": "He chooses the bat as his symbol." },
-    { "id": "bat1-afraid", "word": "afraid", "ipa": "/əˈfreɪd/", "emoji": "😰", "translation": "qo'rqqan", "example": "The bat is the thing he was afraid of.", "note": "afraid OF sth" },
-    { "id": "bat1-rise", "word": "rise", "ipa": "/raɪz/", "emoji": "🌄", "translation": "ko'tarilmoq, qad rostlamoq", "example": "It is a chance to rise.", "note": "rise – rose – risen" }
+    {
+      "id": "bat1-well",
+      "word": "well",
+      "ipa": "/wel/",
+      "emoji": "🕳",
+      "translation": "quduq",
+      "example": "He falls into an old well full of bats.",
+      "note": "ravish sifatida — yaxshi"
+    },
+    {
+      "id": "bat1-terrified",
+      "word": "terrified",
+      "ipa": "/ˈter.ə.faɪd/",
+      "emoji": "😱",
+      "translation": "dahshatga tushgan",
+      "example": "He becomes terrified of them."
+    },
+    {
+      "id": "bat1-guilty",
+      "word": "guilty",
+      "ipa": "/ˈɡɪl.ti/",
+      "emoji": "😔",
+      "translation": "aybdor",
+      "example": "Bruce feels guilty and angry for years.",
+      "note": "u o'qilmaydi"
+    },
+    {
+      "id": "bat1-angry",
+      "word": "angry",
+      "ipa": "/ˈæŋ.ɡri/",
+      "emoji": "😠",
+      "translation": "jahldor",
+      "example": "Bruce feels guilty and angry for years."
+    },
+    {
+      "id": "bat1-travel",
+      "word": "travel",
+      "ipa": "/ˈtræv.əl/",
+      "emoji": "🧳",
+      "translation": "sayohat qilmoq",
+      "example": "He travels around the world."
+    },
+    {
+      "id": "bat1-mysterious",
+      "word": "mysterious",
+      "ipa": "/mɪˈstɪə.ri.əs/",
+      "emoji": "🕶",
+      "translation": "sirli",
+      "example": "A mysterious man invites him to join a secret group."
+    },
+    {
+      "id": "bat1-invite",
+      "word": "invite",
+      "ipa": "/ɪnˈvaɪt/",
+      "emoji": "💌",
+      "translation": "taklif qilmoq",
+      "example": "A mysterious man invites him to join a group."
+    },
+    {
+      "id": "bat1-fear",
+      "word": "fear",
+      "ipa": "/fɪə/",
+      "emoji": "😨",
+      "translation": "qo'rquv",
+      "example": "Bruce learns to control his fear."
+    },
+    {
+      "id": "bat1-justice",
+      "word": "justice",
+      "ipa": "/ˈdʒʌs.tɪs/",
+      "emoji": "⚖️",
+      "translation": "adolat",
+      "example": "He wants justice, not revenge."
+    },
+    {
+      "id": "bat1-revenge",
+      "word": "revenge",
+      "ipa": "/rɪˈvendʒ/",
+      "emoji": "🗡",
+      "translation": "qasos",
+      "example": "He wants justice, not revenge."
+    },
+    {
+      "id": "bat1-butler",
+      "word": "butler",
+      "ipa": "/ˈbʌt.lə/",
+      "emoji": "🤵",
+      "translation": "bosh xizmatkor (uy boshqaruvchisi)",
+      "example": "His butler Alfred helps him."
+    },
+    {
+      "id": "bat1-identity",
+      "word": "identity",
+      "ipa": "/aɪˈden.tə.ti/",
+      "emoji": "🪪",
+      "translation": "shaxsiyat, kimlik",
+      "example": "He creates a new identity."
+    },
+    {
+      "id": "bat1-symbol",
+      "word": "symbol",
+      "ipa": "/ˈsɪm.bəl/",
+      "emoji": "🔣",
+      "translation": "ramz",
+      "example": "He chooses the bat as his symbol."
+    },
+    {
+      "id": "bat1-afraid",
+      "word": "afraid",
+      "ipa": "/əˈfreɪd/",
+      "emoji": "😰",
+      "translation": "qo'rqqan",
+      "example": "The bat is the thing he was afraid of.",
+      "note": "afraid OF sth"
+    },
+    {
+      "id": "bat1-rise",
+      "word": "rise",
+      "ipa": "/raɪz/",
+      "emoji": "🌄",
+      "translation": "ko'tarilmoq, qad rostlamoq",
+      "example": "It is a chance to rise.",
+      "note": "rise – rose – risen"
+    }
   ],
   "collocations": [
-    { "id": "bat1-c-up", "word": "give up", "ipa": "/ˌɡɪv ˈʌp/", "emoji": "🏳️", "translation": "taslim bo'lmoq, voz kechmoq", "example": "You're not going to give up, are you?" },
-    { "id": "bat1-c-end", "word": "end up", "ipa": "/ˌend ˈʌp/", "emoji": "🏁", "translation": "oxir-oqibat ... bo'lib qolmoq", "example": "He ends up in prison in Asia.", "cloze": "ends up" },
-    { "id": "bat1-c-front", "word": "in front of", "ipa": "/ɪn ˈfrʌnt əv/", "emoji": "👁", "translation": "... ning ko'z o'ngida, oldida", "example": "A criminal shoots his parents in front of him." },
-    { "id": "bat1-c-pick", "word": "pick yourself up", "ipa": "/ˌpɪk jɔːˈself ˈʌp/", "emoji": "🧍", "translation": "o'zini tiklab olmoq", "example": "So we can learn to pick ourselves up.", "cloze": "pick ourselves up" },
-    { "id": "bat1-c-badly", "word": "go badly", "ipa": "/ˌɡəʊ ˈbæd.li/", "emoji": "📉", "translation": "yomon ketmoq", "example": "Alfred asks when things go badly." }
+    {
+      "id": "bat1-c-up",
+      "word": "give up",
+      "ipa": "/ˌɡɪv ˈʌp/",
+      "emoji": "🏳️",
+      "translation": "taslim bo'lmoq, voz kechmoq",
+      "example": "You're not going to give up, are you?"
+    },
+    {
+      "id": "bat1-c-end",
+      "word": "end up",
+      "ipa": "/ˌend ˈʌp/",
+      "emoji": "🏁",
+      "translation": "oxir-oqibat ... bo'lib qolmoq",
+      "example": "He ends up in prison in Asia.",
+      "cloze": "ends up"
+    },
+    {
+      "id": "bat1-c-front",
+      "word": "in front of",
+      "ipa": "/ɪn ˈfrʌnt əv/",
+      "emoji": "👁",
+      "translation": "... ning ko'z o'ngida, oldida",
+      "example": "A criminal shoots his parents in front of him."
+    },
+    {
+      "id": "bat1-c-pick",
+      "word": "pick yourself up",
+      "ipa": "/ˌpɪk jɔːˈself ˈʌp/",
+      "emoji": "🧍",
+      "translation": "o'zini tiklab olmoq",
+      "example": "So we can learn to pick ourselves up.",
+      "cloze": "pick ourselves up"
+    },
+    {
+      "id": "bat1-c-badly",
+      "word": "go badly",
+      "ipa": "/ˌɡəʊ ˈbæd.li/",
+      "emoji": "📉",
+      "translation": "yomon ketmoq",
+      "example": "Alfred asks when things go badly."
+    },
+    {
+      "id": "bat1-c-control",
+      "word": "control your fear",
+      "ipa": "/kənˌtrəʊl jə ˈfɪə/",
+      "emoji": "🧘",
+      "translation": "qo'rquvini jilovlamoq",
+      "example": "Bruce learns to control his fear.",
+      "cloze": "control his fear"
+    },
+    {
+      "id": "bat1-c-world",
+      "word": "around the world",
+      "ipa": "/əˌraʊnd ðə ˈwɜːld/",
+      "emoji": "🌍",
+      "translation": "butun dunyo bo'ylab",
+      "example": "He travels around the world."
+    },
+    {
+      "id": "bat1-c-guilty",
+      "word": "feel guilty",
+      "ipa": "/ˌfiːl ˈɡɪl.ti/",
+      "emoji": "😔",
+      "translation": "o'zini aybdor his qilmoq",
+      "example": "Bruce feels guilty and angry for years.",
+      "cloze": "feels guilty"
+    },
+    {
+      "id": "bat1-c-help",
+      "word": "with the help of",
+      "ipa": "/wɪð ðə ˈhelp əv/",
+      "emoji": "🤝",
+      "translation": "... yordamida",
+      "example": "With the help of his butler Alfred, he creates a new identity."
+    },
+    {
+      "id": "bat1-c-join",
+      "word": "join a group",
+      "ipa": "/ˌdʒɔɪn ə ˈɡruːp/",
+      "emoji": "👥",
+      "translation": "guruhga qo'shilmoq",
+      "example": "A mysterious man invites him to join a secret group.",
+      "cloze": "join a secret group"
+    }
   ],
   "grammar": {
     "title": "Savol shakllari va tag questions",
@@ -59,27 +293,126 @@
       "Tag yordamchi fe'lni takrorlaydi: He **can** fight, **can't** he? She **lives** here, **doesn't** she? They **went**, **didn't** they? Maxsus: I am → **aren't I**? Let's → **shall we**?"
     ],
     "exercises": [
-      { "q": "Why ___ we fall?", "options": ["do", "are", "does", "we"], "answer": "do", "why": "Present Simple savol: do + ega + fe'l." },
-      { "q": "Where ___ Bruce travel as a young man?", "options": ["did", "was", "does", "has"], "answer": "did", "why": "O'tmish savoli: did + asosiy fe'l." },
-      { "q": "Who ___ Bruce's parents?", "options": ["shot", "did shoot", "did shot", "does shoot"], "answer": "shot", "why": "Who — ega, do ishlatilmaydi." },
-      { "q": "You're not going to give up, ___?", "options": ["are you", "aren't you", "do you", "will you not"], "answer": "are you", "why": "Inkor gap → ijobiy tag." },
-      { "q": "Alfred is very loyal, ___?", "options": ["isn't he", "is he", "doesn't he", "wasn't he"], "answer": "isn't he", "why": "Ijobiy gap, is → isn't he?" },
-      { "q": "Bruce lives in Gotham, ___?", "options": ["doesn't he", "isn't he", "does he", "don't he"], "answer": "doesn't he", "why": "lives (Present Simple) → doesn't he?" },
-      { "q": "I'm late, ___?", "options": ["aren't I", "amn't I", "am not I", "isn't I"], "answer": "aren't I", "why": "Maxsus shakl: aren't I?" },
-      { "q": "They escaped from prison, ___?", "options": ["didn't they", "weren't they", "haven't they", "did they"], "answer": "didn't they", "why": "Past Simple ijobiy → didn't they?" }
+      {
+        "q": "Why ___ we fall?",
+        "options": [
+          "do",
+          "are",
+          "does",
+          "we"
+        ],
+        "answer": "do",
+        "why": "Present Simple savol: do + ega + fe'l."
+      },
+      {
+        "q": "Where ___ Bruce travel as a young man?",
+        "options": [
+          "did",
+          "was",
+          "does",
+          "has"
+        ],
+        "answer": "did",
+        "why": "O'tmish savoli: did + asosiy fe'l."
+      },
+      {
+        "q": "Who ___ Bruce's parents?",
+        "options": [
+          "shot",
+          "did shoot",
+          "did shot",
+          "does shoot"
+        ],
+        "answer": "shot",
+        "why": "Who — ega, do ishlatilmaydi."
+      },
+      {
+        "q": "You're not going to give up, ___?",
+        "options": [
+          "are you",
+          "aren't you",
+          "do you",
+          "will you not"
+        ],
+        "answer": "are you",
+        "why": "Inkor gap → ijobiy tag."
+      },
+      {
+        "q": "Alfred is very loyal, ___?",
+        "options": [
+          "isn't he",
+          "is he",
+          "doesn't he",
+          "wasn't he"
+        ],
+        "answer": "isn't he",
+        "why": "Ijobiy gap, is → isn't he?"
+      },
+      {
+        "q": "Bruce lives in Gotham, ___?",
+        "options": [
+          "doesn't he",
+          "isn't he",
+          "does he",
+          "don't he"
+        ],
+        "answer": "doesn't he",
+        "why": "lives (Present Simple) → doesn't he?"
+      },
+      {
+        "q": "I'm late, ___?",
+        "options": [
+          "aren't I",
+          "amn't I",
+          "am not I",
+          "isn't I"
+        ],
+        "answer": "aren't I",
+        "why": "Maxsus shakl: aren't I?"
+      },
+      {
+        "q": "They escaped from prison, ___?",
+        "options": [
+          "didn't they",
+          "weren't they",
+          "haven't they",
+          "did they"
+        ],
+        "answer": "didn't they",
+        "why": "Past Simple ijobiy → didn't they?"
+      }
     ]
   },
   "dictation": [
-    { "text": "He becomes terrified of them.", "gap": "terrified" },
-    { "text": "Bruce feels guilty and angry for years.", "gap": "guilty" },
-    { "text": "He wants justice, not revenge.", "gap": "revenge" },
-    { "text": "He creates a new identity.", "gap": "identity" },
-    { "text": "It is a chance to rise.", "gap": "rise" }
+    {
+      "text": "He becomes terrified of them.",
+      "gap": "terrified"
+    },
+    {
+      "text": "Bruce feels guilty and angry for years.",
+      "gap": "guilty"
+    },
+    {
+      "text": "He wants justice, not revenge.",
+      "gap": "revenge"
+    },
+    {
+      "text": "He creates a new identity.",
+      "gap": "identity"
+    },
+    {
+      "text": "It is a chance to rise.",
+      "gap": "rise"
+    }
   ],
   "shadowing": [
     "Why do we fall? So we can learn to pick ourselves up.",
     "You're not going to give up, are you?",
     "He wants justice, not revenge.",
     "Falling is not the end. It is a chance to rise."
-  ]
+  ],
+  "writing": {
+    "task": "Write a short interview (8–10 questions and answers) with Bruce Wayne. Use different question forms and at least 3 tag questions, plus at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

@@ -20,35 +20,273 @@
     "The series is about a man who has survived the war but has never really managed to leave it behind."
   ],
   "questions": [
-    { "q": "When does the story begin?", "options": ["In 1919", "In 1945", "In 1990", "In 1800"], "answer": "In 1919" },
-    { "q": "What does the gang control?", "options": ["Illegal betting", "The police", "A bank", "A newspaper"], "answer": "Illegal betting" },
-    { "q": "Who manages the family business?", "options": ["Aunt Polly", "Inspector Campbell", "Tommy's father", "Arthur"], "answer": "Aunt Polly" },
-    { "q": "Where does Inspector Campbell come from?", "options": ["Belfast", "London", "New York", "Paris"], "answer": "Belfast" },
-    { "q": "What does Tommy dream of?", "options": ["Moving into legal business", "Leaving England", "Becoming a police officer", "Going back to the war"], "answer": "Moving into legal business" }
+    {
+      "q": "When does the story begin?",
+      "options": [
+        "In 1919",
+        "In 1945",
+        "In 1990",
+        "In 1800"
+      ],
+      "answer": "In 1919"
+    },
+    {
+      "q": "What does the gang control?",
+      "options": [
+        "Illegal betting",
+        "The police",
+        "A bank",
+        "A newspaper"
+      ],
+      "answer": "Illegal betting"
+    },
+    {
+      "q": "Who manages the family business?",
+      "options": [
+        "Aunt Polly",
+        "Inspector Campbell",
+        "Tommy's father",
+        "Arthur"
+      ],
+      "answer": "Aunt Polly"
+    },
+    {
+      "q": "Where does Inspector Campbell come from?",
+      "options": [
+        "Belfast",
+        "London",
+        "New York",
+        "Paris"
+      ],
+      "answer": "Belfast"
+    },
+    {
+      "q": "What does Tommy dream of?",
+      "options": [
+        "Moving into legal business",
+        "Leaving England",
+        "Becoming a police officer",
+        "Going back to the war"
+      ],
+      "answer": "Moving into legal business"
+    }
   ],
   "vocab": [
-    { "id": "pb1-gang", "word": "gang", "ipa": "/ɡæŋ/", "emoji": "👥", "translation": "to'da", "example": "Tommy leads a family gang." },
-    { "id": "pb1-betting", "word": "betting", "ipa": "/ˈbet.ɪŋ/", "emoji": "🎰", "translation": "garov o'yini, tikish", "example": "The gang controls illegal betting in the city." },
-    { "id": "pb1-calm", "word": "calm", "ipa": "/kɑːm/", "emoji": "🧘", "translation": "xotirjam", "example": "He is clever, calm and ambitious.", "note": "l o'qilmaydi" },
-    { "id": "pb1-ambitious", "word": "ambitious", "ipa": "/æmˈbɪʃ.əs/", "emoji": "🧗", "translation": "shuhratparast, katta maqsadli", "example": "He is clever, calm and ambitious." },
-    { "id": "pb1-avoid", "word": "avoid", "ipa": "/əˈvɔɪd/", "emoji": "🙈", "translation": "qochmoq, chetlab o'tmoq", "example": "Tommy avoids showing emotion.", "note": "avoid + -ing" },
-    { "id": "pb1-prefer", "word": "prefer", "ipa": "/prɪˈfɜː/", "emoji": "👉", "translation": "afzal ko'rmoq", "example": "He prefers to think quietly." },
-    { "id": "pb1-shout", "word": "shout", "ipa": "/ʃaʊt/", "emoji": "📢", "translation": "baqirmoq", "example": "Everyone else is shouting." },
-    { "id": "pb1-manage", "word": "manage", "ipa": "/ˈmæn.ɪdʒ/", "emoji": "📋", "translation": "boshqarmoq; uddalamoq", "example": "His aunt Polly manages the family business.", "note": "manage TO do = uddalamoq" },
-    { "id": "pb1-remind", "word": "remind", "ipa": "/rɪˈmaɪnd/", "emoji": "🔔", "translation": "eslatmoq", "example": "She keeps reminding Tommy that family comes first." },
-    { "id": "pb1-risk", "word": "risk", "ipa": "/rɪsk/", "emoji": "🎲", "translation": "xavf, tavakkal", "example": "He often decides to take risks." },
-    { "id": "pb1-inspector", "word": "inspector", "ipa": "/ɪnˈspek.tə/", "emoji": "🕵️", "translation": "inspektor", "example": "A police inspector arrives from Belfast." },
-    { "id": "pb1-instead", "word": "instead", "ipa": "/ɪnˈsted/", "emoji": "🔄", "translation": "uning o'rniga", "example": "Instead, he tries to use the inspector." },
-    { "id": "pb1-legal", "word": "legal", "ipa": "/ˈliː.ɡəl/", "emoji": "📜", "translation": "qonuniy", "example": "He dreams of moving the business into legal companies." },
-    { "id": "pb1-respectable", "word": "respectable", "ipa": "/rɪˈspek.tə.bəl/", "emoji": "🎩", "translation": "obro'li, hurmatga sazovor", "example": "He wants to become respectable." },
-    { "id": "pb1-survive", "word": "survive", "ipa": "/səˈvaɪv/", "emoji": "🪖", "translation": "omon qolmoq", "example": "He has survived the war." }
+    {
+      "id": "pb1-gang",
+      "word": "gang",
+      "ipa": "/ɡæŋ/",
+      "emoji": "👥",
+      "translation": "to'da",
+      "example": "Tommy leads a family gang."
+    },
+    {
+      "id": "pb1-betting",
+      "word": "betting",
+      "ipa": "/ˈbet.ɪŋ/",
+      "emoji": "🎰",
+      "translation": "garov o'yini, tikish",
+      "example": "The gang controls illegal betting in the city."
+    },
+    {
+      "id": "pb1-calm",
+      "word": "calm",
+      "ipa": "/kɑːm/",
+      "emoji": "🧘",
+      "translation": "xotirjam",
+      "example": "He is clever, calm and ambitious.",
+      "note": "l o'qilmaydi"
+    },
+    {
+      "id": "pb1-ambitious",
+      "word": "ambitious",
+      "ipa": "/æmˈbɪʃ.əs/",
+      "emoji": "🧗",
+      "translation": "shuhratparast, katta maqsadli",
+      "example": "He is clever, calm and ambitious."
+    },
+    {
+      "id": "pb1-avoid",
+      "word": "avoid",
+      "ipa": "/əˈvɔɪd/",
+      "emoji": "🙈",
+      "translation": "qochmoq, chetlab o'tmoq",
+      "example": "Tommy avoids showing emotion.",
+      "note": "avoid + -ing"
+    },
+    {
+      "id": "pb1-prefer",
+      "word": "prefer",
+      "ipa": "/prɪˈfɜː/",
+      "emoji": "👉",
+      "translation": "afzal ko'rmoq",
+      "example": "He prefers to think quietly."
+    },
+    {
+      "id": "pb1-shout",
+      "word": "shout",
+      "ipa": "/ʃaʊt/",
+      "emoji": "📢",
+      "translation": "baqirmoq",
+      "example": "Everyone else is shouting."
+    },
+    {
+      "id": "pb1-manage",
+      "word": "manage",
+      "ipa": "/ˈmæn.ɪdʒ/",
+      "emoji": "📋",
+      "translation": "boshqarmoq; uddalamoq",
+      "example": "His aunt Polly manages the family business.",
+      "note": "manage TO do = uddalamoq"
+    },
+    {
+      "id": "pb1-remind",
+      "word": "remind",
+      "ipa": "/rɪˈmaɪnd/",
+      "emoji": "🔔",
+      "translation": "eslatmoq",
+      "example": "She keeps reminding Tommy that family comes first."
+    },
+    {
+      "id": "pb1-risk",
+      "word": "risk",
+      "ipa": "/rɪsk/",
+      "emoji": "🎲",
+      "translation": "xavf, tavakkal",
+      "example": "He often decides to take risks."
+    },
+    {
+      "id": "pb1-inspector",
+      "word": "inspector",
+      "ipa": "/ɪnˈspek.tə/",
+      "emoji": "🕵️",
+      "translation": "inspektor",
+      "example": "A police inspector arrives from Belfast."
+    },
+    {
+      "id": "pb1-instead",
+      "word": "instead",
+      "ipa": "/ɪnˈsted/",
+      "emoji": "🔄",
+      "translation": "uning o'rniga",
+      "example": "Instead, he tries to use the inspector."
+    },
+    {
+      "id": "pb1-legal",
+      "word": "legal",
+      "ipa": "/ˈliː.ɡəl/",
+      "emoji": "📜",
+      "translation": "qonuniy",
+      "example": "He dreams of moving the business into legal companies."
+    },
+    {
+      "id": "pb1-respectable",
+      "word": "respectable",
+      "ipa": "/rɪˈspek.tə.bəl/",
+      "emoji": "🎩",
+      "translation": "obro'li, hurmatga sazovor",
+      "example": "He wants to become respectable."
+    },
+    {
+      "id": "pb1-survive",
+      "word": "survive",
+      "ipa": "/səˈvaɪv/",
+      "emoji": "🪖",
+      "translation": "omon qolmoq",
+      "example": "He has survived the war."
+    }
   ],
   "collocations": [
-    { "id": "pb1-c-risk", "word": "take a risk", "ipa": "/ˌteɪk ə ˈrɪsk/", "emoji": "🎲", "translation": "tavakkal qilmoq", "example": "He often decides to take risks.", "cloze": "take risks" },
-    { "id": "pb1-c-first", "word": "come first", "ipa": "/ˌkʌm ˈfɜːst/", "emoji": "🥇", "translation": "birinchi o'rinda turmoq", "example": "Family comes first.", "cloze": "comes first" },
-    { "id": "pb1-c-clean", "word": "clean up", "ipa": "/ˌkliːn ˈʌp/", "emoji": "🧹", "translation": "tozalamoq (shaharni jinoyatdan)", "example": "He arrives to clean up the city.", "cloze": "clean up" },
-    { "id": "pb1-c-behind", "word": "leave sth behind", "ipa": "/ˌliːv ... bɪˈhaɪnd/", "emoji": "🚪", "translation": "ortda qoldirmoq", "example": "He has never managed to leave it behind.", "cloze": "leave it behind" },
-    { "id": "pb1-c-dream", "word": "dream of", "ipa": "/ˈdriːm əv/", "emoji": "💭", "translation": "... ni orzu qilmoq", "example": "Tommy dreams of moving the business.", "cloze": "dreams of", "note": "dream OF + -ing" }
+    {
+      "id": "pb1-c-risk",
+      "word": "take a risk",
+      "ipa": "/ˌteɪk ə ˈrɪsk/",
+      "emoji": "🎲",
+      "translation": "tavakkal qilmoq",
+      "example": "He often decides to take risks.",
+      "cloze": "take risks"
+    },
+    {
+      "id": "pb1-c-first",
+      "word": "come first",
+      "ipa": "/ˌkʌm ˈfɜːst/",
+      "emoji": "🥇",
+      "translation": "birinchi o'rinda turmoq",
+      "example": "Family comes first.",
+      "cloze": "comes first"
+    },
+    {
+      "id": "pb1-c-clean",
+      "word": "clean up",
+      "ipa": "/ˌkliːn ˈʌp/",
+      "emoji": "🧹",
+      "translation": "tozalamoq (shaharni jinoyatdan)",
+      "example": "He arrives to clean up the city.",
+      "cloze": "clean up"
+    },
+    {
+      "id": "pb1-c-behind",
+      "word": "leave sth behind",
+      "ipa": "/ˌliːv ... bɪˈhaɪnd/",
+      "emoji": "🚪",
+      "translation": "ortda qoldirmoq",
+      "example": "He has never managed to leave it behind.",
+      "cloze": "leave it behind"
+    },
+    {
+      "id": "pb1-c-dream",
+      "word": "dream of",
+      "ipa": "/ˈdriːm əv/",
+      "emoji": "💭",
+      "translation": "... ni orzu qilmoq",
+      "example": "Tommy dreams of moving the business.",
+      "cloze": "dreams of",
+      "note": "dream OF + -ing"
+    },
+    {
+      "id": "pb1-c-war",
+      "word": "come home from the war",
+      "ipa": "/ˌkʌm ˈhəʊm frəm ðə ˈwɔː/",
+      "emoji": "🪖",
+      "translation": "urushdan qaytmoq",
+      "example": "Men have come home with terrible memories.",
+      "cloze": "come home"
+    },
+    {
+      "id": "pb1-c-control",
+      "word": "control the city",
+      "ipa": "/kənˌtrəʊl ðə ˈsɪt.i/",
+      "emoji": "🏙",
+      "translation": "shaharni nazorat qilmoq",
+      "example": "The gang controls illegal betting in the city.",
+      "cloze": "controls illegal betting in the city"
+    },
+    {
+      "id": "pb1-c-stop",
+      "word": "stop doing",
+      "ipa": "/ˈstɒp ˌduː.ɪŋ/",
+      "emoji": "⛔",
+      "translation": "... qilishni to'xtatmoq",
+      "example": "Tommy doesn't stop working.",
+      "cloze": "stop working"
+    },
+    {
+      "id": "pb1-c-enemy",
+      "word": "an old enemy",
+      "ipa": "/ən ˌəʊld ˈen.ə.mi/",
+      "emoji": "⚔️",
+      "translation": "eski dushman",
+      "example": "He can't stop fighting old enemies.",
+      "cloze": "old enemies"
+    },
+    {
+      "id": "pb1-c-quiet",
+      "word": "think quietly",
+      "ipa": "/ˌθɪŋk ˈkwaɪ.ət.li/",
+      "emoji": "🤔",
+      "translation": "jim o'ylamoq",
+      "example": "He prefers to think quietly."
+    }
   ],
   "grammar": {
     "title": "Gerund yoki infinitive: avoid doing / decide to do",
@@ -59,27 +297,126 @@
       "Ma'nosi o'zgaradiganlar: **stop doing** (odatni tashlamoq) / **stop to do** (biror ish qilish uchun to'xtamoq); **remember doing** (qilganini eslamoq) / **remember to do** (qilishni unutmaslik)."
     ],
     "exercises": [
-      { "q": "Tommy avoids ___ emotion.", "options": ["showing", "to show", "show", "showed"], "answer": "showing", "why": "avoid + -ing." },
-      { "q": "He refuses ___ small.", "options": ["to stay", "staying", "stay", "stayed"], "answer": "to stay", "why": "refuse + to + fe'l." },
-      { "q": "Polly keeps ___ him that family comes first.", "options": ["reminding", "to remind", "remind", "reminded"], "answer": "reminding", "why": "keep + -ing." },
-      { "q": "He dreams of ___ the business legal.", "options": ["making", "to make", "make", "made"], "answer": "making", "why": "Predlog (of) dan keyin -ing." },
-      { "q": "They decided ___ the inspector.", "options": ["to use", "using", "use", "used"], "answer": "to use", "why": "decide + to." },
-      { "q": "I stopped ___ two years ago. Now I don't smoke.", "options": ["smoking", "to smoke", "smoke", "smoked"], "answer": "smoking", "why": "Odatni tashlash: stop + -ing." },
-      { "q": "Remember ___ the door when you leave!", "options": ["to lock", "locking", "lock", "locked"], "answer": "to lock", "why": "Kelajakda unutmaslik: remember to do." },
-      { "q": "She managed ___ the problem alone.", "options": ["to solve", "solving", "solve", "solved"], "answer": "to solve", "why": "manage + to = uddalamoq." }
+      {
+        "q": "Tommy avoids ___ emotion.",
+        "options": [
+          "showing",
+          "to show",
+          "show",
+          "showed"
+        ],
+        "answer": "showing",
+        "why": "avoid + -ing."
+      },
+      {
+        "q": "He refuses ___ small.",
+        "options": [
+          "to stay",
+          "staying",
+          "stay",
+          "stayed"
+        ],
+        "answer": "to stay",
+        "why": "refuse + to + fe'l."
+      },
+      {
+        "q": "Polly keeps ___ him that family comes first.",
+        "options": [
+          "reminding",
+          "to remind",
+          "remind",
+          "reminded"
+        ],
+        "answer": "reminding",
+        "why": "keep + -ing."
+      },
+      {
+        "q": "He dreams of ___ the business legal.",
+        "options": [
+          "making",
+          "to make",
+          "make",
+          "made"
+        ],
+        "answer": "making",
+        "why": "Predlog (of) dan keyin -ing."
+      },
+      {
+        "q": "They decided ___ the inspector.",
+        "options": [
+          "to use",
+          "using",
+          "use",
+          "used"
+        ],
+        "answer": "to use",
+        "why": "decide + to."
+      },
+      {
+        "q": "I stopped ___ two years ago. Now I don't smoke.",
+        "options": [
+          "smoking",
+          "to smoke",
+          "smoke",
+          "smoked"
+        ],
+        "answer": "smoking",
+        "why": "Odatni tashlash: stop + -ing."
+      },
+      {
+        "q": "Remember ___ the door when you leave!",
+        "options": [
+          "to lock",
+          "locking",
+          "lock",
+          "locked"
+        ],
+        "answer": "to lock",
+        "why": "Kelajakda unutmaslik: remember to do."
+      },
+      {
+        "q": "She managed ___ the problem alone.",
+        "options": [
+          "to solve",
+          "solving",
+          "solve",
+          "solved"
+        ],
+        "answer": "to solve",
+        "why": "manage + to = uddalamoq."
+      }
     ]
   },
   "dictation": [
-    { "text": "Tommy leads a family gang.", "gap": "gang" },
-    { "text": "He is clever, calm and ambitious.", "gap": "ambitious" },
-    { "text": "Tommy avoids showing emotion.", "gap": "avoids" },
-    { "text": "He often decides to take risks.", "gap": "risks" },
-    { "text": "He wants to become respectable.", "gap": "respectable" }
+    {
+      "text": "Tommy leads a family gang.",
+      "gap": "gang"
+    },
+    {
+      "text": "He is clever, calm and ambitious.",
+      "gap": "ambitious"
+    },
+    {
+      "text": "Tommy avoids showing emotion.",
+      "gap": "avoids"
+    },
+    {
+      "text": "He often decides to take risks.",
+      "gap": "risks"
+    },
+    {
+      "text": "He wants to become respectable.",
+      "gap": "respectable"
+    }
   ],
   "shadowing": [
     "By order of the Peaky Blinders.",
     "He refuses to stay small.",
     "He prefers to think quietly while everyone else is shouting.",
     "He has never really managed to leave the war behind."
-  ]
+  ],
+  "writing": {
+    "task": "Write about your ambitions. What do you enjoy doing, what do you want to do, what do you avoid doing, and what do you dream of? Use gerunds and infinitives correctly and at least 6 words from this movie.",
+    "minWords": 100
+  }
 }

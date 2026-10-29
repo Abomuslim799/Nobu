@@ -20,35 +20,270 @@
     "By the end of the year Harry has found a real home and real friends for the first time in his life."
   ],
   "questions": [
-    { "q": "Where has Harry slept for years?", "options": ["In a cupboard under the stairs", "In a castle", "On a train", "In Ron's house"], "answer": "In a cupboard under the stairs" },
-    { "q": "Who tells Harry the truth about his parents?", "options": ["Hagrid", "His uncle", "Hermione", "Ron"], "answer": "Hagrid" },
-    { "q": "What can the Philosopher's Stone give?", "options": ["Eternal life", "Money", "The power to fly", "A new home"], "answer": "Eternal life" },
-    { "q": "How does Ron help in the tests?", "options": ["He plays chess", "He solves a puzzle", "He flies", "He reads a book"], "answer": "He plays chess" },
-    { "q": "What has Harry found by the end of the year?", "options": ["A real home and friends", "His parents", "A lot of gold", "A new cupboard"], "answer": "A real home and friends" }
+    {
+      "q": "Where has Harry slept for years?",
+      "options": [
+        "In a cupboard under the stairs",
+        "In a castle",
+        "On a train",
+        "In Ron's house"
+      ],
+      "answer": "In a cupboard under the stairs"
+    },
+    {
+      "q": "Who tells Harry the truth about his parents?",
+      "options": [
+        "Hagrid",
+        "His uncle",
+        "Hermione",
+        "Ron"
+      ],
+      "answer": "Hagrid"
+    },
+    {
+      "q": "What can the Philosopher's Stone give?",
+      "options": [
+        "Eternal life",
+        "Money",
+        "The power to fly",
+        "A new home"
+      ],
+      "answer": "Eternal life"
+    },
+    {
+      "q": "How does Ron help in the tests?",
+      "options": [
+        "He plays chess",
+        "He solves a puzzle",
+        "He flies",
+        "He reads a book"
+      ],
+      "answer": "He plays chess"
+    },
+    {
+      "q": "What has Harry found by the end of the year?",
+      "options": [
+        "A real home and friends",
+        "His parents",
+        "A lot of gold",
+        "A new cupboard"
+      ],
+      "answer": "A real home and friends"
+    }
   ],
   "vocab": [
-    { "id": "hp1-cupboard", "word": "cupboard", "ipa": "/ˈkʌb.əd/", "emoji": "🚪", "translation": "shkaf, javon", "example": "He has slept in a small cupboard under the stairs.", "note": "p o'qilmaydi: /ˈkʌb.əd/" },
-    { "id": "hp1-stairs", "word": "stairs", "ipa": "/steəz/", "emoji": "🪜", "translation": "zinapoya", "example": "The cupboard is under the stairs." },
-    { "id": "hp1-giant", "word": "giant", "ipa": "/ˈdʒaɪ.ənt/", "emoji": "🧔", "translation": "devqomat, gigant", "example": "A giant called Hagrid arrives." },
-    { "id": "hp1-truth", "word": "truth", "ipa": "/truːθ/", "emoji": "🗝", "translation": "haqiqat", "example": "Hagrid tells Harry the truth." },
-    { "id": "hp1-witch", "word": "witch", "ipa": "/wɪtʃ/", "emoji": "🧙‍♀️", "translation": "jodugar ayol", "example": "His parents were a witch and a wizard." },
-    { "id": "hp1-wizard", "word": "wizard", "ipa": "/ˈwɪz.əd/", "emoji": "🧙", "translation": "sehrgar", "example": "Harry is a wizard too." },
-    { "id": "hp1-famous", "word": "famous", "ipa": "/ˈfeɪ.məs/", "emoji": "🌟", "translation": "mashhur", "example": "He has already become famous in the magic world." },
-    { "id": "hp1-castle", "word": "castle", "ipa": "/ˈkɑː.səl/", "emoji": "🏰", "translation": "qasr", "example": "Hogwarts is a school of magic in an old castle.", "note": "t o'qilmaydi: /ˈkɑː.səl/" },
-    { "id": "hp1-clever", "word": "clever", "ipa": "/ˈklev.ə/", "emoji": "🧠", "translation": "aqlli", "example": "Hermione is a clever girl who has read every book." },
-    { "id": "hp1-talent", "word": "talent", "ipa": "/ˈtæl.ənt/", "emoji": "🎁", "translation": "iste'dod", "example": "He has a natural talent for it." },
-    { "id": "hp1-strange", "word": "strange", "ipa": "/streɪndʒ/", "emoji": "❓", "translation": "g'alati", "example": "Something strange is happening." },
-    { "id": "hp1-steal", "word": "steal", "ipa": "/stiːl/", "emoji": "🦹", "translation": "o'g'irlamoq", "example": "Somebody wants to steal the Philosopher's Stone.", "note": "steal – stole – stolen" },
-    { "id": "hp1-eternal", "word": "eternal", "ipa": "/ɪˈtɜː.nəl/", "emoji": "♾", "translation": "abadiy", "example": "It can give eternal life." },
-    { "id": "hp1-protect", "word": "protect", "ipa": "/prəˈtekt/", "emoji": "🛡", "translation": "himoya qilmoq", "example": "They have to pass several dangerous tests to protect the stone." },
-    { "id": "hp1-courage", "word": "courage", "ipa": "/ˈkʌr.ɪdʒ/", "emoji": "🦁", "translation": "jasorat", "example": "Harry shows courage." }
+    {
+      "id": "hp1-cupboard",
+      "word": "cupboard",
+      "ipa": "/ˈkʌb.əd/",
+      "emoji": "🚪",
+      "translation": "shkaf, javon",
+      "example": "He has slept in a small cupboard under the stairs.",
+      "note": "p o'qilmaydi: /ˈkʌb.əd/"
+    },
+    {
+      "id": "hp1-stairs",
+      "word": "stairs",
+      "ipa": "/steəz/",
+      "emoji": "🪜",
+      "translation": "zinapoya",
+      "example": "The cupboard is under the stairs."
+    },
+    {
+      "id": "hp1-giant",
+      "word": "giant",
+      "ipa": "/ˈdʒaɪ.ənt/",
+      "emoji": "🧔",
+      "translation": "devqomat, gigant",
+      "example": "A giant called Hagrid arrives."
+    },
+    {
+      "id": "hp1-truth",
+      "word": "truth",
+      "ipa": "/truːθ/",
+      "emoji": "🗝",
+      "translation": "haqiqat",
+      "example": "Hagrid tells Harry the truth."
+    },
+    {
+      "id": "hp1-witch",
+      "word": "witch",
+      "ipa": "/wɪtʃ/",
+      "emoji": "🧙‍♀️",
+      "translation": "jodugar ayol",
+      "example": "His parents were a witch and a wizard."
+    },
+    {
+      "id": "hp1-wizard",
+      "word": "wizard",
+      "ipa": "/ˈwɪz.əd/",
+      "emoji": "🧙",
+      "translation": "sehrgar",
+      "example": "Harry is a wizard too."
+    },
+    {
+      "id": "hp1-famous",
+      "word": "famous",
+      "ipa": "/ˈfeɪ.məs/",
+      "emoji": "🌟",
+      "translation": "mashhur",
+      "example": "He has already become famous in the magic world."
+    },
+    {
+      "id": "hp1-castle",
+      "word": "castle",
+      "ipa": "/ˈkɑː.səl/",
+      "emoji": "🏰",
+      "translation": "qasr",
+      "example": "Hogwarts is a school of magic in an old castle.",
+      "note": "t o'qilmaydi: /ˈkɑː.səl/"
+    },
+    {
+      "id": "hp1-clever",
+      "word": "clever",
+      "ipa": "/ˈklev.ə/",
+      "emoji": "🧠",
+      "translation": "aqlli",
+      "example": "Hermione is a clever girl who has read every book."
+    },
+    {
+      "id": "hp1-talent",
+      "word": "talent",
+      "ipa": "/ˈtæl.ənt/",
+      "emoji": "🎁",
+      "translation": "iste'dod",
+      "example": "He has a natural talent for it."
+    },
+    {
+      "id": "hp1-strange",
+      "word": "strange",
+      "ipa": "/streɪndʒ/",
+      "emoji": "❓",
+      "translation": "g'alati",
+      "example": "Something strange is happening."
+    },
+    {
+      "id": "hp1-steal",
+      "word": "steal",
+      "ipa": "/stiːl/",
+      "emoji": "🦹",
+      "translation": "o'g'irlamoq",
+      "example": "Somebody wants to steal the Philosopher's Stone.",
+      "note": "steal – stole – stolen"
+    },
+    {
+      "id": "hp1-eternal",
+      "word": "eternal",
+      "ipa": "/ɪˈtɜː.nəl/",
+      "emoji": "♾",
+      "translation": "abadiy",
+      "example": "It can give eternal life."
+    },
+    {
+      "id": "hp1-protect",
+      "word": "protect",
+      "ipa": "/prəˈtekt/",
+      "emoji": "🛡",
+      "translation": "himoya qilmoq",
+      "example": "They have to pass several dangerous tests to protect the stone."
+    },
+    {
+      "id": "hp1-courage",
+      "word": "courage",
+      "ipa": "/ˈkʌr.ɪdʒ/",
+      "emoji": "🦁",
+      "translation": "jasorat",
+      "example": "Harry shows courage."
+    }
   ],
   "collocations": [
-    { "id": "hp1-c-friends", "word": "make friends", "ipa": "/ˌmeɪk ˈfrendz/", "emoji": "🤝", "translation": "do'stlashmoq", "example": "They also make friends with Hermione.", "note": "make friends WITH sb" },
-    { "id": "hp1-c-hear", "word": "hear of", "ipa": "/ˈhɪər ɒv/", "emoji": "👂", "translation": "haqida eshitmoq", "example": "He has never heard of it.", "cloze": "heard of" },
-    { "id": "hp1-c-test", "word": "pass a test", "ipa": "/ˌpɑːs ə ˈtest/", "emoji": "✅", "translation": "sinovdan o'tmoq", "example": "They have to pass several dangerous tests.", "cloze": "pass several dangerous tests" },
-    { "id": "hp1-c-puzzle", "word": "solve a puzzle", "ipa": "/ˌsɒlv ə ˈpʌz.əl/", "emoji": "🧩", "translation": "jumboqni yechmoq", "example": "Hermione solves a puzzle.", "cloze": "solves a puzzle" },
-    { "id": "hp1-c-once", "word": "at once", "ipa": "/ət ˈwʌns/", "emoji": "⏱", "translation": "darhol, shu zahoti", "example": "They become friends at once." }
+    {
+      "id": "hp1-c-friends",
+      "word": "make friends",
+      "ipa": "/ˌmeɪk ˈfrendz/",
+      "emoji": "🤝",
+      "translation": "do'stlashmoq",
+      "example": "They also make friends with Hermione.",
+      "note": "make friends WITH sb"
+    },
+    {
+      "id": "hp1-c-hear",
+      "word": "hear of",
+      "ipa": "/ˈhɪər ɒv/",
+      "emoji": "👂",
+      "translation": "haqida eshitmoq",
+      "example": "He has never heard of it.",
+      "cloze": "heard of"
+    },
+    {
+      "id": "hp1-c-test",
+      "word": "pass a test",
+      "ipa": "/ˌpɑːs ə ˈtest/",
+      "emoji": "✅",
+      "translation": "sinovdan o'tmoq",
+      "example": "They have to pass several dangerous tests.",
+      "cloze": "pass several dangerous tests"
+    },
+    {
+      "id": "hp1-c-puzzle",
+      "word": "solve a puzzle",
+      "ipa": "/ˌsɒlv ə ˈpʌz.əl/",
+      "emoji": "🧩",
+      "translation": "jumboqni yechmoq",
+      "example": "Hermione solves a puzzle.",
+      "cloze": "solves a puzzle"
+    },
+    {
+      "id": "hp1-c-once",
+      "word": "at once",
+      "ipa": "/ət ˈwʌns/",
+      "emoji": "⏱",
+      "translation": "darhol, shu zahoti",
+      "example": "They become friends at once."
+    },
+    {
+      "id": "hp1-c-truth",
+      "word": "learn the truth",
+      "ipa": "/ˌlɜːn ðə ˈtruːθ/",
+      "emoji": "🗝",
+      "translation": "haqiqatni bilib olmoq",
+      "example": "Harry learns the truth about his parents.",
+      "cloze": "learns the truth"
+    },
+    {
+      "id": "hp1-c-talent",
+      "word": "a natural talent",
+      "ipa": "/ə ˌnætʃ.ər.əl ˈtæl.ənt/",
+      "emoji": "🎁",
+      "translation": "tug'ma iste'dod",
+      "example": "He has a natural talent for it."
+    },
+    {
+      "id": "hp1-c-courage",
+      "word": "show courage",
+      "ipa": "/ˌʃəʊ ˈkʌr.ɪdʒ/",
+      "emoji": "🦁",
+      "translation": "jasorat ko'rsatmoq",
+      "example": "Harry shows courage.",
+      "cloze": "shows courage"
+    },
+    {
+      "id": "hp1-c-home",
+      "word": "a real home",
+      "ipa": "/ə ˌrɪəl ˈhəʊm/",
+      "emoji": "🏡",
+      "translation": "haqiqiy uy (oila)",
+      "example": "Harry has found a real home and real friends."
+    },
+    {
+      "id": "hp1-c-birthday",
+      "word": "on sb's birthday",
+      "ipa": "/ɒn ... ˈbɜːθ.deɪ/",
+      "emoji": "🎂",
+      "translation": "tug'ilgan kunida",
+      "example": "On his eleventh birthday a giant arrives.",
+      "cloze": "eleventh birthday"
+    }
   ],
   "grammar": {
     "title": "Present Perfect va Past Simple",
@@ -59,29 +294,148 @@
       "**for** — davomiylik (for years, for ten minutes); **since** — boshlanish nuqtasi (since 2010, since he was a baby). \"I have lived here since five years\" — xato: **for** five years."
     ],
     "exercises": [
-      { "q": "Harry ___ with the Dursleys since he was a baby.", "options": ["has lived", "lived", "lives", "is living"], "answer": "has lived", "why": "since + hozirgacha davom etmoqda → Present Perfect." },
-      { "q": "Hagrid ___ on Harry's eleventh birthday.", "options": ["arrived", "has arrived", "arrives", "has arrive"], "answer": "arrived", "why": "Aniq o'tmish vaqti → Past Simple." },
-      { "q": "Hermione ___ every book in the library.", "options": ["has read", "has readed", "read yesterday", "have read"], "answer": "has read", "why": "Natija hozir muhim, vaqt yo'q: has read (read – read – read)." },
-      { "q": "Have you ___ been to a castle?", "options": ["ever", "yet", "ago", "since"], "answer": "ever", "why": "Hayotiy tajriba savoli: Have you ever...?" },
-      { "q": "I haven't finished my homework ___.", "options": ["yet", "already", "ago", "never"], "answer": "yet", "why": "Inkor va savolda gap oxirida: yet." },
-      { "q": "They became friends two years ___.", "options": ["ago", "since", "for", "yet"], "answer": "ago", "why": "ago — Past Simple bilan." },
-      { "q": "Harry has played Quidditch ___ September.", "options": ["since", "for", "ago", "during"], "answer": "since", "why": "Boshlanish nuqtasi: since." },
-      { "q": "Ron has been Harry's friend ___ three years.", "options": ["for", "since", "ago", "from"], "answer": "for", "why": "Davomiylik: for." },
-      { "q": "\"Is Harry here?\" — \"No, he has just ___.\"", "options": ["left", "leave", "leaved", "leaving"], "answer": "left", "why": "has just + V3: leave – left – left." },
-      { "q": "When ___ Harry learn the truth?", "options": ["did", "has", "have", "was"], "answer": "did", "why": "When bilan aniq vaqt so'raladi → Past Simple: When did...?" }
+      {
+        "q": "Harry ___ with the Dursleys since he was a baby.",
+        "options": [
+          "has lived",
+          "lived",
+          "lives",
+          "is living"
+        ],
+        "answer": "has lived",
+        "why": "since + hozirgacha davom etmoqda → Present Perfect."
+      },
+      {
+        "q": "Hagrid ___ on Harry's eleventh birthday.",
+        "options": [
+          "arrived",
+          "has arrived",
+          "arrives",
+          "has arrive"
+        ],
+        "answer": "arrived",
+        "why": "Aniq o'tmish vaqti → Past Simple."
+      },
+      {
+        "q": "Hermione ___ every book in the library.",
+        "options": [
+          "has read",
+          "has readed",
+          "read yesterday",
+          "have read"
+        ],
+        "answer": "has read",
+        "why": "Natija hozir muhim, vaqt yo'q: has read (read – read – read)."
+      },
+      {
+        "q": "Have you ___ been to a castle?",
+        "options": [
+          "ever",
+          "yet",
+          "ago",
+          "since"
+        ],
+        "answer": "ever",
+        "why": "Hayotiy tajriba savoli: Have you ever...?"
+      },
+      {
+        "q": "I haven't finished my homework ___.",
+        "options": [
+          "yet",
+          "already",
+          "ago",
+          "never"
+        ],
+        "answer": "yet",
+        "why": "Inkor va savolda gap oxirida: yet."
+      },
+      {
+        "q": "They became friends two years ___.",
+        "options": [
+          "ago",
+          "since",
+          "for",
+          "yet"
+        ],
+        "answer": "ago",
+        "why": "ago — Past Simple bilan."
+      },
+      {
+        "q": "Harry has played Quidditch ___ September.",
+        "options": [
+          "since",
+          "for",
+          "ago",
+          "during"
+        ],
+        "answer": "since",
+        "why": "Boshlanish nuqtasi: since."
+      },
+      {
+        "q": "Ron has been Harry's friend ___ three years.",
+        "options": [
+          "for",
+          "since",
+          "ago",
+          "from"
+        ],
+        "answer": "for",
+        "why": "Davomiylik: for."
+      },
+      {
+        "q": "\"Is Harry here?\" — \"No, he has just ___.\"",
+        "options": [
+          "left",
+          "leave",
+          "leaved",
+          "leaving"
+        ],
+        "answer": "left",
+        "why": "has just + V3: leave – left – left."
+      },
+      {
+        "q": "When ___ Harry learn the truth?",
+        "options": [
+          "did",
+          "has",
+          "have",
+          "was"
+        ],
+        "answer": "did",
+        "why": "When bilan aniq vaqt so'raladi → Past Simple: When did...?"
+      }
     ]
   },
   "dictation": [
-    { "text": "They have never loved him.", "gap": "never" },
-    { "text": "A giant called Hagrid arrives and tells Harry the truth.", "gap": "truth" },
-    { "text": "Hogwarts is a school of magic in an old castle.", "gap": "castle" },
-    { "text": "Somebody wants to steal the stone.", "gap": "steal" },
-    { "text": "Harry shows courage.", "gap": "courage" }
+    {
+      "text": "They have never loved him.",
+      "gap": "never"
+    },
+    {
+      "text": "A giant called Hagrid arrives and tells Harry the truth.",
+      "gap": "truth"
+    },
+    {
+      "text": "Hogwarts is a school of magic in an old castle.",
+      "gap": "castle"
+    },
+    {
+      "text": "Somebody wants to steal the stone.",
+      "gap": "steal"
+    },
+    {
+      "text": "Harry shows courage.",
+      "gap": "courage"
+    }
   ],
   "shadowing": [
     "You're a wizard, Harry.",
     "Harry has lived with his aunt and uncle since he was a baby.",
     "He has already become famous, but he has never heard of it.",
     "By the end of the year he has found a real home."
-  ]
+  ],
+  "writing": {
+    "task": "Write about a moment that changed your life. What has changed since then? Use Present Perfect (has/have + V3) and Past Simple, and at least 6 words from this movie.",
+    "minWords": 80
+  }
 }

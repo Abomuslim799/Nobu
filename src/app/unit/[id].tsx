@@ -1,6 +1,6 @@
 /**
- * unit/[id].tsx — ingliz tili uniti 7 qadamda (Kirish → Reading → So'zlar → Grammatika →
- * Listening → Speaking → Test). Har qadam tugaganda belgilanadi va kunlik maqsadga qo'shiladi.
+ * unit/[id].tsx — bitta Movie 7 qadamda: Vocab → Grammar → Reading → Listening → Writing →
+ * Speaking → Test. Har qadam tugaganda belgilanadi va kunlik maqsadga qo'shiladi.
  * Kontent: src/data/units/*.json. Ovozlar: London (Ryan), GitHub'da yasaladi.
  */
 
@@ -8,7 +8,8 @@ import {
   RecordingPresets, createAudioPlayer, requestRecordingPermissionsAsync, setAudioModeAsync, useAudioRecorder,
 } from 'expo-audio';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef, useState, type ComponentRef } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useRef, useState, type ComponentRef } from 'react';
 import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -27,10 +28,10 @@ export default function UnitScreen() {
   const unit = UNITS.find((u) => u.id === id);
   const { data, completeUnitStep } = useProgress();
   const done = data.unitSteps[id] ?? [];
-  const [step, setStep] = useState<StepId>(() => STEPS.find((x) => !done.includes(x.id))?.id ?? 'hook');
+  const [step, setStep] = useState<StepId>(() => STEPS.find((x) => !done.includes(x.id))?.id ?? 'vocab');
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
 
-  if (!unit) return <View style={s.root}><T>Unit topilmadi</T></View>;
+  if (!unit) return <View style={s.root}><T>Movie topilmadi</T></View>;
 
   const idx = STEPS.findIndex((x) => x.id === step);
   const finish = (score = 0) => {
@@ -61,11 +62,11 @@ export default function UnitScreen() {
         ))}
       </ScrollView>
       <ScrollView ref={scroll} contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
-        {step === 'hook' && <Hook unit={unit} onDone={() => finish()} />}
-        {step === 'read' && <Reading unit={unit} onDone={finish} />}
         {step === 'vocab' && <Vocab unit={unit} onDone={() => finish()} />}
         {step === 'grammar' && <Grammar unit={unit} onDone={finish} />}
+        {step === 'read' && <Reading unit={unit} onDone={finish} />}
         {step === 'listen' && <Listening unit={unit} onDone={finish} />}
+        {step === 'write' && <Writing unit={unit} onDone={finish} />}
         {step === 'speak' && <Speaking unit={unit} onDone={() => finish()} />}
         {step === 'test' && <TestStep unit={unit} onDone={() => finish()} />}
       </ScrollView>
@@ -73,8 +74,8 @@ export default function UnitScreen() {
   );
 }
 
-// ── 1. Kirish ───────────────────────────────────────────────────────────────
-function Hook({ unit, onDone }: { unit: Unit; onDone: () => void }) {
+// ── Kirish kartasi (Vocab tepasida) ─────────────────────────────────────────
+function Hook({ unit }: { unit: Unit }) {
   return (
     <>
       <Card style={{ gap: 12, borderColor: C.green }}>
@@ -88,8 +89,7 @@ function Hook({ unit, onDone }: { unit: Unit; onDone: () => void }) {
         </View>
       </Card>
       <Card><Rich text={unit.hook.context} /></Card>
-      <T dim>Daraja: {unit.level} · Reja: matn → 20 so'z → grammatika → tinglash → gapirish → test</T>
-      <Button label="Boshladik →" onPress={onDone} />
+      <T dim>Daraja: {unit.level} · Reja: so'zlar → grammatika → matn → tinglash → yozish → gapirish → test</T>
     </>
   );
 }
@@ -103,14 +103,14 @@ function Reading({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
     return (
       <>
         <T bold size={17}>Tushundingizmi?</T>
-        <QuizRunner items={unit.questions} onFinish={onDone} finishLabel="Keyingisi: so'zlar →" />
+        <QuizRunner items={unit.questions} onFinish={onDone} finishLabel="Keyingisi: listening →" />
         <Button kind="ghost" label="← Matnga qaytish" onPress={() => setQuiz(false)} />
       </>
     );
   }
   return (
     <>
-      <T dim>Matnni o'qing. Yashil so'zlar — keyingi qadamda o'rganiladi. Har xatboshini eshitish mumkin.</T>
+      <T dim>Matnni o'qing. Yashil so'zlar — Vocab qadamida o'rgangan so'zlaringiz. Har xatboshini eshitish mumkin.</T>
       {unit.reading.map((p, i) => (
         <Card key={i} style={{ gap: 8 }}>
           <Text style={s.para}>
@@ -150,9 +150,10 @@ function Vocab({ unit, onDone }: { unit: Unit; onDone: () => void }) {
   );
   return (
     <>
-      <T bold size={18}>15 ta so'z</T>
+      <Hook unit={unit} />
+      <T bold size={18}>{unit.vocab.length} ta so'z</T>
       {unit.vocab.map(row)}
-      <T bold size={18}>5 ta collocation — birga ishlatiladigan so'zlar</T>
+      <T bold size={18}>{unit.collocations.length} ta collocation — birga ishlatiladigan so'zlar</T>
       <T dim>Ingliz tilida so'zlar "juft" yuradi: make a decision, lekin do a decision emas. Ularni yaxlit yodlang.</T>
       {unit.collocations.map(row)}
       <Button kind="ghost" label="🎴 Kartochkada mashq" onPress={() => router.push(`/cards?deck=${unit.id}`)} />
@@ -169,7 +170,7 @@ function Grammar({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
     return (
       <>
         <T bold size={17}>Mashq · {g.title}</T>
-        <QuizRunner items={g.exercises} onFinish={onDone} finishLabel="Keyingisi: listening →" />
+        <QuizRunner items={g.exercises} onFinish={onDone} finishLabel="Keyingisi: reading →" />
         <Button kind="ghost" label="← Qoidani qayta o'qish" onPress={() => setQuiz(false)} />
       </>
     );
@@ -208,11 +209,48 @@ function Listening({ unit, onDone }: { unit: Unit; onDone: (score: number) => vo
       {checked ? (
         <>
           <T bold>{correct}/{unit.dictation.length} to'g'ri</T>
-          <Button label="Keyingisi: speaking →" onPress={() => onDone(correct)} />
+          <Button label="Keyingisi: writing →" onPress={() => onDone(correct)} />
         </>
       ) : (
         <Button label="Tekshirish" onPress={() => setChecked(true)} />
       )}
+    </>
+  );
+}
+
+// ── 5. Writing ──────────────────────────────────────────────────────────────
+/** Matnni yozish: so'z soni va movie so'zlaridan nechtasi ishlatilgani sanaladi. Matn telefonda saqlanadi. */
+const MIN_MOVIE_WORDS = 6;
+function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void }) {
+  const key = `nobu.writing.${unit.id}`;
+  const [text, setText] = useState('');
+  useEffect(() => { AsyncStorage.getItem(key).then((v) => v && setText(v)).catch(() => {}); }, [key]);
+  const change = (t: string) => { setText(t); AsyncStorage.setItem(key, t).catch(() => {}); };
+
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const lower = text.toLowerCase();
+  // So'z "ildizi" bo'yicha qidiramiz: decide → decided, decision ham sanaladi
+  const used = [...unit.vocab, ...unit.collocations].filter((w) => {
+    const core = w.word.replace(/^to /, '').replace(/\s*\(.*?\)/, '').split(/\s+/).filter((p) => p.length > 2 && !['sb', 'sth'].includes(p));
+    return core.length > 0 && core.every((p) => lower.includes(p.slice(0, Math.max(3, p.length - 2)).toLowerCase()));
+  });
+  const ready = words >= unit.writing.minWords && used.length >= MIN_MOVIE_WORDS;
+
+  return (
+    <>
+      <Card style={{ gap: 8, borderColor: C.green }}>
+        <T bold>✍️ Topshiriq</T>
+        <T>{unit.writing.task}</T>
+        <T dim size={13}>Kamida {unit.writing.minWords} so'z va shu movie'dan {MIN_MOVIE_WORDS} ta so'z/collocation.</T>
+      </Card>
+      <TextInput style={[s.input, { minHeight: 220, textAlignVertical: 'top' }]} multiline autoCapitalize="sentences"
+        placeholder="Write in English..." placeholderTextColor={C.dim} value={text} onChangeText={change} />
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        <T color={words >= unit.writing.minWords ? C.green : C.dim}>{words}/{unit.writing.minWords} so'z</T>
+        <T color={used.length >= MIN_MOVIE_WORDS ? C.green : C.dim}>{used.length}/{MIN_MOVIE_WORDS} movie so'zi</T>
+      </View>
+      {used.length > 0 && <T dim size={13}>Ishlatilgan: {used.map((w) => w.word).join(', ')}</T>}
+      <Button label="Topshirish → speaking" disabled={!ready} onPress={() => onDone(used.length)} />
     </>
   );
 }
@@ -280,7 +318,7 @@ function TestStep({ unit, onDone }: { unit: Unit; onDone: () => void }) {
     <>
       <Card style={{ gap: 6 }}>
         <T bold>Yakuniy test — 3 bosqich</T>
-        <T dim size={14}>Shu unitning 20 so'zi: tarjima ↔ so'z, ovoz → so'z, gapdagi bo'sh joy. Xato topilgan so'zlar kartochkalarda tezroq qaytadi.</T>
+        <T dim size={14}>Shu movie'ning {unit.vocab.length + unit.collocations.length} so'zi: tarjima ↔ so'z, ovoz → so'z, gapdagi bo'sh joy. Xato topilgan so'zlar kartochkalarda tezroq qaytadi.</T>
       </Card>
       <Button label="🧪 Testni boshlash" onPress={() => { onDone(); router.push(`/quiz?deck=${unit.id}`); }} />
       <Button kind="ghost" label="🎴 Avval kartochkalar" onPress={() => router.push(`/cards?deck=${unit.id}`)} />

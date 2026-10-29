@@ -28,7 +28,7 @@ for path in sorted((ROOT / "src" / "data" / "units").glob("*.json")):
     def err(msg):
         errors.append(f"{n}: {msg}")
     if len(u["vocab"]) != 15: err(f"vocab {len(u['vocab'])} ta (15 kerak)")
-    if len(u["collocations"]) != 5: err(f"collocations {len(u['collocations'])} ta (5 kerak)")
+    if len(u["collocations"]) != 10: err(f"collocations {len(u['collocations'])} ta (10 kerak)")
     for w in u["vocab"] + u["collocations"]:
         if w["id"] in ids: err(f"takror id {w['id']}")
         ids.add(w["id"])
