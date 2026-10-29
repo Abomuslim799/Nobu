@@ -30,6 +30,7 @@ export default function RootLayout() {
         <Stack.Screen name="unit/[id]" />
         <Stack.Screen name="practice/[skill]" />
         <Stack.Screen name="live" />
+        <Stack.Screen name="brain-report" />
       </Stack>
     </ProgressProvider>
   );

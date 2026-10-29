@@ -1,32 +1,58 @@
 /**
- * Miya — Lumosity uslubidagi mashqlar ro'yxati.
+ * Miya — o'yinlar ko'nikma bo'yicha guruhlangan: shaxmat, mantiq, xotira, ishchi xotira, diqqat, tezlik.
+ * Har o'yinda o'z darajasi; pastda — statistika va AI tahlil.
  */
 
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Pressable, View } from 'react-native';
 
+import { C } from '@/constants/theme';
 import { GAMES } from '@/data/games';
-import { useProgress } from '@/lib/progress';
+import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/lib/brain';
+import { FRIENDS } from '@/lib/edition';
 import { Button, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Brain() {
-  const { data } = useProgress();
+  const [log, setLog] = useState<BrainEntry[]>([]);
+  const [rating, setRating] = useState(1000);
+  // Ekranga qaytganda yangilanadi (o'yindan keyin daraja/ball ko'rinsin)
+  useFocusEffect(useCallback(() => {
+    getBrainLog().then(setLog);
+    getChess().then((c) => setRating(c.rating));
+  }, []));
+
   return (
     <Screen>
-      <Title sub="Kuniga 1–2 daqiqa — tezlik, xotira, diqqat.">Miya mashqlari</Title>
-      {GAMES.map((g) => {
-        const stats = data.games[g.id];
+      <Title sub="Kuniga 10–15 daqiqa: shaxmat, mantiq, xotira, diqqat, tezlik.">Miya</Title>
+      <Card style={{ gap: 4, borderColor: C.green }}>
+        <T dim>♟️ Masala reytingi</T>
+        <T size={28} bold>{rating}</T>
+      </Card>
+      {BRAIN_SKILLS.map((sk) => {
+        const games = GAMES.filter((g) => g.skill === sk.id && !(FRIENDS && g.ai));
+        if (!games.length) return null;
         return (
-          <Card key={g.id} style={!g.ready ? { opacity: 0.5 } : undefined}>
-            <T size={18} bold>{g.icon} {g.title}</T>
-            <T dim size={13}>{g.skill}</T>
-            <T>{g.about}</T>
-            {stats ? <T dim size={13}>Rekord: {stats.best} · O'yinlar: {stats.plays}</T> : null}
-            {g.ready
-              ? <Button label="O'ynash" onPress={() => router.push(`/game/${g.id}`)} />
-              : <T dim>Tez orada</T>}
-          </Card>
+          <View key={sk.id} style={{ gap: 8 }}>
+            <T bold size={17}>{sk.icon} {sk.title}</T>
+            {games.map((g) => {
+              const mine = log.filter((e) => e.game === g.id);
+              const lastE = mine[mine.length - 1];
+              const best = mine.reduce((m, e) => Math.max(m, e.score), 0);
+              return (
+                <Pressable key={g.id} onPress={() => router.push(`/game/${g.id}`)}>
+                  <Card style={{ gap: 4 }}>
+                    <T bold>{g.icon} {g.title}</T>
+                    <T dim size={13}>{g.about}</T>
+                    {lastE ? <T dim size={13}>Daraja {lastE.level} · oxirgi {lastE.score}% · eng yaxshi {best}% · {mine.length} marta</T> : null}
+                  </Card>
+                </Pressable>
+              );
+            })}
+          </View>
         );
       })}
+      {!FRIENDS && <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/brain-report')} />}
     </Screen>
   );
 }
