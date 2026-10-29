@@ -37,7 +37,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true,
-      "baseUrl": "/todo"
+      "baseUrl": "/Nobu"
     },
     "extra": {
       "router": {

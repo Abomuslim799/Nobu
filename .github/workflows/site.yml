@@ -1,5 +1,5 @@
 # Do'stlar uchun sayt (faqat Ingliz tili + Miya): har push'da yangilanadi.
-# Manzil: https://abomuslim799.github.io/todo/
+# Manzil: https://abomuslim799.github.io/Nobu/
 # Bir martalik: repo → Settings → Pages → Source: "GitHub Actions".
 name: site
 on:
