@@ -8,6 +8,7 @@ import { C } from '@/constants/theme';
 import { TRACKS } from '@/data/tracks';
 import { useProgress } from '@/lib/progress';
 import { pickBackup, exportBackup } from '@/lib/backup';
+import { FRIENDS, IS_WEB } from '@/lib/edition';
 import { lastDays } from '@/lib/streak';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
@@ -58,7 +59,7 @@ export default function Stats() {
 
       <Card>
         <T dim>Yo'nalishlar</T>
-        {TRACKS.map((t) => {
+        {TRACKS.filter((t) => !FRIENDS || t.id === 'english').map((t) => {
           const done = t.lessons.filter((l) => data.lessons[l.id]).length;
           return (
             <View key={t.id} style={{ gap: 4, marginTop: 6 }}>
@@ -69,7 +70,7 @@ export default function Stats() {
         })}
       </Card>
 
-      <Card style={{ gap: 8 }}>
+      {!FRIENDS && <Card style={{ gap: 8 }}>
         <T dim>Kitob o'qish · jami {readTotal} daqiqa, {data.books.length} kitob</T>
         <T>Kunlik maqsad: {data.settings.readGoal} daqiqa</T>
         <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -79,14 +80,14 @@ export default function Stats() {
             </View>
           ))}
         </View>
-      </Card>
+      </Card>}
 
-      <Card style={{ gap: 8 }}>
+      {!IS_WEB && <Card style={{ gap: 8 }}>
         <T bold>💾 Zaxira</T>
         <T dim size={13}>Natijalar faqat shu telefonda. Haftada bir marta faylni Telegram yoki iCloud'ga saqlab qo'ying.</T>
         <Button label="Zaxira faylini yuborish" onPress={() => exportBackup(exportJSON()).catch((e) => Alert.alert('Xato', String(e)))} />
         <Button kind="ghost" label="Fayldan tiklash" onPress={restore} />
-      </Card>
+      </Card>}
 
       <Button kind="ghost" label="Natijalarni tozalash"
         onPress={() => Alert.alert('Tozalash', "Barcha natijalar o'chiriladi.", [

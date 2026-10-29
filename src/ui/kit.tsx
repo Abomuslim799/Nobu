@@ -4,7 +4,7 @@
  */
 
 import { ReactNode } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/constants/theme';
@@ -18,7 +18,10 @@ const TAB_BAR = 56;
 
 export function Screen({ children, scroll = true }: { children: ReactNode; scroll?: boolean }) {
   const insets = useSafeAreaInsets();
-  const pad = { paddingTop: insets.top + 8, paddingBottom: insets.bottom + TAB_BAR + 24 };
+  // Brauzerda tab paneli TEPADA turadi — kontent uning ostidan boshlansin.
+  const pad = Platform.OS === 'web'
+    ? { paddingTop: 72, paddingBottom: 32 }
+    : { paddingTop: insets.top + 8, paddingBottom: insets.bottom + TAB_BAR + 24 };
   return (
     <View style={s.screen}>
       {scroll ? (

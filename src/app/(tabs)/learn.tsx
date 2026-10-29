@@ -7,11 +7,21 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { C } from '@/constants/theme';
 import { SUBJECTS, subjectProgress } from '@/data/subjects';
+import { FRIENDS } from '@/lib/edition';
 import { useProgress } from '@/lib/progress';
+import { EnglishFolder } from '@/ui/folders';
 import { Bar, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Learn() {
   const { data } = useProgress();
+  if (FRIENDS) {
+    return (
+      <Screen>
+        <Title sub="Filmlar orqali: reading, so'zlar, grammatika, listening, speaking">🇬🇧 Ingliz tili</Title>
+        <EnglishFolder />
+      </Screen>
+    );
+  }
   return (
     <Screen>
       <Title sub="Papkani tanlang">O'rganish</Title>

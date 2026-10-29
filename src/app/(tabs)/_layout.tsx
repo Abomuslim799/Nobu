@@ -6,6 +6,7 @@
 import { NativeTabs } from 'expo-router/native-tabs';
 
 import { C } from '@/constants/theme';
+import { FRIENDS } from '@/lib/edition';
 
 const home = require('@/assets/images/tabIcons/home.png');
 const explore = require('@/assets/images/tabIcons/explore.png');
@@ -18,14 +19,14 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Icon sf={{ default: 'flame', selected: 'flame.fill' }} src={home} />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="learn">
-        <NativeTabs.Trigger.Label>O'rganish</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{FRIENDS ? 'Ingliz tili' : "O'rganish"}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'book', selected: 'book.fill' }} src={explore} />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="brain">
         <NativeTabs.Trigger.Label>Miya</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="brain.head.profile" src={explore} />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="library">
+      <NativeTabs.Trigger name="library" hidden={FRIENDS}>
         <NativeTabs.Trigger.Label>Kutubxona</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'books.vertical', selected: 'books.vertical.fill' }} src={explore} />
       </NativeTabs.Trigger>

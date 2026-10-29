@@ -11,6 +11,8 @@ import { useProgress } from '@/lib/progress';
 import { dayKey, lastDays } from '@/lib/streak';
 import { AUDIO } from '@/data/audio';
 import { quoteOfDay } from '@/lib/reading';
+import { STEPS, UNITS } from '@/data/units';
+import { FRIENDS } from '@/lib/edition';
 import { VERSION } from '@/lib/version';
 import { QuoteCard } from '@/ui/quote-card';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
@@ -26,8 +28,10 @@ export default function Today() {
   const goals = [
     { done: today.lessons >= 1, label: '1 dars' },
     { done: today.games >= 1, label: '1 miya mashqi' },
-    { done: todayRead >= readGoal, label: `${todayRead}/${readGoal} daq kitob` },
+    ...(FRIENDS ? [{ done: (today.cards ?? 0) >= 10, label: `${today.cards ?? 0}/10 kartochka` }]
+      : [{ done: todayRead >= readGoal, label: `${todayRead}/${readGoal} daq kitob` }]),
   ];
+  const unit = UNITS.find((u) => (data.unitSteps[u.id]?.length ?? 0) < STEPS.length) ?? UNITS[0];
   const goalDone = goals.filter((g) => g.done).length;
 
   return (
@@ -64,12 +68,21 @@ export default function Today() {
         </View>
       </Card>
 
-      {quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
+      {FRIENDS ? (
+        <Card>
+          <T dim>Ingliz tili · {unit.emoji} {unit.source}</T>
+          <T size={18} bold>{unit.title}</T>
+          <T dim>{data.unitSteps[unit.id]?.length ?? 0}/{STEPS.length} qadam</T>
+          <Button label="Davom etish" onPress={() => router.push(`/unit/${unit.id}`)} />
+        </Card>
+      ) : null}
 
-      <Button kind="ghost" label={data.activeRead ? '⏱ Kitob o\'qilmoqda — tugatish' : '📚 Kitob o\'qish'}
-        onPress={() => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library')} />
+      {!FRIENDS && quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
 
-      {next ? (
+      {!FRIENDS && <Button kind="ghost" label={data.activeRead ? '⏱ Kitob o\'qilmoqda — tugatish' : '📚 Kitob o\'qish'}
+        onPress={() => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library')} />}
+
+      {FRIENDS ? null : next ? (
         <Card>
           <T dim>Keyingi dars · {next.track.icon} {next.track.title}</T>
           <T size={18} bold>{next.lesson.title}</T>
