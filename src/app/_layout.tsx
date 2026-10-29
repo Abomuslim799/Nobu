@@ -28,6 +28,7 @@ export default function RootLayout() {
         <Stack.Screen name="quote/[id]" options={{ presentation: 'modal' }} />
         <Stack.Screen name="subject/[id]" />
         <Stack.Screen name="unit/[id]" />
+        <Stack.Screen name="practice/[skill]" />
       </Stack>
     </ProgressProvider>
   );

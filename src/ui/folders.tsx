@@ -10,6 +10,7 @@ import { C } from '@/constants/theme';
 import { IT_TRACKS } from '@/data/subjects';
 import type { Track } from '@/data/types';
 import { STEPS, UNITS, stepsDone } from '@/data/units';
+import { FRIENDS } from '@/lib/edition';
 import { useProgress } from '@/lib/progress';
 import { Bar, Button, Card, T } from '@/ui/kit';
 
@@ -61,9 +62,22 @@ export function EnglishFolder() {
         <Button label="Kartochkalar va testlar" onPress={() => router.push('/cards')} />
       </Card>
 
-      <Card style={{ opacity: 0.6, gap: 4 }}>
-        <T bold>🗣 Talaffuz laboratoriyasi</T>
-        <T dim size={14}>Tez kunda: minimal juftlar (ship/sheep, th), intonatsiya mashqlari.</T>
+      <T bold size={18}>🏋️ Mashq — alohida ko'nikmalar</T>
+      <Card style={{ gap: 8 }}>
+        <T dim size={14}>Movie'dan tashqari: bitta ko'nikmaning o'zi bilan shug'ullaning. Har bir natija statistikaga yoziladi.</T>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          {[
+            ['grammar', '🧩 Grammar'], ['listening', '🎧 Listening'],
+            ...(FRIENDS ? [] : [['writing', '✍️ Writing'], ['speaking', '🗣 Speaking + talaffuz']]),
+          ].map(([id, label]) => (
+            <Pressable key={id} onPress={() => router.push(`/practice/${id}`)} style={({ pressed }) => [{
+              paddingHorizontal: 14, paddingVertical: 10, borderRadius: 20, borderWidth: 1, borderColor: C.cardBorder,
+            }, pressed && { opacity: 0.6 }]}>
+              <Text style={{ color: C.text, fontWeight: '600' }}>{label}</Text>
+            </Pressable>
+          ))}
+        </View>
+        {!FRIENDS && <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/practice/report')} />}
       </Card>
     </>
   );

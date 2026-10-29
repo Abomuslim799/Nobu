@@ -4,19 +4,19 @@
  * Kontent: src/data/units/*.json. Ovozlar: London (Ryan), GitHub'da yasaladi.
  */
 
-import {
-  RecordingPresets, createAudioPlayer, requestRecordingPermissionsAsync, setAudioModeAsync, useAudioRecorder,
-} from 'expo-audio';
+import { createAudioPlayer } from 'expo-audio';
 import { router, useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useRef, useState, type ComponentRef } from 'react';
-import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/constants/theme';
 import { STEPS, UNITS, type StepId, type Unit } from '@/data/units';
 import { useProgress } from '@/lib/progress';
-import { chatTurn, shadowScore, writeCheck, type ChatMsg, type ChatResult, type ShadowResult, type WriteResult } from '@/lib/ai';
+import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/lib/ai';
+import { logSkill } from '@/lib/skills';
+import { Conversation, useMic } from '@/ui/conversation';
 import { say, stopSpeaking } from '@/lib/speak';
 import { QuizRunner, Rich } from '@/ui/choice';
 import { Button, Card, T } from '@/ui/kit';
@@ -37,6 +37,9 @@ export default function UnitScreen() {
   const idx = STEPS.findIndex((x) => x.id === step);
   const finish = (score = 0) => {
     completeUnitStep(unit.id, step, score);
+    // Ko'nikmalar jurnali (statistika va AI tahlil uchun)
+    if (step === 'grammar') logSkill('grammar', (score / unit.grammar.exercises.length) * 100, unit.grammar.title);
+    if (step === 'listen') logSkill('listening', (score / unit.dictation.length) * 100, unit.source);
     stopSpeaking();
     const next = STEPS[idx + 1];
     if (next) {
@@ -242,7 +245,9 @@ function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
   const check = async () => {
     setChecking(true); setErr('');
     try {
-      setReview(await writeCheck(unit.writing.task, text, unit.level, [...unit.vocab, ...unit.collocations].map((w) => w.word)));
+      const r = await writeCheck(unit.writing.task, text, unit.level, [...unit.vocab, ...unit.collocations].map((w) => w.word));
+      setReview(r);
+      logSkill('writing', r.score, unit.source, r.corrections.map((c) => `${c.wrong} → ${c.right}`));
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e));
     } finally {
@@ -283,30 +288,6 @@ function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
 }
 
 // ── 6. Speaking — shadowing (Gemini baholaydi) + suhbat ─────────────────────
-/** Mikrofon bilan yozish: bitta yozuvchi, qaysi narsa yozilayotgani `tag` bilan belgilanadi. */
-function useMic() {
-  const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
-  const [tag, setTag] = useState<string | null>(null);
-  const start = async (t: string) => {
-    const perm = await requestRecordingPermissionsAsync();
-    if (!perm.granted) { Alert.alert('Mikrofon', 'Sozlamalar → Expo Go → Mikrofon ruxsatini yoqing.'); return; }
-    stopSpeaking();
-    await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
-    await recorder.prepareToRecordAsync();
-    recorder.record();
-    setTag(t);
-  };
-  /** To'xtatadi va yozuv faylini qaytaradi. */
-  const stop = async (): Promise<string | null> => {
-    await recorder.stop();
-    // Yozib bo'lgach — ovoz yana karnaydan chiqsin (iOS yozish rejimida qulog'i yonidagi dinamikka o'tadi).
-    await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
-    setTag(null);
-    return recorder.uri ?? null;
-  };
-  return { tag, start, stop };
-}
-
 function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
   const mic = useMic();
   const [mine, setMine] = useState<Record<number, string>>({});
@@ -322,6 +303,7 @@ function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
     try {
       const r = await shadowScore(mine[i], unit.shadowing[i]);
       setScore((x) => ({ ...x, [i]: r }));
+      logSkill('speaking', r.accuracy, `Talaffuz · ${unit.source}`, r.wrong_words.map((w) => `${w.word} → "${w.heard}"`));
     } catch (e) {
       setScore((x) => ({ ...x, [i]: e instanceof Error ? e.message : String(e) }));
     }
@@ -375,60 +357,9 @@ function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
           </Card>
         );
       })}
-      <Conversation unit={unit} mic={mic} />
+      <Conversation topic={`the film "${unit.source}"`} title={`2) Suhbat — ${unit.source}`} mic={mic}
+        words={[...unit.vocab, ...unit.collocations].map((w) => w.word)} />
       <Button label="Keyingisi: test →" onPress={onDone} />
-    </>
-  );
-}
-
-/** 2) Suhbat: siz ovoz yuborasiz, Gemini film haqida javob beradi va xatolaringizni tuzatadi. */
-function Conversation({ unit, mic }: { unit: Unit; mic: ReturnType<typeof useMic> }) {
-  const [msgs, setMsgs] = useState<(ChatMsg & { fix?: ChatResult })[]>([]);
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState('');
-  const words = [...unit.vocab, ...unit.collocations].map((w) => w.word);
-
-  const send = async () => {
-    const uri = await mic.stop();
-    if (!uri) return;
-    setBusy(true); setErr('');
-    try {
-      const r = await chatTurn(uri, msgs, unit.source, words);
-      setMsgs((m) => [...m, { role: 'user', text: r.transcript, fix: r }, { role: 'ai', text: r.reply }]);
-      say('chat', 'r', r.reply);           // javobni britancha ovozda o'qiydi
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  return (
-    <>
-      <Card style={{ gap: 6, marginTop: 8 }}>
-        <T bold>2) Suhbat — {unit.source}</T>
-        <T dim size={14}>🎙 bosib inglizcha gapiring (film, qahramonlar, o'z fikringiz). AI javob beradi, savol beradi va xatolaringizni ko'rsatadi. Kamida 5 marta almashing.</T>
-      </Card>
-      {msgs.map((m, i) => (
-        <Card key={i} style={{ gap: 4, borderColor: m.role === 'ai' ? C.green : C.cardBorder }}>
-          <T dim size={12}>{m.role === 'ai' ? '🤖 Nobu' : '🧑 Siz'}</T>
-          <T>{m.text}</T>
-          {m.role === 'ai' && (
-            <Pressable onPress={() => say('chat', 'r', m.text)}><T dim size={13}>🔊 qayta eshitish</T></Pressable>
-          )}
-          {m.fix?.corrections.map((c, k) => (
-            <T key={k} size={14}>✏️ <Text style={{ color: C.red }}>{c.wrong}</Text> → <Text style={{ color: C.green }}>{c.right}</Text> · {c.why_uz}</T>
-          ))}
-          {!!m.fix?.pronunciation_uz && <T size={14}>🗣 {m.fix.pronunciation_uz}</T>}
-        </Card>
-      ))}
-      {!!err && <T color={C.red} size={13}>{err}</T>}
-      {mic.tag === 'chat' ? (
-        <Button label="⏹ Yuborish" onPress={send} />
-      ) : (
-        <Button kind="ghost" label={busy ? '⏳ Javob kutilmoqda...' : msgs.length ? '🎙 Javob berish' : '🎙 Suhbatni boshlash'}
-          disabled={busy || mic.tag !== null} onPress={() => mic.start('chat')} />
-      )}
     </>
   );
 }

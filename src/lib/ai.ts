@@ -55,3 +55,20 @@ export async function chatTurn(uri: string, history: ChatMsg[], movie: string, w
 export async function writeCheck(task: string, text: string, level: string, words: string[]): Promise<WriteResult> {
   return post('/api/nobu/write', { task, text, level, words });
 }
+
+export interface GrammarItem { q: string; options: string[]; answer: string; why: string }
+/** Mavzu bo'yicha 10 ta yangi grammatika mashqi (AI yaratadi). */
+export async function grammarSet(topic: string, level: string, avoid: string[]): Promise<GrammarItem[]> {
+  const r = await post<{ exercises: GrammarItem[] }>('/api/nobu/grammar', { topic, level, avoid });
+  return r.exercises;
+}
+
+export interface SkillsReport {
+  level: string;
+  skills: { skill: string; level: string; comment_uz: string }[];
+  strengths_uz: string[]; weaknesses_uz: string[]; plan_uz: string[]; summary_uz: string;
+}
+/** Barcha mashqlar tarixi bo'yicha AI tahlil: daraja, kuchli/zaif tomonlar, 2 haftalik reja. */
+export async function skillsReport(skills: object): Promise<SkillsReport> {
+  return post('/api/nobu/report', { skills });
+}

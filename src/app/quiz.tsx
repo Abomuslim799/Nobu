@@ -15,7 +15,8 @@ import { useProgress } from '@/lib/progress';
 import { buildQuiz, STAGES, type Question } from '@/lib/quiz';
 import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
 import { Bar, Button, Card, T } from '@/ui/kit';
-import { RateSwitch } from '@/ui/sound';
+import { logSkill } from '@/lib/skills';
+import { RateSwitch, SoundButton } from '@/ui/sound';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();
@@ -48,8 +49,9 @@ export default function QuizScreen() {
     if (done && !saved.current && questions.length) {
       saved.current = true;
       recordGame(`quiz-${deck}`, score);
+      logSkill('vocab', (score / questions.length) * 100, DECKS[deck] ?? deck, missed);
     }
-  }, [done, deck, score, questions.length, recordGame]);
+  }, [done, deck, score, questions.length, recordGame, missed]);
 
   const choose = (option: string) => {
     if (picked) return;
@@ -119,6 +121,10 @@ export default function QuizScreen() {
                 <T dim style={{ textAlign: 'center' }}>
                   {q.word.word} — {q.word.translation}
                 </T>
+                <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
+                  <SoundButton id={q.word.id} part="w" text={q.word.word} label="So'z" />
+                  {!!q.word.example && <SoundButton id={q.word.id} part="s" text={q.word.example} label="Gap" />}
+                </View>
                 <Button label="Davom" onPress={next} />
               </>
             )}
@@ -157,6 +163,7 @@ function Prompt({ q }: { q: Question }) {
       <T dim>{q.kind === 'uz2en' ? 'Inglizchasi qaysi?' : 'Tarjimasi qaysi?'}</T>
       {w.emoji ? <Text style={{ fontSize: 44 }}>{w.emoji}</Text> : null}
       <Text style={s.big}>{q.kind === 'uz2en' ? w.translation : w.word}</Text>
+      {q.kind === 'en2uz' && <SoundButton id={w.id} part="w" text={w.word} label="Eshitish" />}
     </Card>
   );
 }
