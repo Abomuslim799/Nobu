@@ -16,7 +16,7 @@ import { C, PAD, R } from '@/constants/theme';
 import { STEPS, UNITS, type StepId, type Unit } from '@/data/units';
 import { useProgress } from '@/lib/progress';
 import { say, stopSpeaking } from '@/lib/speak';
-import { Choice, Rich } from '@/ui/choice';
+import { QuizRunner, Rich } from '@/ui/choice';
 import { Button, Card, T } from '@/ui/kit';
 import { RateSwitch, SoundButton } from '@/ui/sound';
 import { Stress } from '@/ui/stress';
@@ -50,7 +50,7 @@ export default function UnitScreen() {
         <T bold style={{ flex: 1 }} >{unit.emoji} {unit.source}</T>
         <RateSwitch />
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.steps}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, flexShrink: 0 }} contentContainerStyle={s.steps}>
         {STEPS.map((x) => (
           <Pressable key={x.id} onPress={() => { stopSpeaking(); setStep(x.id); }}
             style={[s.stepChip, step === x.id && { backgroundColor: C.green }]}>
@@ -96,11 +96,18 @@ function Hook({ unit, onDone }: { unit: Unit; onDone: () => void }) {
 
 // ── 2. Reading ──────────────────────────────────────────────────────────────
 function Reading({ unit, onDone }: { unit: Unit; onDone: (score: number) => void }) {
-  const [answers, setAnswers] = useState<Record<number, boolean>>({});
+  const [quiz, setQuiz] = useState(false);
   const stems = [...unit.vocab, ...unit.collocations].map((w) => w.word.replace(/^to /, '').split(' ')[0].toLowerCase());
-  const correct = Object.values(answers).filter(Boolean).length;
-  const all = Object.keys(answers).length === unit.questions.length;
 
+  if (quiz) {
+    return (
+      <>
+        <T bold size={17}>Tushundingizmi?</T>
+        <QuizRunner items={unit.questions} onFinish={onDone} finishLabel="Keyingisi: so'zlar →" />
+        <Button kind="ghost" label="← Matnga qaytish" onPress={() => setQuiz(false)} />
+      </>
+    );
+  }
   return (
     <>
       <T dim>Matnni o'qing. Yashil so'zlar — keyingi qadamda o'rganiladi. Har xatboshini eshitish mumkin.</T>
@@ -116,13 +123,7 @@ function Reading({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
           <View style={{ alignSelf: 'flex-start' }}><SoundButton id={unit.id} part={`p${i}`} text={p} label="Eshitish" /></View>
         </Card>
       ))}
-      <T bold size={17}>Tushundingizmi?</T>
-      {unit.questions.map((q, i) => (
-        <Choice key={i} q={q.q} options={q.options} answer={q.answer}
-          onAnswer={(ok) => setAnswers((a) => ({ ...a, [i]: ok }))} />
-      ))}
-      {all && <T bold>{correct}/{unit.questions.length} to'g'ri</T>}
-      <Button label="Keyingisi: so'zlar →" disabled={!all} onPress={() => onDone(correct)} />
+      <Button label={`O'qib bo'ldim → ${unit.questions.length} ta savol`} onPress={() => setQuiz(true)} />
     </>
   );
 }
@@ -163,20 +164,21 @@ function Vocab({ unit, onDone }: { unit: Unit; onDone: () => void }) {
 // ── 4. Grammatika ───────────────────────────────────────────────────────────
 function Grammar({ unit, onDone }: { unit: Unit; onDone: (score: number) => void }) {
   const g = unit.grammar;
-  const [answers, setAnswers] = useState<Record<number, boolean>>({});
-  const correct = Object.values(answers).filter(Boolean).length;
-  const all = Object.keys(answers).length === g.exercises.length;
+  const [quiz, setQuiz] = useState(false);
+  if (quiz) {
+    return (
+      <>
+        <T bold size={17}>Mashq · {g.title}</T>
+        <QuizRunner items={g.exercises} onFinish={onDone} finishLabel="Keyingisi: listening →" />
+        <Button kind="ghost" label="← Qoidani qayta o'qish" onPress={() => setQuiz(false)} />
+      </>
+    );
+  }
   return (
     <>
       <T bold size={19}>{g.title}</T>
       {g.explain.map((e, i) => <Card key={i}><Rich text={e} /></Card>)}
-      <T bold size={17}>Mashq ({g.exercises.length})</T>
-      {g.exercises.map((x, i) => (
-        <Choice key={i} q={x.q.replace('___', '_____')} options={x.options} answer={x.answer} why={x.why}
-          onAnswer={(ok) => setAnswers((a) => ({ ...a, [i]: ok }))} />
-      ))}
-      {all && <T bold>{correct}/{g.exercises.length} to'g'ri{correct < g.exercises.length ? ' — xatolar izohini qayta o\'qing' : ''}</T>}
-      <Button label="Keyingisi: listening →" disabled={!all} onPress={() => onDone(correct)} />
+      <Button label={`Tushundim → ${g.exercises.length} ta mashq`} onPress={() => setQuiz(true)} />
     </>
   );
 }
@@ -290,8 +292,8 @@ const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: C.bg },
   top: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingHorizontal: PAD, paddingVertical: 8 },
   steps: { paddingHorizontal: PAD, gap: 8, paddingBottom: 8 },
-  stepChip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 14, backgroundColor: C.card },
-  stepText: { color: C.text, fontWeight: '600', fontSize: 14 },
+  stepChip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 14, backgroundColor: C.card, justifyContent: 'center' },
+  stepText: { color: C.text, fontWeight: '600', fontSize: 14, lineHeight: 20 },
   body: { padding: PAD, gap: 12, paddingBottom: 60 },
   quote: { color: C.text, fontSize: 21, lineHeight: 30, fontStyle: 'italic', fontWeight: '600' },
   para: { color: C.text, fontSize: 17, lineHeight: 27 },
