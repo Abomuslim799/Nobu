@@ -12,9 +12,15 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
+import { findLesson } from '@/data/tracks';
 
 import { bestStreak, currentStreak, dayKey } from './streak';
+import { flush, report } from './sync';
+
+// Kartalar: kuniga shuncha takrordan keyin trackerdagi 🔁 vazifa ✓ bo'ladi.
+export const CARDS_GOAL = 10;
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
@@ -107,6 +113,9 @@ const ProgressContext = createContext<Progress | null>(null);
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<Data>(EMPTY);
   const [ready, setReady] = useState(false);
+  // Eng oxirgi ma'lumot — trackerga yuborishda "bugun nechta bo'ldi" ni bilish uchun
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
   // 2a. Ilova ochilganda — bir marta xotiradan o'qiymiz.
   useEffect(() => {
@@ -114,6 +123,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       .then((raw) => raw && setData({ ...EMPTY, ...JSON.parse(raw) }))
       .catch(() => {})                         // buzilgan ma'lumot ilovani yiqitmasin
       .finally(() => setReady(true));
+    flush();   // internet yo'qligida qolib ketgan hodisalarni trackerga yuborish
   }, []);
 
   // 2b. Har o'zgarishda — saqlaymiz. `ready` bo'lmaguncha yozmaymiz,
@@ -169,6 +179,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         days: counts ? bump(d, 'read', Math.round(x.minutes / 2), x.minutes, day) : d.days,
       };
     });
+    // Trackerga: faqat hisoblanadigan sessiya (5+ daqiqa va tahlil yozilgan)
+    if (x.minutes >= READ_MIN && x.note.trim()) report({ type: 'reading', minutes: x.minutes });
   }, []);
 
   const removeSession = useCallback((id: string) => {
@@ -211,6 +223,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         days: bump(d, 'lessons', (first ? 8 : 3) + score),
       };
     });
+    report({ type: 'english' });   // unitlar — ingliz tili
   }, []);
 
   // ── Zaxira: butun ma'lumot bitta JSON matnda ──
@@ -227,6 +240,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const reviewCard = useCallback((wordId: string, knew: boolean) => {
+    // bugungi takrorlar soni (xotiradan — ilova qayta ochilsa ham saqlanadi)
+    const before = dataRef.current.days[dayKey()]?.cards ?? 0;
     setData((d) => {
       const old = d.cards[wordId] ?? { box: 0, due: 0 };
       const box = knew ? Math.min(old.box + 1, BOX_INTERVALS.length - 1) : 0;
@@ -236,6 +251,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         days: bump(d, 'cards', knew ? 2 : 1),
       };
     });
+    if (before + 1 === CARDS_GOAL) report({ type: 'cards' });
   }, []);
 
   const addWord = useCallback((word: Omit<CustomWord, 'id'>) => {
@@ -252,6 +268,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       lessons: { ...d.lessons, [id]: { day: dayKey(), correct, total } },
       days: bump(d, 'lessons', 10 + correct * 2),
     }));
+    // Trackerga: ingliz darsi — har doim; IT darsi — faqat 95%+ natija bilan
+    const found = findLesson(id);
+    if (found?.track.id === 'english') report({ type: 'english', title: found.lesson.title });
+    else if (found && total > 0 && correct / total >= 0.95) report({ type: 'it', title: found.lesson.title });
   }, []);
 
   const recordGame = useCallback((id: string, score: number) => {

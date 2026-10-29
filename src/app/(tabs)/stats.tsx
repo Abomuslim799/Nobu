@@ -2,7 +2,8 @@
  * Statistika — umumiy natijalar, oxirgi 14 kun grafigi, yo'nalishlar bo'yicha.
  */
 
-import { Alert, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, TextInput, View } from 'react-native';
 
 import { C } from '@/constants/theme';
 import { TRACKS } from '@/data/tracks';
@@ -10,6 +11,7 @@ import { useProgress } from '@/lib/progress';
 import { pickBackup, exportBackup } from '@/lib/backup';
 import { FRIENDS, IS_WEB } from '@/lib/edition';
 import { lastDays } from '@/lib/streak';
+import { flush, getConfig, saveConfig, testConnection } from '@/lib/sync';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Stats() {
@@ -82,6 +84,8 @@ export default function Stats() {
         </View>
       </Card>}
 
+      {!FRIENDS && <TrackerLink />}
+
       {!IS_WEB && <Card style={{ gap: 8 }}>
         <T bold>💾 Zaxira</T>
         <T dim size={13}>Natijalar faqat shu telefonda. Haftada bir marta faylni Telegram yoki iCloud'ga saqlab qo'ying.</T>
@@ -106,3 +110,47 @@ function Stat({ label, value }: { label: string; value: string }) {
     </Card>
   );
 }
+
+/** Kundalik tracker (Railway) bilan ulanish: manzil + APP_TOKEN telefonda saqlanadi. */
+function TrackerLink() {
+  const [url, setUrl] = useState('');
+  const [token, setToken] = useState('');
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    getConfig().then((c) => {
+      if (c) { setUrl(c.url); setToken(c.token); setStatus('Ulangan'); }
+    });
+  }, []);
+
+  const save = async () => {
+    if (!url.startsWith('https://') || !token) return Alert.alert('Manzil https:// bilan boshlansin va token kiritilsin');
+    setStatus('Tekshirilmoqda…');
+    try {
+      const msg = await testConnection({ url, token });
+      await saveConfig({ url, token });
+      await flush();
+      setStatus(`Ulandi ✓ ${msg}`);
+    } catch (e) {
+      setStatus(`Xato: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
+  return (
+    <Card style={{ gap: 8 }}>
+      <T bold>🔗 Kundalik tracker</T>
+      <T dim size={13}>Dars, kartalar va kitob tugaganda trackerdagi vazifa o'zi ✓ bo'ladi.</T>
+      <TextInput style={input} placeholder="https://....up.railway.app" placeholderTextColor={C.dim}
+        value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
+      <TextInput style={input} placeholder="APP_TOKEN" placeholderTextColor={C.dim}
+        value={token} onChangeText={setToken} autoCapitalize="none" autoCorrect={false} secureTextEntry />
+      <Button label="Saqlash va tekshirish" onPress={save} />
+      {!!status && <T dim size={13}>{status}</T>}
+    </Card>
+  );
+}
+
+const input = {
+  color: C.text, fontSize: 16, padding: 12, borderRadius: 12,
+  backgroundColor: C.codeBg, borderWidth: 1, borderColor: C.cardBorder,
+} as const;
