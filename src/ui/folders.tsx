@@ -52,9 +52,6 @@ export function EnglishFolder() {
           </Pressable>
         );
       })}
-      <Card style={{ opacity: 0.6 }}>
-        <T dim>Navbatda: Star Wars · Fight Club · I, Robot · Lord of the Rings ...</T>
-      </Card>
 
       <T bold size={18}>🎴 So'z boyligi</T>
       <Card style={{ gap: 8 }}>

@@ -1,0 +1,87 @@
+{
+  "id": "fc1",
+  "title": "Fight Club — The life you own",
+  "source": "Fight Club (1999)",
+  "level": "B2",
+  "emoji": "🧼",
+  "hook": {
+    "quote": "The first rule of Fight Club is: you do not talk about Fight Club.",
+    "who": "Tyler Durden",
+    "context": "Tyler yashirin klub a'zolariga qoidalarni e'lon qiladi. \"do not talk\" — qat'iy buyruq ohangi uchun qisqartirilmagan shakl (don't emas). Bu qoida eng mashhur kino iqtiboslaridan biriga aylangan.",
+    "link": "https://www.youtube.com/results?search_query=fight+club+first+rule+scene"
+  },
+  "reading": [
+    "The narrator has a good office job and a flat full of expensive furniture. From the outside his life looks successful, but he can't sleep and he feels empty inside.",
+    "He often thinks, \"If I had a more interesting life, I would be happy.\" He buys more and more things, but nothing changes.",
+    "On a business trip he meets Tyler Durden, a soap salesman who is everything the narrator is not: free, confident and completely careless about rules.",
+    "Tyler tells him that people are slaves to the things they own. \"If you lost everything tomorrow,\" he asks, \"who would you really be?\"",
+    "Together they start a secret club where tired office workers come to fight. The men feel alive for the first time in years.",
+    "Slowly the club grows into something much more dangerous. Tyler's ideas become a movement, and the narrator realises he has lost control of his own life.",
+    "The film asks an uncomfortable question: if we didn't measure ourselves by money and possessions, how would we measure our lives?"
+  ],
+  "questions": [
+    { "q": "What problem does the narrator have?", "options": ["He can't sleep and feels empty", "He has no job", "He is very poor", "He is ill in hospital"], "answer": "He can't sleep and feels empty" },
+    { "q": "What does Tyler sell?", "options": ["Soap", "Furniture", "Cars", "Clothes"], "answer": "Soap" },
+    { "q": "According to Tyler, what are people slaves to?", "options": ["The things they own", "Their families", "Their bosses only", "Their dreams"], "answer": "The things they own" },
+    { "q": "How do the men feel in the club?", "options": ["Alive", "Bored", "Rich", "Sleepy"], "answer": "Alive" },
+    { "q": "What does the narrator realise later?", "options": ["He has lost control of his life", "He is rich", "Tyler is a police officer", "He loves his job"], "answer": "He has lost control of his life" }
+  ],
+  "vocab": [
+    { "id": "fc1-narrator", "word": "narrator", "ipa": "/nəˈreɪ.tə/", "emoji": "🎙", "translation": "hikoyachi", "example": "The narrator has a good office job." },
+    { "id": "fc1-furniture", "word": "furniture", "ipa": "/ˈfɜː.nɪ.tʃə/", "emoji": "🛋", "translation": "mebel", "example": "His flat is full of expensive furniture.", "note": "sanalmaydi: furnitures emas, a piece of furniture" },
+    { "id": "fc1-successful", "word": "successful", "ipa": "/səkˈses.fəl/", "emoji": "📈", "translation": "muvaffaqiyatli", "example": "From the outside his life looks successful." },
+    { "id": "fc1-empty", "word": "empty", "ipa": "/ˈemp.ti/", "emoji": "🫙", "translation": "bo'sh", "example": "He feels empty inside." },
+    { "id": "fc1-salesman", "word": "salesman", "ipa": "/ˈseɪlz.mən/", "emoji": "🧑‍💼", "translation": "sotuvchi (savdo agenti)", "example": "Tyler Durden is a soap salesman." },
+    { "id": "fc1-confident", "word": "confident", "ipa": "/ˈkɒn.fɪ.dənt/", "emoji": "😎", "translation": "o'ziga ishongan", "example": "Tyler is free, confident and careless about rules." },
+    { "id": "fc1-careless", "word": "careless", "ipa": "/ˈkeə.ləs/", "emoji": "🤷", "translation": "beparvo", "example": "He is completely careless about rules." },
+    { "id": "fc1-slave", "word": "slave", "ipa": "/sleɪv/", "emoji": "⛓", "translation": "qul", "example": "People are slaves to the things they own." },
+    { "id": "fc1-own", "word": "own", "ipa": "/əʊn/", "emoji": "🏠", "translation": "egalik qilmoq; o'z", "example": "People are slaves to the things they own." },
+    { "id": "fc1-secret", "word": "secret", "ipa": "/ˈsiː.krət/", "emoji": "🤫", "translation": "yashirin; sir", "example": "They start a secret club." },
+    { "id": "fc1-alive", "word": "alive", "ipa": "/əˈlaɪv/", "emoji": "💓", "translation": "tirik", "example": "The men feel alive for the first time in years.", "note": "otdan oldin kelmaydi: an alive man emas — a living man" },
+    { "id": "fc1-movement", "word": "movement", "ipa": "/ˈmuːv.mənt/", "emoji": "🚩", "translation": "harakat (ijtimoiy)", "example": "Tyler's ideas become a movement." },
+    { "id": "fc1-realise", "word": "realise", "ipa": "/ˈrɪə.laɪz/", "emoji": "💡", "translation": "anglab yetmoq", "example": "The narrator realises he has lost control.", "note": "AmE: realize" },
+    { "id": "fc1-uncomfortable", "word": "uncomfortable", "ipa": "/ʌnˈkʌmf.tə.bəl/", "emoji": "😬", "translation": "noqulay", "example": "The film asks an uncomfortable question." },
+    { "id": "fc1-possession", "word": "possession", "ipa": "/pəˈzeʃ.ən/", "emoji": "📦", "translation": "mulk, buyum", "example": "We measure ourselves by money and possessions." }
+  ],
+  "collocations": [
+    { "id": "fc1-c-trip", "word": "a business trip", "ipa": "/ə ˈbɪz.nɪs ˌtrɪp/", "emoji": "✈️", "translation": "xizmat safari", "example": "On a business trip he meets Tyler Durden." },
+    { "id": "fc1-c-control", "word": "lose control", "ipa": "/ˌluːz kənˈtrəʊl/", "emoji": "🌀", "translation": "nazoratni yo'qotmoq", "example": "He has lost control of his own life.", "cloze": "lost control" },
+    { "id": "fc1-c-question", "word": "ask a question", "ipa": "/ˌɑːsk ə ˈkwes.tʃən/", "emoji": "❓", "translation": "savol bermoq", "example": "The film asks an uncomfortable question.", "cloze": "asks an uncomfortable question" },
+    { "id": "fc1-c-first", "word": "for the first time", "ipa": "/fə ðə ˌfɜːst ˈtaɪm/", "emoji": "1️⃣", "translation": "birinchi marta", "example": "The men feel alive for the first time in years." },
+    { "id": "fc1-c-outside", "word": "from the outside", "ipa": "/frəm ði ˌaʊtˈsaɪd/", "emoji": "👀", "translation": "tashqaridan qaraganda", "example": "From the outside his life looks successful." }
+  ],
+  "grammar": {
+    "title": "Second Conditional: if I had..., I would...",
+    "explain": [
+      "**Second conditional** — hozirgi yoki kelajakdagi **xayoliy, real bo'lmagan** vaziyat: **If** + Past Simple, **would** + fe'l. **If** I **had** a more interesting life, I **would be** happy (hozir unday hayot yo'q).",
+      "Shakl o'tmishga o'xshaydi, lekin ma'no hozirgi. \"If you lost everything tomorrow\" — ertangi kun haqida, faqat ehtimoli kam.",
+      "**to be** bilan rasmiy ingliz tilida barcha shaxslar uchun **were**: If I **were** you, I would change jobs. Og'zaki nutqda \"if I was\" ham uchraydi.",
+      "First bilan farqi: If I **win** the lottery, I **will** buy a house (sizningcha real). If I **won** the lottery, I **would** buy a house (deyarli imkonsiz)."
+    ],
+    "exercises": [
+      { "q": "If I ___ more money, I would travel the world.", "options": ["had", "have", "would have", "will have"], "answer": "had", "why": "Xayoliy shart: if + Past Simple." },
+      { "q": "If you lost everything, who ___ you be?", "options": ["would", "will", "did", "were"], "answer": "would", "why": "Natija qismi: would + fe'l." },
+      { "q": "If I ___ you, I would talk to him.", "options": ["were", "am", "would be", "be"], "answer": "were", "why": "Maslahat iborasi: If I were you." },
+      { "q": "She would be happier if she ___ in such a big city.", "options": ["didn't live", "doesn't live", "won't live", "wouldn't live"], "answer": "didn't live", "why": "if qismida would yo'q — Past Simple inkor." },
+      { "q": "What would you do if you ___ a famous actor?", "options": ["met", "meet", "would meet", "will meet"], "answer": "met", "why": "Xayoliy vaziyat: if you met." },
+      { "q": "If we didn't buy so many things, we ___ more free.", "options": ["would feel", "will feel", "felt", "feel"], "answer": "would feel", "why": "Natija: would + fe'l." },
+      { "q": "I ___ the job if they offered it to me, but they won't.", "options": ["would take", "will take", "took", "take"], "answer": "would take", "why": "Taklif bo'lishi dargumon → second conditional." },
+      { "q": "If it ___ so cold, we could go to the beach.", "options": ["weren't", "isn't", "won't be", "wouldn't be"], "answer": "weren't", "why": "Hozirgi haqiqatga zid: weren't." },
+      { "q": "\"I think it will rain.\" — \"If it ___, we'll stay inside.\"", "options": ["rains", "rained", "would rain", "will rain"], "answer": "rains", "why": "Bu real ehtimol → first conditional." },
+      { "q": "If he ___ harder, he'd get a better job.", "options": ["worked", "works", "would work", "work"], "answer": "worked", "why": "he'd = he would; if qismi Past Simple." }
+    ]
+  },
+  "dictation": [
+    { "text": "His flat is full of expensive furniture.", "gap": "furniture" },
+    { "text": "He feels empty inside.", "gap": "empty" },
+    { "text": "They start a secret club.", "gap": "secret" },
+    { "text": "The men feel alive for the first time in years.", "gap": "alive" },
+    { "text": "Tyler's ideas become a movement.", "gap": "movement" }
+  ],
+  "shadowing": [
+    "The first rule of Fight Club is: you do not talk about Fight Club.",
+    "If I had a more interesting life, I would be happy.",
+    "If you lost everything tomorrow, who would you really be?",
+    "If I were you, I wouldn't buy it."
+  ]
+}

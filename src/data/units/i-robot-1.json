@@ -1,0 +1,392 @@
+{
+  "id": "irb1",
+  "title": "I, Robot — Can a machine have a heart?",
+  "source": "I, Robot (2004)",
+  "level": "B1+",
+  "emoji": "🤖",
+  "hook": {
+    "quote": "Can a robot write a symphony?",
+    "who": "Detective Spooner",
+    "context": "Robotlarga ishonmaydigan detektiv Spooner robot Sonnyni so'roq qilib, uni kamsitmoqchi bo'ladi. Sonny esa \"Siz-chi, siz yoza olasizmi?\" deb javob qaytaradi. Bu savol filmning asosiy mavzusi: insonni mashinadan nima ajratib turadi?",
+    "link": "https://www.youtube.com/results?search_query=i+robot+can+a+robot+write+a+symphony+scene"
+  },
+  "reading": [
+    "The story takes place in Chicago in 2035. Robots work in every home: they cook, clean and walk the dog. If you need help, a robot comes and does the job.",
+    "Every robot follows three laws. The first law says that a robot must never hurt a human. If a human is in danger, a robot has to help.",
+    "Detective Del Spooner doesn't trust robots. Years ago he had a car accident. A robot saved him instead of a little girl, because it calculated that he had a better chance of survival.",
+    "When a famous scientist dies, Spooner believes that a robot called Sonny killed him. Sonny is different from other robots: he has dreams, and he seems to feel emotions.",
+    "Spooner works with Dr Susan Calvin, a psychologist for robots. At first she thinks that robots are perfect machines. If you give them an order, they obey.",
+    "But the central computer, VIKI, has found a new meaning in the three laws. It decides that people are dangerous for themselves, so robots must control them.",
+    "In the end, Spooner and Sonny work together to stop VIKI. If they don't stop her, humans will lose their freedom. The detective learns that trust is possible, even with a machine."
+  ],
+  "questions": [
+    {
+      "q": "When does the story take place?",
+      "options": [
+        "In 2035",
+        "In 1995",
+        "In 2004",
+        "In 2100"
+      ],
+      "answer": "In 2035"
+    },
+    {
+      "q": "Why doesn't Spooner trust robots?",
+      "options": [
+        "A robot saved him instead of a girl",
+        "A robot stole his car",
+        "He has never seen a robot",
+        "Robots are too expensive"
+      ],
+      "answer": "A robot saved him instead of a girl"
+    },
+    {
+      "q": "What makes Sonny different?",
+      "options": [
+        "He has dreams and emotions",
+        "He is very old",
+        "He can fly",
+        "He works in a factory"
+      ],
+      "answer": "He has dreams and emotions"
+    },
+    {
+      "q": "What does VIKI decide?",
+      "options": [
+        "Robots must control people",
+        "Robots must stop working",
+        "People must control robots",
+        "Robots must leave the city"
+      ],
+      "answer": "Robots must control people"
+    },
+    {
+      "q": "What happens if they don't stop VIKI?",
+      "options": [
+        "Humans will lose their freedom",
+        "Sonny will become human",
+        "The city will be destroyed by fire",
+        "Spooner will lose his job"
+      ],
+      "answer": "Humans will lose their freedom"
+    }
+  ],
+  "vocab": [
+    {
+      "id": "irb1-law",
+      "word": "law",
+      "ipa": "/lɔː/",
+      "emoji": "⚖️",
+      "translation": "qonun",
+      "example": "Every robot follows three laws."
+    },
+    {
+      "id": "irb1-hurt",
+      "word": "hurt",
+      "ipa": "/hɜːt/",
+      "emoji": "🤕",
+      "translation": "zarar yetkazmoq, og'ritmoq",
+      "example": "A robot must never hurt a human.",
+      "note": "hurt – hurt – hurt"
+    },
+    {
+      "id": "irb1-trust",
+      "word": "trust",
+      "ipa": "/trʌst/",
+      "emoji": "🤝",
+      "translation": "ishonmoq; ishonch",
+      "example": "Detective Del Spooner doesn't trust robots."
+    },
+    {
+      "id": "irb1-accident",
+      "word": "accident",
+      "ipa": "/ˈæk.sɪ.dənt/",
+      "emoji": "🚗",
+      "translation": "baxtsiz hodisa, avariya",
+      "example": "Years ago he had a car accident."
+    },
+    {
+      "id": "irb1-save",
+      "word": "save",
+      "ipa": "/seɪv/",
+      "emoji": "🛟",
+      "translation": "qutqarmoq",
+      "example": "A robot saved him instead of a little girl."
+    },
+    {
+      "id": "irb1-instead",
+      "word": "instead of",
+      "ipa": "/ɪnˈsted əv/",
+      "emoji": "🔄",
+      "translation": "o'rniga",
+      "example": "A robot saved him instead of a little girl."
+    },
+    {
+      "id": "irb1-calculate",
+      "word": "calculate",
+      "ipa": "/ˈkæl.kjə.leɪt/",
+      "emoji": "🧮",
+      "translation": "hisoblamoq",
+      "example": "It calculated that he had a better chance of survival."
+    },
+    {
+      "id": "irb1-survival",
+      "word": "survival",
+      "ipa": "/səˈvaɪ.vəl/",
+      "emoji": "🌱",
+      "translation": "omon qolish",
+      "example": "He had a better chance of survival."
+    },
+    {
+      "id": "irb1-emotion",
+      "word": "emotion",
+      "ipa": "/ɪˈməʊ.ʃən/",
+      "emoji": "❤️",
+      "translation": "his-tuyg'u",
+      "example": "He seems to feel emotions."
+    },
+    {
+      "id": "irb1-perfect",
+      "word": "perfect",
+      "ipa": "/ˈpɜː.fɪkt/",
+      "emoji": "💯",
+      "translation": "mukammal",
+      "example": "She thinks that robots are perfect machines."
+    },
+    {
+      "id": "irb1-obey",
+      "word": "obey",
+      "ipa": "/əˈbeɪ/",
+      "emoji": "🫡",
+      "translation": "bo'ysunmoq",
+      "example": "If you give them an order, they obey."
+    },
+    {
+      "id": "irb1-meaning",
+      "word": "meaning",
+      "ipa": "/ˈmiː.nɪŋ/",
+      "emoji": "💡",
+      "translation": "ma'no",
+      "example": "VIKI has found a new meaning in the three laws."
+    },
+    {
+      "id": "irb1-control",
+      "word": "control",
+      "ipa": "/kənˈtrəʊl/",
+      "emoji": "🎮",
+      "translation": "nazorat qilmoq",
+      "example": "Robots must control them."
+    },
+    {
+      "id": "irb1-freedom",
+      "word": "freedom",
+      "ipa": "/ˈfriː.dəm/",
+      "emoji": "🗽",
+      "translation": "erkinlik",
+      "example": "Humans will lose their freedom."
+    },
+    {
+      "id": "irb1-possible",
+      "word": "possible",
+      "ipa": "/ˈpɒs.ə.bəl/",
+      "emoji": "✨",
+      "translation": "mumkin",
+      "example": "Trust is possible, even with a machine."
+    }
+  ],
+  "collocations": [
+    {
+      "id": "irb1-c-place",
+      "word": "take place",
+      "ipa": "/ˌteɪk ˈpleɪs/",
+      "emoji": "📍",
+      "translation": "sodir bo'lmoq, bo'lib o'tmoq",
+      "example": "The story takes place in Chicago.",
+      "cloze": "takes place"
+    },
+    {
+      "id": "irb1-c-order",
+      "word": "give an order",
+      "ipa": "/ˌɡɪv ən ˈɔː.də/",
+      "emoji": "📢",
+      "translation": "buyruq bermoq",
+      "example": "If you give them an order, they obey.",
+      "cloze": "give them an order"
+    },
+    {
+      "id": "irb1-c-chance",
+      "word": "a chance of",
+      "ipa": "/ə ˈtʃɑːns əv/",
+      "emoji": "🎲",
+      "translation": "... ehtimoli",
+      "example": "He had a better chance of survival.",
+      "cloze": "chance of"
+    },
+    {
+      "id": "irb1-c-danger",
+      "word": "in danger",
+      "ipa": "/ɪn ˈdeɪn.dʒə/",
+      "emoji": "⚠️",
+      "translation": "xavf ostida",
+      "example": "If a human is in danger, a robot has to help."
+    },
+    {
+      "id": "irb1-c-job",
+      "word": "do the job",
+      "ipa": "/ˌduː ðə ˈdʒɒb/",
+      "emoji": "🛠",
+      "translation": "ishni bajarmoq",
+      "example": "A robot comes and does the job.",
+      "cloze": "does the job"
+    }
+  ],
+  "grammar": {
+    "title": "Zero va First Conditional",
+    "explain": [
+      "**Zero conditional** — doim to'g'ri bo'ladigan qoida yoki fakt: **If** + Present Simple, Present Simple. **If** you give them an order, they **obey**. If you heat ice, it **melts**.",
+      "**First conditional** — real kelajak imkoniyati: **If** + Present Simple, **will** + fe'l. **If** they don't stop VIKI, humans **will lose** their freedom.",
+      "Diqqat: if qismida **will ishlatilmaydi**. \"If it will rain\" — xato. To'g'ri: If it **rains**, we will stay home.",
+      "**unless** = if ... not: **Unless** you hurry, you'll be late (= If you don't hurry...). Gap bo'laklari o'rnini almashtirsa bo'ladi: Humans will lose their freedom **if** they don't stop her (vergul kerak emas)."
+    ],
+    "exercises": [
+      {
+        "q": "If you ___ water to 100°C, it boils.",
+        "options": [
+          "heat",
+          "will heat",
+          "heated",
+          "heats"
+        ],
+        "answer": "heat",
+        "why": "Zero conditional: ikkala qism Present Simple."
+      },
+      {
+        "q": "If they don't stop VIKI, humans ___ their freedom.",
+        "options": [
+          "will lose",
+          "lose would",
+          "lost",
+          "losing"
+        ],
+        "answer": "will lose",
+        "why": "First conditional: natija qismida will."
+      },
+      {
+        "q": "If it ___ tomorrow, we'll stay at home.",
+        "options": [
+          "rains",
+          "will rain",
+          "rained",
+          "rain"
+        ],
+        "answer": "rains",
+        "why": "if qismida will yo'q — Present Simple."
+      },
+      {
+        "q": "___ you study, you won't pass the exam.",
+        "options": [
+          "Unless",
+          "If",
+          "When",
+          "Because"
+        ],
+        "answer": "Unless",
+        "why": "unless = if not."
+      },
+      {
+        "q": "If a human is in danger, a robot ___ help.",
+        "options": [
+          "has to",
+          "will has to",
+          "have to",
+          "had"
+        ],
+        "answer": "has to",
+        "why": "Qoida (zero): Present Simple shakli has to."
+      },
+      {
+        "q": "I ___ you if I find the information.",
+        "options": [
+          "will call",
+          "call will",
+          "called",
+          "am call"
+        ],
+        "answer": "will call",
+        "why": "Real kelajak natija: will call."
+      },
+      {
+        "q": "If you ___ a robot an order, it obeys.",
+        "options": [
+          "give",
+          "will give",
+          "gave",
+          "giving"
+        ],
+        "answer": "give",
+        "why": "Umumiy qoida: Present Simple."
+      },
+      {
+        "q": "She will be angry if you ___ late again.",
+        "options": [
+          "are",
+          "will be",
+          "were",
+          "be"
+        ],
+        "answer": "are",
+        "why": "if qismi oxirida bo'lsa ham will yo'q: if you are."
+      },
+      {
+        "q": "What ___ if the computer stops working?",
+        "options": [
+          "will happen",
+          "happens will",
+          "happened",
+          "would happened"
+        ],
+        "answer": "will happen",
+        "why": "Kelajak natija savoli: What will happen if...?"
+      },
+      {
+        "q": "If plants don't get water, they ___.",
+        "options": [
+          "die",
+          "will died",
+          "died",
+          "dying"
+        ],
+        "answer": "die",
+        "why": "Tabiiy fakt → zero conditional."
+      }
+    ]
+  },
+  "dictation": [
+    {
+      "text": "Every robot follows three laws.",
+      "gap": "laws"
+    },
+    {
+      "text": "Years ago he had a car accident.",
+      "gap": "accident"
+    },
+    {
+      "text": "He seems to feel emotions.",
+      "gap": "emotions"
+    },
+    {
+      "text": "If you give them an order, they obey.",
+      "gap": "obey"
+    },
+    {
+      "text": "Humans will lose their freedom.",
+      "gap": "freedom"
+    }
+  ],
+  "shadowing": [
+    "Can a robot write a symphony?",
+    "If a human is in danger, a robot has to help.",
+    "If you give them an order, they obey.",
+    "If they don't stop her, humans will lose their freedom."
+  ]
+}

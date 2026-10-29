@@ -20,35 +20,231 @@
     "Forrest never planned to become rich or famous. He simply did what was in front of him, and he did it with all his heart."
   ],
   "questions": [
-    { "q": "Where does Forrest tell his story?", "options": ["On a bench at a bus stop", "In a hospital", "On his boat", "At college"], "answer": "On a bench at a bus stop" },
-    { "q": "Why did Forrest wear metal braces?", "options": ["He had weak legs", "He had an accident", "For sport", "His mother wanted it"], "answer": "He had weak legs" },
-    { "q": "What happened when Jenny shouted \"Run, Forrest, run!\"?", "options": ["He discovered he could run very fast", "He fell down", "The boys stopped", "He went home"], "answer": "He discovered he could run very fast" },
-    { "q": "What was Bubba's dream?", "options": ["A shrimp business", "Playing football", "Becoming famous", "Running across America"], "answer": "A shrimp business" },
-    { "q": "What did Forrest do with the profit?", "options": ["He shared it with Bubba's family", "He kept it all", "He bought a house", "He gave it to Jenny"], "answer": "He shared it with Bubba's family" }
+    {
+      "q": "Where does Forrest tell his story?",
+      "options": [
+        "On a bench at a bus stop",
+        "In a hospital",
+        "On his boat",
+        "At college"
+      ],
+      "answer": "On a bench at a bus stop"
+    },
+    {
+      "q": "Why did Forrest wear metal braces?",
+      "options": [
+        "He had weak legs",
+        "He had an accident",
+        "For sport",
+        "His mother wanted it"
+      ],
+      "answer": "He had weak legs"
+    },
+    {
+      "q": "What happened when Jenny shouted \"Run, Forrest, run!\"?",
+      "options": [
+        "He discovered he could run very fast",
+        "He fell down",
+        "The boys stopped",
+        "He went home"
+      ],
+      "answer": "He discovered he could run very fast"
+    },
+    {
+      "q": "What was Bubba's dream?",
+      "options": [
+        "A shrimp business",
+        "Playing football",
+        "Becoming famous",
+        "Running across America"
+      ],
+      "answer": "A shrimp business"
+    },
+    {
+      "q": "What did Forrest do with the profit?",
+      "options": [
+        "He shared it with Bubba's family",
+        "He kept it all",
+        "He bought a house",
+        "He gave it to Jenny"
+      ],
+      "answer": "He shared it with Bubba's family"
+    }
   ],
   "vocab": [
-    { "id": "fg1-bench", "word": "bench", "ipa": "/bentʃ/", "emoji": "🪑", "translation": "o'rindiq, skameyka", "example": "Forrest Gump sits on a bench at a bus stop." },
-    { "id": "fg1-stranger", "word": "stranger", "ipa": "/ˈstreɪn.dʒə/", "emoji": "🧍", "translation": "notanish odam", "example": "He tells his life story to strangers." },
-    { "id": "fg1-honest", "word": "honest", "ipa": "/ˈɒn.ɪst/", "emoji": "🤝", "translation": "halol, rostgo'y", "example": "He is not a clever man, but he is honest and kind.", "note": "h o'qilmaydi: /ˈɒn.ɪst/" },
-    { "id": "fg1-kind", "word": "kind", "ipa": "/kaɪnd/", "emoji": "😊", "translation": "mehribon", "example": "He is honest and kind." },
-    { "id": "fg1-braces", "word": "braces", "ipa": "/ˈbreɪ.sɪz/", "emoji": "🦿", "translation": "oyoq tutqichi (metall moslama)", "example": "He had to wear metal braces." },
-    { "id": "fg1-laugh", "word": "to laugh at", "ipa": "/ˈlɑːf æt/", "emoji": "😆", "translation": "ustidan kulmoq", "example": "Other children used to laugh at him.", "note": "gh = f: /lɑːf/" },
-    { "id": "fg1-chase", "word": "to chase", "ipa": "/tʃeɪs/", "emoji": "🏃", "translation": "quvlamoq", "example": "One day some boys chased him." },
-    { "id": "fg1-discover", "word": "to discover", "ipa": "/dɪˈskʌv.ə/", "emoji": "🔍", "translation": "bilib qolmoq, kashf qilmoq", "example": "He discovered that he could run very fast." },
-    { "id": "fg1-believe", "word": "to believe in", "ipa": "/bɪˈliːv ɪn/", "emoji": "💚", "translation": "kimgadir ishonmoq", "example": "His mother always believed in him." },
-    { "id": "fg1-advice", "word": "advice", "ipa": "/ədˈvaɪs/", "emoji": "💬", "translation": "maslahat", "example": "She gave him simple advice for difficult moments.", "note": "sanalmaydi: an advice emas — a piece of advice" },
-    { "id": "fg1-join", "word": "to join", "ipa": "/dʒɔɪn/", "emoji": "🎖️", "translation": "qo'shilmoq, a'zo bo'lmoq", "example": "Later he joined the army." },
-    { "id": "fg1-dream", "word": "to dream of", "ipa": "/ˈdriːm əv/", "emoji": "✨", "translation": "orzu qilmoq", "example": "Bubba dreamed of starting a shrimp business.", "note": "dream of + -ing" },
-    { "id": "fg1-shrimp", "word": "shrimp", "ipa": "/ʃrɪmp/", "emoji": "🦐", "translation": "krevetka", "example": "Bubba dreamed of starting a shrimp business." },
-    { "id": "fg1-profit", "word": "profit", "ipa": "/ˈprɒf.ɪt/", "emoji": "💰", "translation": "foyda", "example": "He shared the profit with Bubba's family.", "note": "revenue − costs = profit" },
-    { "id": "fg1-successful", "word": "successful", "ipa": "/səkˈses.fəl/", "emoji": "🏆", "translation": "muvaffaqiyatli", "example": "The company became very successful." }
+    {
+      "id": "fg1-bench",
+      "word": "bench",
+      "ipa": "/bentʃ/",
+      "emoji": "🪑",
+      "translation": "o'rindiq, skameyka",
+      "example": "Forrest Gump sits on a bench at a bus stop."
+    },
+    {
+      "id": "fg1-stranger",
+      "word": "stranger",
+      "ipa": "/ˈstreɪn.dʒə/",
+      "emoji": "🧍",
+      "translation": "notanish odam",
+      "example": "He tells his life story to strangers."
+    },
+    {
+      "id": "fg1-honest",
+      "word": "honest",
+      "ipa": "/ˈɒn.ɪst/",
+      "emoji": "🤝",
+      "translation": "halol, rostgo'y",
+      "example": "He is not a clever man, but he is honest and kind.",
+      "note": "h o'qilmaydi: /ˈɒn.ɪst/"
+    },
+    {
+      "id": "fg1-kind",
+      "word": "kind",
+      "ipa": "/kaɪnd/",
+      "emoji": "😊",
+      "translation": "mehribon",
+      "example": "He is honest and kind."
+    },
+    {
+      "id": "fg1-braces",
+      "word": "braces",
+      "ipa": "/ˈbreɪ.sɪz/",
+      "emoji": "🦿",
+      "translation": "oyoq tutqichi (metall moslama)",
+      "example": "He had to wear metal braces."
+    },
+    {
+      "id": "fg1-laugh",
+      "word": "to laugh at",
+      "ipa": "/ˈlɑːf æt/",
+      "emoji": "😆",
+      "translation": "ustidan kulmoq",
+      "example": "Other children used to laugh at him.",
+      "note": "gh = f: /lɑːf/"
+    },
+    {
+      "id": "fg1-chase",
+      "word": "to chase",
+      "ipa": "/tʃeɪs/",
+      "emoji": "🏃",
+      "translation": "quvlamoq",
+      "example": "One day some boys chased him."
+    },
+    {
+      "id": "fg1-discover",
+      "word": "to discover",
+      "ipa": "/dɪˈskʌv.ə/",
+      "emoji": "🔍",
+      "translation": "bilib qolmoq, kashf qilmoq",
+      "example": "He discovered that he could run very fast."
+    },
+    {
+      "id": "fg1-believe",
+      "word": "to believe in",
+      "ipa": "/bɪˈliːv ɪn/",
+      "emoji": "💚",
+      "translation": "kimgadir ishonmoq",
+      "example": "His mother always believed in him."
+    },
+    {
+      "id": "fg1-advice",
+      "word": "advice",
+      "ipa": "/ədˈvaɪs/",
+      "emoji": "💬",
+      "translation": "maslahat",
+      "example": "She gave him simple advice for difficult moments.",
+      "note": "sanalmaydi: an advice emas — a piece of advice"
+    },
+    {
+      "id": "fg1-join",
+      "word": "to join",
+      "ipa": "/dʒɔɪn/",
+      "emoji": "🎖️",
+      "translation": "qo'shilmoq, a'zo bo'lmoq",
+      "example": "Later he joined the army."
+    },
+    {
+      "id": "fg1-dream",
+      "word": "to dream of",
+      "ipa": "/ˈdriːm əv/",
+      "emoji": "✨",
+      "translation": "orzu qilmoq",
+      "example": "Bubba dreamed of starting a shrimp business.",
+      "note": "dream of + -ing"
+    },
+    {
+      "id": "fg1-shrimp",
+      "word": "shrimp",
+      "ipa": "/ʃrɪmp/",
+      "emoji": "🦐",
+      "translation": "krevetka",
+      "example": "Bubba dreamed of starting a shrimp business."
+    },
+    {
+      "id": "fg1-profit",
+      "word": "profit",
+      "ipa": "/ˈprɒf.ɪt/",
+      "emoji": "💰",
+      "translation": "foyda",
+      "example": "He shared the profit with Bubba's family.",
+      "note": "revenue − costs = profit"
+    },
+    {
+      "id": "fg1-successful",
+      "word": "successful",
+      "ipa": "/səkˈses.fəl/",
+      "emoji": "🏆",
+      "translation": "muvaffaqiyatli",
+      "example": "The company became very successful."
+    }
   ],
   "collocations": [
-    { "id": "fg1-c-story", "word": "tell a story", "ipa": "/ˌtel ə ˈstɔː.ri/", "emoji": "📖", "translation": "hikoya qilmoq", "example": "He tells his life story to strangers.", "note": "say a story emas — TELL a story" },
-    { "id": "fg1-c-promise", "word": "keep a promise", "ipa": "/ˌkiːp ə ˈprɒm.ɪs/", "emoji": "🤞", "translation": "va'dasida turmoq", "example": "Forrest kept his promise.", "note": "teskarisi: break a promise" },
-    { "id": "fg1-c-business", "word": "start a business", "ipa": "/ˌstɑːt ə ˈbɪz.nəs/", "emoji": "🚀", "translation": "biznes boshlamoq", "example": "Bubba dreamed of starting a shrimp business." },
-    { "id": "fg1-c-profit", "word": "share the profit", "ipa": "/ˌʃeə ðə ˈprɒf.ɪt/", "emoji": "🤲", "translation": "foydani bo'lishmoq", "example": "He shared the profit with Bubba's family." },
-    { "id": "fg1-c-heart", "word": "with all your heart", "ipa": "/wɪð ˌɔːl jə ˈhɑːt/", "emoji": "❤️", "translation": "butun qalbi bilan", "example": "He did it with all his heart." }
+    {
+      "id": "fg1-c-story",
+      "word": "tell a story",
+      "ipa": "/ˌtel ə ˈstɔː.ri/",
+      "emoji": "📖",
+      "translation": "hikoya qilmoq",
+      "example": "He tells his life story to strangers.",
+      "note": "say a story emas — TELL a story",
+      "cloze": "tells his life story"
+    },
+    {
+      "id": "fg1-c-promise",
+      "word": "keep a promise",
+      "ipa": "/ˌkiːp ə ˈprɒm.ɪs/",
+      "emoji": "🤞",
+      "translation": "va'dasida turmoq",
+      "example": "Forrest kept his promise.",
+      "note": "teskarisi: break a promise",
+      "cloze": "kept his promise"
+    },
+    {
+      "id": "fg1-c-business",
+      "word": "start a business",
+      "ipa": "/ˌstɑːt ə ˈbɪz.nəs/",
+      "emoji": "🚀",
+      "translation": "biznes boshlamoq",
+      "example": "Bubba dreamed of starting a shrimp business.",
+      "cloze": "starting a shrimp business"
+    },
+    {
+      "id": "fg1-c-profit",
+      "word": "share the profit",
+      "ipa": "/ˌʃeə ðə ˈprɒf.ɪt/",
+      "emoji": "🤲",
+      "translation": "foydani bo'lishmoq",
+      "example": "He shared the profit with Bubba's family."
+    },
+    {
+      "id": "fg1-c-heart",
+      "word": "with all your heart",
+      "ipa": "/wɪð ˌɔːl jə ˈhɑːt/",
+      "emoji": "❤️",
+      "translation": "butun qalbi bilan",
+      "example": "He did it with all his heart.",
+      "cloze": "with all his heart"
+    }
   ],
   "grammar": {
     "title": "Past Simple, used to va \"said ... was\"",
@@ -59,24 +255,139 @@
       "**said + ... was**: \"Mama always **said** life **was** like a box of chocolates.\" Gapni boshqa birov aytganini yetkazganda zamon bir pog'ona orqaga suriladi (is → was, know → knew). Shuning uchun filmda \"was\"."
     ],
     "exercises": [
-      { "q": "When Forrest ___ a child, he lived in Alabama.", "options": ["was", "is", "has been", "were"], "answer": "was", "why": "O'tmishdagi holat → Past Simple: was." },
-      { "q": "Other children ___ laugh at him.", "options": ["used to", "use to", "were use to", "using to"], "answer": "used to", "why": "Takrorlanuvchi o'tmish odati: used to + fe'l." },
-      { "q": "Jenny ___, \"Run, Forrest, run!\"", "options": ["shouted", "shouts", "was shout", "shout"], "answer": "shouted", "why": "Bir martalik o'tmish voqeasi: shouted." },
-      { "q": "The braces ___ and he ran very fast.", "options": ["broke", "breaked", "broken", "break"], "answer": "broke", "why": "break — noto'g'ri fe'l: break → broke → broken." },
-      { "q": "Forrest ___ to Vietnam with the army.", "options": ["went", "goed", "gone", "go"], "answer": "went", "why": "go → went (noto'g'ri fe'l)." },
-      { "q": "Mama always said life ___ like a box of chocolates.", "options": ["was", "is", "be", "were"], "answer": "was", "why": "said dan keyin zamon orqaga suriladi: is → was." },
-      { "q": "Did Forrest ___ to become rich?", "options": ["plan", "planned", "plans", "planning"], "answer": "plan", "why": "Did bilan fe'l asosiy shaklda: did + plan." },
-      { "q": "He ___ a boat and started the business.", "options": ["bought", "buyed", "brought", "buy"], "answer": "bought", "why": "buy → bought. Adashtirmang: bring → brought." },
-      { "q": "I ___ play football when I was a kid, but now I don't.", "options": ["used to", "use to", "am used to", "was"], "answer": "used to", "why": "Hozir yo'q bo'lgan o'tmish odati." },
-      { "q": "He didn't ___ his promise.", "options": ["break", "broke", "broken", "breaks"], "answer": "break", "why": "didn't + fe'l asosiy shaklda." }
+      {
+        "q": "When Forrest ___ a child, he lived in Alabama.",
+        "options": [
+          "was",
+          "is",
+          "has been",
+          "were"
+        ],
+        "answer": "was",
+        "why": "O'tmishdagi holat → Past Simple: was."
+      },
+      {
+        "q": "Other children ___ laugh at him.",
+        "options": [
+          "used to",
+          "use to",
+          "were use to",
+          "using to"
+        ],
+        "answer": "used to",
+        "why": "Takrorlanuvchi o'tmish odati: used to + fe'l."
+      },
+      {
+        "q": "Jenny ___, \"Run, Forrest, run!\"",
+        "options": [
+          "shouted",
+          "shouts",
+          "was shout",
+          "shout"
+        ],
+        "answer": "shouted",
+        "why": "Bir martalik o'tmish voqeasi: shouted."
+      },
+      {
+        "q": "The braces ___ and he ran very fast.",
+        "options": [
+          "broke",
+          "breaked",
+          "broken",
+          "break"
+        ],
+        "answer": "broke",
+        "why": "break — noto'g'ri fe'l: break → broke → broken."
+      },
+      {
+        "q": "Forrest ___ to Vietnam with the army.",
+        "options": [
+          "went",
+          "goed",
+          "gone",
+          "go"
+        ],
+        "answer": "went",
+        "why": "go → went (noto'g'ri fe'l)."
+      },
+      {
+        "q": "Mama always said life ___ like a box of chocolates.",
+        "options": [
+          "was",
+          "is",
+          "be",
+          "were"
+        ],
+        "answer": "was",
+        "why": "said dan keyin zamon orqaga suriladi: is → was."
+      },
+      {
+        "q": "Did Forrest ___ to become rich?",
+        "options": [
+          "plan",
+          "planned",
+          "plans",
+          "planning"
+        ],
+        "answer": "plan",
+        "why": "Did bilan fe'l asosiy shaklda: did + plan."
+      },
+      {
+        "q": "He ___ a boat and started the business.",
+        "options": [
+          "bought",
+          "buyed",
+          "brought",
+          "buy"
+        ],
+        "answer": "bought",
+        "why": "buy → bought. Adashtirmang: bring → brought."
+      },
+      {
+        "q": "I ___ play football when I was a kid, but now I don't.",
+        "options": [
+          "used to",
+          "use to",
+          "am used to",
+          "was"
+        ],
+        "answer": "used to",
+        "why": "Hozir yo'q bo'lgan o'tmish odati."
+      },
+      {
+        "q": "He didn't ___ his promise.",
+        "options": [
+          "break",
+          "broke",
+          "broken",
+          "breaks"
+        ],
+        "answer": "break",
+        "why": "didn't + fe'l asosiy shaklda."
+      }
     ]
   },
   "dictation": [
-    { "text": "He had weak legs, so he had to wear metal braces.", "gap": "braces" },
-    { "text": "Other children used to laugh at him.", "gap": "laugh" },
-    { "text": "One day some boys chased him.", "gap": "chased" },
-    { "text": "His mother always believed in him.", "gap": "believed" },
-    { "text": "He shared the profit with Bubba's family.", "gap": "profit" }
+    {
+      "text": "He had weak legs, so he had to wear metal braces.",
+      "gap": "braces"
+    },
+    {
+      "text": "Other children used to laugh at him.",
+      "gap": "laugh"
+    },
+    {
+      "text": "One day some boys chased him.",
+      "gap": "chased"
+    },
+    {
+      "text": "His mother always believed in him.",
+      "gap": "believed"
+    },
+    {
+      "text": "He shared the profit with Bubba's family.",
+      "gap": "profit"
+    }
   ],
   "shadowing": [
     "My mama always said, life was like a box of chocolates.",

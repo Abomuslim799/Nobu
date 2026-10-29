@@ -1,0 +1,397 @@
+{
+  "id": "lotr1",
+  "title": "The Lord of the Rings — The journey begins",
+  "source": "The Lord of the Rings: The Fellowship of the Ring (2001)",
+  "level": "B1+",
+  "emoji": "💍",
+  "hook": {
+    "quote": "Even the smallest person can change the course of the future.",
+    "who": "Galadriel",
+    "context": "Elflar malikasi Galadriel qo'rqib turgan Frodoga shunday deydi: kichkina hobbit ham dunyo taqdirini o'zgartira oladi. \"the smallest\" — orttirma daraja, \"the course of the future\" — kelajak yo'nalishi.",
+    "link": "https://www.youtube.com/results?search_query=galadriel+even+the+smallest+person+can+change+the+course+of+the+future"
+  },
+  "reading": [
+    "Frodo is a hobbit, a small, peaceful person who loves food, gardens and a quiet life. His uncle Bilbo gives him a gold ring before he leaves the Shire.",
+    "The wizard Gandalf discovers that it is the One Ring, made by the dark lord Sauron. If Sauron gets it back, he will rule the whole world. The ring can only be destroyed in the fire of Mount Doom, where it was made.",
+    "Frodo is scared, but he says, \"I'm going to take it.\" His loyal friend Sam immediately decides to go with him.",
+    "In the town of Rivendell, a council meets to discuss the danger. Nine companions agree to help: hobbits, men, an elf, a dwarf and a wizard. They become the Fellowship of the Ring.",
+    "The journey is long and dangerous. The ring is heavy and it slowly changes the people who carry it. Even good people want to take it for themselves.",
+    "In the dark mines of Moria the Fellowship loses Gandalf. Later Boromir tries to take the ring, and Frodo understands that the ring will destroy the Fellowship.",
+    "So he makes a hard choice. \"I'm leaving tomorrow,\" he thinks, \"and I will go alone.\" But Sam refuses to let him go alone, and the two friends continue the journey together."
+  ],
+  "questions": [
+    {
+      "q": "Who gives Frodo the ring?",
+      "options": [
+        "His uncle Bilbo",
+        "Gandalf",
+        "Sam",
+        "Sauron"
+      ],
+      "answer": "His uncle Bilbo"
+    },
+    {
+      "q": "Where can the ring be destroyed?",
+      "options": [
+        "In the fire of Mount Doom",
+        "In Rivendell",
+        "In the Shire",
+        "In the mines of Moria"
+      ],
+      "answer": "In the fire of Mount Doom"
+    },
+    {
+      "q": "How many companions are in the Fellowship?",
+      "options": [
+        "Nine",
+        "Two",
+        "Five",
+        "Twelve"
+      ],
+      "answer": "Nine"
+    },
+    {
+      "q": "What does the ring do to people?",
+      "options": [
+        "It slowly changes them",
+        "It makes them invisible forever",
+        "It makes them rich",
+        "It gives them food"
+      ],
+      "answer": "It slowly changes them"
+    },
+    {
+      "q": "Who continues the journey with Frodo?",
+      "options": [
+        "Sam",
+        "Boromir",
+        "Gandalf",
+        "Bilbo"
+      ],
+      "answer": "Sam"
+    }
+  ],
+  "vocab": [
+    {
+      "id": "lotr1-peaceful",
+      "word": "peaceful",
+      "ipa": "/ˈpiːs.fəl/",
+      "emoji": "🕊",
+      "translation": "tinch, osoyishta",
+      "example": "Frodo is a small, peaceful person."
+    },
+    {
+      "id": "lotr1-ring",
+      "word": "ring",
+      "ipa": "/rɪŋ/",
+      "emoji": "💍",
+      "translation": "uzuk",
+      "example": "His uncle gives him a gold ring."
+    },
+    {
+      "id": "lotr1-rule",
+      "word": "rule",
+      "ipa": "/ruːl/",
+      "emoji": "👑",
+      "translation": "hukmronlik qilmoq",
+      "example": "He will rule the whole world.",
+      "note": "ot sifatida — qoida"
+    },
+    {
+      "id": "lotr1-scared",
+      "word": "scared",
+      "ipa": "/skeəd/",
+      "emoji": "😨",
+      "translation": "qo'rqqan",
+      "example": "Frodo is scared.",
+      "note": "scared OF sth"
+    },
+    {
+      "id": "lotr1-loyal",
+      "word": "loyal",
+      "ipa": "/ˈlɔɪ.əl/",
+      "emoji": "🐕",
+      "translation": "sodiq",
+      "example": "His loyal friend Sam decides to go with him."
+    },
+    {
+      "id": "lotr1-immediately",
+      "word": "immediately",
+      "ipa": "/ɪˈmiː.di.ət.li/",
+      "emoji": "⚡",
+      "translation": "darhol",
+      "example": "Sam immediately decides to go with him."
+    },
+    {
+      "id": "lotr1-council",
+      "word": "council",
+      "ipa": "/ˈkaʊn.səl/",
+      "emoji": "🏛",
+      "translation": "kengash",
+      "example": "A council meets to discuss the danger."
+    },
+    {
+      "id": "lotr1-danger",
+      "word": "danger",
+      "ipa": "/ˈdeɪn.dʒə/",
+      "emoji": "⚠️",
+      "translation": "xavf",
+      "example": "A council meets to discuss the danger."
+    },
+    {
+      "id": "lotr1-companion",
+      "word": "companion",
+      "ipa": "/kəmˈpæn.jən/",
+      "emoji": "👥",
+      "translation": "hamroh",
+      "example": "Nine companions agree to help."
+    },
+    {
+      "id": "lotr1-journey",
+      "word": "journey",
+      "ipa": "/ˈdʒɜː.ni/",
+      "emoji": "🗺",
+      "translation": "uzoq safar",
+      "example": "The journey is long and dangerous.",
+      "note": "trip — qisqa, journey — uzoq va qiyin"
+    },
+    {
+      "id": "lotr1-heavy",
+      "word": "heavy",
+      "ipa": "/ˈhev.i/",
+      "emoji": "🏋️",
+      "translation": "og'ir",
+      "example": "The ring is heavy."
+    },
+    {
+      "id": "lotr1-carry",
+      "word": "carry",
+      "ipa": "/ˈkær.i/",
+      "emoji": "🎒",
+      "translation": "olib yurmoq, ko'tarmoq",
+      "example": "It slowly changes the people who carry it."
+    },
+    {
+      "id": "lotr1-mine",
+      "word": "mine",
+      "ipa": "/maɪn/",
+      "emoji": "⛏",
+      "translation": "kon, shaxta",
+      "example": "In the dark mines of Moria the Fellowship loses Gandalf.",
+      "note": "olmosh sifatida — meniki"
+    },
+    {
+      "id": "lotr1-alone",
+      "word": "alone",
+      "ipa": "/əˈləʊn/",
+      "emoji": "🚶",
+      "translation": "yolg'iz",
+      "example": "I will go alone."
+    },
+    {
+      "id": "lotr1-refuse",
+      "word": "refuse",
+      "ipa": "/rɪˈfjuːz/",
+      "emoji": "🙅",
+      "translation": "rad etmoq",
+      "example": "Sam refuses to let him go alone.",
+      "note": "refuse TO do sth"
+    }
+  ],
+  "collocations": [
+    {
+      "id": "lotr1-c-choice",
+      "word": "make a choice",
+      "ipa": "/ˌmeɪk ə ˈtʃɔɪs/",
+      "emoji": "🔀",
+      "translation": "tanlov qilmoq",
+      "example": "So he makes a hard choice.",
+      "cloze": "makes a hard choice"
+    },
+    {
+      "id": "lotr1-c-back",
+      "word": "get sth back",
+      "ipa": "/ˌɡet ˈbæk/",
+      "emoji": "↩️",
+      "translation": "qaytarib olmoq",
+      "example": "If Sauron gets it back, he will rule the world.",
+      "cloze": "gets it back"
+    },
+    {
+      "id": "lotr1-c-let",
+      "word": "let sb go",
+      "ipa": "/ˌlet ... ˈɡəʊ/",
+      "emoji": "🖐",
+      "translation": "qo'yib yubormoq",
+      "example": "Sam refuses to let him go alone.",
+      "cloze": "let him go"
+    },
+    {
+      "id": "lotr1-c-quiet",
+      "word": "a quiet life",
+      "ipa": "/ə ˌkwaɪ.ət ˈlaɪf/",
+      "emoji": "🏡",
+      "translation": "tinch hayot",
+      "example": "He loves food, gardens and a quiet life."
+    },
+    {
+      "id": "lotr1-c-discuss",
+      "word": "discuss a problem",
+      "ipa": "/dɪˌskʌs ə ˈprɒb.ləm/",
+      "emoji": "💬",
+      "translation": "muammoni muhokama qilmoq",
+      "example": "A council meets to discuss the danger.",
+      "cloze": "discuss the danger",
+      "note": "discuss ABOUT emas — discuss sth"
+    }
+  ],
+  "grammar": {
+    "title": "Kelasi zamon: will, going to, Present Continuous",
+    "explain": [
+      "**will** — gapirayotgan paytda qabul qilingan qaror, va'da yoki bashorat: \"I **will** go alone.\" If Sauron gets it, he **will** rule the world.",
+      "**be going to** — oldindan o'ylangan reja yoki ko'rinib turgan dalilga asoslangan bashorat: \"I'**m going to** take it.\" Look at the clouds — it**'s going to** rain.",
+      "**Present Continuous** — aniq kelishilgan, vaqti belgilangan reja: \"I**'m leaving** tomorrow.\" We**'re meeting** the council at six.",
+      "Qisqa qoida: qaror shu daqiqada → will; avvaldan niyat → going to; kalendarga yozilgan → Present Continuous."
+    ],
+    "exercises": [
+      {
+        "q": "\"The bag looks heavy.\" — \"I ___ help you.\"",
+        "options": [
+          "'ll",
+          "'m going to",
+          "'m helping",
+          "help"
+        ],
+        "answer": "'ll",
+        "why": "Shu daqiqadagi qaror → will."
+      },
+      {
+        "q": "I've bought the tickets. I ___ visit New Zealand next year.",
+        "options": [
+          "am going to",
+          "will",
+          "visit",
+          "am visit"
+        ],
+        "answer": "am going to",
+        "why": "Oldindan rejalashtirilgan niyat → going to."
+      },
+      {
+        "q": "We ___ the council at 10 a.m. tomorrow. It's all arranged.",
+        "options": [
+          "are meeting",
+          "will meet maybe",
+          "meet yesterday",
+          "are meet"
+        ],
+        "answer": "are meeting",
+        "why": "Vaqti belgilangan kelishuv → Present Continuous."
+      },
+      {
+        "q": "Look at those dark clouds! It ___ rain.",
+        "options": [
+          "is going to",
+          "will to",
+          "rains",
+          "is raining tomorrow"
+        ],
+        "answer": "is going to",
+        "why": "Ko'rinib turgan dalil → going to."
+      },
+      {
+        "q": "I promise I ___ tell anyone about the ring.",
+        "options": [
+          "won't",
+          "am not going",
+          "don't",
+          "not will"
+        ],
+        "answer": "won't",
+        "why": "Va'da → will not = won't."
+      },
+      {
+        "q": "If Sauron finds the ring, he ___ very powerful.",
+        "options": [
+          "will become",
+          "becomes will",
+          "is becoming",
+          "become"
+        ],
+        "answer": "will become",
+        "why": "Shartli bashorat → will."
+      },
+      {
+        "q": "\"What are your plans for tonight?\" — \"I ___ dinner with Sam.\"",
+        "options": [
+          "'m having",
+          "'ll have maybe",
+          "have had",
+          "had"
+        ],
+        "answer": "'m having",
+        "why": "Kelishilgan reja → Present Continuous."
+      },
+      {
+        "q": "I think people ___ live on Mars one day.",
+        "options": [
+          "will",
+          "are living",
+          "are going",
+          "lives"
+        ],
+        "answer": "will",
+        "why": "Shaxsiy fikr, bashorat (I think) → will."
+      },
+      {
+        "q": "She ___ to study medicine. She has already chosen the university.",
+        "options": [
+          "is going",
+          "will",
+          "goes",
+          "go"
+        ],
+        "answer": "is going",
+        "why": "Avvaldan niyat → is going to study."
+      },
+      {
+        "q": "\"The phone is ringing.\" — \"OK, I ___ it.\"",
+        "options": [
+          "'ll answer",
+          "'m going to answer",
+          "answer",
+          "'m answer"
+        ],
+        "answer": "'ll answer",
+        "why": "Spontan qaror → will."
+      }
+    ]
+  },
+  "dictation": [
+    {
+      "text": "His uncle gives him a gold ring.",
+      "gap": "ring"
+    },
+    {
+      "text": "His loyal friend Sam decides to go with him.",
+      "gap": "loyal"
+    },
+    {
+      "text": "The journey is long and dangerous.",
+      "gap": "journey"
+    },
+    {
+      "text": "The ring is heavy.",
+      "gap": "heavy"
+    },
+    {
+      "text": "Sam refuses to let him go alone.",
+      "gap": "refuses"
+    }
+  ],
+  "shadowing": [
+    "Even the smallest person can change the course of the future.",
+    "If Sauron gets it back, he will rule the whole world.",
+    "I'm going to take it.",
+    "I'm leaving tomorrow, and I will go alone."
+  ]
+}

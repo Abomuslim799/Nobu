@@ -1,0 +1,85 @@
+{
+  "id": "tdk1",
+  "title": "The Dark Knight — A hero the city needs",
+  "source": "The Dark Knight (2008)",
+  "level": "B2",
+  "emoji": "🦇",
+  "hook": {
+    "quote": "Why so serious?",
+    "who": "The Joker",
+    "context": "Joker qurbonlariga yaqinlashib, bu savolni masxara bilan beradi. Grammatik jihatdan to'liq gap emas (to'liqi: Why are you so serious?), lekin og'zaki nutqda bunday qisqa savollar juda ko'p uchraydi.",
+    "link": "https://www.youtube.com/results?search_query=dark+knight+why+so+serious+scene"
+  },
+  "reading": [
+    "Gotham City is full of crime. Batman fights criminals at night, and the new district attorney, Harvey Dent, fights them in court. For the first time, the city has hope.",
+    "Then a strange criminal appears: the Joker. He doesn't want money or power. He wants to prove that anyone can become evil if life pushes them hard enough.",
+    "The Joker creates chaos everywhere. He kills important people and forces Batman to make impossible choices.",
+    "In one terrible night, Batman can save only one person: Harvey or Rachel, the woman both men love. He chooses Rachel, but the Joker has given him the wrong address. Batman saves Harvey, and Rachel dies.",
+    "Harvey survives, but half of his face is badly burned. Full of anger, he becomes Two-Face and decides people's lives by tossing a coin. He thinks, \"If Batman had arrived earlier, Rachel wouldn't have died.\"",
+    "At the end Batman takes the blame for Harvey's crimes. If the people had learned the truth about Harvey, they would have lost all hope.",
+    "Batman becomes the enemy of the city, but he protects its belief in a good hero. Sometimes, the film says, the truth is not enough."
+  ],
+  "questions": [
+    { "q": "What does Harvey Dent do?", "options": ["He is a district attorney", "He is a police dog trainer", "He is a criminal", "He is a doctor"], "answer": "He is a district attorney" },
+    { "q": "What does the Joker want?", "options": ["To prove anyone can become evil", "A lot of money", "To become mayor", "To marry Rachel"], "answer": "To prove anyone can become evil" },
+    { "q": "Why does Batman save Harvey instead of Rachel?", "options": ["The Joker gave him the wrong address", "He loves Harvey more", "Rachel asked him to", "The police told him"], "answer": "The Joker gave him the wrong address" },
+    { "q": "How does Two-Face make decisions?", "options": ["By tossing a coin", "By asking Batman", "By reading the law", "By voting"], "answer": "By tossing a coin" },
+    { "q": "Why does Batman take the blame?", "options": ["To protect people's hope", "Because he is guilty", "Because the Joker wins", "To become famous"], "answer": "To protect people's hope" }
+  ],
+  "vocab": [
+    { "id": "tdk1-crime", "word": "crime", "ipa": "/kraɪm/", "emoji": "🚨", "translation": "jinoyat", "example": "Gotham City is full of crime." },
+    { "id": "tdk1-criminal", "word": "criminal", "ipa": "/ˈkrɪm.ɪ.nəl/", "emoji": "🦹", "translation": "jinoyatchi", "example": "Batman fights criminals at night." },
+    { "id": "tdk1-court", "word": "court", "ipa": "/kɔːt/", "emoji": "⚖️", "translation": "sud", "example": "Harvey Dent fights them in court." },
+    { "id": "tdk1-hope", "word": "hope", "ipa": "/həʊp/", "emoji": "🌅", "translation": "umid", "example": "For the first time, the city has hope." },
+    { "id": "tdk1-prove", "word": "prove", "ipa": "/pruːv/", "emoji": "📐", "translation": "isbotlamoq", "example": "He wants to prove that anyone can become evil." },
+    { "id": "tdk1-evil", "word": "evil", "ipa": "/ˈiː.vəl/", "emoji": "😈", "translation": "yovuz; yovuzlik", "example": "Anyone can become evil." },
+    { "id": "tdk1-chaos", "word": "chaos", "ipa": "/ˈkeɪ.ɒs/", "emoji": "🌪", "translation": "betartiblik, xaos", "example": "The Joker creates chaos everywhere.", "note": "ch — /k/ o'qiladi" },
+    { "id": "tdk1-force", "word": "force", "ipa": "/fɔːs/", "emoji": "💪", "translation": "majburlamoq", "example": "He forces Batman to make impossible choices.", "note": "force sb TO do sth" },
+    { "id": "tdk1-terrible", "word": "terrible", "ipa": "/ˈter.ə.bəl/", "emoji": "😱", "translation": "dahshatli", "example": "In one terrible night, Batman can save only one person." },
+    { "id": "tdk1-address", "word": "address", "ipa": "/əˈdres/", "emoji": "🏠", "translation": "manzil", "example": "The Joker has given him the wrong address." },
+    { "id": "tdk1-survive", "word": "survive", "ipa": "/səˈvaɪv/", "emoji": "🩹", "translation": "omon qolmoq", "example": "Harvey survives." },
+    { "id": "tdk1-burned", "word": "burned", "ipa": "/bɜːnd/", "emoji": "🔥", "translation": "kuygan", "example": "Half of his face is badly burned.", "note": "BrE: burnt ham to'g'ri" },
+    { "id": "tdk1-anger", "word": "anger", "ipa": "/ˈæŋ.ɡə/", "emoji": "😡", "translation": "g'azab", "example": "Full of anger, he becomes Two-Face." },
+    { "id": "tdk1-blame", "word": "blame", "ipa": "/bleɪm/", "emoji": "👉", "translation": "ayb; ayblamoq", "example": "Batman takes the blame for Harvey's crimes." },
+    { "id": "tdk1-enemy", "word": "enemy", "ipa": "/ˈen.ə.mi/", "emoji": "⚔️", "translation": "dushman", "example": "Batman becomes the enemy of the city." }
+  ],
+  "collocations": [
+    { "id": "tdk1-c-blame", "word": "take the blame", "ipa": "/ˌteɪk ðə ˈbleɪm/", "emoji": "🙋", "translation": "aybni o'z bo'yniga olmoq", "example": "Batman takes the blame for Harvey's crimes.", "cloze": "takes the blame" },
+    { "id": "tdk1-c-coin", "word": "toss a coin", "ipa": "/ˌtɒs ə ˈkɔɪn/", "emoji": "🪙", "translation": "tanga tashlamoq", "example": "He decides by tossing a coin.", "cloze": "tossing a coin" },
+    { "id": "tdk1-c-hope", "word": "lose hope", "ipa": "/ˌluːz ˈhəʊp/", "emoji": "🥀", "translation": "umidni yo'qotmoq", "example": "They would have lost all hope.", "cloze": "lost all hope" },
+    { "id": "tdk1-c-full", "word": "full of", "ipa": "/ˈfʊl əv/", "emoji": "🫗", "translation": "... ga to'la", "example": "Gotham City is full of crime." },
+    { "id": "tdk1-c-impossible", "word": "an impossible choice", "ipa": "/ən ɪmˌpɒs.ə.bəl ˈtʃɔɪs/", "emoji": "⚖️", "translation": "imkonsiz tanlov", "example": "He forces Batman to make impossible choices.", "cloze": "impossible choices" }
+  ],
+  "grammar": {
+    "title": "Third Conditional: if I had known..., I would have...",
+    "explain": [
+      "**Third conditional** — o'tmishda **sodir bo'lmagan** voqea va uning xayoliy natijasi: **If** + Past Perfect (had + V3), **would have** + V3.",
+      "**If** Batman **had arrived** earlier, Rachel **wouldn't have died**. (Haqiqatda: u kech keldi, Rachel vafot etdi.)",
+      "Ko'pincha afsus yoki tanqid uchun ishlatiladi: If I **had studied**, I **would have passed**. Og'zaki: I'**d have** passed.",
+      "Ehtiyot bo'ling: **'d** ikki xil: if qismida 'd = **had** (If I'd known), natija qismida 'd = **would** (I'd have helped)."
+    ],
+    "exercises": [
+      { "q": "If Batman had arrived earlier, Rachel ___ died.", "options": ["wouldn't have", "won't have", "didn't", "hadn't"], "answer": "wouldn't have", "why": "Natija: would (not) have + V3." },
+      { "q": "If I ___ the truth, I would have told you.", "options": ["had known", "knew", "would know", "have known"], "answer": "had known", "why": "if qismi: Past Perfect." },
+      { "q": "If the people had learned the truth, they ___ all hope.", "options": ["would have lost", "would lose", "lost", "had lost"], "answer": "would have lost", "why": "O'tmishdagi xayoliy natija." },
+      { "q": "We would have caught the train if we ___ earlier.", "options": ["had left", "left", "would have left", "have left"], "answer": "had left", "why": "if qismi gap oxirida ham Past Perfect." },
+      { "q": "If you'd asked me, I'd ___ helped you.", "options": ["have", "had", "has", "be"], "answer": "have", "why": "I'd have helped = I would have helped." },
+      { "q": "She ___ the exam if she had studied harder.", "options": ["would have passed", "will pass", "passed", "had passed"], "answer": "would have passed", "why": "Third conditional natijasi." },
+      { "q": "If it hadn't rained, we ___ to the beach.", "options": ["would have gone", "would go yesterday", "went", "had gone"], "answer": "would have gone", "why": "go → gone (V3)." },
+      { "q": "If I'd known you were ill, I ___ you.", "options": ["would have visited", "visited", "had visited", "will visit"], "answer": "would have visited", "why": "If I'd known (had) → would have + V3." }
+    ]
+  },
+  "dictation": [
+    { "text": "Gotham City is full of crime.", "gap": "crime" },
+    { "text": "The Joker creates chaos everywhere.", "gap": "chaos" },
+    { "text": "The Joker has given him the wrong address.", "gap": "address" },
+    { "text": "Full of anger, he becomes Two-Face.", "gap": "anger" },
+    { "text": "Batman becomes the enemy of the city.", "gap": "enemy" }
+  ],
+  "shadowing": [
+    "Why so serious?",
+    "If Batman had arrived earlier, Rachel wouldn't have died.",
+    "If the people had learned the truth, they would have lost all hope.",
+    "Sometimes the truth is not enough."
+  ]
+}

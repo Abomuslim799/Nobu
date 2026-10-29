@@ -1,0 +1,374 @@
+{
+  "id": "inc1",
+  "title": "Inception — A dream within a dream",
+  "source": "Inception (2010)",
+  "level": "B2",
+  "emoji": "🌀",
+  "hook": {
+    "quote": "You're waiting for a train.",
+    "who": "Mal / Cobb",
+    "context": "Cobb va uning rafiqasi Mal tushlar dunyosida yillar o'tkazgach, uyg'onish uchun shu gapni bir-biriga eslatadi: \"poyezd seni uzoqqa olib ketadi...\" Present Continuous — hozir davom etayotgan holat.",
+    "link": "https://www.youtube.com/results?search_query=inception+you're+waiting+for+a+train"
+  },
+  "reading": [
+    "Dom Cobb is a thief, but he doesn't steal money. He enters people's dreams and steals their secrets. He had learned this skill from his father-in-law long before the story begins.",
+    "Cobb cannot go home to his children in America, because the police think he killed his wife, Mal. In fact, Mal had died after she had lost the ability to tell dreams from reality.",
+    "A rich businessman, Saito, offers Cobb a deal. If Cobb does one last job, Saito will clear his name. But this time the job is not to steal an idea. It is to plant one. This is called inception.",
+    "Cobb builds a team: an architect who designs the dream worlds, a man who can change his appearance, and a chemist who makes strong sleeping drugs.",
+    "The plan is complex: a dream inside a dream inside a dream. Time moves more slowly on each level, so a few minutes in reality can feel like years in a dream.",
+    "Before the team entered the first dream, Cobb hadn't told them about his biggest problem: memories of Mal keep appearing and destroying his plans.",
+    "In the end Cobb returns home and sees his children's faces. He spins his small top to check if he is awake, but he walks away before it falls."
+  ],
+  "questions": [
+    {
+      "q": "What does Cobb steal?",
+      "options": [
+        "Secrets from dreams",
+        "Money from banks",
+        "Cars",
+        "Paintings"
+      ],
+      "answer": "Secrets from dreams"
+    },
+    {
+      "q": "Why can't Cobb go home?",
+      "options": [
+        "The police think he killed Mal",
+        "He has no money",
+        "His children live in Japan",
+        "He is ill"
+      ],
+      "answer": "The police think he killed Mal"
+    },
+    {
+      "q": "What is inception?",
+      "options": [
+        "Planting an idea",
+        "Stealing an idea",
+        "Waking someone up",
+        "Building a house"
+      ],
+      "answer": "Planting an idea"
+    },
+    {
+      "q": "How does time move in deeper dream levels?",
+      "options": [
+        "More slowly",
+        "Faster",
+        "It stops",
+        "Backwards"
+      ],
+      "answer": "More slowly"
+    },
+    {
+      "q": "What does Cobb use to check if he is awake?",
+      "options": [
+        "A small spinning top",
+        "A clock",
+        "A phone",
+        "A coin"
+      ],
+      "answer": "A small spinning top"
+    }
+  ],
+  "vocab": [
+    {
+      "id": "inc1-thief",
+      "word": "thief",
+      "ipa": "/θiːf/",
+      "emoji": "🦝",
+      "translation": "o'g'ri",
+      "example": "Dom Cobb is a thief.",
+      "note": "ko'plik: thieves"
+    },
+    {
+      "id": "inc1-skill",
+      "word": "skill",
+      "ipa": "/skɪl/",
+      "emoji": "🛠",
+      "translation": "mahorat, ko'nikma",
+      "example": "He had learned this skill from his father-in-law."
+    },
+    {
+      "id": "inc1-reality",
+      "word": "reality",
+      "ipa": "/riˈæl.ə.ti/",
+      "emoji": "🌍",
+      "translation": "haqiqat, voqelik",
+      "example": "She had lost the ability to tell dreams from reality."
+    },
+    {
+      "id": "inc1-ability",
+      "word": "ability",
+      "ipa": "/əˈbɪl.ə.ti/",
+      "emoji": "🧩",
+      "translation": "qobiliyat",
+      "example": "She had lost the ability to tell dreams from reality."
+    },
+    {
+      "id": "inc1-deal",
+      "word": "deal",
+      "ipa": "/diːl/",
+      "emoji": "🤝",
+      "translation": "kelishuv, bitim",
+      "example": "A rich businessman offers Cobb a deal."
+    },
+    {
+      "id": "inc1-plant",
+      "word": "plant",
+      "ipa": "/plɑːnt/",
+      "emoji": "🌱",
+      "translation": "ekmoq, joylashtirmoq",
+      "example": "It is not to steal an idea. It is to plant one."
+    },
+    {
+      "id": "inc1-architect",
+      "word": "architect",
+      "ipa": "/ˈɑː.kɪ.tekt/",
+      "emoji": "📐",
+      "translation": "me'mor",
+      "example": "An architect designs the dream worlds.",
+      "note": "ch — /k/: architect"
+    },
+    {
+      "id": "inc1-design",
+      "word": "design",
+      "ipa": "/dɪˈzaɪn/",
+      "emoji": "✏️",
+      "translation": "loyihalamoq",
+      "example": "An architect designs the dream worlds.",
+      "note": "g o'qilmaydi"
+    },
+    {
+      "id": "inc1-appearance",
+      "word": "appearance",
+      "ipa": "/əˈpɪə.rəns/",
+      "emoji": "🎭",
+      "translation": "tashqi ko'rinish",
+      "example": "A man who can change his appearance."
+    },
+    {
+      "id": "inc1-complex",
+      "word": "complex",
+      "ipa": "/ˈkɒm.pleks/",
+      "emoji": "🕸",
+      "translation": "murakkab",
+      "example": "The plan is complex."
+    },
+    {
+      "id": "inc1-level",
+      "word": "level",
+      "ipa": "/ˈlev.əl/",
+      "emoji": "🪜",
+      "translation": "daraja, qavat",
+      "example": "Time moves more slowly on each level."
+    },
+    {
+      "id": "inc1-memory",
+      "word": "memory",
+      "ipa": "/ˈmem.ər.i/",
+      "emoji": "🧠",
+      "translation": "xotira",
+      "example": "Memories of Mal keep appearing."
+    },
+    {
+      "id": "inc1-appear",
+      "word": "appear",
+      "ipa": "/əˈpɪə/",
+      "emoji": "👻",
+      "translation": "paydo bo'lmoq",
+      "example": "Memories of Mal keep appearing."
+    },
+    {
+      "id": "inc1-awake",
+      "word": "awake",
+      "ipa": "/əˈweɪk/",
+      "emoji": "👁",
+      "translation": "uyg'oq",
+      "example": "He spins his top to check if he is awake."
+    },
+    {
+      "id": "inc1-spin",
+      "word": "spin",
+      "ipa": "/spɪn/",
+      "emoji": "🌀",
+      "translation": "aylantirmoq",
+      "example": "He spins his small top.",
+      "note": "spin – spun – spun"
+    }
+  ],
+  "collocations": [
+    {
+      "id": "inc1-c-tell",
+      "word": "tell A from B",
+      "ipa": "/ˈtel ... frəm/",
+      "emoji": "🔍",
+      "translation": "A ni B dan farqlamoq",
+      "example": "She lost the ability to tell dreams from reality.",
+      "cloze": "tell dreams from reality"
+    },
+    {
+      "id": "inc1-c-clear",
+      "word": "clear sb's name",
+      "ipa": "/ˌklɪə ... ˈneɪm/",
+      "emoji": "🧼",
+      "translation": "kimningdir nomini oqlamoq",
+      "example": "Saito will clear his name.",
+      "cloze": "clear his name"
+    },
+    {
+      "id": "inc1-c-keep",
+      "word": "keep doing",
+      "ipa": "/ˈkiːp ˌduː.ɪŋ/",
+      "emoji": "🔁",
+      "translation": "... qilishda davom etmoq",
+      "example": "Memories of Mal keep appearing.",
+      "cloze": "keep appearing"
+    },
+    {
+      "id": "inc1-c-walk",
+      "word": "walk away",
+      "ipa": "/ˌwɔːk əˈweɪ/",
+      "emoji": "🚶",
+      "translation": "ketib qolmoq",
+      "example": "He walks away before it falls.",
+      "cloze": "walks away"
+    },
+    {
+      "id": "inc1-c-offer",
+      "word": "offer sb a deal",
+      "ipa": "/ˌɒf.ər ə ˈdiːl/",
+      "emoji": "💼",
+      "translation": "kimgadir bitim taklif qilmoq",
+      "example": "A rich businessman offers Cobb a deal.",
+      "cloze": "offers Cobb a deal"
+    }
+  ],
+  "grammar": {
+    "title": "Past Perfect: had + V3",
+    "explain": [
+      "**Past Perfect** — o'tmishdagi boshqa voqeadan **oldinroq** bo'lgan voqea: Cobb **had learned** this skill **before** the story began. Ikki o'tmish voqeasi bor — avvalgisi Past Perfect.",
+      "Tipik so'zlar: **before, after, by the time, when, already**. **By the time** we arrived, the film **had started**.",
+      "Agar voqealar tartib bilan aytilsa, Past Perfect shart emas: He woke up, looked around and smiled (hammasi Past Simple).",
+      "Inkor: **hadn't** + V3. Before they entered the dream, Cobb **hadn't told** them the truth."
+    ],
+    "exercises": [
+      {
+        "q": "When we arrived, the film ___ already started.",
+        "options": [
+          "had",
+          "has",
+          "was",
+          "did"
+        ],
+        "answer": "had",
+        "why": "Biz kelishimizdan oldin boshlangan: had started."
+      },
+      {
+        "q": "Cobb ___ the skill long before the story began.",
+        "options": [
+          "had learned",
+          "has learned",
+          "learns",
+          "was learn"
+        ],
+        "answer": "had learned",
+        "why": "Hikoya boshlanishidan oldingi voqea."
+      },
+      {
+        "q": "Before they entered the dream, he ___ them about Mal.",
+        "options": [
+          "hadn't told",
+          "didn't told",
+          "hasn't told",
+          "hadn't tell"
+        ],
+        "answer": "hadn't told",
+        "why": "Inkor: hadn't + V3."
+      },
+      {
+        "q": "By the time the police came, the thief ___.",
+        "options": [
+          "had escaped",
+          "escapes",
+          "has escaped",
+          "escape"
+        ],
+        "answer": "had escaped",
+        "why": "By the time + Past Simple → asosiy qism Past Perfect."
+      },
+      {
+        "q": "I was tired because I ___ all night.",
+        "options": [
+          "hadn't slept",
+          "didn't sleep yet",
+          "haven't slept",
+          "don't sleep"
+        ],
+        "answer": "hadn't slept",
+        "why": "Charchoqning sababi undan oldin bo'lgan."
+      },
+      {
+        "q": "She ___ the book after she had seen the film.",
+        "options": [
+          "read",
+          "had read",
+          "has read",
+          "reads"
+        ],
+        "answer": "read",
+        "why": "after allaqachon tartibni ko'rsatadi; keyingi voqea Past Simple."
+      },
+      {
+        "q": "___ you ever seen such a dream before that night?",
+        "options": [
+          "Had",
+          "Have",
+          "Did",
+          "Were"
+        ],
+        "answer": "Had",
+        "why": "O'tmishdagi nuqtagacha tajriba: Had you ever seen...?"
+      },
+      {
+        "q": "He realised that he ___ his keys at home.",
+        "options": [
+          "had left",
+          "has left",
+          "leaves",
+          "was leaving"
+        ],
+        "answer": "had left",
+        "why": "Kalitlarni anglashidan oldin qoldirgan."
+      }
+    ]
+  },
+  "dictation": [
+    {
+      "text": "Dom Cobb is a thief.",
+      "gap": "thief"
+    },
+    {
+      "text": "A rich businessman offers Cobb a deal.",
+      "gap": "deal"
+    },
+    {
+      "text": "The plan is complex.",
+      "gap": "complex"
+    },
+    {
+      "text": "Memories of Mal keep appearing.",
+      "gap": "Memories"
+    },
+    {
+      "text": "He spins his top to check if he is awake.",
+      "gap": "awake"
+    }
+  ],
+  "shadowing": [
+    "You're waiting for a train.",
+    "He had learned this skill long before the story began.",
+    "Before they entered the dream, Cobb hadn't told them the truth.",
+    "A few minutes in reality can feel like years in a dream."
+  ]
+}

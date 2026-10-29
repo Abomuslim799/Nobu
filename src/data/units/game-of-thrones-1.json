@@ -1,0 +1,85 @@
+{
+  "id": "got1",
+  "title": "Game of Thrones — The king who never wanted the crown",
+  "source": "Game of Thrones (2011–2019)",
+  "level": "B2",
+  "emoji": "🐺",
+  "hook": {
+    "quote": "Winter is coming.",
+    "who": "Ned Stark",
+    "context": "Stark xonadonining shiori: qiyin kunlar albatta keladi, tayyor turish kerak. Present Continuous bu yerda kelajakdagi muqarrar voqeani bildiradi.",
+    "link": "https://www.youtube.com/results?search_query=game+of+thrones+winter+is+coming+ned+stark"
+  },
+  "reading": [
+    "Westeros is a land where summers and winters can last for years. Seven kingdoms, which are ruled by one king, fight for power and the Iron Throne.",
+    "Ned Stark is the lord of Winterfell, a cold castle in the North. He is a man who always tells the truth and keeps his word.",
+    "His old friend, King Robert, asks Ned to come to the capital and become his chief advisor. Ned accepts, although he hates the city, which is full of lies.",
+    "In the capital Ned discovers a secret that could destroy the queen's family. The people whose power depends on the secret decide to stop him.",
+    "Meanwhile, across the sea, Daenerys Targaryen, whose family once ruled Westeros, receives three dragon eggs as a wedding gift.",
+    "In the far North, beyond a huge wall of ice, there are ancient creatures that most people think are only stories.",
+    "The show teaches a hard lesson: in the game of thrones, the person who plays honestly is not always the person who wins."
+  ],
+  "questions": [
+    { "q": "Who is Ned Stark?", "options": ["The lord of Winterfell", "The king", "A dragon rider", "A merchant"], "answer": "The lord of Winterfell" },
+    { "q": "What does King Robert ask Ned to do?", "options": ["Become his chief advisor", "Marry his daughter", "Build a wall", "Find dragons"], "answer": "Become his chief advisor" },
+    { "q": "What does Ned discover in the capital?", "options": ["A dangerous secret", "A treasure", "A new sword", "A dragon"], "answer": "A dangerous secret" },
+    { "q": "What does Daenerys receive as a gift?", "options": ["Three dragon eggs", "A castle", "A crown", "A horse"], "answer": "Three dragon eggs" },
+    { "q": "What is the lesson of the show?", "options": ["Honest players don't always win", "Kings are always good", "Winter never comes", "Dragons are not real"], "answer": "Honest players don't always win" }
+  ],
+  "vocab": [
+    { "id": "got1-kingdom", "word": "kingdom", "ipa": "/ˈkɪŋ.dəm/", "emoji": "🗺", "translation": "qirollik", "example": "Seven kingdoms fight for power." },
+    { "id": "got1-throne", "word": "throne", "ipa": "/θrəʊn/", "emoji": "🪑", "translation": "taxt", "example": "They fight for the Iron Throne." },
+    { "id": "got1-lord", "word": "lord", "ipa": "/lɔːd/", "emoji": "🏰", "translation": "lord, hukmdor", "example": "Ned Stark is the lord of Winterfell." },
+    { "id": "got1-word", "word": "keep your word", "ipa": "/ˌkiːp jə ˈwɜːd/", "emoji": "🤝", "translation": "so'zida turmoq", "example": "He always tells the truth and keeps his word.", "cloze": "keeps his word" },
+    { "id": "got1-capital", "word": "capital", "ipa": "/ˈkæp.ɪ.təl/", "emoji": "🏙", "translation": "poytaxt", "example": "Robert asks Ned to come to the capital." },
+    { "id": "got1-advisor", "word": "advisor", "ipa": "/ədˈvaɪ.zə/", "emoji": "🧑‍🏫", "translation": "maslahatchi", "example": "He asks Ned to become his chief advisor." },
+    { "id": "got1-accept", "word": "accept", "ipa": "/əkˈsept/", "emoji": "✅", "translation": "qabul qilmoq", "example": "Ned accepts, although he hates the city." },
+    { "id": "got1-although", "word": "although", "ipa": "/ɔːlˈðəʊ/", "emoji": "↔️", "translation": "garchi ... bo'lsa ham", "example": "Ned accepts, although he hates the city." },
+    { "id": "got1-lie", "word": "lie", "ipa": "/laɪ/", "emoji": "🤥", "translation": "yolg'on", "example": "The city is full of lies." },
+    { "id": "got1-depend", "word": "depend on", "ipa": "/dɪˈpend ɒn/", "emoji": "🔗", "translation": "... ga bog'liq bo'lmoq", "example": "Their power depends on the secret." },
+    { "id": "got1-meanwhile", "word": "meanwhile", "ipa": "/ˈmiːn.waɪl/", "emoji": "⏱", "translation": "shu orada", "example": "Meanwhile, across the sea, Daenerys receives three eggs." },
+    { "id": "got1-dragon", "word": "dragon", "ipa": "/ˈdræɡ.ən/", "emoji": "🐉", "translation": "ajdaho", "example": "She receives three dragon eggs." },
+    { "id": "got1-wedding", "word": "wedding", "ipa": "/ˈwed.ɪŋ/", "emoji": "💒", "translation": "to'y", "example": "She receives the eggs as a wedding gift." },
+    { "id": "got1-ancient", "word": "ancient", "ipa": "/ˈeɪn.ʃənt/", "emoji": "🗿", "translation": "qadimiy", "example": "There are ancient creatures beyond the wall." },
+    { "id": "got1-creature", "word": "creature", "ipa": "/ˈkriː.tʃə/", "emoji": "👹", "translation": "maxluq, jonzot", "example": "There are ancient creatures beyond the wall." }
+  ],
+  "collocations": [
+    { "id": "got1-c-truth", "word": "tell the truth", "ipa": "/ˌtel ðə ˈtruːθ/", "emoji": "🗣", "translation": "rost gapirmoq", "example": "He always tells the truth.", "cloze": "tells the truth", "note": "say the truth emas — TELL" },
+    { "id": "got1-c-power", "word": "fight for power", "ipa": "/ˌfaɪt fə ˈpaʊə/", "emoji": "⚔️", "translation": "hokimiyat uchun kurashmoq", "example": "Seven kingdoms fight for power." },
+    { "id": "got1-c-last", "word": "last for years", "ipa": "/ˌlɑːst fə ˈjɪəz/", "emoji": "⏳", "translation": "yillab davom etmoq", "example": "Summers and winters can last for years." },
+    { "id": "got1-c-gift", "word": "as a gift", "ipa": "/əz ə ˈɡɪft/", "emoji": "🎁", "translation": "sovg'a sifatida", "example": "She receives them as a wedding gift.", "cloze": "as a wedding gift" },
+    { "id": "got1-c-lesson", "word": "a hard lesson", "ipa": "/ə ˌhɑːd ˈles.ən/", "emoji": "📚", "translation": "og'ir saboq", "example": "The show teaches a hard lesson." }
+  ],
+  "grammar": {
+    "title": "Relative clauses: who, which, that, whose, where",
+    "explain": [
+      "Relative clause otni aniqlashtiradi: **who** — odam (a man **who** tells the truth), **which** — narsa/hayvon (the city, **which** is full of lies), **that** — odam yoki narsa (creatures **that** people think are stories).",
+      "**whose** — egalik, \"kimningki\": Daenerys, **whose** family once ruled Westeros. **where** — joy: a land **where** winters last for years.",
+      "**Defining** (vergulsiz) — qaysi biri ekanini aniqlaydi, ko'pincha that bilan almashtirsa bo'ladi: The man **who/that** plays honestly... **Non-defining** (vergul bilan) — qo'shimcha ma'lumot, **that ishlatilmaydi**: Ned, **who** is honest, goes to the capital.",
+      "Agar relative so'z gapning to'ldiruvchisi bo'lsa, uni tushirib qoldirish mumkin: The book (**that**) I read was long. Lekin ega bo'lsa — mumkin emas: The man **who** called you..."
+    ],
+    "exercises": [
+      { "q": "Ned is a man ___ always tells the truth.", "options": ["who", "which", "whose", "where"], "answer": "who", "why": "Odam → who." },
+      { "q": "Winterfell is the castle ___ the Starks live.", "options": ["where", "which", "who", "whose"], "answer": "where", "why": "Joy → where." },
+      { "q": "Daenerys, ___ family once ruled Westeros, has three dragons.", "options": ["whose", "who's", "which", "that"], "answer": "whose", "why": "Egalik → whose (who's = who is)." },
+      { "q": "The capital, ___ is full of lies, is dangerous.", "options": ["which", "that", "where", "who"], "answer": "which", "why": "Vergulli (non-defining) gapda that bo'lmaydi → which." },
+      { "q": "This is the sword ___ I told you about.", "options": ["that", "who", "where", "whose"], "answer": "that", "why": "Narsa, defining → that/which (tushirib qoldirsa ham bo'ladi)." },
+      { "q": "The people ___ power depends on the secret decide to stop him.", "options": ["whose", "who", "which", "that's"], "answer": "whose", "why": "Kimning kuchi → whose." },
+      { "q": "I've lost the book ___ you gave me.", "options": ["— (hech narsa)", "who", "where", "whose"], "answer": "— (hech narsa)", "why": "you — ega, book — to'ldiruvchi; relative so'zni tushirish mumkin." },
+      { "q": "Westeros is a land ___ winters can last for years.", "options": ["where", "which", "who", "that it"], "answer": "where", "why": "Land — joy, in which = where." }
+    ]
+  },
+  "dictation": [
+    { "text": "Seven kingdoms fight for power.", "gap": "kingdoms" },
+    { "text": "Ned Stark is the lord of Winterfell.", "gap": "lord" },
+    { "text": "Ned accepts, although he hates the city.", "gap": "although" },
+    { "text": "She receives three dragon eggs.", "gap": "dragon" },
+    { "text": "There are ancient creatures beyond the wall.", "gap": "ancient" }
+  ],
+  "shadowing": [
+    "Winter is coming.",
+    "He is a man who always tells the truth and keeps his word.",
+    "Daenerys, whose family once ruled Westeros, receives three dragon eggs.",
+    "The person who plays honestly is not always the person who wins."
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "dr1",
+  "title": "Drive — A quiet man behind the wheel",
+  "source": "Drive (2011)",
+  "level": "B1+",
+  "emoji": "🚗",
+  "hook": {
+    "quote": "I drive.",
+    "who": "The Driver",
+    "context": "Ismi aytilmagan qahramon o'z ishini shunday qisqa ta'riflaydi: men faqat haydayman — boshqa ishlarga aralashmayman. Ikki so'zli gap — Present Simple: doimiy kasb va odat.",
+    "link": "https://www.youtube.com/results?search_query=drive+2011+opening+scene"
+  },
+  "reading": [
+    "The main character never tells anyone his name. During the day he works as a stunt driver for films and as a mechanic in a small garage in Los Angeles.",
+    "At night he has a secret job: he drives the getaway car for criminals. He is such a good driver that the police can never catch him. He gives his clients exactly five minutes, and he never carries a gun.",
+    "He is so quiet that people sometimes think he is cold. In fact, he is just shy and very careful with words.",
+    "One day he meets his neighbour Irene and her little son, Benicio. Irene is kind and lonely, and the Driver starts to spend time with them.",
+    "Irene's husband, Standard, comes home from prison. He owes money to dangerous people, and he isn't strong enough to protect his family alone.",
+    "The Driver decides to help him with one last job. But the job is too dangerous, and everything goes wrong.",
+    "To keep Irene and Benicio safe, the Driver has to face the criminals himself. He understands that you can't stay quiet forever when the people you love are in danger."
+  ],
+  "questions": [
+    { "q": "What does the Driver do during the day?", "options": ["Stunt driver and mechanic", "Police officer", "Taxi driver", "Teacher"], "answer": "Stunt driver and mechanic" },
+    { "q": "How long does he give his clients?", "options": ["Five minutes", "One hour", "Ten seconds", "A whole day"], "answer": "Five minutes" },
+    { "q": "Why do people think he is cold?", "options": ["He is very quiet", "He is rude", "He shouts", "He never works"], "answer": "He is very quiet" },
+    { "q": "What problem does Standard have?", "options": ["He owes money to dangerous people", "He is ill", "He lost his car", "He can't find a job"], "answer": "He owes money to dangerous people" },
+    { "q": "Why does the Driver face the criminals?", "options": ["To keep Irene and Benicio safe", "To get money", "To become famous", "To help the police"], "answer": "To keep Irene and Benicio safe" }
+  ],
+  "vocab": [
+    { "id": "dr1-character", "word": "character", "ipa": "/ˈkær.ək.tə/", "emoji": "🎬", "translation": "qahramon, personaj", "example": "The main character never tells anyone his name." },
+    { "id": "dr1-stunt", "word": "stunt", "ipa": "/stʌnt/", "emoji": "🤸", "translation": "kaskadyor ishi, tryuk", "example": "He works as a stunt driver for films." },
+    { "id": "dr1-mechanic", "word": "mechanic", "ipa": "/məˈkæn.ɪk/", "emoji": "🔧", "translation": "mexanik, usta", "example": "He works as a mechanic in a small garage." },
+    { "id": "dr1-garage", "word": "garage", "ipa": "/ˈɡær.ɑːʒ/", "emoji": "🏚", "translation": "garaj, ustaxona", "example": "He works in a small garage in Los Angeles.", "note": "BrE /ˈɡær.ɑːʒ/ yoki /ˈɡær.ɪdʒ/" },
+    { "id": "dr1-getaway", "word": "getaway", "ipa": "/ˈɡet.ə.weɪ/", "emoji": "💨", "translation": "qochish (jinoyatdan keyin)", "example": "He drives the getaway car for criminals." },
+    { "id": "dr1-catch", "word": "catch", "ipa": "/kætʃ/", "emoji": "🫳", "translation": "tutmoq, ushlamoq", "example": "The police can never catch him.", "note": "catch – caught – caught" },
+    { "id": "dr1-exactly", "word": "exactly", "ipa": "/ɪɡˈzækt.li/", "emoji": "🎯", "translation": "aynan, roppa-rosa", "example": "He gives his clients exactly five minutes." },
+    { "id": "dr1-shy", "word": "shy", "ipa": "/ʃaɪ/", "emoji": "🙈", "translation": "uyatchan", "example": "He is just shy and very careful with words." },
+    { "id": "dr1-neighbour", "word": "neighbour", "ipa": "/ˈneɪ.bə/", "emoji": "🏘", "translation": "qo'shni", "example": "He meets his neighbour Irene.", "note": "gh o'qilmaydi; AmE: neighbor" },
+    { "id": "dr1-kind", "word": "kind", "ipa": "/kaɪnd/", "emoji": "💛", "translation": "mehribon", "example": "Irene is kind and lonely." },
+    { "id": "dr1-prison", "word": "prison", "ipa": "/ˈprɪz.ən/", "emoji": "🏢", "translation": "qamoqxona", "example": "Irene's husband comes home from prison." },
+    { "id": "dr1-owe", "word": "owe", "ipa": "/əʊ/", "emoji": "💸", "translation": "qarzdor bo'lmoq", "example": "He owes money to dangerous people." },
+    { "id": "dr1-strong", "word": "strong", "ipa": "/strɒŋ/", "emoji": "💪", "translation": "kuchli", "example": "He isn't strong enough to protect his family." },
+    { "id": "dr1-safe", "word": "safe", "ipa": "/seɪf/", "emoji": "🛡", "translation": "xavfsiz", "example": "He wants to keep Irene and Benicio safe." },
+    { "id": "dr1-forever", "word": "forever", "ipa": "/fəˈrev.ə/", "emoji": "♾", "translation": "abadiy, doim", "example": "You can't stay quiet forever." }
+  ],
+  "collocations": [
+    { "id": "dr1-c-spend", "word": "spend time with", "ipa": "/ˌspend ˈtaɪm wɪð/", "emoji": "⏰", "translation": "... bilan vaqt o'tkazmoq", "example": "He starts to spend time with them." },
+    { "id": "dr1-c-wrong", "word": "go wrong", "ipa": "/ˌɡəʊ ˈrɒŋ/", "emoji": "💥", "translation": "noto'g'ri ketmoq, buzilmoq", "example": "Everything goes wrong.", "cloze": "goes wrong" },
+    { "id": "dr1-c-face", "word": "face sb/sth", "ipa": "/ˈfeɪs/", "emoji": "😠", "translation": "yuzma-yuz kelmoq", "example": "He has to face the criminals himself.", "cloze": "face" },
+    { "id": "dr1-c-owe", "word": "owe money to", "ipa": "/ˌəʊ ˈmʌn.i tə/", "emoji": "💵", "translation": "... ga pul qarzdor bo'lmoq", "example": "He owes money to dangerous people.", "cloze": "owes money to" },
+    { "id": "dr1-c-careful", "word": "careful with", "ipa": "/ˈkeə.fəl wɪð/", "emoji": "🤏", "translation": "... da ehtiyotkor", "example": "He is very careful with words." }
+  ],
+  "grammar": {
+    "title": "too / enough, so / such",
+    "explain": [
+      "**too + sifat** — me'yordan ortiq (salbiy): The job is **too dangerous**. **too ... to do**: It's too cold **to swim**.",
+      "**sifat + enough** — yetarli; **enough** sifatdan KEYIN, otdan OLDIN keladi: He isn't **strong enough**. We have **enough money**.",
+      "**so + sifat** (artiklsiz): He is **so quiet** that people think he is cold. **such + (a/an) + sifat + ot**: He is **such a good driver** that the police can't catch him.",
+      "Ko'plik va sanalmaydigan otlarda such artiklsiz: **such** beautiful eyes, **such** bad weather."
+    ],
+    "exercises": [
+      { "q": "The job is ___ dangerous. Don't do it!", "options": ["too", "enough", "such", "so a"], "answer": "too", "why": "Me'yordan ortiq, salbiy → too." },
+      { "q": "He isn't ___ to protect his family.", "options": ["strong enough", "enough strong", "too strong", "so strong"], "answer": "strong enough", "why": "enough sifatdan keyin." },
+      { "q": "He is ___ a good driver that nobody can catch him.", "options": ["such", "so", "too", "enough"], "answer": "such", "why": "a + sifat + ot → such." },
+      { "q": "He is ___ quiet that people think he is cold.", "options": ["so", "such", "such a", "enough"], "answer": "so", "why": "Faqat sifat → so." },
+      { "q": "We don't have ___ to buy a new car.", "options": ["enough money", "money enough", "too money", "so money"], "answer": "enough money", "why": "enough otdan oldin." },
+      { "q": "It's ___ cold to go swimming.", "options": ["too", "so", "enough", "such"], "answer": "too", "why": "too ... to + fe'l." },
+      { "q": "It was ___ bad weather that we stayed at home.", "options": ["such", "such a", "so", "too"], "answer": "such", "why": "weather — sanalmaydi, artiklsiz: such bad weather." },
+      { "q": "Are you old ___ to drive?", "options": ["enough", "too", "so", "such"], "answer": "enough", "why": "old enough = yoshi yetarli." }
+    ]
+  },
+  "dictation": [
+    { "text": "He works as a mechanic in a small garage.", "gap": "mechanic" },
+    { "text": "The police can never catch him.", "gap": "catch" },
+    { "text": "He is just shy and very careful with words.", "gap": "shy" },
+    { "text": "He owes money to dangerous people.", "gap": "owes" },
+    { "text": "You can't stay quiet forever.", "gap": "forever" }
+  ],
+  "shadowing": [
+    "I drive.",
+    "He is such a good driver that the police can never catch him.",
+    "He is so quiet that people sometimes think he is cold.",
+    "He isn't strong enough to protect his family alone."
+  ]
+}

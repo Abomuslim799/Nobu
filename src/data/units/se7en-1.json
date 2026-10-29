@@ -1,0 +1,85 @@
+{
+  "id": "se7",
+  "title": "Se7en — Seven days of rain",
+  "source": "Se7en (1995)",
+  "level": "B2",
+  "emoji": "🌧",
+  "hook": {
+    "quote": "What's in the box?",
+    "who": "Detective Mills",
+    "context": "Filmning so'nggi sahnasida yosh detektiv Mills cho'l o'rtasida kelgan quti ichida nima borligini so'raydi. Oddiy savol, lekin kino tarixidagi eng dahshatli lahzalardan biriga aylangan.",
+    "link": "https://www.youtube.com/results?search_query=se7en+what's+in+the+box+scene"
+  },
+  "reading": [
+    "It rains almost every day in the unnamed city. Detective William Somerset is old, tired and only seven days away from retirement. He wishes he could live somewhere quiet, far from crime.",
+    "His new partner, David Mills, is young, ambitious and impatient. He has just moved to the city with his wife Tracy, and he believes he can change things.",
+    "Together they investigate a series of murders. Each crime is connected to one of the seven deadly sins: greed, pride, laziness and others.",
+    "Somerset goes to the library and reads old books to understand the killer. Mills thinks that is a waste of time. Later he wishes he had listened to the older detective.",
+    "Tracy feels lonely in the new city. She secretly tells Somerset about a problem in her life, and she wishes she could talk to her husband about it.",
+    "The killer, John Doe, is always one step ahead. He is patient, careful and completely calm.",
+    "In the end, the detectives don't win. Somerset says that the world is a fine place and worth fighting for, but he only agrees with the second part. If only things had ended differently."
+  ],
+  "questions": [
+    { "q": "How long is it until Somerset's retirement?", "options": ["Seven days", "Seven years", "One month", "One day"], "answer": "Seven days" },
+    { "q": "What is Mills like?", "options": ["Young and impatient", "Old and tired", "Quiet and lazy", "Careful and calm"], "answer": "Young and impatient" },
+    { "q": "What connects the crimes?", "options": ["The seven deadly sins", "The weather", "A family", "A hotel"], "answer": "The seven deadly sins" },
+    { "q": "Where does Somerset look for answers?", "options": ["In the library", "On the internet", "In a church", "At the airport"], "answer": "In the library" },
+    { "q": "What is John Doe like?", "options": ["Patient and calm", "Nervous and noisy", "Lazy and careless", "Young and friendly"], "answer": "Patient and calm" }
+  ],
+  "vocab": [
+    { "id": "se7-retirement", "word": "retirement", "ipa": "/rɪˈtaɪə.mənt/", "emoji": "🏖", "translation": "nafaqa (pensiya)", "example": "Somerset is only seven days away from retirement." },
+    { "id": "se7-impatient", "word": "impatient", "ipa": "/ɪmˈpeɪ.ʃənt/", "emoji": "⏳", "translation": "sabrsiz", "example": "Mills is young, ambitious and impatient." },
+    { "id": "se7-investigate", "word": "investigate", "ipa": "/ɪnˈves.tɪ.ɡeɪt/", "emoji": "🔎", "translation": "tergov qilmoq", "example": "They investigate a series of murders." },
+    { "id": "se7-series", "word": "series", "ipa": "/ˈsɪə.riːz/", "emoji": "🔢", "translation": "qator, turkum", "example": "They investigate a series of murders.", "note": "birlik va ko'plik bir xil: a series / two series" },
+    { "id": "se7-sin", "word": "sin", "ipa": "/sɪn/", "emoji": "😈", "translation": "gunoh", "example": "Each crime is connected to one of the seven deadly sins." },
+    { "id": "se7-greed", "word": "greed", "ipa": "/ɡriːd/", "emoji": "💰", "translation": "ochko'zlik", "example": "The sins include greed, pride and laziness." },
+    { "id": "se7-pride", "word": "pride", "ipa": "/praɪd/", "emoji": "🦚", "translation": "takabburlik; g'urur", "example": "The sins include greed, pride and laziness." },
+    { "id": "se7-laziness", "word": "laziness", "ipa": "/ˈleɪ.zi.nəs/", "emoji": "🛌", "translation": "dangasalik", "example": "The sins include greed, pride and laziness." },
+    { "id": "se7-killer", "word": "killer", "ipa": "/ˈkɪl.ə/", "emoji": "🔪", "translation": "qotil", "example": "Somerset reads old books to understand the killer." },
+    { "id": "se7-waste", "word": "waste", "ipa": "/weɪst/", "emoji": "🗑", "translation": "isrof", "example": "Mills thinks that is a waste of time." },
+    { "id": "se7-lonely", "word": "lonely", "ipa": "/ˈləʊn.li/", "emoji": "🥀", "translation": "yolg'izlikdan zerikkan", "example": "Tracy feels lonely in the new city.", "note": "alone — yolg'iz (fakt), lonely — yolg'izlik his qilish" },
+    { "id": "se7-ahead", "word": "ahead", "ipa": "/əˈhed/", "emoji": "⏩", "translation": "oldinda", "example": "The killer is always one step ahead." },
+    { "id": "se7-careful", "word": "careful", "ipa": "/ˈkeə.fəl/", "emoji": "🧤", "translation": "ehtiyotkor", "example": "He is patient, careful and completely calm." },
+    { "id": "se7-worth", "word": "worth", "ipa": "/wɜːθ/", "emoji": "💎", "translation": "arziydi", "example": "The world is worth fighting for.", "note": "worth + -ing" },
+    { "id": "se7-differently", "word": "differently", "ipa": "/ˈdɪf.ər.ənt.li/", "emoji": "🔀", "translation": "boshqacha", "example": "If only things had ended differently." }
+  ],
+  "collocations": [
+    { "id": "se7-c-waste", "word": "a waste of time", "ipa": "/ə ˌweɪst əv ˈtaɪm/", "emoji": "⌛", "translation": "vaqtni behuda sarflash", "example": "Mills thinks that is a waste of time." },
+    { "id": "se7-c-step", "word": "one step ahead", "ipa": "/ˌwʌn step əˈhed/", "emoji": "👣", "translation": "bir qadam oldinda", "example": "The killer is always one step ahead." },
+    { "id": "se7-c-away", "word": "days away from", "ipa": "/ˌdeɪz əˈweɪ frəm/", "emoji": "📅", "translation": "... ga necha kun qolgan", "example": "He is only seven days away from retirement.", "cloze": "days away from" },
+    { "id": "se7-c-agree", "word": "agree with", "ipa": "/əˈɡriː wɪð/", "emoji": "👍", "translation": "... bilan rozi bo'lmoq", "example": "He only agrees with the second part.", "cloze": "agrees with" },
+    { "id": "se7-c-move", "word": "move to a city", "ipa": "/ˌmuːv tu ə ˈsɪt.i/", "emoji": "🚚", "translation": "shaharga ko'chib kelmoq", "example": "He has just moved to the city with his wife.", "cloze": "moved to the city" }
+  ],
+  "grammar": {
+    "title": "wish / if only",
+    "explain": [
+      "**wish + Past Simple** — hozirgi holatdan norozilik: He **wishes** he **lived** somewhere quiet (hozir u shovqinli shaharda). To be bilan: I wish I **were** taller.",
+      "**wish + could** — hozir qila olmaydigan narsa: She **wishes** she **could talk** to her husband.",
+      "**wish + Past Perfect** — o'tmishdagi afsus: Mills **wishes** he **had listened** to Somerset (lekin tinglamagan).",
+      "**If only** — wish bilan bir xil, lekin kuchliroq his: **If only** things **had ended** differently! Boshqa odamning odatidan shikoyat: I wish you **would** stop talking (wish + would)."
+    ],
+    "exercises": [
+      { "q": "Somerset wishes he ___ somewhere quiet.", "options": ["lived", "lives", "will live", "has lived"], "answer": "lived", "why": "Hozirgi istak: wish + Past Simple." },
+      { "q": "Mills wishes he ___ to Somerset earlier.", "options": ["had listened", "listened", "would listen", "listens"], "answer": "had listened", "why": "O'tmishdagi afsus: wish + Past Perfect." },
+      { "q": "I wish I ___ speak English fluently.", "options": ["could", "can", "will", "am"], "answer": "could", "why": "Hozirgi qobiliyat istagi: wish + could." },
+      { "q": "If only I ___ so much money last month!", "options": ["hadn't spent", "didn't spend", "don't spend", "won't spend"], "answer": "hadn't spent", "why": "O'tmishga afsus: if only + Past Perfect." },
+      { "q": "I wish I ___ taller.", "options": ["were", "am", "would be", "have been"], "answer": "were", "why": "Rasmiy: wish + were." },
+      { "q": "I wish it ___ raining. It's been raining for a week!", "options": ["would stop", "stops", "stopped had", "will stop"], "answer": "would stop", "why": "Bezovta qiluvchi holat o'zgarishi istagi: wish + would." },
+      { "q": "She wishes she ___ in a big city. She hates the noise.", "options": ["didn't live", "doesn't live", "won't live", "hadn't lived yet"], "answer": "didn't live", "why": "Hozirgi holat: didn't live." },
+      { "q": "If only you ___ me the truth yesterday.", "options": ["had told", "told", "tell", "would tell"], "answer": "had told", "why": "yesterday — o'tmish afsusi: had told." }
+    ]
+  },
+  "dictation": [
+    { "text": "Mills is young, ambitious and impatient.", "gap": "impatient" },
+    { "text": "They investigate a series of murders.", "gap": "investigate" },
+    { "text": "Mills thinks that is a waste of time.", "gap": "waste" },
+    { "text": "Tracy feels lonely in the new city.", "gap": "lonely" },
+    { "text": "The killer is always one step ahead.", "gap": "ahead" }
+  ],
+  "shadowing": [
+    "What's in the box?",
+    "He wishes he could live somewhere quiet, far from crime.",
+    "Later he wishes he had listened to the older detective.",
+    "If only things had ended differently."
+  ]
+}
