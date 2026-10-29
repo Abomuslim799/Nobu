@@ -15,8 +15,7 @@ export const SUBJECTS: Subject[] = [
   { id: 'physics', title: 'Fizika', icon: '⚛️', color: '#F59E0B', about: 'Mexanika → energiya → elektr, simulyatsiyalar bilan', soon: true },
 ];
 
-export const IT_TRACKS = TRACKS.filter((t) => t.id !== 'english');
-export const EN_TRACK = TRACKS.find((t) => t.id === 'english');
+export const IT_TRACKS = TRACKS;   // ingliz tili endi faqat film unitlari va kartochkalarda
 
 export function subjectProgress(id: Subject['id'], data: { lessons: Record<string, unknown>; unitSteps: Record<string, string[]> }) {
   if (id === 'it') {
@@ -24,12 +23,8 @@ export function subjectProgress(id: Subject['id'], data: { lessons: Record<strin
     return { done: all.filter((l) => data.lessons[l.id]).length, total: all.length };
   }
   if (id === 'en') {
-    const lessons = EN_TRACK?.lessons ?? [];
     const steps = UNITS.reduce((a, u) => a + (data.unitSteps[u.id]?.length ?? 0), 0);
-    return {
-      done: steps + lessons.filter((l) => data.lessons[l.id]).length,
-      total: UNITS.length * STEPS.length + lessons.length,
-    };
+    return { done: steps, total: UNITS.length * STEPS.length };
   }
   return { done: 0, total: 0 };
 }

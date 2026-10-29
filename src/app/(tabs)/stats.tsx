@@ -59,9 +59,9 @@ export default function Stats() {
         </View>
       </Card>
 
-      <Card>
+      {!FRIENDS && <Card>
         <T dim>Yo'nalishlar</T>
-        {TRACKS.filter((t) => !FRIENDS || t.id === 'english').map((t) => {
+        {TRACKS.map((t) => {
           const done = t.lessons.filter((l) => data.lessons[l.id]).length;
           return (
             <View key={t.id} style={{ gap: 4, marginTop: 6 }}>
@@ -70,7 +70,7 @@ export default function Stats() {
             </View>
           );
         })}
-      </Card>
+      </Card>}
 
       {!FRIENDS && <Card style={{ gap: 8 }}>
         <T dim>Kitob o'qish · jami {readTotal} daqiqa, {data.books.length} kitob</T>

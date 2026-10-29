@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/constants/theme';
-import { EN_TRACK, IT_TRACKS } from '@/data/subjects';
+import { IT_TRACKS } from '@/data/subjects';
 import type { Track } from '@/data/types';
 import { STEPS, UNITS } from '@/data/units';
 import { useProgress } from '@/lib/progress';
@@ -61,13 +61,6 @@ export function EnglishFolder() {
         <T dim size={14}>Barcha so'zlar — Leitner takrorlash bilan. Test — har bir to'plam bo'yicha 3 bosqich.</T>
         <Button label="Kartochkalar va testlar" onPress={() => router.push('/cards')} />
       </Card>
-
-      {EN_TRACK && (
-        <>
-          <T bold size={18}>📘 Qisqa darslar</T>
-          <TrackCard track={EN_TRACK} />
-        </>
-      )}
 
       <Card style={{ opacity: 0.6, gap: 4 }}>
         <T bold>🗣 Talaffuz laboratoriyasi</T>
