@@ -16,8 +16,9 @@ import { useEffect, useState } from 'react';
 
 import { AUDIO } from '@/data/audio';
 
-export type Part = 'w' | 's' | 'uz';            // so'z, misol gap, o'zbekcha tarjima
-export type AudioMap = Record<string, Partial<Record<Part, number>>>;
+/** w — so'z, s — misol gap, uz — o'zbekcha tarjima; unitlarda: p0.. (matn), d0.. (diktant), sh0.., q (iqtibos). */
+export type Part = string;
+export type AudioMap = Record<string, Record<string, number>>;
 export const RATES = [0.5, 0.75, 1] as const;
 
 // ── Tezlik ──────────────────────────────────────────────────────────────────

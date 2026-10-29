@@ -9,6 +9,7 @@ Biror fayl yasalmasa — o'sha qism telefonning o'z ovoziga tushadi, ilova buzil
 """
 
 import asyncio
+import json
 import re
 from pathlib import Path
 
@@ -51,20 +52,36 @@ async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> boo
     return False
 
 
+def unit_texts() -> list[tuple[str, str, str, str]]:
+    """Unitlardan: (id, part, matn, ovoz). So'zlar ham words() bilan bir xil shaklda."""
+    out = []
+    for path in sorted((ROOT / "src" / "data" / "units").glob("*.json")):
+        u = json.loads(path.read_text(encoding="utf-8"))
+        uid = u["id"]
+        for w in u["vocab"] + u["collocations"]:
+            out += [(w["id"], "w", w["word"], EN), (w["id"], "s", w["example"], EN), (w["id"], "uz", w["translation"], UZ)]
+        out.append((uid, "q", u["hook"]["quote"], EN))
+        out += [(uid, f"p{i}", t, EN) for i, t in enumerate(u["reading"])]
+        out += [(uid, f"d{i}", d["text"], EN) for i, d in enumerate(u["dictation"])]
+        out += [(uid, f"sh{i}", t, EN) for i, t in enumerate(u["shadowing"])]
+    return out
+
+
 async def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     sem = asyncio.Semaphore(4)
     jobs = []
-    for w in words():
-        for part, text, voice in (("w", w["word"], EN), ("s", w["example"], EN), ("uz", w["translation"], UZ)):
-            if text:
-                jobs.append((w["id"], part, make(text, voice, OUT / f"{w['id']}-{part}.mp3", sem)))
+    texts = [(w["id"], part, text, voice) for w in words()
+             for part, text, voice in (("w", w["word"], EN), ("s", w["example"], EN), ("uz", w["translation"], UZ))]
+    for wid, part, text, voice in texts + unit_texts():
+        if text:
+            jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))
 
     table: dict[str, list[str]] = {}
     for (wid, part, _), ok in zip(jobs, results):
         if ok:
-            table.setdefault(wid, []).append(f"{part}: require('../../assets/audio/{wid}-{part}.mp3')")
+            table.setdefault(wid, []).append(f"'{part}': require('../../assets/audio/{wid}-{part}.mp3')")
     lines = [f"  '{wid}': {{ {', '.join(parts)} }}," for wid, parts in table.items()]
     MAP.write_text(
         "// Avtomatik yasalgan (scripts/make_audio.py) — qo'lda o'zgartirmang.\n"

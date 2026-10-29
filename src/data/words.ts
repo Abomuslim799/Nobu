@@ -14,10 +14,10 @@ export interface Word {
   emoji?: string;    // kartadagi rasm
   image?: string;    // o'zingiz qo'shgan surat (telefondagi fayl manzili)
   cloze?: string;    // misol gapda so'z boshqa shaklda bo'lsa (came up with) — test uchun
-  deck: 'work' | 'it' | 'phrasal' | 'my';
+  deck: string;       // 'work' | 'it' | 'phrasal' | 'my' | unit id (masalan 'fg1')
 }
 
-export const DECKS: Record<Word['deck'], string> = {
+export const DECKS: Record<string, string> = {
   work: 'Ish va ofis',
   it: 'IT va dasturlash',
   phrasal: 'Phrasal verbs',

@@ -16,7 +16,8 @@ import { Alert, Animated, Pressable, StyleSheet, Text, TextInput, View, ScrollVi
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/constants/theme';
-import { DECKS, WORDS, type Word } from '@/data/words';
+import { DECKS, ALL_WORDS } from '@/data/vocab';
+import type { Word } from '@/data/words';
 import { useProgress } from '@/lib/progress';
 import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
 import { Bar, Button, Card, T } from '@/ui/kit';
@@ -30,7 +31,7 @@ export default function CardsScreen() {
 
   // Barcha so'zlar = tayyor ro'yxat + o'zingiznikilar.
   const all: Word[] = useMemo(
-    () => [...WORDS, ...data.myWords.map((w) => ({ ...w, deck: 'my' as const }))],
+    () => [...ALL_WORDS, ...data.myWords.map((w) => ({ ...w, deck: 'my' }))],
     [data.myWords],
   );
 
@@ -90,7 +91,7 @@ export default function CardsScreen() {
           <T bold>🧪 Test — 3 bosqich</T>
           <T dim>Tarjima ↔ so'z · ovoz → so'z · gapdagi bo'sh joy</T>
           <View style={s.wrap}>
-            {(Object.keys(DECKS) as Word['deck'][])
+            {Object.keys(DECKS)
               .filter((d) => all.filter((w) => w.deck === d).length >= 4)
               .map((d) => (
                 <Pressable key={d} style={s.chip} onPress={() => router.push(`/quiz?deck=${d}`)}>

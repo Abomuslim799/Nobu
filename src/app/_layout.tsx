@@ -16,13 +16,15 @@ export default function RootLayout() {
   return (
     <ProgressProvider>
       <StatusBar style="light" />
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg } }}>
+      {/* Barcha sahifalar o'ngdan kiradi; chapdan o'ngga surib (ekranning istalgan joyidan) orqaga qaytiladi. */}
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg },
+        gestureEnabled: true, fullScreenGestureEnabled: true, animation: 'slide_from_right' }}>
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="lesson/[id]" options={{ presentation: 'fullScreenModal' }} />
-        <Stack.Screen name="game/[id]" options={{ presentation: 'fullScreenModal' }} />
-        <Stack.Screen name="cards" options={{ presentation: 'fullScreenModal' }} />
-        <Stack.Screen name="quiz" options={{ presentation: 'fullScreenModal' }} />
-        <Stack.Screen name="book/[id]" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="lesson/[id]" />
+        <Stack.Screen name="game/[id]" />
+        <Stack.Screen name="cards" />
+        <Stack.Screen name="quiz" />
+        <Stack.Screen name="book/[id]" />
         <Stack.Screen name="quote/[id]" options={{ presentation: 'modal' }} />
       </Stack>
     </ProgressProvider>

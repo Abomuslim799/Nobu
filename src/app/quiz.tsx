@@ -9,7 +9,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/constants/theme';
-import { DECKS, WORDS, type Word } from '@/data/words';
+import { DECKS, ALL_WORDS } from '@/data/vocab';
+import type { Word } from '@/data/words';
 import { useProgress } from '@/lib/progress';
 import { buildQuiz, STAGES, type Question } from '@/lib/quiz';
 import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
@@ -18,11 +19,11 @@ import { RateSwitch } from '@/ui/sound';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();
-  const { deck = 'work' } = useLocalSearchParams<{ deck: Word['deck'] }>();
+  const { deck = 'work' } = useLocalSearchParams<{ deck: string }>();
   const { data, reviewCard, recordGame } = useProgress();
 
   const all: Word[] = useMemo(
-    () => [...WORDS, ...data.myWords.map((w) => ({ ...w, deck: 'my' as const }))],
+    () => [...ALL_WORDS, ...data.myWords.map((w) => ({ ...w, deck: 'my' }))],
     [data.myWords],
   );
   const make = () => buildQuiz(all.filter((w) => w.deck === deck), all, data.cards, hasUzbekAudio);
