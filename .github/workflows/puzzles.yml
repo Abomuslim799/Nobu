@@ -1,0 +1,22 @@
+# Bir martalik: Lichess bazasidan shaxmat masalalarini tanlab, src/data/puzzles.json ga yozadi va commit qiladi.
+name: puzzles
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q zstandard
+      - run: python scripts/make_puzzles.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add src/data/puzzles.json
+          git commit -m "Chess puzzles from Lichess database (CC0)" || echo "o'zgarish yo'q"
+          git push
