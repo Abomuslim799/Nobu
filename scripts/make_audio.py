@@ -78,11 +78,13 @@ async def main() -> None:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))
 
+    # Fayllar ilova paketiga qo'shilmaydi (update hajmi juda katta bo'lib ketardi):
+    # ular GitHub Pages'ga joylanadi (site.yml), ilova esa URL orqali chaladi.
     table: dict[str, list[str]] = {}
     for (wid, part, _), ok in zip(jobs, results):
         if ok:
-            table.setdefault(wid, []).append(f"'{part}': require('../../assets/audio/{wid}-{part}.mp3')")
-    lines = [f"  '{wid}': {{ {', '.join(parts)} }}," for wid, parts in table.items()]
+            table.setdefault(wid, []).append(f"'{part}'")
+    lines = [f"  '{wid}': [{', '.join(parts)}]," for wid, parts in table.items()]
     MAP.write_text(
         "// Avtomatik yasalgan (scripts/make_audio.py) — qo'lda o'zgartirmang.\n"
         "import type { AudioMap } from '@/lib/speak';\n\n"

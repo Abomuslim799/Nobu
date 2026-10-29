@@ -18,7 +18,9 @@ import { AUDIO } from '@/data/audio';
 
 /** w — so'z, s — misol gap, uz — o'zbekcha tarjima; unitlarda: p0.. (matn), d0.. (diktant), sh0.., q (iqtibos). */
 export type Part = string;
-export type AudioMap = Record<string, Record<string, number>>;
+export type AudioMap = Record<string, string[]>;    // id → mavjud qismlar: ['w', 's', 'uz']
+/** mp3 fayllar GitHub Pages'da (site.yml joylaydi) — ilova paketini og'irlashtirmaydi. */
+const AUDIO_BASE = 'https://abomuslim799.github.io/Nobu/audio/';
 export const RATES = [0.5, 0.75, 1] as const;
 
 // ── Tezlik ──────────────────────────────────────────────────────────────────
@@ -82,10 +84,9 @@ async function phoneVoice() {
  */
 export async function say(id: string, part: Part, text: string): Promise<boolean> {
   stopSpeaking();
-  const file = AUDIO[id]?.[part];
-  if (file) {
+  if (AUDIO[id]?.includes(part)) {
     const p = getPlayer();
-    p.replace(file);
+    p.replace({ uri: `${AUDIO_BASE}${id}-${part}.mp3` });
     p.setPlaybackRate(rate, 'high');      // 'high' — sekinlashganda ovoz pasaymaydi
     p.play();
     return true;
@@ -96,7 +97,7 @@ export async function say(id: string, part: Part, text: string): Promise<boolean
 }
 
 export function hasUzbekAudio(id: string) {
-  return Boolean(AUDIO[id]?.uz);
+  return Boolean(AUDIO[id]?.includes('uz'));
 }
 
 export function stopSpeaking() {

@@ -35,6 +35,7 @@ jobs:
           n=$(( ${{ github.run_number }} ))
           EXPO_PUBLIC_EDITION=friends EXPO_PUBLIC_VERSION="web.$n" npx expo export -p web
           cp dist/index.html dist/404.html   # /unit/fg1 kabi manzillar ham ochilsin
+          mkdir -p dist/audio && cp assets/audio/*.mp3 dist/audio/ 2>/dev/null || true   # ilova ovozlarni shu yerdan oladi
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
