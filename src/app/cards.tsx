@@ -133,7 +133,8 @@ function buildQueue(all: Word[], cards: Record<string, { box: number; due: numbe
   const now = Date.now();
   const due = all.filter((w) => cards[w.id] && cards[w.id].due <= now)
     .sort((a, b) => cards[a.id].due - cards[b.id].due);
-  const fresh = all.filter((w) => !cards[w.id]);
+  // Core (ng..) to'plamlarining yangi so'zlari umumiy navbatga kirmaydi — ularni to'plam bo'yicha boshlaysiz
+  const fresh = all.filter((w) => !cards[w.id] && !w.deck.startsWith('ng'));
   return [...due, ...fresh].slice(0, limit);
 }
 

@@ -56,6 +56,8 @@ export function EnglishFolder() {
       <T bold size={18}>🎴 So'z boyligi</T>
       <Card style={{ gap: 8 }}>
         <T dim size={14}>Barcha so'zlar — Leitner takrorlash bilan. Test — har bir to'plam bo'yicha 3 bosqich.</T>
+        <T dim size={14}>📚 Core: eng ko'p ishlatiladigan 2 801 so'z, 200 tadan to'plamlarda — "Test" ro'yxatidan boshlang.</T>
+        <T dim size={11}>Core ro'yxati: New General Service List 1.2 (Browne, Culligan, Phillips), CC BY-SA 4.0.</T>
         <Button label="Kartochkalar va testlar" onPress={() => router.push('/cards')} />
       </Card>
 
