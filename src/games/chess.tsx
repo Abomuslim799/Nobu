@@ -20,7 +20,10 @@ import type { GameProps } from './quick';
 type Row = [string, string, string, number, string];
 const PUZZLES = rows as unknown as Row[];
 const SESSION = 5;
-const GLYPH: Record<string, string> = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
+// Oq — ichi bo'sh belgilar, qora — to'la. \uFE0E — iOS emoji qilib (doim qora) chizmasin, oddiy matn bo'lsin.
+const GLYPH_W: Record<string, string> = { k: '♔', q: '♕', r: '♖', b: '♗', n: '♘', p: '♙' };
+const GLYPH_B: Record<string, string> = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
+const glyph = (type: string, color: string) => (color === 'w' ? GLYPH_W : GLYPH_B)[type] + '\uFE0E';
 const FILES = 'abcdefgh';
 const THEME_UZ: Record<string, string> = {
   fork: 'vilka (ikki tomonlama hujum)', pin: 'bog\'lash', skewer: 'skewer (orqadagi donaga hujum)', mateIn1: 'mat 1 yurishda',
@@ -155,8 +158,9 @@ function Puzzle({ row, onFinish }: { row: Row; onFinish: (ok: boolean, p: Row) =
                     width: size, height: size, alignItems: 'center', justifyContent: 'center',
                     backgroundColor: hl ?? (light ? '#E8EDE9' : '#6E8F7E'),
                   }}>
-                    {p && <Text style={{ fontSize: 32, lineHeight: 38, color: p.color === 'w' ? '#FFFFFF' : '#111111',
-                      textShadowColor: p.color === 'w' ? '#000' : '#fff', textShadowRadius: 1.5 }}>{GLYPH[p.type]}</Text>}
+                    {p && <Text style={{ fontSize: 34, lineHeight: 40, color: p.color === 'w' ? '#FFFFFF' : '#0B0B0B',
+                      textShadowColor: p.color === 'w' ? '#000000' : 'transparent', textShadowRadius: p.color === 'w' ? 2 : 0 }}>
+                      {glyph(p.type, p.color)}</Text>}
                   </Pressable>
                 );
               })}
@@ -164,6 +168,7 @@ function Puzzle({ row, onFinish }: { row: Row; onFinish: (ok: boolean, p: Row) =
           );
         })}
       </View>
+      <T dim size={12} style={{ textAlign: 'center' }}>Pastda — {me === 'w' ? 'oqlar' : 'qoralar'} (siz). Chap pastki burchak: {flip ? 'h8' : 'a1'}</T>
       {state === 'play' && <T dim>Eng kuchli yurishni toping. Donani bosing, keyin katakni.</T>}
       {state === 'ok' && (
         <Card style={{ gap: 6, borderColor: C.green }}>

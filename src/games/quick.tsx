@@ -87,30 +87,49 @@ export function Reaction({ onDone }: GameProps) {
   );
 }
 
-// ── 🎯 Stroop: so'zning RANGini tanlang ──────────────────────────────────────
+// ── 🎯 Stroop: so'z bir rangda yozilgan, ma'nosi boshqa rang ─────────────────
+// Tugmalarda rang NOMLARI yoziladi (rang emas) va o'zi ham chalg'ituvchi rangda — shunda so'zni o'qish
+// odati xalaqit beradi. Har savolda qoida: "RANG" (yozuv rangi) yoki "MA'NO" (so'zning o'zi).
+// 3-darajadan boshlab qoidalar aralashadi.
 const COLORS = [
   { name: 'QIZIL', c: '#F87171' }, { name: 'YASHIL', c: '#34D399' }, { name: 'KO\'K', c: '#60A5FA' }, { name: 'SARIQ', c: '#FBBF24' },
 ];
 export function Stroop({ level, onDone }: GameProps) {
-  const make = () => ({ word: rnd(4), ink: rnd(4) });
+  const mixed = level >= 3;
+  const make = () => {
+    const word = rnd(4);
+    let ink = rnd(4);
+    while (ink === word) ink = rnd(4);                       // har doim mos kelmaydi — chalg'itish majburiy
+    const rule: 'ink' | 'word' = mixed && Math.random() < 0.4 ? 'word' : 'ink';
+    return { word, ink, rule, btn: shuffle([0, 1, 2, 3]), btnInk: shuffle([0, 1, 2, 3]) };
+  };
   const [q, setQ] = useState(make);
   const [ok, setOk] = useState(0);
-  const [bad, setBad] = useState(0);
-  const secs = Math.max(20, 40 - level * 3);
-  const target = 12 + level * 3;
-  useCountdown(secs, () => onDone((ok / target) * 100 - bad * 5, bad ? [`${bad} ta noto'g'ri rang`] : []));
-  const pick = (i: number) => { if (i === q.ink) setOk((x) => x + 1); else setBad((x) => x + 1); setQ(make()); };
+  const [bad, setBad] = useState<string[]>([]);
+  const secs = Math.max(25, 45 - level * 3);
+  const target = 14 + level * 3;
+  useCountdown(secs, () => onDone((ok / target) * 100 - bad.length * 4, bad.slice(-6)));
+  const pick = (i: number) => {
+    const right = q.rule === 'ink' ? q.ink : q.word;
+    if (i === right) setOk((x) => x + 1);
+    else setBad((b) => [...b, `${q.rule === 'ink' ? 'RANG' : "MA'NO"}: "${COLORS[q.word].name}" (${COLORS[q.ink].name.toLowerCase()} rangda) → siz ${COLORS[i].name}`]);
+    setQ(make());
+  };
   return (
     <View style={{ gap: 16 }}>
-      <T dim>So'z qaysi RANGDA yozilgan? (so'zning ma'nosini emas) · {secs} s · ✓{ok} ✗{bad}</T>
+      <T dim>{secs} s · ✓{ok} ✗{bad.length}</T>
+      <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '800', color: q.rule === 'ink' ? C.green : '#FBBF24' }}>
+        {q.rule === 'ink' ? '🎨 YOZUV RANGINI tanlang' : "📖 SO'ZNING MA'NOSINI tanlang"}
+      </Text>
       <Text style={[s.big, { color: COLORS[q.ink].c }]}>{COLORS[q.word].name}</Text>
       <View style={s.grid}>
-        {COLORS.map((c, i) => (
-          <Pressable key={c.name} onPress={() => pick(i)} style={[s.btn, { borderColor: c.c }]}>
-            <View style={{ width: 34, height: 34, borderRadius: 17, backgroundColor: c.c }} />
+        {q.btn.map((i, k) => (
+          <Pressable key={i} onPress={() => pick(i)} style={s.btn}>
+            <Text style={[s.btnText, { color: COLORS[q.btnInk[k]].c }]}>{COLORS[i].name}</Text>
           </Pressable>
         ))}
       </View>
+      <T dim size={13}>Tugmalardagi yozuvlar ham boshqa rangda — faqat yozilgan NOMGA qarang.</T>
     </View>
   );
 }
@@ -155,7 +174,7 @@ export function MemoryGrid({ level, onDone }: GameProps) {
           const miss = picked.includes(i) && !cells.includes(i);
           return (
             <Pressable key={i} onPress={() => tap(i)} style={{
-              width: (300 - 6 * (size - 1)) / size, aspectRatio: 1, borderRadius: 8,
+              width: (300 - 6 * (size - 1)) / size, height: (300 - 6 * (size - 1)) / size, borderRadius: 8,
               backgroundColor: lit || hit ? C.green : miss ? C.red : C.card, borderWidth: 1, borderColor: C.cardBorder,
             }} />
           );
@@ -166,6 +185,8 @@ export function MemoryGrid({ level, onDone }: GameProps) {
 }
 
 // ── 🔁 N-back ───────────────────────────────────────────────────────────────
+// Harflar birin-ketin chiqadi. Hozirgi harf N qadam OLDINGI harf bilan bir xil bo'lsa — "Mos" ni bosing.
+// Har harfdan keyin darhol javob ko'rsatiladi: ✓ to'g'ri, ✗ o'tkazib yuborildi / noto'g'ri bosildi.
 export function NBack({ level, onDone }: GameProps) {
   const n = Math.min(4, Math.ceil(level / 2));                       // 1-back, 2-back ...
   const LEN = 20 + n;
@@ -175,31 +196,57 @@ export function NBack({ level, onDone }: GameProps) {
     for (let i = 0; i < LEN; i++) out.push(i >= n && Math.random() < 0.33 ? out[i - n] : letters[rnd(letters.length)]);
     return out;
   }, [n, LEN]);
-  const [i, setI] = useState(0);
-  const [answered, setAnswered] = useState<Record<number, boolean>>({});
+  const [i, setI] = useState(-1);                                     // -1 — tushuntirish
+  const [said, setSaid] = useState(false);
+  const [fb, setFb] = useState<'ok' | 'bad' | null>(null);
+  const res = useRef({ right: 0, total: 0, miss: [] as string[] });
+
+  // Harf vaqti tugaganda — baholaymiz va keyingisiga o'tamiz
   useEffect(() => {
+    if (i < 0) return;
     if (i >= LEN) {
-      let right = 0, total = 0;
-      const miss: string[] = [];
-      for (let k = n; k < LEN; k++) {
-        const match = seq[k] === seq[k - n];
-        const said = !!answered[k];
-        total++;
-        if (match === said) right++; else miss.push(match ? `o'tkazib yuborildi (${k + 1})` : `noto'g'ri bosildi (${k + 1})`);
-      }
-      onDone((right / total - 0.5) * 200, [`${n}-back`, ...miss.slice(0, 5)]);   // 50% — tasodif darajasi → 0
+      const r = res.current;
+      onDone((r.right / Math.max(1, r.total) - 0.5) * 200, [`${n}-back`, ...r.miss.slice(0, 5)]);
       return;
     }
-    const t = setTimeout(() => setI((x) => x + 1), 2200);
+    const t = setTimeout(() => {
+      if (i >= n) {
+        const match = seq[i] === seq[i - n];
+        const r = res.current;
+        r.total++;
+        if (match === said) { r.right++; setFb('ok'); }
+        else { setFb('bad'); r.miss.push(match ? `${seq[i]} — mos edi, bosilmadi` : `${seq[i]} — mos emasdi, bosildi`); }
+      }
+      setSaid(false);
+      setTimeout(() => { setFb(null); setI((x) => x + 1); }, 350);
+    }, 2000);
     return () => clearTimeout(t);
-  }, [i, LEN, n, seq, answered, onDone]);
+  }, [i]);   // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (i < 0) {
+    return (
+      <View style={{ gap: 14 }}>
+        <T bold size={18}>{n}-back</T>
+        <T>Harflar bittadan chiqadi. Agar hozirgi harf <Text style={{ fontWeight: '800', color: C.green }}>{n} ta oldingi</Text> harf bilan bir xil bo'lsa — "Mos" ni bosing. Bo'lmasa — hech narsa bosmang.</T>
+        <T dim>Misol ({n}-back): {n === 1 ? 'K, K → ikkinchi K da bosing' : n === 2 ? 'K, M, K → uchinchi harfda (K) bosing' : `${'K, ' + 'M, '.repeat(n - 1)}K → oxirgi K da bosing`}</T>
+        <Button label="Tushundim, boshlash" onPress={() => setI(0)} />
+      </View>
+    );
+  }
   return (
     <View style={{ gap: 18, alignItems: 'center' }}>
-      <T dim>{n}-back · harf {n} qadam oldingisi bilan bir xil bo'lsa — "Mos" ni bosing</T>
+      <T dim>{n}-back · {Math.min(i + 1, LEN)}/{LEN} · ✓{res.current.right}/{res.current.total}</T>
       <Bar value={i / LEN} />
-      <Text style={[s.big, { fontSize: 90 }]}>{seq[i] ?? ''}</Text>
-      <Button label={answered[i] ? '✓ Belgilandi' : 'Mos'} disabled={i < n || !!answered[i]}
-        onPress={() => setAnswered((a) => ({ ...a, [i]: true }))} />
+      <View style={{ width: 160, height: 160, borderRadius: 24, alignItems: 'center', justifyContent: 'center',
+        backgroundColor: fb === 'ok' ? C.greenSoft : fb === 'bad' ? C.redSoft : C.card, borderWidth: 2,
+        borderColor: fb === 'ok' ? C.green : fb === 'bad' ? C.red : C.cardBorder }}>
+        <Text style={{ color: C.text, fontSize: 90, fontWeight: '800' }}>{seq[i] ?? ''}</Text>
+      </View>
+      <Pressable disabled={i < n || said} onPress={() => setSaid(true)} style={({ pressed }) => [s.btn, { width: '100%', flexGrow: 0 },
+        said && { borderColor: C.green, backgroundColor: C.greenSoft }, pressed && { opacity: 0.7 }, i < n && { opacity: 0.4 }]}>
+        <Text style={s.btnText}>{said ? '✓ Mos deb belgilandi' : 'Mos'}</Text>
+      </Pressable>
+      {i < n && <T dim>Birinchi {n} ta harfni eslab qoling...</T>}
     </View>
   );
 }
