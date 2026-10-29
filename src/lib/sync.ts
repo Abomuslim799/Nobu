@@ -1,13 +1,11 @@
 /**
- * sync.ts — Nobu ilovasi → kundalik tracker (Railway serveri) bog'lanishi.
+ * sync.ts — Nobu → Railway serveri: faqat widget uchun holat (day streak).
  *
- * Ilovada nimadir bajarilganda (unit qadami, IT darsi, kartalar, kitob)
- * serverga kichik "hodisa" yuboriladi: POST /api/nobu. Server bugungi
- * vazifani o'zi ✓ qiladi — trackerda qo'lda belgilash kerak emas.
+ * Nobu va Kundalik — ikki alohida ilova. Nobu o'z ma'lumotini telefonda
+ * saqlaydi; serverga faqat kichik holat yuboriladi: POST /api/nobu/status
+ * { streak, best, today }. iPhone'dagi Scriptable widget shuni o'qiydi.
  *
- * Internet bo'lmasa hodisa navbatga (queue) yoziladi va keyingi safar
- * yuboriladi. Server manzili va token telefonda saqlanadi — kodda emas,
- * chunki repo ochiq (public).
+ * Server manzili va token telefonda saqlanadi — kodda emas, chunki repo ochiq.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,20 +13,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FRIENDS } from './edition';
 import { dayKey } from './streak';
 
-// ── 1. Turlar ───────────────────────────────────────────────────────────────
-export type SyncEvent =
-  | { type: 'english'; title?: string }          // ingliz tili qadami
-  | { type: 'it'; title?: string }               // IT darsi (95%+ bilan)
-  | { type: 'cards' }                            // kunlik kartalar takrori
-  | { type: 'reading'; minutes: number; title?: string };   // kitob daqiqalari
-
 export interface SyncConfig { url: string; token: string }
-type Queued = SyncEvent & { day: string };
+export interface NobuStatus { streak: number; best: number; today: boolean }
 
 const CFG_KEY = 'nobu.sync.config';
-const QUEUE_KEY = 'nobu.sync.queue';
+const clean = (url: string) => url.trim().replace(/\/+$/, '');   // "https://x.app/" → "https://x.app"
 
-// ── 2. Sozlamalar (Statistika ekranidan kiritiladi) ─────────────────────────
+// ── 1. Sozlamalar (Statistika ekranidan kiritiladi) ─────────────────────────
 export async function getConfig(): Promise<SyncConfig | null> {
   try {
     const raw = await AsyncStorage.getItem(CFG_KEY);
@@ -38,73 +29,34 @@ export async function getConfig(): Promise<SyncConfig | null> {
   }
 }
 
-export async function saveConfig(cfg: SyncConfig | null) {
-  if (!cfg) return AsyncStorage.removeItem(CFG_KEY);
-  // Oxiridagi "/" ni olib tashlaymiz: "https://x.app/" → "https://x.app"
-  await AsyncStorage.setItem(CFG_KEY, JSON.stringify({ url: cfg.url.trim().replace(/\/+$/, ''), token: cfg.token.trim() }));
+export async function saveConfig(cfg: SyncConfig) {
+  await AsyncStorage.setItem(CFG_KEY, JSON.stringify({ url: clean(cfg.url), token: cfg.token.trim() }));
 }
 
-/** Ulanishni tekshirish: server javob bersa bugungi "done/total" qaytadi. */
-export async function testConnection(cfg: SyncConfig): Promise<string> {
-  const r = await fetch(`${cfg.url.trim().replace(/\/+$/, '')}/api/widget`, {
-    headers: { Authorization: `Bearer ${cfg.token.trim()}` },
+// ── 2. Holatni yuborish ─────────────────────────────────────────────────────
+let last: NobuStatus | null = null;   // ulanish tekshiruvida qayta yuborish uchun
+
+async function post(cfg: SyncConfig, st: NobuStatus) {
+  const r = await fetch(`${clean(cfg.url)}/api/nobu/status`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${cfg.token.trim()}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...st, day: dayKey() }),
   });
-  const d = await r.json();
-  if (!r.ok) throw new Error(d.error ?? `HTTP ${r.status}`);
-  return `${d.weekday}: ${d.done}/${d.total} bajarildi`;
-}
-
-// ── 3. Navbat ───────────────────────────────────────────────────────────────
-async function readQueue(): Promise<Queued[]> {
-  try {
-    return JSON.parse((await AsyncStorage.getItem(QUEUE_KEY)) ?? '[]');
-  } catch {
-    return [];
+  if (!r.ok) {
+    const d = await r.json().catch(() => ({}));
+    throw new Error(d.error ?? `HTTP ${r.status}`);
   }
 }
 
-async function post(cfg: SyncConfig, e: Queued): Promise<boolean> {
-  try {
-    const r = await fetch(`${cfg.url}/api/nobu`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(e),
-    });
-    // 4xx — server rad etdi (masalan, eski kun): qayta yuborishdan foyda yo'q
-    return r.ok || (r.status >= 400 && r.status < 500);
-  } catch {
-    return false;   // internet yo'q — navbatda qoladi
-  }
+/** Ekranni kutdirmaydi. Internet bo'lmasa — keyingi o'zgarishda yana yuboriladi. */
+export function pushStatus(st: NobuStatus) {
+  last = st;
+  if (FRIENDS) return;   // do'stlar versiyasi serverga ulanmaydi
+  getConfig().then((cfg) => cfg && post(cfg, st)).catch(() => {});
 }
 
-let flushing = false;
-
-/** Navbatdagi barcha hodisalarni yuborishga urinadi. */
-export async function flush() {
-  if (FRIENDS || flushing) return;
-  const cfg = await getConfig();
-  if (!cfg) return;
-  flushing = true;
-  try {
-    const queue = await readQueue();
-    const left: Queued[] = [];
-    for (const e of queue) {
-      if (!(await post(cfg, e))) left.push(e);
-    }
-    await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(left.slice(-100)));
-  } finally {
-    flushing = false;
-  }
-}
-
-// ── 4. Asosiy funksiya: hodisa yuborish ─────────────────────────────────────
-/** Ekranlarni kutdirmaydi: navbatga yozadi va fonda yuboradi. */
-export function report(e: SyncEvent) {
-  if (FRIENDS) return;   // do'stlar versiyasi trackerga ulanmaydi
-  (async () => {
-    const queue = await readQueue();
-    queue.push({ ...e, day: dayKey() });
-    await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(queue.slice(-100)));
-    await flush();
-  })().catch(() => {});
+/** "Saqlash va tekshirish": joriy streak'ni darhol yuboradi, xato bo'lsa sababini qaytaradi. */
+export async function testConnection(cfg: SyncConfig): Promise<string> {
+  await post(cfg, last ?? { streak: 0, best: 0, today: false });
+  return `streak ${last?.streak ?? 0} yuborildi`;
 }

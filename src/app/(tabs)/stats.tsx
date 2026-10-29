@@ -11,7 +11,7 @@ import { useProgress } from '@/lib/progress';
 import { pickBackup, exportBackup } from '@/lib/backup';
 import { FRIENDS, IS_WEB } from '@/lib/edition';
 import { lastDays } from '@/lib/streak';
-import { flush, getConfig, saveConfig, testConnection } from '@/lib/sync';
+import { getConfig, saveConfig, testConnection } from '@/lib/sync';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Stats() {
@@ -84,7 +84,7 @@ export default function Stats() {
         </View>
       </Card>}
 
-      {!FRIENDS && <TrackerLink />}
+      {!FRIENDS && <ServerLink />}
 
       {!IS_WEB && <Card style={{ gap: 8 }}>
         <T bold>💾 Zaxira</T>
@@ -111,8 +111,8 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-/** Kundalik tracker (Railway) bilan ulanish: manzil + APP_TOKEN telefonda saqlanadi. */
-function TrackerLink() {
+/** Widget uchun server (Railway): manzil + APP_TOKEN telefonda saqlanadi. */
+function ServerLink() {
   const [url, setUrl] = useState('');
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('');
@@ -129,7 +129,6 @@ function TrackerLink() {
     try {
       const msg = await testConnection({ url, token });
       await saveConfig({ url, token });
-      await flush();
       setStatus(`Ulandi ✓ ${msg}`);
     } catch (e) {
       setStatus(`Xato: ${e instanceof Error ? e.message : String(e)}`);
@@ -138,8 +137,8 @@ function TrackerLink() {
 
   return (
     <Card style={{ gap: 8 }}>
-      <T bold>🔗 Kundalik tracker</T>
-      <T dim size={13}>Dars, kartalar va kitob tugaganda trackerdagi vazifa o'zi ✓ bo'ladi.</T>
+      <T bold>🔗 Widget uchun server</T>
+      <T dim size={13}>Day streak serverga yuboriladi — iPhone widgetida ko'rinadi.</T>
       <TextInput style={input} placeholder="https://....up.railway.app" placeholderTextColor={C.dim}
         value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
       <TextInput style={input} placeholder="APP_TOKEN" placeholderTextColor={C.dim}
