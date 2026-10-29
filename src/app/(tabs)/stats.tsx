@@ -137,8 +137,8 @@ function ServerLink() {
 
   return (
     <Card style={{ gap: 8 }}>
-      <T bold>🔗 Widget uchun server</T>
-      <T dim size={13}>Day streak serverga yuboriladi — iPhone widgetida ko'rinadi.</T>
+      <T bold>🔗 Server (widget + AI)</T>
+      <T dim size={13}>Widget uchun streak va Speaking/Writing AI shu server orqali ishlaydi.</T>
       <TextInput style={input} placeholder="https://....up.railway.app" placeholderTextColor={C.dim}
         value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
       <TextInput style={input} placeholder="APP_TOKEN" placeholderTextColor={C.dim}

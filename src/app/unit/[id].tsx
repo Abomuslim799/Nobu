@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/constants/theme';
 import { STEPS, UNITS, type StepId, type Unit } from '@/data/units';
 import { useProgress } from '@/lib/progress';
+import { chatTurn, shadowScore, writeCheck, type ChatMsg, type ChatResult, type ShadowResult, type WriteResult } from '@/lib/ai';
 import { say, stopSpeaking } from '@/lib/speak';
 import { QuizRunner, Rich } from '@/ui/choice';
 import { Button, Card, T } from '@/ui/kit';
@@ -235,6 +236,19 @@ function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
     return core.length > 0 && core.every((p) => lower.includes(p.slice(0, Math.max(3, p.length - 2)).toLowerCase()));
   });
   const ready = words >= unit.writing.minWords && used.length >= MIN_MOVIE_WORDS;
+  const [review, setReview] = useState<WriteResult | null>(null);
+  const [checking, setChecking] = useState(false);
+  const [err, setErr] = useState('');
+  const check = async () => {
+    setChecking(true); setErr('');
+    try {
+      setReview(await writeCheck(unit.writing.task, text, unit.level, [...unit.vocab, ...unit.collocations].map((w) => w.word)));
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setChecking(false);
+    }
+  };
 
   return (
     <>
@@ -250,64 +264,171 @@ function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void
         <T color={used.length >= MIN_MOVIE_WORDS ? C.green : C.dim}>{used.length}/{MIN_MOVIE_WORDS} movie so'zi</T>
       </View>
       {used.length > 0 && <T dim size={13}>Ishlatilgan: {used.map((w) => w.word).join(', ')}</T>}
-      <Button label="Topshirish → speaking" disabled={!ready} onPress={() => onDone(used.length)} />
+      <Button kind="ghost" label={checking ? '⏳ Tekshirilmoqda...' : '🤖 AI tekshiruvi'} disabled={!ready || checking} onPress={check} />
+      {!!err && <T color={C.red} size={13}>{err}</T>}
+      {review && (
+        <Card style={{ gap: 6 }}>
+          <T bold>Daraja: {review.level} · {review.score}/100</T>
+          <T size={14}>💡 {review.feedback_uz}</T>
+          {review.corrections.map((c, k) => (
+            <T key={k} size={14}>✏️ <Text style={{ color: C.red }}>{c.wrong}</Text> → <Text style={{ color: C.green }}>{c.right}</Text> · {c.why_uz}</T>
+          ))}
+          <T bold size={14}>Yaxshiroq variant:</T>
+          <T dim size={14}>{review.better}</T>
+        </Card>
+      )}
+      <Button label="Topshirish → speaking" disabled={!ready} onPress={() => onDone(review ? Math.round(review.score / 10) : used.length)} />
     </>
   );
 }
 
-// ── 6. Speaking — shadowing ─────────────────────────────────────────────────
-function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
+// ── 6. Speaking — shadowing (Gemini baholaydi) + suhbat ─────────────────────
+/** Mikrofon bilan yozish: bitta yozuvchi, qaysi narsa yozilayotgani `tag` bilan belgilanadi. */
+function useMic() {
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
-  const [recording, setRecording] = useState<number | null>(null);
-  const [mine, setMine] = useState<Record<number, string>>({});
-
-  const start = async (i: number) => {
+  const [tag, setTag] = useState<string | null>(null);
+  const start = async (t: string) => {
     const perm = await requestRecordingPermissionsAsync();
-    if (!perm.granted) return Alert.alert('Mikrofon', 'Sozlamalar → Expo Go → Mikrofon ruxsatini yoqing.');
+    if (!perm.granted) { Alert.alert('Mikrofon', 'Sozlamalar → Expo Go → Mikrofon ruxsatini yoqing.'); return; }
     stopSpeaking();
     await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
     await recorder.prepareToRecordAsync();
     recorder.record();
-    setRecording(i);
+    setTag(t);
   };
-  const stop = async () => {
+  /** To'xtatadi va yozuv faylini qaytaradi. */
+  const stop = async (): Promise<string | null> => {
     await recorder.stop();
     // Yozib bo'lgach — ovoz yana karnaydan chiqsin (iOS yozish rejimida qulog'i yonidagi dinamikka o'tadi).
     await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
-    if (recording !== null && recorder.uri) setMine((m) => ({ ...m, [recording]: recorder.uri! }));
-    setRecording(null);
+    setTag(null);
+    return recorder.uri ?? null;
   };
+  return { tag, start, stop };
+}
+
+function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
+  const mic = useMic();
+  const [mine, setMine] = useState<Record<number, string>>({});
+  const [score, setScore] = useState<Record<number, ShadowResult | 'wait' | string>>({});
   const playMine = (uri: string) => createAudioPlayer(uri).play();
+
+  const stopLine = async (i: number) => {
+    const uri = await mic.stop();
+    if (uri) setMine((m) => ({ ...m, [i]: uri }));
+  };
+  const rate = async (i: number) => {
+    setScore((x) => ({ ...x, [i]: 'wait' }));
+    try {
+      const r = await shadowScore(mine[i], unit.shadowing[i]);
+      setScore((x) => ({ ...x, [i]: r }));
+    } catch (e) {
+      setScore((x) => ({ ...x, [i]: e instanceof Error ? e.message : String(e) }));
+    }
+  };
 
   return (
     <>
       <Card style={{ gap: 6 }}>
-        <T bold>Shadowing — "soya" usuli</T>
-        <T dim size={14}>1) Asl ovozni eshiting. 2) 🎙 bosib xuddi shunday — urg'u va ohang bilan — takrorlang. 3) O'zingiznikini eshitib solishtiring. Har gapni 3 marta.</T>
+        <T bold>1) Shadowing — talaffuz</T>
+        <T dim size={14}>Asl ovozni eshiting → 🎙 yozing → 📊 Baholash. Gemini aniqlikni %, xato so'zlar va urg'uni ko'rsatadi. 85%+ ga erishguncha takrorlang.</T>
       </Card>
-      {unit.shadowing.map((line, i) => (
-        <Card key={i} style={{ gap: 10 }}>
-          <Text style={s.para}>{line}</Text>
-          <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
-            <SoundButton id={unit.id} part={`sh${i}`} text={line} label="Asl" />
-            {recording === i ? (
-              <Pressable style={[s.ghostBtn, { borderColor: C.red }]} onPress={stop}>
-                <Text style={{ color: C.red, fontWeight: '700' }}>⏹ To'xtatish</Text>
-              </Pressable>
-            ) : (
-              <Pressable style={s.ghostBtn} disabled={recording !== null} onPress={() => start(i)}>
-                <Text style={{ color: C.text, fontWeight: '600' }}>🎙 Yozish</Text>
-              </Pressable>
+      {unit.shadowing.map((line, i) => {
+        const r = score[i];
+        return (
+          <Card key={i} style={{ gap: 10 }}>
+            <Text style={s.para}>{line}</Text>
+            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+              <SoundButton id={unit.id} part={`sh${i}`} text={line} label="Asl" />
+              {mic.tag === `sh${i}` ? (
+                <Pressable style={[s.ghostBtn, { borderColor: C.red }]} onPress={() => stopLine(i)}>
+                  <Text style={{ color: C.red, fontWeight: '700' }}>⏹ To'xtatish</Text>
+                </Pressable>
+              ) : (
+                <Pressable style={s.ghostBtn} disabled={mic.tag !== null} onPress={() => mic.start(`sh${i}`)}>
+                  <Text style={{ color: C.text, fontWeight: '600' }}>🎙 Yozish</Text>
+                </Pressable>
+              )}
+              {mine[i] && (
+                <>
+                  <Pressable style={s.ghostBtn} onPress={() => playMine(mine[i])}>
+                    <Text style={{ color: C.text, fontWeight: '600' }}>▶ Mening ovozim</Text>
+                  </Pressable>
+                  <Pressable style={s.ghostBtn} disabled={r === 'wait'} onPress={() => rate(i)}>
+                    <Text style={{ color: C.green, fontWeight: '700' }}>{r === 'wait' ? '⏳ ...' : '📊 Baholash'}</Text>
+                  </Pressable>
+                </>
+              )}
+            </View>
+            {typeof r === 'string' && r !== 'wait' && <T color={C.red} size={13}>{r}</T>}
+            {r && typeof r === 'object' && (
+              <View style={{ gap: 4 }}>
+                <T bold color={r.accuracy >= 85 ? C.green : r.accuracy >= 60 ? C.text : C.red}>Aniqlik: {r.accuracy}%</T>
+                <T dim size={13}>Eshitildi: “{r.transcript}”</T>
+                {r.wrong_words.map((w, k) => (
+                  <T key={k} size={14}>❌ <Text style={{ fontWeight: '700', color: C.text }}>{w.word}</Text> → “{w.heard}” · {w.tip_uz}</T>
+                ))}
+                {!!r.stress_uz && <T size={14}>🎵 {r.stress_uz}</T>}
+                <T size={14}>💡 {r.feedback_uz}</T>
+              </View>
             )}
-            {mine[i] && (
-              <Pressable style={s.ghostBtn} onPress={() => playMine(mine[i])}>
-                <Text style={{ color: C.text, fontWeight: '600' }}>▶ Mening ovozim</Text>
-              </Pressable>
-            )}
-          </View>
+          </Card>
+        );
+      })}
+      <Conversation unit={unit} mic={mic} />
+      <Button label="Keyingisi: test →" onPress={onDone} />
+    </>
+  );
+}
+
+/** 2) Suhbat: siz ovoz yuborasiz, Gemini film haqida javob beradi va xatolaringizni tuzatadi. */
+function Conversation({ unit, mic }: { unit: Unit; mic: ReturnType<typeof useMic> }) {
+  const [msgs, setMsgs] = useState<(ChatMsg & { fix?: ChatResult })[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  const words = [...unit.vocab, ...unit.collocations].map((w) => w.word);
+
+  const send = async () => {
+    const uri = await mic.stop();
+    if (!uri) return;
+    setBusy(true); setErr('');
+    try {
+      const r = await chatTurn(uri, msgs, unit.source, words);
+      setMsgs((m) => [...m, { role: 'user', text: r.transcript, fix: r }, { role: 'ai', text: r.reply }]);
+      say('chat', 'r', r.reply);           // javobni britancha ovozda o'qiydi
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <>
+      <Card style={{ gap: 6, marginTop: 8 }}>
+        <T bold>2) Suhbat — {unit.source}</T>
+        <T dim size={14}>🎙 bosib inglizcha gapiring (film, qahramonlar, o'z fikringiz). AI javob beradi, savol beradi va xatolaringizni ko'rsatadi. Kamida 5 marta almashing.</T>
+      </Card>
+      {msgs.map((m, i) => (
+        <Card key={i} style={{ gap: 4, borderColor: m.role === 'ai' ? C.green : C.cardBorder }}>
+          <T dim size={12}>{m.role === 'ai' ? '🤖 Nobu' : '🧑 Siz'}</T>
+          <T>{m.text}</T>
+          {m.role === 'ai' && (
+            <Pressable onPress={() => say('chat', 'r', m.text)}><T dim size={13}>🔊 qayta eshitish</T></Pressable>
+          )}
+          {m.fix?.corrections.map((c, k) => (
+            <T key={k} size={14}>✏️ <Text style={{ color: C.red }}>{c.wrong}</Text> → <Text style={{ color: C.green }}>{c.right}</Text> · {c.why_uz}</T>
+          ))}
+          {!!m.fix?.pronunciation_uz && <T size={14}>🗣 {m.fix.pronunciation_uz}</T>}
         </Card>
       ))}
-      <Button label="Keyingisi: test →" onPress={onDone} />
+      {!!err && <T color={C.red} size={13}>{err}</T>}
+      {mic.tag === 'chat' ? (
+        <Button label="⏹ Yuborish" onPress={send} />
+      ) : (
+        <Button kind="ghost" label={busy ? '⏳ Javob kutilmoqda...' : msgs.length ? '🎙 Javob berish' : '🎙 Suhbatni boshlash'}
+          disabled={busy || mic.tag !== null} onPress={() => mic.start('chat')} />
+      )}
     </>
   );
 }
