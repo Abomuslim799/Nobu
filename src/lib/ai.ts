@@ -104,3 +104,20 @@ export interface BrainReport {
 export async function brainReport(data: object): Promise<BrainReport> {
   return post('/api/nobu/brain-report', { data });
 }
+
+// ── Nobu — shaxsiy yordamchi ─────────────────────────────────────────────────
+export interface TutorMsg { role: 'user' | 'nobu'; text: string }
+/** Nobu bilan matnli suhbat (dars yoki statistika konteksti bilan). */
+export async function nobuChat(topic: string, ctx: string, history: TutorMsg[]): Promise<string> {
+  const r = await post<{ reply: string }>('/api/nobu/tutor', { topic, ctx,
+    history: history.map((m) => ({ role: m.role === 'user' ? 'user' : 'model', text: m.text })) });
+  return r.reply;
+}
+
+export interface Overview {
+  summary_uz: string; areas: { area: string; comment_uz: string }[];
+  strengths_uz: string[]; weaknesses_uz: string[]; plan_uz: string[];
+}
+export async function nobuOverview(data: object): Promise<Overview> {
+  return post('/api/nobu/overview', { data });
+}

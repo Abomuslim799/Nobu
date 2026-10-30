@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/constants/theme';
 import { SUBJECTS } from '@/data/subjects';
-import { EnglishFolder, ItFolder } from '@/ui/folders';
+import { EnglishFolder, ItFolder, ScienceFolder } from '@/ui/folders';
 import { T } from '@/ui/kit';
 
 export default function SubjectScreen() {
@@ -26,6 +26,7 @@ export default function SubjectScreen() {
       <ScrollView contentContainerStyle={{ padding: PAD, gap: 12, paddingBottom: insets.bottom + 40 }}>
         {id === 'it' && <ItFolder />}
         {id === 'en' && <EnglishFolder />}
+        {id === 'science' && <ScienceFolder />}
       </ScrollView>
     </View>
   );

@@ -2,6 +2,7 @@
  * Statistika — umumiy natijalar, oxirgi 14 kun grafigi, yo'nalishlar bo'yicha.
  */
 
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Alert, TextInput, View } from 'react-native';
 
@@ -40,6 +41,7 @@ export default function Stats() {
   return (
     <Screen>
       <Title>Statistika</Title>
+      {!FRIENDS && <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu-report')} />}
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <Stat label="Seriya" value={`${streak}🔥`} />

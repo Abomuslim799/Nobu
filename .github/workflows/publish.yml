@@ -33,6 +33,8 @@ jobs:
 
       - run: npm ci
       - run: npx tsc --noEmit
+      - name: Science testlari (fizika va javoblar)
+        run: npx -y esbuild@0.25.0 scripts/test_science.ts --bundle --platform=node --outfile=/tmp/ts.js && node /tmp/ts.js
       - run: npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

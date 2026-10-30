@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GAMES } from '@/data/games';
 import { pushPlan } from '@/lib/sync';
+import { LESSONS as SCI } from '@/science/lessons';
 import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/lib/brain';
 
 import { C } from '@/constants/theme';
@@ -58,6 +59,12 @@ export default function Today() {
         done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/game/${weakGame.id}`) },
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
         done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/game/chess') },
+      ...(() => {
+        const sl = SCI.find((l) => !data.lessons[`sci-${l.id}`]);
+        const doneToday = SCI.some((l) => data.lessons[`sci-${l.id}`]?.day === dayKey());
+        return sl || doneToday ? [{ icon: '🔬', label: sl ? `Science: ${sl.title}` : 'Science: dars tugatildi', sub: sl ? `${sl.sub} · ~${sl.minutes} daq` : '',
+          done: doneToday, go: () => router.push(sl ? `/sci/${sl.id}` : '/subject/science') }] : [];
+      })(),
       { icon: '📚', label: `Kitob · ${todayRead}/${readGoal} daq`, sub: data.activeRead ? "o'qilmoqda" : '',
         done: todayRead >= readGoal, go: () => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library') },
     ]),

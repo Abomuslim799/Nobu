@@ -6,13 +6,14 @@
 
 import { TRACKS } from './tracks';
 import { STEPS, UNITS, stepsDone } from './units';
+import { LESSONS as SCI } from '@/science/lessons';
 
-export interface Subject { id: 'it' | 'en' | 'physics'; title: string; icon: string; color: string; about: string; soon?: boolean }
+export interface Subject { id: 'it' | 'en' | 'science'; title: string; icon: string; color: string; about: string; soon?: boolean }
 
 export const SUBJECTS: Subject[] = [
   { id: 'it', title: 'IT', icon: '💻', color: '#34D399', about: 'Python · TypeScript · Java · SQL · IT so\'zlari' },
   { id: 'en', title: 'Ingliz tili', icon: '🇬🇧', color: '#60A5FA', about: 'Movies: vocab · grammar · reading · listening · writing · speaking' },
-  { id: 'physics', title: 'Fizika', icon: '⚛️', color: '#F59E0B', about: 'Mexanika → energiya → elektr, simulyatsiyalar bilan', soon: true },
+  { id: 'science', title: 'Science', icon: '🔬', color: '#F59E0B', about: 'Matematika · Geometriya · Fizika — simulyatsiyalar va Nobu bilan' },
 ];
 
 export const IT_TRACKS = TRACKS;   // ingliz tili endi faqat film unitlari va kartochkalarda
@@ -26,5 +27,5 @@ export function subjectProgress(id: Subject['id'], data: { lessons: Record<strin
     const steps = UNITS.reduce((a, u) => a + stepsDone(data.unitSteps[u.id]), 0);
     return { done: steps, total: UNITS.length * STEPS.length };
   }
-  return { done: 0, total: 0 };
+  return { done: SCI.filter((l) => data.lessons[`sci-${l.id}`]).length, total: SCI.length };
 }

@@ -18,23 +18,23 @@ import { Button, T } from '@/ui/kit';
 
 export default function Live() {
   const insets = useSafeAreaInsets();
-  const { topic = 'everyday life', words = '' } = useLocalSearchParams<{ topic: string; words?: string }>();
+  const { topic = 'everyday life', words = '', mode = 'english', ctx = '' } = useLocalSearchParams<{ topic: string; words?: string; mode?: string; ctx?: string }>();
   const [url, setUrl] = useState<string | null>(null);
   const [noServer, setNoServer] = useState(false);
 
   useEffect(() => {
     getConfig().then((c) => {
       if (!c) { setNoServer(true); return; }
-      const hash = new URLSearchParams({ token: c.token, topic, words }).toString();
+      const hash = new URLSearchParams({ token: c.token, topic, words, mode, ctx }).toString();
       setUrl(`${c.url}/live.html#${hash}`);
     });
-  }, [topic, words]);
+  }, [topic, words, mode, ctx]);
 
   return (
     <View style={[s.root, { paddingTop: insets.top }]}>
       <View style={s.top}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={22}>‹</T></Pressable>
-        <T bold style={{ flex: 1 }}>📞 Jonli suhbat</T>
+        <T bold style={{ flex: 1 }}>{mode === 'nobu' ? '📞 Nobu' : '📞 Jonli suhbat'}</T>
         {url && <Pressable onPress={() => Linking.openURL(url)}><T dim size={13}>Safari'da ochish</T></Pressable>}
       </View>
       {noServer ? (
@@ -53,7 +53,7 @@ export default function Live() {
           onMessage={(e) => {
             try {
               const m = JSON.parse(e.nativeEvent.data);
-              if (m.type === 'live-result') logSkill('speaking', m.score, `Jonli · ${m.topic}`, m.mistakes ?? []);
+              if (m.type === 'live-result' && mode !== 'nobu') logSkill('speaking', m.score, `Jonli · ${m.topic}`, m.mistakes ?? []);
             } catch { /* boshqa xabar */ }
           }}
         />
