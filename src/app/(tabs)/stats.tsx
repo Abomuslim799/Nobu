@@ -9,6 +9,7 @@ import { C } from '@/constants/theme';
 import { TRACKS } from '@/data/tracks';
 import { useProgress } from '@/lib/progress';
 import { pickBackup, exportBackup } from '@/lib/backup';
+import { backupNow, lastBackup, restoreLatest } from '@/lib/cloudBackup';
 import { FRIENDS, IS_WEB } from '@/lib/edition';
 import { lastDays } from '@/lib/streak';
 import { getConfig, saveConfig, testConnection } from '@/lib/sync';
@@ -145,7 +146,44 @@ function ServerLink() {
         value={token} onChangeText={setToken} autoCapitalize="none" autoCorrect={false} secureTextEntry />
       <Button label="Saqlash va tekshirish" onPress={save} />
       {!!status && <T dim size={13}>{status}</T>}
+      <BackupBox />
     </Card>
+  );
+}
+
+function BackupBox() {
+  const [info, setInfo] = useState('');
+  const [busy, setBusy] = useState(false);
+  const refresh = () => lastBackup()
+    .then((b) => setInfo(b.ts ? `Oxirgi zaxira: ${b.ts.slice(0, 16).replace('T', ' ')} · ${Math.round((b.size ?? 0) / 1024)} KB` : "Serverda zaxira hali yo'q"))
+    .catch((e) => setInfo(e instanceof Error ? e.message : String(e)));
+  useEffect(() => { refresh(); }, []);
+  const run = async (f: () => Promise<unknown>) => {
+    setBusy(true);
+    try { await f(); await refresh(); } catch (e) { setInfo(`Xato: ${e instanceof Error ? e.message : String(e)}`); } finally { setBusy(false); }
+  };
+  const save = () => run(async () => {
+    try { await backupNow(); } catch (e) {
+      if (!String(e).includes('kichik')) throw e;
+      await new Promise<void>((ok, no) => Alert.alert('Zaxira avvalgisidan ancha kichik',
+        "Telefondagi ma'lumot serverdagidan kam. Baribir saqlaysizmi? (Yangi telefon bo'lsa — avval 'Tiklash' ni bosing.)",
+        [{ text: 'Bekor', style: 'cancel', onPress: () => no(new Error('bekor qilindi')) },
+         { text: 'Baribir saqlash', style: 'destructive', onPress: () => backupNow(true).then(() => ok(), no) }]));
+    }
+  });
+  const restore = () => Alert.alert('Serverdan tiklash',
+    "Telefondagi joriy progress oxirgi zaxira bilan almashtiriladi va ilova qayta yuklanadi.",
+    [{ text: 'Bekor', style: 'cancel' }, { text: 'Tiklash', style: 'destructive', onPress: () => run(restoreLatest) }]);
+  return (
+    <View style={{ gap: 8, marginTop: 6 }}>
+      <T bold>💾 Zaxira</T>
+      <T dim size={13}>Har kuni ilova ochilganda avtomatik saqlanadi (oxirgi 14 kun serverda).</T>
+      {!!info && <T dim size={13}>{info}</T>}
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flex: 1 }}><Button kind="ghost" label={busy ? '⏳...' : 'Hozir saqlash'} disabled={busy} onPress={save} /></View>
+        <View style={{ flex: 1 }}><Button kind="ghost" label="Tiklash" disabled={busy} onPress={restore} /></View>
+      </View>
+    </View>
   );
 }
 

@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { bestStreak, currentStreak, dayKey } from './streak';
+import { autoBackup } from './cloudBackup';
 import { pushStatus } from './sync';
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
@@ -296,6 +297,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (ready) pushStatus({ streak: value.streak, best: value.best, today: todayActive });
   }, [ready, value.streak, value.best, todayActive]);
+  useEffect(() => { if (ready) autoBackup(); }, [ready]);   // kuniga bir marta serverga zaxira
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
 }
