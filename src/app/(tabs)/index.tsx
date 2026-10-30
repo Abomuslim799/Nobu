@@ -1,9 +1,13 @@
 /**
- * Bugun — streak, kunlik maqsad, keyingi dars va haftalik faollik.
+ * Bugun — streak, aniq kunlik reja (takror, movie qadami, zaif miya ko'nikmasi, shaxmat, kitob) va haftalik faollik.
  */
 
-import { router } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { GAMES } from '@/data/games';
+import { pushPlan } from '@/lib/sync';
+import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/lib/brain';
 
 import { C } from '@/constants/theme';
 import { ALL_LESSONS } from '@/data/tracks';
@@ -25,14 +29,44 @@ export default function Today() {
   const quote = quoteOfDay(data.quotes);
   // Keyingi dars — hali tugatilmaganlarning birinchisi.
   const next = ALL_LESSONS.find(({ lesson }) => !data.lessons[lesson.id]);
-  const goals = [
-    { done: today.lessons >= 1, label: '1 dars' },
-    { done: today.games >= 1, label: '1 miya mashqi' },
-    ...(FRIENDS ? [{ done: (today.cards ?? 0) >= 10, label: `${today.cards ?? 0}/10 kartochka` }]
-      : [{ done: todayRead >= readGoal, label: `${todayRead}/${readGoal} daq kitob` }]),
-  ];
   const unit = UNITS.find((u) => stepsDone(data.unitSteps[u.id]) < STEPS.length) ?? UNITS[0];
+  const nextStep = STEPS.find((st) => !(data.unitSteps[unit.id] ?? []).includes(st.id)) ?? STEPS[0];
+
+  // Miya jurnali — ekranga qaytganda yangilanadi
+  const [log, setLog] = useState<BrainEntry[]>([]);
+  useFocusEffect(useCallback(() => { getBrainLog().then(setLog); }, []));
+  const start = new Date(); start.setHours(0, 0, 0, 0);
+  const todayLog = log.filter((e) => e.at >= start.getTime());
+
+  // Eng zaif ko'nikma: hali o'ynalmagan yoki oxirgi natijalari eng past (shaxmat alohida rejada)
+  const weak = brainStats(log).filter((x) => x.skill !== 'chess')
+    .sort((a, b) => (a.count ? a.recent : -1) - (b.count ? b.recent : -1))[0];
+  const weakGames = GAMES.filter((g) => g.skill === weak.skill && !g.ai);
+  const weakGame = weakGames[new Date().getDate() % Math.max(1, weakGames.length)] ?? GAMES[1];
+  const weakTitle = BRAIN_SKILLS.find((x) => x.id === weak.skill)?.title ?? '';
+
+  const due = Object.values(data.cards).filter((c) => c.due <= Date.now()).length;
+  const cardGoal = Math.min(20, Math.max(10, due + (today.cards ?? 0)));
+
+  const goals = [
+    { icon: '🎴', label: `So'z takrori · ${today.cards ?? 0}/${cardGoal}`, sub: due ? `${due} ta so'z takror kutmoqda` : 'Yangi so\'zlar',
+      done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/cards') },
+    { icon: unit.emoji, label: `Movie: ${unit.source} — ${nextStep.title}`, sub: `${stepsDone(data.unitSteps[unit.id])}/${STEPS.length} qadam`,
+      done: (today.steps ?? 0) >= 1, go: () => router.push(`/unit/${unit.id}`) },
+    ...(FRIENDS ? [] : [
+      { icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
+        done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/game/${weakGame.id}`) },
+      { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
+        done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/game/chess') },
+      { icon: '📚', label: `Kitob · ${todayRead}/${readGoal} daq`, sub: data.activeRead ? "o'qilmoqda" : '',
+        done: todayRead >= readGoal, go: () => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library') },
+    ]),
+  ];
   const goalDone = goals.filter((g) => g.done).length;
+  const leftKey = goals.filter((g) => !g.done).map((g) => `${g.icon} ${g.label}`).join('|');
+  useEffect(() => {
+    pushPlan({ done: goalDone, total: goals.length, left: leftKey ? leftKey.split('|') : [] });
+  }, [goalDone, goals.length, leftKey]);
 
   return (
     <Screen>
@@ -46,10 +80,20 @@ export default function Today() {
         </View>
       </Card>
 
-      <Card>
-        <T bold>Kunlik maqsad · {goalDone}/{goals.length}</T>
+      <Card style={{ gap: 10 }}>
+        <T bold>{goalDone === goals.length ? '✅ Bugungi reja bajarildi' : `Bugungi reja · ${goalDone}/${goals.length}`}</T>
         <Bar value={goalDone / goals.length} />
-        <T dim>{goals.map((g) => `${g.done ? '✓' : '○'} ${g.label}`).join('   ')}   · {today.xp} XP</T>
+        {goals.map((g) => (
+          <Pressable key={g.label} onPress={g.go} style={({ pressed }) => [s.row, g.done && s.rowDone, pressed && { opacity: 0.7 }]}>
+            <Text style={{ fontSize: 22 }}>{g.done ? '✅' : g.icon}</Text>
+            <View style={{ flex: 1 }}>
+              <T bold={!g.done} dim={g.done} size={15}>{g.label}</T>
+              {!!g.sub && <T dim size={12}>{g.sub}</T>}
+            </View>
+            {!g.done && <T dim>›</T>}
+          </Pressable>
+        ))}
+        <T dim size={12}>{today.xp} XP bugun</T>
       </Card>
 
       <Card>
@@ -68,19 +112,9 @@ export default function Today() {
         </View>
       </Card>
 
-      {FRIENDS ? (
-        <Card>
-          <T dim>Ingliz tili · {unit.emoji} {unit.source}</T>
-          <T size={18} bold>{unit.title}</T>
-          <T dim>{stepsDone(data.unitSteps[unit.id])}/{STEPS.length} qadam</T>
-          <Button label="Davom etish" onPress={() => router.push(`/unit/${unit.id}`)} />
-        </Card>
-      ) : null}
 
       {!FRIENDS && quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
 
-      {!FRIENDS && <Button kind="ghost" label={data.activeRead ? '⏱ Kitob o\'qilmoqda — tugatish' : '📚 Kitob o\'qish'}
-        onPress={() => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library')} />}
 
       {FRIENDS ? null : next ? (
         <Card>
@@ -93,8 +127,6 @@ export default function Today() {
         <Card><T>Barcha darslar tugadi. Yangilari tez orada!</T></Card>
       )}
 
-      <Button kind="ghost" label="⚡ Miya mashqi — 60 soniya" onPress={() => router.push('/game/speed-math')} />
-      <Button kind="ghost" label="🎴 So'z kartochkalari" onPress={() => router.push('/cards')} />
       <T dim size={12}>Nobu v{VERSION} · ovoz: {Object.keys(AUDIO).length ? `Ryan (${Object.keys(AUDIO).length} so'z)` : 'telefon'}</T>
     </Screen>
   );
@@ -103,6 +135,8 @@ export default function Today() {
 const s = StyleSheet.create({
   fire: { fontSize: 44 },
   week: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 10, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.04)' },
+  rowDone: { opacity: 0.6 },
   dot: { width: 26, height: 26, borderRadius: 13, backgroundColor: 'rgba(255,255,255,0.07)' },
   dotOn: { backgroundColor: C.green },
   dotToday: { borderWidth: 2, borderColor: C.fire },

@@ -20,7 +20,7 @@ import { pushStatus } from './sync';
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
-export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; xp: number }   // read — daqiqa
+export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; steps?: number; xp: number }   // steps — movie qadamlari   // read — daqiqa
 /** So'z kartochkasi holati (Leitner tizimi — Nobu'dagidek). */
 export interface CardState { box: number; due: number }   // due — ms (Date.now() formati)
 export interface CustomWord { id: string; word: string; translation: string; example: string; image?: string }
@@ -124,7 +124,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     if (ready) AsyncStorage.setItem(KEY, JSON.stringify(data)).catch(() => {});
   }, [data, ready]);
 
-  const bump = (d: Data, field: 'lessons' | 'games' | 'cards' | 'read', xp: number, amount = 1, key = dayKey()): Data['days'] => {
+  const bump = (d: Data, field: 'lessons' | 'games' | 'cards' | 'read' | 'steps', xp: number, amount = 1, key = dayKey()): Data['days'] => {
     const day = d.days[key] ?? { lessons: 0, games: 0, xp: 0 };
     return { ...d.days, [key]: { ...day, [field]: (day[field] ?? 0) + amount, xp: day.xp + xp } };
   };
@@ -210,7 +210,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return {
         ...d,
         unitSteps: first ? { ...d.unitSteps, [unitId]: [...done, step] } : d.unitSteps,
-        days: bump(d, 'lessons', (first ? 8 : 3) + score),
+        days: bump({ ...d, days: bump(d, 'lessons', (first ? 8 : 3) + score) }, 'steps', 0),
       };
     });
   }, []);
