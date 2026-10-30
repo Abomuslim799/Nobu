@@ -56,6 +56,7 @@ const big = period(1, 160).T / pendulumPeriodSmall(g, 1); ok(big > 1.9 && big < 
 
 // 7) Darslar: tuzilish va sonli javoblar mustaqil hisob bilan
 const expect: Record<string, number> = {
+  'm0-1': 3, 'm0-2': (8 - 2) / (3 - 1), 'm0-3': 120 / 2,
   'm1-1': (3.1 ** 2 - 9) / 0.1, 'm1-2': 10 * 2 - 4, 'm1-3': 8 * 3, 'm1-4': Math.cos(0),
   'm2-1': 9, 'm2-2': 2 ** 3, 'm2-3': riemann((x) => x * x, 0, 2, 2, 'left').sum,
   'g1-1': Math.sin((210 * Math.PI) / 180), 'g1-2': Math.PI / 2, 'g1-3': Math.cos((300 * Math.PI) / 180), 'g1-4': Math.sqrt(1 - 0.36),
@@ -71,7 +72,7 @@ for (const l of LESSONS) {
   for (const n of l.needs ?? []) ok(LESSONS.some((x) => x.id === n), `${l.id}: yo'q dars ${n}`);
   for (const b of l.blocks) {
     if (b.k === 'predict' || b.k === 'choice') ok(b.options.includes(b.answer), `${l.id}: javob variantlarda yo'q — ${b.q}`);
-    if (b.k === 'sim') ok(['derivative', 'integral', 'unitcircle', 'vectors', 'motion', 'projectile', 'pendulum'].includes(b.id), `${l.id}: sim ${b.id}`);
+    if (b.k === 'sim') ok(['slope', 'derivative', 'integral', 'unitcircle', 'vectors', 'motion', 'projectile', 'pendulum'].includes(b.id), `${l.id}: sim ${b.id}`);
     if (b.k === 'ex') {
       ok(b.id in expect, `${b.id}: mustaqil tekshiruv yo'q`);
       if (b.id in expect) {

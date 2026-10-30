@@ -26,16 +26,33 @@ export const AREAS: { id: Area; title: string; icon: string; color: string; abou
 export const LESSONS: SciLesson[] = [
   // ════════════════════════ MATEMATIKA ════════════════════════
   {
-    id: 'm1', area: 'math', n: 1, title: 'Hosila — lahzadagi o\'zgarish tezligi', sub: 'Kesuvchidan urinmaga', minutes: 20,
+    id: 'm0', area: 'math', n: 1, title: 'Qiyalik — chiziq qanchalik tik', sub: 'Hosilaga birinchi qadam', minutes: 12,
     blocks: [
-      { k: 'nobu', text: "Litseydan (x²)′ = 2x ni yodlagansiz. Bugun formulani emas, uning ma'nosini ko'ramiz: hosila — biror narsa aynan shu lahzada qanchalik tez o'zgarayotgani. Fizikadagi tezlik, tezlanish, quvvat — hammasi hosila." },
+      { k: 'nobu', text: "Hosiladan oldin bitta oddiy tushuncha kerak: qiyalik. Keyingi barcha darslar shunga tayanadi." },
+      { k: 'predict', q: "Qaysi yo'l tikroq?", options: ["10 m yurganda 2 m ko'tariladi", "10 m yurganda 5 m ko'tariladi", 'Bir xil'],
+        answer: "10 m yurganda 5 m ko'tariladi", reveal: "Ko'tarilishni yurishga bo'lamiz: 5 / 10 = 0.5, 2 / 10 = 0.2. Kattasi — tikroq. Shu son qiyalik deyiladi." },
+      { k: 'sim', id: 'slope', task: "k ni o'zgartiring. Sariq uchburchakka qarang: x 1 qadam o'ngga yursa, y qanchaga ko'tariladi?" },
+      { k: 'law', title: 'Qiyalik', formula: ['k = Δy / Δx'], meaning: "x 1 ga oshganda y qanchaga o'zgarishi. k > 0 — chiziq ko'tariladi, k < 0 — tushadi, k = 0 — gorizontal." },
+      { k: 'choice', q: "Chiziq chapdan o'ngga qarab pastga tushyapti. Qiyaligi qanday?", options: ['Musbat', 'Manfiy', 'Nol'], answer: 'Manfiy',
+        why: "x oshganda y kamayadi: Δy manfiy, Δx musbat — nisbati manfiy." },
+      { k: 'ex', id: 'm0-1', q: "y = 3x − 4 chizig'ining qiyaligi?", answer: 3, hint: "y = k·x + b ko'rinishida k — x oldidagi son", solution: 'k = 3: x 1 ga oshsa, y 3 ga oshadi.' },
+      { k: 'ex', id: 'm0-2', q: "Chiziq (1; 2) va (3; 8) nuqtalardan o'tadi. Qiyaligi?", answer: 3, hint: 'Δy / Δx = (8 − 2) / (3 − 1)', solution: '6 / 2 = 3.' },
+      { k: 'ex', id: 'm0-3', q: "Mashina yo'li grafigi: t = 0 da 0 km, t = 2 soatda 120 km (to'g'ri chiziq). Grafik qiyaligi?", answer: 60, unit: 'km/soat',
+        hint: 'Δx / Δt', solution: "120 / 2 = 60 km/soat. Yo'l–vaqt grafigining qiyaligi — tezlik. Bu fizikadagi eng muhim bog'lanishlardan biri." },
+      { k: 'nobu', text: "To'g'ri chiziqning qiyaligi hamma joyda bir xil. Egri chiziqda esa har nuqtada boshqacha. Bitta nuqtadagi qiyalikni topish — keyingi dars: hosila." },
+    ],
+  },
+  {
+    id: 'm1', area: 'math', n: 2, needs: ['m0'], title: 'Hosila — lahzadagi o\'zgarish tezligi', sub: 'Kesuvchidan urinmaga', minutes: 20,
+    blocks: [
+      { k: 'nobu', text: "Oldingi darsda to'g'ri chiziqning qiyaligini topdik. Endi egri chiziq: uning bitta nuqtadagi qiyaligi — hosila." },
       { k: 'predict', q: "Mashina 2 soatda 120 km yurdi. 1-soat oxirida spidometr aniq 60 km/soat ko'rsatganmi?",
         options: ['Ha, albatta', "Yo'q, shart emas", "Spidometr bilan bog'liq emas"], answer: "Yo'q, shart emas",
         reveal: "120 / 2 = 60 — bu o'rtacha tezlik. Lahzadagi tezlik butunlay boshqacha bo'lishi mumkin (svetoforda 0, trassada 100). Lahzadagi tezlikni topish uchun oraliqni juda kichik qilib olish kerak — hosila g'oyasi shu." },
-      { k: 'text', text: "Ikki nuqta orasidagi o'rtacha o'zgarish tezligi: Δy / Δx = (f(x + h) − f(x)) / h. Grafikda bu — ikki nuqtadan o'tgan kesuvchi chiziqning qiyaligi. Endi h ni kichraytirib ko'ramiz." },
+      { k: 'text', text: "G'oya: egri chiziqda ikkita yaqin nuqta olamiz va ular orqali to'g'ri chiziq o'tkazamiz (kesuvchi). Uning qiyaligini topish oson. Nuqtalarni bir-biriga yaqinlashtirsak — kesuvchi urinmaga aylanadi." },
       { k: 'sim', id: 'derivative', task: "h ni 2 dan 0.01 gacha asta kamaytiring. Pushti kesuvchi chiziq nimaga aylanyapti? Uning qiyaligi qaysi songa yaqinlashyapti?" },
       { k: 'law', title: 'Hosilaning ta\'rifi', formula: ["f′(x) = lim (h → 0) [f(x + h) − f(x)] / h"],
-        meaning: "Hosila — grafikka shu nuqtada o'tkazilgan urinmaning qiyaligi. h nolga intilganda kesuvchi urinmaga aylanadi. Fizikada: yo'l x(t) dan hosila — tezlik v(t), tezlikdan hosila — tezlanish a(t)." },
+        meaning: "Hosila — shu nuqtadagi urinmaning qiyaligi. Fizikada: yo'ldan hosila — tezlik, tezlikdan hosila — tezlanish." },
       { k: 'example', title: "(x²)′ = 2x ni ta'rifdan chiqaramiz", steps: [
         'f(x + h) − f(x) = (x + h)² − x² = x² + 2xh + h² − x² = 2xh + h²',
         "h ga bo'lamiz: (2xh + h²) / h = 2x + h",
@@ -56,7 +73,7 @@ export const LESSONS: SciLesson[] = [
     ],
   },
   {
-    id: 'm2', area: 'math', n: 2, title: "Integral — yig'indidan yuzaga", sub: "To'rtburchaklar → aniq yuza", minutes: 20, needs: ['m1'],
+    id: 'm2', area: 'math', n: 3, title: "Integral — yig'indidan yuzaga", sub: "To'rtburchaklar → aniq yuza", minutes: 20, needs: ['m1'],
     blocks: [
       { k: 'nobu', text: "Hosila savoli: 'qanchalik tez o'zgaryapti?'. Integral teskari savol beradi: 'tezlik ma'lum — jami qancha to'plandi?'. Yurilgan yo'l, bajarilgan ish, sarflangan energiya — bular integral." },
       { k: 'predict', q: "Mashina 3 soat davomida 40 km/soat bilan yurdi. Tezlik–vaqt grafigida yurilgan yo'l nimaga teng?",
@@ -194,3 +211,22 @@ export function lessonContext(l: SciLesson) {
     b.k === 'example' ? `Misol: ${b.title}: ${b.steps.join(' ')}` : '');
   return `Dars: ${l.title} (${AREAS.find((a) => a.id === l.area)?.title}).\n${parts.filter(Boolean).join('\n')}`.slice(0, 6000);
 }
+
+/** Atamalar lug'ati — darsdagi matnda bosilsa, qisqa izoh chiqadi. */
+export const GLOSSARY: Record<string, string> = {
+  'qiyalik': "Chiziq qanchalik tik: x 1 ga oshganda y qanchaga o'zgaradi (Δy/Δx).",
+  'kesuvchi': "Egri chiziqning ikki nuqtasidan o'tgan to'g'ri chiziq.",
+  'urinma': "Egri chiziqqa bitta nuqtada tegib o'tadigan to'g'ri chiziq — shu nuqtadagi yo'nalish.",
+  'hosila': "Bir nuqtadagi qiyalik = lahzadagi o'zgarish tezligi.",
+  'integral': "Ko'p kichik bo'laklar yig'indisi; grafik ostidagi yuza.",
+  'funksiya': "Har bir x ga bitta y mos keladigan qoida, masalan y = x².",
+  'limit': "Qiymat biror songa cheksiz yaqinlashganda nimaga intilishi.",
+  'radian': "Burchak o'lchovi: 180° = π rad ≈ 3.14 rad.",
+  'vektor': "Kattaligi ham, yo'nalishi ham bor kattalik (tezlik, kuch).",
+  "tashkil etuvchi": "Vektorning gorizontal (x) yoki vertikal (y) qismi.",
+  'tezlanish': "Tezlikning o'zgarish tezligi (m/s²).",
+  'amplituda': "Tebranishdagi eng katta og'ish.",
+  'davr': "Bitta to'liq tebranish uchun ketgan vaqt.",
+  'sinusoida': "sin funksiyasining to'lqinsimon grafigi.",
+  'parabola': "y = x² ko'rinishidagi egri chiziq; otilgan jism traektoriyasi.",
+};

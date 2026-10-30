@@ -22,14 +22,17 @@ const STARTERS: Record<string, string[]> = {
 
 export default function NobuChat() {
   const insets = useSafeAreaInsets();
-  const { key = 'stats' } = useLocalSearchParams<{ key?: string }>();
+  const { key = 'stats', step } = useLocalSearchParams<{ key?: string; step?: string }>();
   const [ctx, setCtx] = useState<{ topic: string; ctx: string } | null>(null);
   const [msgs, setMsgs] = useState<TutorMsg[]>([]);
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const scroll = useRef<ScrollViewInstance>(null);
-  useEffect(() => { buildContext(key).then(setCtx); }, [key]);
+  useEffect(() => { buildContext(key, step !== undefined ? Number(step) : undefined).then(setCtx); }, [key, step]);
+  // Darsdagi "Tushunmadim" — Nobu o'zi boshlaydi
+  const asked = useRef(false);
+  useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib ber.'); } }, [ctx]);   // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 100); }, [msgs, busy]);
 
   const send = async (q: string) => {

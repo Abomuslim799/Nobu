@@ -54,7 +54,8 @@ export default function QuizScreen() {
   }, [done, deck, score, questions.length, recordGame, missed]);
 
   const choose = (option: string) => {
-    if (picked) return;
+    const q = questions[idx];               // render paytida emas, bosilganda (oxirida q = undefined bo'ladi)
+    if (picked || !q) return;
     setPicked(option);
     const ok = option === q.answer;
     if (ok) setScore((sc) => sc + 1);

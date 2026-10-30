@@ -50,8 +50,12 @@ export default function CardsScreen() {
   const learned = pool.filter((w) => (data.cards[w.id]?.box ?? 0) >= 3).length;
   const card = queue[pos];
 
+  // Diqqat: `card.id` ni bu yerda yozmaymiz — React Compiler uni render paytida o'qiydi va sessiya oxirida
+  // (card = undefined) ilova qulab, qora ekran bo'lib qolardi. Kartani bosilgan paytda olamiz.
   const answer = (knew: boolean) => {
-    reviewCard(card.id, knew);
+    const c = queue[pos];
+    if (!c) return;
+    reviewCard(c.id, knew);
     setStats((st) => (knew ? { ...st, knew: st.knew + 1 } : { ...st, missed: st.missed + 1 }));
     setPos((p) => p + 1);
   };
@@ -88,7 +92,7 @@ export default function CardsScreen() {
             <T size={22} bold>{queue.length ? 'Sessiya tugadi' : 'Hozircha takror yo\'q'}</T>
             {queue.length > 0 && <T dim>Bildim: {stats.knew} · Bilmadim: {stats.missed}</T>}
             <T dim>O'rganilgan: {learned}/{pool.length} · Navbatda: {dueCount}</T>
-            {dueCount > 0 && <Button label="Yana" onPress={restart} />}
+            {dueCount > 0 && <View style={{ alignSelf: 'stretch' }}><Button label="Yana" onPress={restart} /></View>}
           </Card>
         )}
 
@@ -100,7 +104,7 @@ export default function CardsScreen() {
               .filter((d) => all.filter((w) => w.deck === d).length >= 4)
               .map((d) => (
                 <Pressable key={d} style={s.chip} onPress={() => router.push(`/quiz?deck=${d}`)}>
-                  <T bold color={C.green}>{DECKS[d]}</T>
+                  <Text numberOfLines={1} style={{ color: C.green, fontWeight: '700', fontSize: 15 }}>{DECKS[d]}</Text>
                 </Pressable>
               ))}
           </View>
@@ -267,7 +271,7 @@ const s = StyleSheet.create({
   emoji: { fontSize: 64 },
   photo: { width: '100%', height: 150, borderRadius: R },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' },
-  chip: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: 14, backgroundColor: C.greenSoft },
+  chip: { maxWidth: '100%', paddingHorizontal: 14, paddingVertical: 10, borderRadius: 14, backgroundColor: C.greenSoft },
   myRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   input: {
     color: C.text, fontSize: 16, padding: 12, borderRadius: 12,
