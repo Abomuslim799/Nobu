@@ -78,6 +78,11 @@ export default function Today() {
   return (
     <Screen>
       <Title sub="Har kuni oz-ozdan — ming kunda usta.">Bugun</Title>
+      {VERSION.startsWith('sinov') && (
+        <View style={{ padding: 10, borderRadius: 12, backgroundColor: 'rgba(251,191,36,0.15)', borderWidth: 1, borderColor: '#FBBF24' }}>
+          <T bold color="#FBBF24">🧪 SINOV versiyasi ({VERSION}) — asosiy ilova emas</T>
+        </View>
+      )}
 
       <Card style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
         <Text style={s.fire}>{streak > 0 ? '🔥' : '🪵'}</Text>

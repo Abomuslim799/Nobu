@@ -1,10 +1,12 @@
 # GitHub'ga push qilinganda ilovani avtomatik yangilaydi (EAS Update).
-# Telefonda Expo Go → Projects → nobu-dojo → main. PC terminal kerak emas.
+#   main    → asosiy ilova (har kuni ishlatiladigan, widget shu yerga ochadi)
+#   preview → SINOV versiyasi: alohida havola bilan ochiladi, asosiy ilovaga tegmaydi.
+#             Sinab ko'rilib ma'qullangach, preview → main ga qo'shiladi.
 # Bir martalik sozlash: repo → Settings → Secrets → Actions → EXPO_TOKEN.
 name: publish
 on:
   push:
-    branches: [main]
+    branches: [main, preview]
   workflow_dispatch:
 jobs:
   update:
@@ -23,7 +25,8 @@ jobs:
       - name: Versiya
         run: |
           n=$(( ${{ github.run_number }} - 3 ))
-          echo "EXPO_PUBLIC_VERSION=$(( 1 + n / 100 )).$(printf '%02d' $(( n % 100 )))" >> "$GITHUB_ENV"
+          if [ "${GITHUB_REF_NAME}" = "preview" ]; then v="sinov-$n"; else v="$(( 1 + n / 100 )).$(printf '%02d' $(( n % 100 )))"; fi
+          echo "EXPO_PUBLIC_VERSION=$v" >> "$GITHUB_ENV"
 
       # Ovozlar: London erkak (en-GB Ryan) va o'zbekcha (uz-UZ Sardor). Xato bo'lsa — telefon ovozi.
       - name: Ovozlar
@@ -35,6 +38,13 @@ jobs:
       - run: npx tsc --noEmit
       - name: Science testlari (fizika va javoblar)
         run: npx -y esbuild@0.25.0 scripts/test_science.ts --bundle --platform=node --outfile=/tmp/ts.js && node /tmp/ts.js
-      - run: npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+      - name: Nashr (main — asosiy, preview — sinov)
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "preview" ]; then
+            npx eas-cli@latest channel:create preview --non-interactive || true
+            npx eas-cli@latest update --channel preview --message "SINOV — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+          else
+            npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+          fi
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
