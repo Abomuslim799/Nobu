@@ -8,6 +8,9 @@ on:
   push:
     branches: [main, preview]
   workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write        # sinov havolasini commit holatiga yozish uchun
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -43,8 +46,12 @@ jobs:
           if [ "${GITHUB_REF_NAME}" = "preview" ]; then
             npx eas-cli@latest channel:create preview --non-interactive || true
             npx eas-cli@latest update --channel preview --message "SINOV — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+            # Sinov havolasi uchun branch ID — commit holatiga yoziladi (GitHub'da ko'rinadi)
+            bid=$(npx eas-cli@latest branch:view preview --json --non-interactive | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('id') or d.get('branch',{}).get('id',''))" || true)
+            gh api "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" -f state=success -f context=preview-link -f description="branch:${bid}" || true
           else
             npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
           fi
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
