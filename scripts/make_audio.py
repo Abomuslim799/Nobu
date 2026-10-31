@@ -38,6 +38,26 @@ def words() -> list[dict]:
     return out
 
 
+# Doska ovozi uchun talaffuz: faqat YOLG'IZ turgan harflar almashadi ("yaxshi", "xona" ga tegilmaydi)
+SAY_FIX = [
+    (re.compile(r"Δ\s*"), "delta "),                       # avval Δ — keyin harflar
+    (re.compile(r"(?<![\w'’])[xX](?![\w'’])"), "iks"),
+    (re.compile(r"(?<![\w'’])[yY](?![\w'’])"), "igrek"),
+    (re.compile(r"(?<![\w'’])delta(?![\w'’])", re.I), "del-ta"),
+]
+
+
+def say_text(t: str) -> str:
+    for rx, rep in SAY_FIX:
+        t = rx.sub(rep, t)
+    return t
+
+
+# O'z-o'zini tekshirish: o'zbekcha so'zlar buzilmasin
+assert say_text("yaxshi xona yo'l") == "yaxshi xona yo'l"
+assert say_text("Δy bo'linsin x") == "del-ta igrek bo'linsin iks"
+
+
 async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> bool:
     if path.exists() and path.stat().st_size > 0:
         return True
@@ -77,7 +97,7 @@ async def main() -> None:
     boards = []
     for path in sorted((ROOT / "src" / "science" / "boards").glob("*.json")):
         b = json.loads(path.read_text(encoding="utf-8"))
-        boards += [(f"sci-{b['id']}", f"b{i}", st["say"], UZ) for i, st in enumerate(b["steps"])]
+        boards += [(f"sci-{b['id']}", f"b{i}", say_text(st["say"]), UZ) for i, st in enumerate(b["steps"])]
     for wid, part, text, voice in texts + unit_texts() + boards:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))

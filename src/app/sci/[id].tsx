@@ -6,7 +6,8 @@
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, type ScrollViewInstance } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -65,7 +66,28 @@ export default function SciLesson() {
   const [finished, setFinished] = useState(false);
   const res = useRef<Res>({ answers: {}, predicts: {}, mistakes: {} });
   const scroll = useRef<ScrollViewInstance>(null);
+
+  // Qolgan joydan davom ettirish: qadam, o'tilgan qadamlar va javoblar telefonda saqlanadi
+  const posKey = `nobu.sci.pos.${id}`;
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    AsyncStorage.getItem(posKey).then((raw) => {
+      try {
+        const p = raw ? JSON.parse(raw) : null;
+        if (p && lesson && p.i < lesson.blocks.length) { setI(p.i); setResolved(p.resolved ?? {}); res.current = p.res ?? res.current; }
+      } catch { /* buzilgan yozuv — boshidan */ }
+      setLoaded(true);
+    });
+  }, [posKey]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!loaded) return;
+    if (finished) AsyncStorage.removeItem(posKey).catch(() => {});
+    else AsyncStorage.setItem(posKey, JSON.stringify({ i, resolved, res: res.current })).catch(() => {});
+  }, [i, resolved, finished, loaded, posKey]);
+  const restart = () => { res.current = { answers: {}, predicts: {}, mistakes: {} }; setResolved({}); setFinished(false); setI(0); };
+
   if (!lesson) return <View style={s.root}><T>Dars topilmadi</T></View>;
+  if (!loaded) return <View style={s.root} />;
 
   const area = AREAS.find((a) => a.id === lesson.area)!;
   const blocks = lesson.blocks;
@@ -95,6 +117,7 @@ export default function SciLesson() {
           <T dim size={12}>{area.icon} {area.title} · {lesson.n}-dars</T>
           <T bold size={16}>{lesson.title}</T>
         </View>
+        {i > 0 && !finished && <Pressable onPress={restart} hitSlop={8}><T dim size={12}>↺ Boshidan</T></Pressable>}
       </View>
       <View style={s.dots}>
         {blocks.map((_, k) => <View key={k} style={[s.dot, k < i && { backgroundColor: area.color }, k === i && { backgroundColor: '#fff' }]} />)}

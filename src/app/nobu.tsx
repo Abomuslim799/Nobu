@@ -35,14 +35,30 @@ export default function NobuChat() {
   useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib ber.'); } }, [ctx]);   // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 100); }, [msgs, busy]);
 
+  // Kutish: soniyalar sanaladi, "Bekor qilish" — javobni kutmaymiz (kech kelsa, e'tiborsiz qoldiriladi)
+  const reqId = useRef(0);
+  const [sec, setSec] = useState(0);
+  useEffect(() => {
+    if (!busy) return;
+    setSec(0);
+    const t = setInterval(() => setSec((x) => x + 1), 1000);
+    return () => clearInterval(t);
+  }, [busy]);
   const send = async (q: string) => {
     if (!q.trim() || !ctx || busy) return;
     const h: TutorMsg[] = [...msgs, { role: 'user', text: q.trim() }];
+    const my = ++reqId.current;
     setMsgs(h); setText(''); setBusy(true); setErr('');
-    try { setMsgs([...h, { role: 'nobu', text: await nobuChat(ctx.topic, ctx.ctx, h) }]); }
-    catch (e) { setErr(e instanceof Error ? e.message : String(e)); }
-    finally { setBusy(false); }
+    try {
+      const reply = await nobuChat(ctx.topic, ctx.ctx, h);
+      if (my === reqId.current) setMsgs([...h, { role: 'nobu', text: reply }]);
+    } catch (e) {
+      if (my === reqId.current) setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      if (my === reqId.current) setBusy(false);
+    }
   };
+  const cancel = () => { reqId.current++; setBusy(false); setErr("Bekor qilindi. Savolni qayta yuborishingiz mumkin."); };
   const call = () => ctx && router.push({ pathname: '/live', params: { mode: 'nobu', topic: ctx.topic, ctx: ctx.ctx.slice(0, 9000) } });
   const kind = key.startsWith('lesson:') ? 'lesson' : key;
 
@@ -63,7 +79,12 @@ export default function NobuChat() {
         {msgs.map((m, i) => m.role === 'nobu' ? <NobuSays key={i} text={m.text} /> : (
           <View key={i} style={s.me}><T size={15}>{m.text}</T></View>
         ))}
-        {busy && <T dim>Nobu o'ylayapti...</T>}
+        {busy && (
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <T dim>Nobu o'ylayapti... {sec}s</T>
+            {sec >= 5 && <Pressable onPress={cancel} hitSlop={8}><T color={C.red} size={13}>✕ Bekor qilish</T></Pressable>}
+          </View>
+        )}
         {!!err && <T color={C.red}>{err}</T>}
         {msgs.length === 0 && (
           <View style={{ gap: 8 }}>

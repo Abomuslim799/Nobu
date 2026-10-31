@@ -31,7 +31,7 @@ export default function RootLayout() {
         <Stack.Screen name="practice/[skill]" />
         <Stack.Screen name="live" />
         <Stack.Screen name="brain-report" />
-        <Stack.Screen name="sci/[id]" />
+        <Stack.Screen name="sci/[id]" options={{ gestureEnabled: false, fullScreenGestureEnabled: false }} />   {/* surish — slayder uchun; orqaga faqat ‹ */}
         <Stack.Screen name="nobu" />
         <Stack.Screen name="nobu-report" />
       </Stack>
