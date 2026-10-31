@@ -17,12 +17,13 @@ import { Axes, COLORS, path, sample, Slider, sx, sy, useClock, useWidth, type Vi
 const Box = ({ children, onLayout }: { children: React.ReactNode; onLayout?: (e: any) => void }) => (
   <View onLayout={onLayout} style={{ backgroundColor: '#0E1512', borderRadius: 14, borderWidth: 1, borderColor: C.cardBorder, overflow: 'hidden' }}>{children}</View>
 );
+// Qiymatlar: 2 ustunli qat'iy to'r va bir xil kenglikdagi raqamlar — son o'zgarganda qutilar sakramaydi
 const Readout = ({ rows }: { rows: [string, string, string?][] }) => (
   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
     {rows.map(([k, v, c]) => (
-      <View key={k} style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.05)' }}>
-        <Text style={{ color: C.dim, fontSize: 11 }}>{k}</Text>
-        <Text style={{ color: c ?? C.text, fontSize: 15, fontWeight: '700' }}>{v}</Text>
+      <View key={k} style={{ flexBasis: '48%', flexGrow: 1, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.05)' }}>
+        <Text style={{ color: C.dim, fontSize: 11 }} numberOfLines={1}>{k}</Text>
+        <Text style={{ color: c ?? C.text, fontSize: 16, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{v}</Text>
       </View>
     ))}
   </View>
@@ -164,6 +165,7 @@ function UnitCircle() {
   useClock(run, (dt) => setDeg((d) => (d + dt * 60) % 360));
   const R = Math.round(Math.min(85, Math.max(55, W * 0.21))), H = 2 * R + 50, cx = R + 18, cy = H / 2;
   const r = (deg * Math.PI) / 180;
+  const rr = ((run ? Math.round(deg / 5) * 5 : Math.round(deg)) * Math.PI) / 180;   // aylanayotganda son 5° qadam bilan
   const px = cx + R * Math.cos(r), py = cy - R * Math.sin(r);
   const gx0 = cx + R + 22, gw = Math.max(40, W - gx0 - 12);           // o'ngda sin to'lqini
   const wave = Array.from({ length: 121 }, (_, i) => { const a = (i / 120) * 2 * Math.PI; return `${i ? 'L' : 'M'}${(gx0 + (a / (2 * Math.PI)) * gw).toFixed(1)},${(cy - R * Math.sin(a)).toFixed(1)}`; }).join(' ');
@@ -199,8 +201,8 @@ function UnitCircle() {
       <Slider label="Burchak θ" value={Math.round(deg)} min={0} max={360} step={1} unit="°" onChange={(d) => { setRun(false); setDeg(d); }} />
       <PlayBtn on={run} onPress={() => setRun(!run)} label={run ? '⏸ To\'xtatish' : '▶ Aylantirish'} />
       <Readout rows={[
-        ['cos θ (x)', fmt(Math.cos(r), 3), COLORS.a], ['sin θ (y)', fmt(Math.sin(r), 3), COLORS.b],
-        ['sin²+cos²', fmt(Math.sin(r) ** 2 + Math.cos(r) ** 2, 3)], ['radian', fmt(r, 3)],
+        ['cos θ (x)', Math.cos(rr).toFixed(2), COLORS.a], ['sin θ (y)', Math.sin(rr).toFixed(2), COLORS.b],
+        ['sin²+cos²', (Math.sin(rr) ** 2 + Math.cos(rr) ** 2).toFixed(2)], ['θ', `${Math.round((rr * 180) / Math.PI)}° = ${rr.toFixed(2)} rad`],
       ]} />
     </View>
   );
@@ -297,7 +299,12 @@ function Motion() {
       <Slider label="Tezlanish a" value={a} min={-3} max={3} step={0.25} unit=" m/s²" onChange={(x) => { setA(x); setT(0); setRun(false); }} />
       <Slider label="Vaqt t" value={Number(t.toFixed(2))} min={0} max={T} step={0.05} unit=" s" onChange={(x) => { setRun(false); setT(x); }} />
       <PlayBtn on={run} onPress={() => { if (t >= T) setT(0); setRun(!run); }} />
-      <Readout rows={[['t', `${fmt(t, 2)} s`], ['x(t)', `${fmt(xNow, 2)} m`, COLORS.a], ['v(t) = urinma qiyaligi', `${fmt(vNow, 2)} m/s`, COLORS.d], ['a', `${fmt(a, 2)} m/s²`]]} />
+      {/* Harakat paytida son 0.1 s qadam bilan yangilanadi (har kadrda emas) — ko'z ilg'ab o'qiy oladi */}
+      {(() => {
+        const tr = run ? Math.floor(t * 10) / 10 : t;
+        return <Readout rows={[['t', `${tr.toFixed(run ? 1 : 2)} s`], ['x(t)', `${motionX(0, v0, a, tr).toFixed(1)} m`, COLORS.a],
+          ['v(t) = urinma qiyaligi', `${motionV(v0, a, tr).toFixed(1)} m/s`, COLORS.d], ['a', `${a.toFixed(2)} m/s²`]]} />;
+      })()}
     </View>
   );
 }
