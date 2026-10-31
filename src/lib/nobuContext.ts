@@ -5,6 +5,7 @@
 import { getBrainLog, getChess, brainSummary } from './brain';
 import { getSciLog, sciSummary } from './science';
 import { getLog, summarize } from './skills';
+import { BOARDS } from '@/science/board';
 import { lessonById, lessonContext, type Block } from '@/science/lessons';
 
 /** Barcha bo'limlar bo'yicha ma'lumot (Nobu tahlili va "statistikam haqida gaplashish" uchun). */
@@ -22,6 +23,7 @@ export function stepText(b: Block): string {
     case 'predict': return `Savol: ${b.q} Javob: ${b.answer}. ${b.reveal}`;
     case 'choice': return `Savol: ${b.q} Javob: ${b.answer}. ${b.why}`;
     case 'sim': return `Simulyatsiya (${b.id}): ${b.task}`;
+    case 'board': return `Doskada tushuntirish (${b.id}): ${(BOARDS[b.id]?.steps ?? []).map((x) => x.say).join(' ')}`;
     case 'ex': return `Mashq: ${b.q} Javob: ${b.answer}. Yechim: ${b.solution}`;
   }
 }

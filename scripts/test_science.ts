@@ -6,6 +6,8 @@ import {
   checkNumber, FUNCS, motionV, motionX, pendulumPeriodSmall, pendulumStep, projectile, projectileDrag, riemann, secantSlope, polar, add, len,
 } from '../src/science/engine';
 import { LESSONS } from '../src/science/lessons';
+import m0b from '../src/science/boards/m0.json';
+const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b };
 
 let fails = 0;
 const ok = (cond: boolean, msg: string) => { if (!cond) { fails++; console.error('✗ ' + msg); } };
@@ -73,6 +75,11 @@ for (const l of LESSONS) {
   for (const b of l.blocks) {
     if (b.k === 'predict' || b.k === 'choice') ok(b.options.includes(b.answer), `${l.id}: javob variantlarda yo'q — ${b.q}`);
     if (b.k === 'sim') ok(['slope', 'derivative', 'integral', 'unitcircle', 'vectors', 'motion', 'projectile', 'pendulum'].includes(b.id), `${l.id}: sim ${b.id}`);
+    if (b.k === 'board') {
+      const bd = BOARDS[b.id]; ok(!!bd, `${l.id}: doska ${b.id} yo'q`);
+      if (bd) { const seen = new Set<string>(); for (const st of bd.steps) { ok(st.say.length > 10 && !/[²³√Δπθ]/.test(st.say), `doska ${b.id}: ovoz matnida belgi (o'qilmaydi): ${st.say.slice(0, 40)}`);
+        for (const a of st.draw) { if (a.id) seen.add(a.id); for (const h of a.ids ?? []) ok(seen.has(h), `doska ${b.id}: yashiriladigan '${h}' hali chizilmagan`); } } }
+    }
     if (b.k === 'ex') {
       ok(b.id in expect, `${b.id}: mustaqil tekshiruv yo'q`);
       if (b.id in expect) {

@@ -73,7 +73,12 @@ async def main() -> None:
     jobs = []
     texts = [(w["id"], part, text, voice) for w in words()
              for part, text, voice in (("w", w["word"], EN), ("s", w["example"], EN), ("uz", w["translation"], UZ))]
-    for wid, part, text, voice in texts + unit_texts():
+    # Science doskasi: Nobu ovozi (o'zbekcha, Sardor) — sci-<dars>-b<n>.mp3
+    boards = []
+    for path in sorted((ROOT / "src" / "science" / "boards").glob("*.json")):
+        b = json.loads(path.read_text(encoding="utf-8"))
+        boards += [(f"sci-{b['id']}", f"b{i}", st["say"], UZ) for i, st in enumerate(b["steps"])]
+    for wid, part, text, voice in texts + unit_texts() + boards:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))

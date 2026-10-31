@@ -15,6 +15,7 @@ import { useProgress } from '@/lib/progress';
 import { logScience } from '@/lib/science';
 import { checkNumber } from '@/science/engine';
 import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/science/lessons';
+import { Board } from '@/science/board';
 import { SIMS } from '@/science/sims';
 import { Button, Card, T } from '@/ui/kit';
 import { NobuSays } from '@/ui/nobu';
@@ -133,6 +134,7 @@ export default function SciLesson() {
 function BlockView({ b, idx, res, solved, onResolved }: { b: Block; idx: number; res: Res; solved: boolean; onResolved: () => void }) {
   switch (b.k) {
     case 'nobu': return <NobuSays text={b.text} />;
+    case 'board': return <Board id={b.id} />;
     case 'text': return <Card><GlossText text={b.text} /></Card>;
     case 'law': return (
       <Card style={{ gap: 10, borderColor: '#FBBF24' }}>

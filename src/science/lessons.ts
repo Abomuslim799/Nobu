@@ -10,6 +10,7 @@ export type Block =
   | { k: 'text'; text: string }
   | { k: 'predict'; q: string; options: string[]; answer: string; reveal: string }
   | { k: 'sim'; id: string; task: string }
+  | { k: 'board'; id: string }
   | { k: 'law'; title: string; formula: string[]; meaning: string }
   | { k: 'example'; title: string; steps: string[] }
   | { k: 'ex'; id: string; q: string; answer: number; tol?: number; unit?: string; hint: string; solution: string }
@@ -28,9 +29,9 @@ export const LESSONS: SciLesson[] = [
   {
     id: 'm0', area: 'math', n: 1, title: 'Qiyalik — chiziq qanchalik tik', sub: 'Hosilaga birinchi qadam', minutes: 12,
     blocks: [
-      { k: 'nobu', text: "Hosiladan oldin bitta oddiy tushuncha kerak: qiyalik. Keyingi barcha darslar shunga tayanadi." },
       { k: 'predict', q: "Qaysi yo'l tikroq?", options: ["10 m yurganda 2 m ko'tariladi", "10 m yurganda 5 m ko'tariladi", 'Bir xil'],
-        answer: "10 m yurganda 5 m ko'tariladi", reveal: "Ko'tarilishni yurishga bo'lamiz: 5 / 10 = 0.5, 2 / 10 = 0.2. Kattasi — tikroq. Shu son qiyalik deyiladi." },
+        answer: "10 m yurganda 5 m ko'tariladi", reveal: "Ko'tarilishni yurishga bo'lamiz: 5 / 10 = 0.5, 2 / 10 = 0.2. Kattasi — tikroq. Shu son qiyalik deyiladi. Endi Nobu buni doskada ko'rsatadi." },
+      { k: 'board', id: 'm0' },
       { k: 'sim', id: 'slope', task: "k ni o'zgartiring. Sariq uchburchakka qarang: x 1 qadam o'ngga yursa, y qanchaga ko'tariladi?" },
       { k: 'law', title: 'Qiyalik', formula: ['k = Δy / Δx'], meaning: "x 1 ga oshganda y qanchaga o'zgarishi. k > 0 — chiziq ko'tariladi, k < 0 — tushadi, k = 0 — gorizontal." },
       { k: 'choice', q: "Chiziq chapdan o'ngga qarab pastga tushyapti. Qiyaligi qanday?", options: ['Musbat', 'Manfiy', 'Nol'], answer: 'Manfiy',

@@ -1,0 +1,258 @@
+{
+ "id": "m0",
+ "view": {
+  "x0": -1,
+  "x1": 4.5,
+  "y0": -2,
+  "y1": 5
+ },
+ "steps": [
+  {
+   "say": "Salom! Men Nobu. Bugun bitta oddiy, lekin juda muhim tushunchani o'rganamiz: qiyalik. Keyingi barcha darslar shunga tayanadi.",
+   "draw": [
+    {
+     "t": "axes"
+    }
+   ]
+  },
+  {
+   "say": "Mana bu to'g'ri chiziqqa qarang. U qanchalik tik ekanini qanday qilib bitta son bilan aytamiz?",
+   "draw": [
+    {
+     "t": "fn",
+     "id": "l1",
+     "k": 0.5,
+     "b": 0,
+     "c": "a"
+    }
+   ]
+  },
+  {
+   "say": "Chiziqdan bitta nuqta olamiz.",
+   "draw": [
+    {
+     "t": "point",
+     "id": "A",
+     "at": [
+      1,
+      0.5
+     ],
+     "c": "w"
+    }
+   ]
+  },
+  {
+   "say": "Endi x bo'ylab bir qadam o'ngga yuramiz. Bu sariq chiziq delta x deyiladi, ya'ni x qanchaga o'zgargani. Bu yerda u birga teng.",
+   "draw": [
+    {
+     "t": "seg",
+     "id": "dx",
+     "from": [
+      1,
+      0.5
+     ],
+     "to": [
+      2,
+      0.5
+     ],
+     "c": "c"
+    },
+    {
+     "t": "text",
+     "id": "dxt",
+     "at": [
+      1.5,
+      0.05
+     ],
+     "text": "Δx = 1",
+     "c": "c"
+    }
+   ]
+  },
+  {
+   "say": "Shu joydan chiziqqacha yuqoriga chiqamiz. Pushti chiziq delta y, ya'ni y qanchaga o'zgargani. Bu yerda u yarimga teng.",
+   "draw": [
+    {
+     "t": "seg",
+     "id": "dy",
+     "from": [
+      2,
+      0.5
+     ],
+     "to": [
+      2,
+      1
+     ],
+     "c": "b"
+    },
+    {
+     "t": "text",
+     "id": "dyt",
+     "at": [
+      2.15,
+      0.75
+     ],
+     "text": "Δy = 0.5",
+     "c": "b",
+     "anchor": "start"
+    },
+    {
+     "t": "point",
+     "id": "B",
+     "at": [
+      2,
+      1
+     ],
+     "c": "w"
+    }
+   ]
+  },
+  {
+   "say": "Qiyalik shu ikkisining nisbati: delta y bo'linsin delta x ga. Bizda yarim bo'linsin birga, ya'ni nol butun o'ndan besh.",
+   "sub": "Qiyalik = Δy / Δx = 0.5 / 1 = 0.5",
+   "draw": [
+    {
+     "t": "formula",
+     "text": "k = Δy / Δx = 0.5 / 1 = 0.5"
+    }
+   ]
+  },
+  {
+   "say": "Endi tikroq chiziq. Bir qadam o'ngga yursak, y ikki birlikka ko'tariladi. Demak, uning qiyaligi ikkiga teng. Son qancha katta bo'lsa, chiziq shuncha tik.",
+   "draw": [
+    {
+     "t": "hide",
+     "ids": [
+      "dx",
+      "dxt",
+      "dy",
+      "dyt",
+      "A",
+      "B"
+     ]
+    },
+    {
+     "t": "fn",
+     "id": "l2",
+     "k": 2,
+     "b": 0,
+     "c": "b"
+    },
+    {
+     "t": "seg",
+     "id": "dx2",
+     "from": [
+      1,
+      2
+     ],
+     "to": [
+      2,
+      2
+     ],
+     "c": "c"
+    },
+    {
+     "t": "seg",
+     "id": "dy2",
+     "from": [
+      2,
+      2
+     ],
+     "to": [
+      2,
+      4
+     ],
+     "c": "b"
+    },
+    {
+     "t": "text",
+     "id": "k2",
+     "at": [
+      2.15,
+      3
+     ],
+     "text": "Δy = 2",
+     "c": "b",
+     "anchor": "start"
+    },
+    {
+     "t": "formula",
+     "text": "k = 2 / 1 = 2"
+    }
+   ]
+  },
+  {
+   "say": "Agar chiziq pastga tushsa, x oshganda y kamayadi. Bunday chiziqning qiyaligi manfiy bo'ladi.",
+   "draw": [
+    {
+     "t": "hide",
+     "ids": [
+      "dx2",
+      "dy2",
+      "k2",
+      "l1",
+      "l2"
+     ]
+    },
+    {
+     "t": "fn",
+     "id": "l3",
+     "k": -1,
+     "b": 3,
+     "c": "d"
+    },
+    {
+     "t": "text",
+     "id": "k3",
+     "at": [
+      0.7,
+      3.1
+     ],
+     "text": "k = −1",
+     "c": "d",
+     "anchor": "start"
+    },
+    {
+     "t": "formula",
+     "text": "pastga tushsa → k < 0"
+    }
+   ]
+  },
+  {
+   "say": "Gorizontal chiziqda esa y umuman o'zgarmaydi. Uning qiyaligi nolga teng.",
+   "draw": [
+    {
+     "t": "fn",
+     "id": "l4",
+     "k": 0,
+     "b": -1,
+     "c": "w"
+    },
+    {
+     "t": "text",
+     "id": "k4",
+     "at": [
+      1.0,
+      -0.7
+     ],
+     "text": "k = 0",
+     "c": "w"
+    },
+    {
+     "t": "formula",
+     "text": "gorizontal → k = 0"
+    }
+   ]
+  },
+  {
+   "say": "Va eng muhim xulosa. Agar grafik yo'l va vaqt grafigi bo'lsa, uning qiyaligi tezlikdir. Masalan, ikki soatda bir yuz yigirma kilometr bo'lsa, qiyalik oltmish kilometr soatiga. Endi o'zingiz sinab ko'ring.",
+   "sub": "Yo'l–vaqt grafigining qiyaligi = tezlik. 120 km / 2 soat = 60 km/soat",
+   "draw": [
+    {
+     "t": "formula",
+     "text": "qiyalik = Δy / Δx"
+    }
+   ]
+  }
+ ]
+}
