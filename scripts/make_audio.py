@@ -10,6 +10,7 @@ Biror fayl yasalmasa — o'sha qism telefonning o'z ovoziga tushadi, ilova buzil
 
 import asyncio
 import json
+import os
 import re
 from pathlib import Path
 
@@ -38,24 +39,48 @@ def words() -> list[dict]:
     return out
 
 
-# Doska ovozi uchun talaffuz: faqat YOLG'IZ turgan harflar almashadi ("yaxshi", "xona" ga tegilmaydi)
+# Ovoz uchun matn: formulalar so'z bilan, o'zbekcha tutuq belgilari to'g'ri (oʻ, gʻ — U+02BB), yolg'iz harflar nomi bilan.
+W = r"[\wʻʼ'’]"
 SAY_FIX = [
-    (re.compile(r"Δ\s*"), "delta "),                       # avval Δ — keyin harflar
-    (re.compile(r"(?<![\w'’])[xX](?![\w'’])"), "iks"),
-    (re.compile(r"(?<![\w'’])[yY](?![\w'’])"), "igrek"),
-    (re.compile(r"(?<![\w'’])delta(?![\w'’])", re.I), "del-ta"),
+    (re.compile(r"km/soat"), "kilometr soatiga"),
+    (re.compile(r"m/s²"), "metr sekund kvadratga"),
+    (re.compile(r"m/s"), "metr sekundiga"),
+    (re.compile(r"Δ\s*"), "delta "),
+    (re.compile(r"²"), " kvadrat"), (re.compile(r"³"), " kub"), (re.compile(r"√"), " ildiz "),
+    (re.compile(r"π"), " pi "), (re.compile(r"θ"), " teta "), (re.compile(r"α"), " alfa "),
+    (re.compile(r"′"), " shtrix"), (re.compile(r"[·×]"), " karra "), (re.compile(r"∫"), " integral "),
+    (re.compile(r"Σ"), " yigʻindi "), (re.compile(r"∞"), " cheksizlik "), (re.compile(r"≈"), " taxminan "),
+    (re.compile(r"→"), ", "), (re.compile(r"−"), " minus "), (re.compile(r"\s\+\s"), " plyus "),
+    (re.compile(r"\s=\s|="), " teng "), (re.compile(r"\s<\s"), " kichik "), (re.compile(r"\s>\s"), " katta "),
+    (re.compile(r"°"), " gradus"), (re.compile(r"%"), " foiz"), (re.compile(r"₀"), " nol"), (re.compile(r"ₓ"), " iks"),
+    (re.compile(r"(?<=\w)\s*/\s*(?=\w)"), " boʻlinsin "),
+    (re.compile(r"±"), " plyus-minus "),
+    (re.compile(r"(?<=\d)x(?![\wʻʼ])"), " iks"), (re.compile(r"(?<=\d)y(?![\wʻʼ])"), " igrek"),
+    (re.compile(r"[()\[\]{}|]"), " "),
+    (re.compile(r"\blim\b"), "limit"),
+]
+LETTERS = {"x": "iks", "y": "igrek", "f": "ef", "g": "ge", "h": "ha", "k": "ka", "t": "te", "v": "ve", "L": "el", "F": "ef", "T": "te", "H": "ha"}
+LETTER_RX = re.compile(r"(?<![\wʻʼ'’])([xyfghktvLFTH])(?![\wʻʼ'’])")
+APOS = [
+    (re.compile(r"(?<=[oOgG])['’`‘]"), "ʻ"),                      # oʻ, gʻ
+    (re.compile(r"(?<=\w)['’](?=\w)"), "ʼ"),                      # tutuq: maʼno, taʼlim
 ]
 
 
 def say_text(t: str) -> str:
+    for rx, rep in APOS:                                        # avval tutuq — keyin harflar
+        t = rx.sub(rep, t)
     for rx, rep in SAY_FIX:
         t = rx.sub(rep, t)
-    return t
+    t = LETTER_RX.sub(lambda m: LETTERS[m.group(1)], t)
+    t = re.sub(r"(?<![\wʻʼ])delta(?![\wʻʼ])", "del-ta", t, flags=re.I)
+    return re.sub(r"\s+", " ", t).strip()
 
 
 # O'z-o'zini tekshirish: o'zbekcha so'zlar buzilmasin
-assert say_text("yaxshi xona yo'l") == "yaxshi xona yo'l"
-assert say_text("Δy bo'linsin x") == "del-ta igrek bo'linsin iks"
+assert say_text("yaxshi xona yo'l") == "yaxshi xona yoʻl", say_text("yaxshi xona yo'l")
+assert say_text("Δy bo'linsin x") == "del-ta igrek boʻlinsin iks", say_text("Δy bo'linsin x")
+assert say_text("ma'no") == "maʼno"
 
 
 async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> bool:
@@ -98,7 +123,12 @@ async def main() -> None:
     for path in sorted((ROOT / "src" / "science" / "boards").glob("*.json")):
         b = json.loads(path.read_text(encoding="utf-8"))
         boards += [(f"sci-{b['id']}", f"b{i}", say_text(st["say"]), UZ) for i, st in enumerate(b["steps"])]
-    for wid, part, text, voice in texts + unit_texts() + boards:
+    # Science darslari matni (scripts/dump_say.ts → SAY_JSON)
+    lessons = []
+    sj = os.environ.get("SAY_JSON")
+    if sj and Path(sj).exists():
+        lessons = [(x["id"], x["part"], say_text(x["text"]), UZ) for x in json.loads(Path(sj).read_text(encoding="utf-8"))]
+    for wid, part, text, voice in texts + unit_texts() + boards + lessons:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))

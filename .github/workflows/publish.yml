@@ -32,12 +32,14 @@ jobs:
           echo "EXPO_PUBLIC_VERSION=$v" >> "$GITHUB_ENV"
 
       # Ovozlar: London erkak (en-GB Ryan) va o'zbekcha (uz-UZ Sardor). Xato bo'lsa — telefon ovozi.
+      - run: npm ci
+      - name: Dars matnlari (ovoz uchun)
+        run: npx -y esbuild@0.25.0 scripts/dump_say.ts --bundle --platform=node --outfile=/tmp/ds.js && node /tmp/ds.js > /tmp/say.json
       - name: Ovozlar
         run: |
           pip install -q edge-tts
-          python scripts/make_audio.py || echo "ovozlar yasalmadi — telefon ovozi ishlatiladi"
+          SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi — telefon ovozi ishlatiladi"
 
-      - run: npm ci
       - run: npx tsc --noEmit
       - name: Science testlari (fizika va javoblar)
         run: npx -y esbuild@0.25.0 scripts/test_science.ts --bundle --platform=node --outfile=/tmp/ts.js && node /tmp/ts.js

@@ -25,11 +25,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: npm ci
+      - name: Dars matnlari (ovoz uchun)
+        run: npx -y esbuild@0.25.0 scripts/dump_say.ts --bundle --platform=node --outfile=/tmp/ds.js && node /tmp/ds.js > /tmp/say.json
       - name: Ovozlar
         run: |
           pip install -q edge-tts
-          python scripts/make_audio.py || echo "ovozlar yasalmadi"
-      - run: npm ci
+          SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi"
       - name: Sayt (do'stlar versiyasi)
         run: |
           n=$(( ${{ github.run_number }} ))

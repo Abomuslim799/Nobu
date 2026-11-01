@@ -30,7 +30,7 @@ export const LESSONS: SciLesson[] = [
     id: 'm0', area: 'math', n: 1, title: 'Qiyalik — chiziq qanchalik tik', sub: 'Hosilaga birinchi qadam', minutes: 12,
     blocks: [
       { k: 'predict', q: "Qaysi yo'l tikroq?", options: ["10 m yurganda 2 m ko'tariladi", "10 m yurganda 5 m ko'tariladi", 'Bir xil'],
-        answer: "10 m yurganda 5 m ko'tariladi", reveal: "Ko'tarilishni yurishga bo'lamiz: 5 / 10 = 0.5, 2 / 10 = 0.2. Kattasi — tikroq. Shu son qiyalik deyiladi. Endi Nobu buni doskada ko'rsatadi." },
+        answer: "10 m yurganda 5 m ko'tariladi", reveal: "Ko'tarilishni yurishga bo'lamiz: 5 / 10 = 0.5, 2 / 10 = 0.2. Kattasi — tikroq. Shu son qiyalik deyiladi. Endi buni doskada ko'rsataman." },
       { k: 'board', id: 'm0' },
       { k: 'sim', id: 'slope', task: "k ni o'zgartiring. Sariq uchburchakka qarang: x 1 qadam o'ngga yursa, y qanchaga ko'tariladi?" },
       { k: 'law', title: 'Qiyalik', formula: ['k = Δy / Δx'], meaning: "x 1 ga oshganda y qanchaga o'zgarishi. k > 0 — chiziq ko'tariladi, k < 0 — tushadi, k = 0 — gorizontal." },
@@ -231,3 +231,23 @@ export const GLOSSARY: Record<string, string> = {
   'sinusoida': "sin funksiyasining to'lqinsimon grafigi.",
   'parabola': "y = x² ko'rinishidagi egri chiziq; otilgan jism traektoriyasi.",
 };
+
+/** Darsdagi blokning ovozda o'qiladigan matni: main — blok ochilganda, after — javobdan keyin (izoh/yechim). */
+export function blockSay(b: Block): { main: string; after?: string } | null {
+  switch (b.k) {
+    case 'nobu': case 'text': return { main: b.text };
+    case 'predict': return { main: `Avval taxmin qiling. ${b.q} Variantlar: ${b.options.join('; ')}.`, after: b.reveal };
+    case 'choice': return { main: `${b.q} Variantlar: ${b.options.join('; ')}.`, after: b.why };
+    case 'sim': return { main: b.task };
+    case 'law': return { main: `${b.title}. ${b.formula.join('. ')}. ${b.meaning}` };
+    case 'example': return { main: `Misol: ${b.title}. ${b.steps.join(' ')}` };
+    case 'ex': return { main: `Mashq. ${b.q}`, after: `Yechim: ${b.solution}` };
+    case 'board': return null;   // doska o'z ovozi bilan
+  }
+}
+/** Matn xeshi — ovoz fayli o'zgarsa, telefon eski (keshdagi) faylni emas, yangisini olsin. */
+export function textHash(t: string) {
+  let h = 2166136261;
+  for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return (h >>> 0).toString(36);
+}

@@ -17,6 +17,7 @@ import { logScience } from '@/lib/science';
 import { checkNumber } from '@/science/engine';
 import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/science/lessons';
 import { Board } from '@/science/board';
+import { useNarrator } from '@/science/narrate';
 import { SIMS } from '@/science/sims';
 import { Button, Card, T } from '@/ui/kit';
 import { NobuSays } from '@/ui/nobu';
@@ -84,6 +85,21 @@ export default function SciLesson() {
     if (finished) AsyncStorage.removeItem(posKey).catch(() => {});
     else AsyncStorage.setItem(posKey, JSON.stringify({ i, resolved, res: res.current })).catch(() => {});
   }, [i, resolved, finished, loaded, posKey]);
+  // Ustoz ovozi: qadam ochilganda — asosiy matn, javobdan keyin — izoh/yechim
+  const nar = useNarrator(lesson);
+  useEffect(() => {
+    if (!loaded || finished || !nar.on) return;
+    const t = setTimeout(() => nar.play(i), 350);
+    return () => { clearTimeout(t); nar.stop(); };
+  }, [i, loaded, finished, nar.on]);   // eslint-disable-line react-hooks/exhaustive-deps
+  const solvedNow = !!resolved[i];
+  const prevSolved = useRef(solvedNow);
+  useEffect(() => {
+    if (solvedNow && !prevSolved.current && nar.on) nar.play(i, true);
+    prevSolved.current = solvedNow;
+  }, [solvedNow, i]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { prevSolved.current = !!resolved[i]; }, [i]);   // eslint-disable-line react-hooks/exhaustive-deps
+
   const restart = () => { res.current = { answers: {}, predicts: {}, mistakes: {} }; setResolved({}); setFinished(false); setI(0); };
 
   if (!lesson) return <View style={s.root}><T>Dars topilmadi</T></View>;
@@ -117,10 +133,16 @@ export default function SciLesson() {
           <T dim size={12}>{area.icon} {area.title} · {lesson.n}-dars</T>
           <T bold size={16}>{lesson.title}</T>
         </View>
-        {i > 0 && !finished && <Pressable onPress={restart} hitSlop={8}><T dim size={12}>↺ Boshidan</T></Pressable>}
+        {!finished && (b?.k !== 'board') && nar.has(i) && (
+          <Pressable onPress={() => (nar.speaking ? nar.stop() : nar.play(i))} hitSlop={8} style={s.spk}>
+            <T size={15}>{nar.speaking ? '⏸' : '🔊'}</T>
+          </Pressable>
+        )}
+        <Pressable onPress={nar.toggle} hitSlop={8}><T dim size={12}>{nar.on ? '🔈 Avto' : '🔇 Jim'}</T></Pressable>
+        {i > 0 && !finished && <Pressable onPress={restart} hitSlop={8}><T dim size={12}>↺</T></Pressable>}
       </View>
       <View style={s.dots}>
-        {blocks.map((_, k) => <View key={k} style={[s.dot, k < i && { backgroundColor: area.color }, k === i && { backgroundColor: '#fff' }]} />)}
+        {blocks.map((_, k) => <View key={k} style={[s.dot, k < i && { backgroundColor: area.color }, k === i && { backgroundColor: C.text }]} />)}
       </View>
 
       <ScrollView ref={scroll} contentContainerStyle={[s.body]} keyboardShouldPersistTaps="handled">
@@ -144,7 +166,7 @@ export default function SciLesson() {
           <Pressable onPress={ask} style={s.askBtn}><T size={14}>🙋 Tushunmadim</T></Pressable>
           <Pressable disabled={!canNext} onPress={() => (i + 1 < blocks.length ? go(i + 1) : finish())}
             style={[s.nextBtn, { backgroundColor: canNext ? C.green : C.subtle2 }]}>
-            <Text style={{ color: canNext ? C.bg : C.dim, fontWeight: '800', fontSize: 16 }}>
+            <Text style={{ color: canNext ? C.onAccent : C.dim, fontWeight: '800', fontSize: 16 }}>
               {!canNext ? (b.k === 'sim' ? 'Sinab ko\'ring' : 'Javob bering') : i + 1 < blocks.length ? 'Keyingi ›' : 'Yakunlash ✓'}
             </Text>
           </Pressable>
@@ -263,6 +285,7 @@ function Exercise({ b, onResult }: { b: Extract<Block, { k: 'ex' }>; onResult: (
 
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: C.bg },
+  spk: { width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center', backgroundColor: C.greenSoft },
   top: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: PAD, paddingVertical: 8 },
   dots: { flexDirection: 'row', gap: 4, paddingHorizontal: PAD, paddingBottom: 8 },
   dot: { flex: 1, height: 4, borderRadius: 2, backgroundColor: C.subtle2 },

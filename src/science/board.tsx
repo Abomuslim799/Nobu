@@ -16,6 +16,7 @@ import { Avatar } from '@/ui/nobu';
 import { fnById } from './engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from './ui';
 
+import { textHash } from './lessons';
 import m0 from './boards/m0.json';
 
 type XY = [number, number];
@@ -93,7 +94,7 @@ export function Board({ id }: { id: string }) {
     const p = player.current;
     const part = `b${k}`;
     if (p && AUDIO[`sci-${sc.id}`]?.includes(part)) {
-      p.replace({ uri: `${AUDIO_BASE}sci-${sc.id}-${part}.mp3` });
+      p.replace({ uri: `${AUDIO_BASE}sci-${sc.id}-${part}.mp3?v=${textHash(steps[k].say)}` });
       p.play();
     } else {
       advanceLater(Math.max(2500, steps[k].say.length * 70));     // ovoz yo'q — o'qish vaqti bo'yicha
