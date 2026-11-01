@@ -45,7 +45,9 @@ jobs:
         run: |
           if [ "${GITHUB_REF_NAME}" = "preview" ]; then
             npx eas-cli@latest channel:create preview --non-interactive || true
-            npx eas-cli@latest update --channel preview --message "SINOV — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
+            npx eas-cli@latest update --channel preview --message "SINOV — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive --json > /tmp/upd.json || { cat /tmp/upd.json; exit 1; }
+            gid=$(python3 -c "import json; d=json.load(open('/tmp/upd.json')); print(d[0].get('group',''))" || true)
+            gh api "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" -f state=success -f context=preview-group -f description="group:${gid}" || true
             # Sinov havolasi uchun branch ID — commit holatiga yoziladi (GitHub'da ko'rinadi)
             bid=$(npx eas-cli@latest branch:view preview --json --non-interactive | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('id') or d.get('branch',{}).get('id',''))" || true)
             gh api "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" -f state=success -f context=preview-link -f description="branch:${bid}" || true
