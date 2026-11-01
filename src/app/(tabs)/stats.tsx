@@ -4,7 +4,7 @@
 
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, TextInput, View } from 'react-native';
+import { Alert, Platform, TextInput, View } from 'react-native';
 
 import { C } from '@/constants/theme';
 import { TRACKS } from '@/data/tracks';
@@ -12,7 +12,6 @@ import { useMeta } from '@/lib/meta';
 import { useProgress } from '@/lib/progress';
 import { pickBackup, exportBackup } from '@/lib/backup';
 import { backupNow, lastBackup, restoreLatest } from '@/lib/cloudBackup';
-import { FRIENDS, IS_WEB } from '@/lib/edition';
 import { lastDays } from '@/lib/streak';
 import { getConfig, saveConfig, testConnection } from '@/lib/sync';
 import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
@@ -43,7 +42,7 @@ export default function Stats() {
   return (
     <Screen>
       <Title sub="Shaxsiy yordamchingiz: natijalar, tahlil, sozlamalar">Nobu</Title>
-      {!FRIENDS && <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu-report')} />}
+      <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu-report')} />
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <Stat label="Seriya" value={`${streak}🔥`} />
@@ -64,7 +63,7 @@ export default function Stats() {
         </View>
       </Card>
 
-      {!FRIENDS && <Card>
+      <Card>
         <T dim>Yo'nalishlar</T>
         {TRACKS.map((t) => {
           const done = t.lessons.filter((l) => data.lessons[l.id]).length;
@@ -75,9 +74,9 @@ export default function Stats() {
             </View>
           );
         })}
-      </Card>}
+      </Card>
 
-      {!FRIENDS && <Card style={{ gap: 8 }}>
+      <Card style={{ gap: 8 }}>
         <T dim>Kitob o'qish · jami {readTotal} daqiqa, {data.books.length} kitob</T>
         <T>Kunlik maqsad: {data.settings.readGoal} daqiqa</T>
         <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -87,11 +86,11 @@ export default function Stats() {
             </View>
           ))}
         </View>
-      </Card>}
+      </Card>
 
-      {!FRIENDS && <ServerLink />}
+      <ServerLink />
 
-      {!IS_WEB && <Card style={{ gap: 8 }}>
+      {Platform.OS !== 'web' && <Card style={{ gap: 8 }}>
         <T bold>💾 Zaxira</T>
         <T dim size={13}>Natijalar faqat shu telefonda. Haftada bir marta faylni Telegram yoki iCloud'ga saqlab qo'ying.</T>
         <Button label="Zaxira faylini yuborish" onPress={() => exportBackup(exportJSON()).catch((e) => Alert.alert('Xato', String(e)))} />

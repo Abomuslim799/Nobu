@@ -11,7 +11,7 @@ import Svg, { Polygon } from 'react-native-svg';
 import { C } from '@/constants/theme';
 import { T } from '@/ui/kit';
 
-export const USTOZ = {
+const USTOZ = {
   kitob: require('@/assets/images/ustoz/kitob.png'),
   oyla: require('@/assets/images/ustoz/oyla.png'),
   tushuntir: require('@/assets/images/ustoz/tushuntir.png'),
@@ -20,7 +20,7 @@ export type UstozPose = keyof typeof USTOZ;
 export type Who = 'nobu' | 'ustoz';
 
 /** 8 qirrali girih yulduzi — Nobu belgisi. */
-export function NobuMark({ size = 20, color = C.green }: { size?: number; color?: string }) {
+function NobuMark({ size = 20, color = C.green }: { size?: number; color?: string }) {
   const p: string[] = [];
   for (let i = 0; i < 16; i++) { const a = (i * Math.PI) / 8 - Math.PI / 2, r = i % 2 ? 7.2 : 10; p.push(`${(12 + r * Math.cos(a)).toFixed(2)},${(12 + r * Math.sin(a)).toFixed(2)}`); }
   return <Svg width={size} height={size} viewBox="0 0 24 24"><Polygon points={p.join(' ')} fill={color} /></Svg>;

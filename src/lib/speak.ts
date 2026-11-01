@@ -29,7 +29,7 @@ let rate = 1;
 const listeners = new Set<(r: number) => void>();
 AsyncStorage.getItem(RATE_KEY).then((v) => v && setRate(Number(v))).catch(() => {});
 
-export function setRate(r: number) {
+function setRate(r: number) {
   rate = r;
   AsyncStorage.setItem(RATE_KEY, String(r)).catch(() => {});
   listeners.forEach((fn) => fn(r));

@@ -71,7 +71,7 @@ const uid = (prefix: string) => `${prefix}-${Date.now()}-${Math.floor(Math.rando
 
 // Leitner oraliqlari: quti raqami → keyingi takrorgacha (ms). Bilsangiz quti oshadi.
 const MIN = 60_000, DAY = 86_400_000;
-export const BOX_INTERVALS = [10 * MIN, DAY, 3 * DAY, 7 * DAY, 21 * DAY];
+const BOX_INTERVALS = [10 * MIN, DAY, 3 * DAY, 7 * DAY, 21 * DAY];
 
 // ── 2. Context'ning tashqi ko'rinishi ───────────────────────────────────────
 interface Progress {

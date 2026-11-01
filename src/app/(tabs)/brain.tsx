@@ -10,7 +10,6 @@ import { Pressable, View } from 'react-native';
 import { C } from '@/constants/theme';
 import { GAMES } from '@/data/games';
 import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/lib/brain';
-import { FRIENDS } from '@/lib/edition';
 import { Button, Card, Screen, T, Title } from '@/ui/kit';
 
 export default function Brain() {
@@ -30,7 +29,7 @@ export default function Brain() {
         <T size={28} bold>{rating}</T>
       </Card>
       {BRAIN_SKILLS.map((sk) => {
-        const games = GAMES.filter((g) => g.skill === sk.id && !(FRIENDS && g.ai));
+        const games = GAMES.filter((g) => g.skill === sk.id);
         if (!games.length) return null;
         return (
           <View key={sk.id} style={{ gap: 8 }}>
@@ -52,7 +51,7 @@ export default function Brain() {
           </View>
         );
       })}
-      {!FRIENDS && <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/brain-report')} />}
+      <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/brain-report')} />
     </Screen>
   );
 }

@@ -38,7 +38,6 @@ export const polar = (r: number, deg: number): Vec => ({ x: r * Math.cos((deg * 
 export const add = (a: Vec, b: Vec): Vec => ({ x: a.x + b.x, y: a.y + b.y });
 export const len = (a: Vec) => Math.hypot(a.x, a.y);
 export const angleDeg = (a: Vec) => (Math.atan2(a.y, a.x) * 180) / Math.PI;
-export const dot = (a: Vec, b: Vec) => a.x * b.x + a.y * b.y;
 
 // ── Kinematika: tekis tezlanuvchan harakat ──────────────────────────────────
 export const motionX = (x0: number, v0: number, a: number, t: number) => x0 + v0 * t + 0.5 * a * t * t;

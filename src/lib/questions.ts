@@ -31,7 +31,7 @@ function shuffle<T>(r: Rng, xs: T[]): T[] {
   return a;
 }
 /** Sonni chiroyli yozish: butun bo'lsa butun, aks holda `dp` xona. */
-export const fmt = (x: number, dp = 1) => {
+const fmt = (x: number, dp = 1) => {
   const v = Math.round(x * 10 ** dp) / 10 ** dp;
   return (Object.is(v, -0) ? 0 : v).toString();
 };
@@ -204,7 +204,7 @@ const LEVEL_D: Record<string, number> = { A2: 950, 'A2+': 1050, B1: 1200, 'B1+':
 const unitD = (lvl: string) => LEVEL_D[lvl.replace(/\s/g, '')] ?? 1400;
 const UNIT_LVL: Record<string, number> = Object.fromEntries(UNITS.map((u) => [u.id, unitD(u.level)]));
 /** So'z qiyinligi: Core to'plamlari 800 (eng ko'p ishlatiladigan) → 1500 (B2), movie — unit darajasi. */
-export function wordD(deck: string) {
+function wordD(deck: string) {
   const m = /^ng(\d+)$/.exec(deck);
   if (m) return 800 + (Number(m[1]) - 1) * 50;
   return UNIT_LVL[deck] ?? 1300;
@@ -264,7 +264,7 @@ export function makeQ(area: Area, r: Rng, target: number, seen: Record<string, n
 }
 
 /** Kunlik test: 10 savol (ingliz 4, matematika 2, geometriya 2, fizika 2), oson — reytingdan biroz past. */
-export const DAILY_PLAN: Area[] = ['en', 'math', 'en', 'geo', 'phys', 'en', 'math', 'geo', 'en', 'phys'];
+const DAILY_PLAN: Area[] = ['en', 'math', 'en', 'geo', 'phys', 'en', 'math', 'geo', 'en', 'phys'];
 export function dailyTest(r: Rng, fr: Record<Area, { r: number }>, seen: Record<string, number> = {}, disabled: Area[] = []) {
   const plan = DAILY_PLAN.filter((a) => !disabled.includes(a));
   const keys = new Set<string>(), topics = new Set<string>();

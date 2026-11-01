@@ -15,7 +15,7 @@ export async function allData() {
 }
 
 /** key: 'lesson:f2' | 'stats' | 'science' */
-export function stepText(b: Block): string {
+function stepText(b: Block): string {
   switch (b.k) {
     case 'nobu': case 'text': return b.text;
     case 'law': return `${b.title}: ${b.formula.join('; ')}. ${b.meaning}`;

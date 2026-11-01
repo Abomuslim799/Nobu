@@ -9,7 +9,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Updates from 'expo-updates';
 import { DevSettings } from 'react-native';
 
-import { FRIENDS } from './edition';
 import { dayKey } from './streak';
 import { getConfig } from './sync';
 
@@ -40,7 +39,6 @@ export async function backupNow(force = false): Promise<{ ts: string; size: numb
 
 /** Kuniga bir marta, ekranni kutdirmasdan. Xato bo'lsa — keyingi ochilishda yana urinadi. */
 export function autoBackup() {
-  if (FRIENDS) return;
   AsyncStorage.getItem(LAST)
     .then((d) => (d === dayKey() ? null : getConfig().then((c) => c && backupNow())))
     .catch(() => {});

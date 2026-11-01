@@ -34,7 +34,7 @@ const THEME_UZ: Record<string, string> = {
   advantage: 'ustunlikka erishish', crushing: 'hal qiluvchi ustunlik', defensiveMove: 'himoya yurishi', quietMove: 'jim yurish',
   doubleCheck: 'qo\'sh shax', exposedKing: 'ochiq qirol', kingsideAttack: 'qirol qanotiga hujum', intermezzo: 'oraliq yurish',
 };
-export const themesUz = (t: string) => t.split(' ').map((x) => THEME_UZ[x]).filter(Boolean).slice(0, 3).join(', ');
+const themesUz = (t: string) => t.split(' ').map((x) => THEME_UZ[x]).filter(Boolean).slice(0, 3).join(', ');
 
 /** Reytingga yaqin, hali ko'rilmagan masala. */
 function pick(rating: number, seen: string[]): Row {

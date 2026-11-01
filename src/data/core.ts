@@ -8,7 +8,7 @@
 import type { Word } from './words';
 import rows from './core.json';
 
-export const CORE_SIZE = 200;
+const CORE_SIZE = 200;
 const deckOf = (i: number) => `ng${String(Math.floor(i / CORE_SIZE) + 1).padStart(2, '0')}`;
 
 export const CORE_WORDS: Word[] = (rows as [string, string, string, string][]).map(([word, ipa, translation, example], i) => ({

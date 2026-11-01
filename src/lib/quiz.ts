@@ -26,7 +26,7 @@ const shuffle = <T,>(a: T[]) => [...a].sort(() => Math.random() - 0.5);
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Misol gapdagi so'zni "_____" bilan almashtiradi. Topilmasa — undefined. */
-export function makeGap(w: Word): string | undefined {
+function makeGap(w: Word): string | undefined {
   if (!w.example) return undefined;
   let re: RegExp;
   if (w.cloze) {

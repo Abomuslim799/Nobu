@@ -10,7 +10,6 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FRIENDS } from './edition';
 import { dayKey } from './streak';
 
 export interface SyncConfig { url: string; token: string }
@@ -53,7 +52,6 @@ async function post(cfg: SyncConfig, st: NobuStatus) {
 /** Ekranni kutdirmaydi. Internet bo'lmasa — keyingi o'zgarishda yana yuboriladi. */
 export function pushStatus(st: NobuStatus) {
   last = st;
-  if (FRIENDS) return;   // do'stlar versiyasi serverga ulanmaydi
   getConfig().then((cfg) => cfg && post(cfg, st)).catch(() => {});
 }
 

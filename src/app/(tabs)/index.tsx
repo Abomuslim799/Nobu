@@ -19,7 +19,6 @@ import { dayKey, lastDays } from '@/lib/streak';
 import { AUDIO } from '@/data/audio';
 import { quoteOfDay } from '@/lib/reading';
 import { STEPS, UNITS, stepsDone } from '@/data/units';
-import { FRIENDS } from '@/lib/edition';
 import { VERSION } from '@/lib/version';
 import { QuoteCard } from '@/ui/quote-card';
 import { Button, Card, Screen, T } from '@/ui/kit';
@@ -56,8 +55,7 @@ export default function Today() {
       done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/cards') },
     { icon: unit.emoji, label: `Movie: ${unit.source} — ${nextStep.title}`, sub: `${stepsDone(data.unitSteps[unit.id])}/${STEPS.length} qadam`,
       done: (today.steps ?? 0) >= 1, go: () => router.push(`/unit/${unit.id}`) },
-    ...(FRIENDS ? [] : [
-      { icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
+    { icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
         done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/game/${weakGame.id}`) },
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
         done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/game/chess') },
@@ -69,7 +67,6 @@ export default function Today() {
       })(),
       { icon: '📚', label: `Kitob · ${todayRead}/${readGoal} daq`, sub: data.activeRead ? "o'qilmoqda" : '',
         done: todayRead >= readGoal, go: () => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library') },
-    ]),
   ];
   const goalDone = goals.filter((g) => g.done).length;
   const leftKey = goals.filter((g) => !g.done).map((g) => `${g.icon} ${g.label}`).join('|');
@@ -96,12 +93,6 @@ export default function Today() {
           <View style={s.chip}><T bold size={13}>🧊 {meta.m.muz}</T></View>
         </Pressable>
       </View>
-      {VERSION.startsWith('sinov') && (
-        <View style={{ padding: 10, borderRadius: 12, backgroundColor: 'rgba(251,191,36,0.15)', borderWidth: 1, borderColor: '#FBBF24' }}>
-          <T bold color="#FBBF24">🧪 SINOV versiyasi ({VERSION}) — asosiy ilova emas</T>
-        </View>
-      )}
-
       <Pressable onPress={() => router.push('/xp')}>
         <Card style={{ alignItems: 'center', paddingTop: 8, paddingBottom: 12, gap: 6 }}>
           <Astrolabe fr={meta.fr} title={meta.rank.title} rankId={meta.rank.id} size={220} />
@@ -163,9 +154,9 @@ export default function Today() {
         </Card>
       </Pressable>
 
-      {!FRIENDS && quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
+      {quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
 
-      {FRIENDS ? null : next ? (
+      {next ? (
         <Card>
           <T dim>Keyingi dars · {next.track.icon} {next.track.title}</T>
           <T size={18} bold>{next.lesson.title}</T>

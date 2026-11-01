@@ -1,5 +1,4 @@
-# Do'stlar uchun sayt (faqat Ingliz tili + Miya): har push'da yangilanadi.
-# Manzil: https://abomuslim799.github.io/Nobu/
+# Ovoz fayllari (Sardor, Ryan mp3) va say.json — GitHub Pages'da. Ilova va server shu yerdan oladi.
 # Bir martalik: repo → Settings → Pages → Source: "GitHub Actions".
 name: site
 on:
@@ -32,11 +31,8 @@ jobs:
         run: |
           pip install -q edge-tts
           SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi"
-      - name: Sayt (do'stlar versiyasi)
+      - name: Ovoz fayllari sayti (mp3 + say.json)
         run: |
-          n=$(( ${{ github.run_number }} ))
-          EXPO_PUBLIC_EDITION=friends EXPO_PUBLIC_VERSION="web.$n" npx expo export -p web
-          cp dist/index.html dist/404.html   # /unit/fg1 kabi manzillar ham ochilsin
           mkdir -p dist/audio && cp assets/audio/*.mp3 dist/audio/ 2>/dev/null || true   # ilova ovozlarni shu yerdan oladi
           cp /tmp/say.json dist/say.json   # server Ustoz ovozlarini shu ro'yxat bo'yicha yasaydi
           touch dist/.nojekyll

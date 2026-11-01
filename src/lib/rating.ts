@@ -35,7 +35,7 @@ export type TestKind = keyof typeof WEIGHT;
 /** Qiyinlikka qarab maksimal ball: oson 10, o'rta 20, qiyin 40, juda qiyin 60. */
 export const maxPoints = (d: number) => (d < 1000 ? 10 : d < 1300 ? 20 : d < 1600 ? 40 : 60);
 
-export const expected = (r: number, d: number) => 1 / (1 + 10 ** ((d - r) / 400));
+const expected = (r: number, d: number) => 1 / (1 + 10 ** ((d - r) / 400));
 
 /** Bitta natija: s — 0…1 (1-urinish 1, 2-urinish 0.5, maslahat 0.3, yechim 0). */
 export function update(a: AreaR, d: number, s: number, kind: TestKind, now = Date.now()): AreaR {
@@ -63,12 +63,6 @@ export const RANKS = [
 export type RankId = (typeof RANKS)[number]['id'];
 export const rankOf = (fr: number) => [...RANKS].reverse().find((r) => fr >= r.min)!;
 export const nextRank = (id: RankId) => RANKS[RANKS.findIndex((r) => r.id === id) + 1];
-
-/** Ingliz tili reytingini CEFR darajasiga aylantirish. */
-export function cefr(r: number) {
-  const L: [number, string][] = [[2100, 'C2'], [1800, 'C1'], [1500, 'B2'], [1200, 'B1'], [900, 'A2'], [0, 'A1']];
-  return L.find(([m]) => r >= m)![1];
-}
 
 // ── XP: faol vaqtdan ─────────────────────────────────────────────────────────
 /** Kunlik XP: <5 daq — 0; 5–19 — 1; 20 — 2; keyin har 5 daqiqaga +1 (35 daq = 5 XP). */

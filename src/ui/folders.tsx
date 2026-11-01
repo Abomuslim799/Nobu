@@ -10,7 +10,6 @@ import { C } from '@/constants/theme';
 import { IT_TRACKS } from '@/data/subjects';
 import type { Track } from '@/data/types';
 import { STEPS, UNITS, stepsDone } from '@/data/units';
-import { FRIENDS } from '@/lib/edition';
 import { useProgress } from '@/lib/progress';
 import { AREAS, lessonsOf } from '@/science/lessons';
 import { Bar, Button, Card, T } from '@/ui/kit';
@@ -69,7 +68,7 @@ export function EnglishFolder() {
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           {[
             ['grammar', '🧩 Grammar'], ['listening', '🎧 Listening'],
-            ...(FRIENDS ? [] : [['writing', '✍️ Writing'], ['speaking', '🗣 Speaking + talaffuz']]),
+            ['writing', '✍️ Writing'], ['speaking', '🗣 Speaking + talaffuz'],
           ].map(([id, label]) => (
             <Pressable key={id} onPress={() => router.push(`/practice/${id}`)} style={({ pressed }) => [{
               paddingHorizontal: 14, paddingVertical: 10, borderRadius: 20, borderWidth: 1, borderColor: C.cardBorder,
@@ -78,7 +77,7 @@ export function EnglishFolder() {
             </Pressable>
           ))}
         </View>
-        {!FRIENDS && <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/practice/report')} />}
+        <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/practice/report')} />
       </Card>
     </>
   );

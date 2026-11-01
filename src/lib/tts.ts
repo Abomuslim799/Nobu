@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { textHash } from '@/science/lessons';
 import { getConfig } from './sync';
 
-export const USTOZ_VOICE = 'Iapetus';
+const USTOZ_VOICE = 'Iapetus';
 const KEY = 'nobu.tts.v1';
 let mem: Record<string, string> | null = null;
 const inflight: Record<string, Promise<string | null>> = {};
