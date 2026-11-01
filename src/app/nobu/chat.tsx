@@ -56,7 +56,7 @@ export default function NobuChat() {
   useEffect(() => { buildContext(key, step !== undefined ? Number(step) : undefined).then(setCtx); }, [key, step]);
   // Darsdagi "Tushunmadim" — Nobu o'zi boshlaydi
   const asked = useRef(false);
-  useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib bering.'); } }, [ctx]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib bering.'); } }, [ctx]);    
   useEffect(() => { setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 100); }, [msgs, busy]);
 
   // Kutish: soniyalar sanaladi, "Bekor qilish" — javobni kutmaymiz (kech kelsa, e'tiborsiz qoldiriladi)

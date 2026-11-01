@@ -4,23 +4,16 @@
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { GAMES } from '@/features/brain/games';
-import { ChessPuzzles } from '@/features/brain/games/chess';
-import { LogicAI, MemoryGrid, NBack, Reaction, Sequence, SpeedMath, Stroop, Sudoku, type GameProps } from '@/features/brain/games/quick';
+import { GAMES } from '@/features/brain/catalog';
+import { GAME_COMPONENTS } from '@/features/brain/games';
 import { finishGame, getLevel } from '@/features/brain/brain';
-import { useRating } from '@/core/store';
-import { useProgress } from '@/core/store';
+import { useProgress, useRating } from '@/core/store';
 import { Button, Card, T } from '@/core/ui/kit';
-
-const COMPONENTS: Record<string, (p: GameProps) => ReactNode> = {
-  chess: ChessPuzzles, sequence: Sequence, sudoku: Sudoku, 'logic-ai': LogicAI, 'memory-grid': MemoryGrid,
-  'n-back': NBack, stroop: Stroop, 'speed-math': SpeedMath, reaction: Reaction,
-};
 
 export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -46,7 +39,7 @@ export default function GameScreen() {
   }, [game, level, recordGame, recordBrain, syncChess]);
 
   if (!game) return <View style={s.root}><T>O'yin topilmadi</T></View>;
-  const Game = COMPONENTS[game.id];
+  const Game = GAME_COMPONENTS[game.id];
 
   return (
     <View style={[s.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>

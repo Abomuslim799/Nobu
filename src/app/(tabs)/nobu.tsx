@@ -8,10 +8,8 @@ import { Alert, Platform, TextInput, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { TRACKS } from '@/features/it/tracks';
-import { useRating } from '@/core/store';
-import { useProgress } from '@/core/store';
-import { pickBackup, exportBackup } from '@/core/backup';
-import { backupNow, lastBackup, restoreLatest } from '@/core/backup';
+import { useRating , useProgress } from '@/core/store';
+import { pickBackup, exportBackup , backupNow, lastBackup, restoreLatest } from '@/core/backup';
 import { lastDays } from '@/core/date';
 import { getConfig, saveConfig, testConnection } from '@/core/server';
 import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
@@ -33,9 +31,6 @@ export default function Stats() {
       Alert.alert('Xato', String(e));
     }
   };
-  const results = Object.values(data.lessons);
-  const correct = results.reduce((sum, r) => sum + r.correct, 0);
-  const total = results.reduce((sum, r) => sum + r.total, 0);
   const days = lastDays(14);
   const maxXp = Math.max(10, ...days.map((d) => Math.floor((rating.sec[d] ?? 0) / 60)));
 

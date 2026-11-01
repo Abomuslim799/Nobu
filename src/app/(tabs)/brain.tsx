@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import { GAMES } from '@/features/brain/games';
+import { GAMES } from '@/features/brain/catalog';
 import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/features/brain/brain';
 import { Button, Card, Screen, T, Title } from '@/core/ui/kit';
 

@@ -5,18 +5,16 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { GAMES } from '@/features/brain/games';
+import { GAMES } from '@/features/brain/catalog';
 import { pushPlan } from '@/core/server';
 import { LESSONS as SCI } from '@/features/science/lessons';
 import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/features/brain/brain';
 
 import { C, FONT_DISPLAY } from '@/core/theme';
-import { STREAK_SEC, useRating } from '@/core/store';
-import { fmtDur } from '@/core/date';
+import { STREAK_SEC, useRating , useProgress } from '@/core/store';
+import { fmtDur , dayKey, lastDays } from '@/core/date';
 import { Astrolabe, fmtN } from '@/features/assessment/astrolabe';
 import { ALL_LESSONS } from '@/features/it/tracks';
-import { useProgress } from '@/core/store';
-import { dayKey, lastDays } from '@/core/date';
 import { AUDIO } from '@/features/english/data/audio';
 import { quoteOfDay } from '@/features/library/reading';
 import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';

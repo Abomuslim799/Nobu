@@ -38,8 +38,9 @@ jobs:
           SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi — telefon ovozi ishlatiladi"
 
       - run: npx tsc --noEmit
-      - name: Science testlari (fizika va javoblar)
-        run: npx -y esbuild@0.25.0 scripts/test_science.ts --bundle --platform=node --outfile=/tmp/ts.js && node /tmp/ts.js
+      - run: npx eslint src scripts
+      - name: Testlar (fizika, darslar, savollar, FR, xotira)
+        run: npm test
       - name: Nashr
         run: npx eas-cli@latest update --branch main --message "v${EXPO_PUBLIC_VERSION} — ${{ github.event.head_commit.message || 'manual' }}" --non-interactive
         env:

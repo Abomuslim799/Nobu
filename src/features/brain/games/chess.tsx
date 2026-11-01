@@ -15,7 +15,7 @@ import rows from '@content/brain/puzzles.json';
 import { chessExplain, type ChessExplain } from '@/features/brain/ai';
 import { chessResult, getChess } from '@/features/brain/brain';
 import { Button, Card, T } from '@/core/ui/kit';
-import type { GameProps } from '@/features/brain/games/quick';
+import type { GameProps } from '@/features/brain/games/kit';
 
 type Row = [string, string, string, number, string];
 const PUZZLES = rows as unknown as Row[];
@@ -100,7 +100,7 @@ function Puzzle({ row, onFinish }: { row: Row; onFinish: (ok: boolean, p: Row) =
   useEffect(() => {
     const t = setTimeout(() => { apply(moves[0]); setPly(1); }, 700);
     return () => clearTimeout(t);
-  }, []);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);    
 
   const tap = (sq: Square) => {
     if (state !== 'play' || ply % 2 === 0) return;

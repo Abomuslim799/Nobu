@@ -37,7 +37,7 @@ export function useNarrator(lesson: SciLesson | undefined) {
     if (!lesson) return;
     const texts = lesson.blocks.flatMap((b) => { const s = blockSay(b); return s ? [s.main, s.after ?? ''] : []; }).map(sayText);
     prefetch(texts).catch(() => {});
-  }, [lesson?.id]);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, [lesson?.id]);    
 
   /** Shu blokda o'qiladigan matn bormi. */
   const has = (idx: number, after = false) => { const b = lesson?.blocks[idx]; const s = b && blockSay(b); return !!(after ? s?.after : s?.main); };

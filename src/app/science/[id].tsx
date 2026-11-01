@@ -80,7 +80,7 @@ export default function SciLesson() {
       } catch { /* buzilgan yozuv — boshidan */ }
       setLoaded(true);
     });
-  }, [posKey]);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, [posKey]);    
   useEffect(() => {
     if (!loaded) return;
     if (finished) AsyncStorage.removeItem(posKey).catch(() => {});
@@ -92,14 +92,14 @@ export default function SciLesson() {
     if (!loaded || finished || !nar.on) return;
     const t = setTimeout(() => nar.play(i), 350);
     return () => { clearTimeout(t); nar.stop(); };
-  }, [i, loaded, finished, nar.on]);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, [i, loaded, finished, nar.on]);    
   const solvedNow = !!resolved[i];
   const prevSolved = useRef(solvedNow);
   useEffect(() => {
     if (solvedNow && !prevSolved.current && nar.on) nar.play(i, true);
     prevSolved.current = solvedNow;
-  }, [solvedNow, i]);   // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { prevSolved.current = !!resolved[i]; }, [i]);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, [solvedNow, i]);    
+  useEffect(() => { prevSolved.current = !!resolved[i]; }, [i]);    
 
   const restart = () => { res.current = { answers: {}, predicts: {}, mistakes: {} }; setResolved({}); setFinished(false); setI(0); };
 

@@ -20,7 +20,7 @@ import {
   type Area, type FRState, type RankId, type TestKind,
 } from '@/features/assessment/rating';
 import type { Q } from '@/features/assessment/questions';
-import { addDays, dayKey, fmtDur, lastDays } from '@/core/date';
+import { addDays, dayKey } from '@/core/date';
 import { bestStreak, currentStreak } from '@/features/assessment/streak';
 import { pushStatus } from '@/core/server';
 import { KEYS } from '@/core/storage';
@@ -224,7 +224,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
   }, [ready, todayOk, today, m.bonus, value.streak]);
 
   // Shaxmat reytingi → FR (ochilganda)
-  useEffect(() => { if (ready) value.syncChess(); }, [ready]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (ready) value.syncChess(); }, [ready]);    
 
   // Widget va kechki eslatma uchun holat (bo'limlar FR — katta widget ustunchalari)
   const areasKey = JSON.stringify(Object.fromEntries(AREAS.filter((a) => !m.disabled.includes(a)).map((a) => [a, Math.round(m.fr[a].r)])));

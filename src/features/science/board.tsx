@@ -11,7 +11,6 @@ import { Pressable, Text, View } from 'react-native';
 import Svg, { Circle, G, Line, Path, Polygon, Text as SvgText } from 'react-native-svg';
 
 import { C } from '@/core/theme';
-import { AUDIO } from '@/features/english/data/audio';
 import { Avatar } from '@/core/ui/avatar';
 import { fnById } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from '@/features/science/ui';
@@ -79,8 +78,8 @@ export function Board({ id }: { id: string }) {
       if (st.didJustFinish && stepRef.current.playing) advanceLater(800);
     });
     return () => { sub.remove(); p.remove(); if (timer.current) clearTimeout(timer.current); };
-  }, []);   // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { if (sc) prefetch(sc.steps.map((st) => sayText(st.say))).catch(() => {}); }, [id]);   // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);    
+  useEffect(() => { if (sc) prefetch(sc.steps.map((st) => sayText(st.say))).catch(() => {}); }, [id]);    
 
   if (!sc) return null;
   const steps = sc.steps;

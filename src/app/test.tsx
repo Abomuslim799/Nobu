@@ -13,10 +13,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
 import { fmtN } from '@/features/assessment/astrolabe';
 import { useRating, type TestItem, type TestLog } from '@/core/store';
-import { fmtDur } from '@/core/date';
+import { fmtDur , dayKey } from '@/core/date';
 import { dailyTest, seeded, type Q } from '@/features/assessment/questions';
 import { AREA_META, maxPoints, type Area } from '@/features/assessment/rating';
-import { dayKey } from '@/core/date';
 import { Button, Card, T } from '@/core/ui/kit';
 import { UstozPicture } from '@/core/ui/avatar';
 
@@ -37,7 +36,6 @@ export default function TestScreen() {
   const [items, setItems] = useState<TestItem[]>([]);
   const [left, setLeft] = useState(qs[0]?.sec ?? 30);
   const [combo, setCombo] = useState(0);
-  const [points, setPoints] = useState(0);
   const [quit, setQuit] = useState(false);
   const [result, setResult] = useState<TestLog | null>(null);
   const t0 = useRef(Date.now());
@@ -50,7 +48,7 @@ export default function TestScreen() {
     const id = setInterval(() => setLeft((x) => x - 1), 1000);
     return () => clearInterval(id);
   }, [i, picked, result, q]);
-  useEffect(() => { if (left <= 0 && picked === null && q) answer(-1); }, [left]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (left <= 0 && picked === null && q) answer(-1); }, [left]);    
 
   const answer = (k: number) => {
     if (picked !== null) return;
@@ -61,7 +59,6 @@ export default function TestScreen() {
     setItems((xs) => [...xs, { q: cur, s: ok ? 1 : 0 }]);
     setCombo((c) => (ok ? c + 1 : 0));
     if (ok) {
-      setPoints((p) => p + maxPoints(cur.d));
       pop.setValue(0);
       Animated.timing(pop, { toValue: 1, duration: 900, useNativeDriver: Platform.OS !== 'web' }).start();
     }

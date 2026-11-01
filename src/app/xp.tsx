@@ -10,9 +10,8 @@ import Svg, { Rect, Text as SvgText } from 'react-native-svg';
 
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
 import { useRating } from '@/core/store';
-import { fmtDur, lastDays } from '@/core/date';
+import { fmtDur, lastDays , dayKey } from '@/core/date';
 import { MUZ_MAX, PRICE, RANKS } from '@/features/assessment/rating';
-import { dayKey } from '@/core/date';
 import { Card, T } from '@/core/ui/kit';
 import { fmtN } from '@/features/assessment/astrolabe';
 

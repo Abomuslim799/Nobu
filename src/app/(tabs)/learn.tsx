@@ -5,7 +5,6 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { C } from '@/core/theme';
 import { SUBJECTS, subjectProgress } from '@/features/subjects';
 import { useProgress } from '@/core/store';
 import { Bar, Card, Screen, T, Title } from '@/core/ui/kit';
