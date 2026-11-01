@@ -228,11 +228,12 @@ export function MetaProvider({ children }: { children: ReactNode }) {
   // Shaxmat reytingi → FR (ochilganda)
   useEffect(() => { if (ready) value.syncChess(); }, [ready]);   // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Widget va kechki eslatma uchun holat
+  // Widget va kechki eslatma uchun holat (bo'limlar FR — katta widget ustunchalari)
+  const areasKey = JSON.stringify(Object.fromEntries(AREAS.filter((a) => !m.disabled.includes(a)).map((a) => [a, Math.round(m.fr[a].r)])));
   useEffect(() => {
     if (ready && pReady) pushStatus({ streak: value.streak, best: value.best, today: value.widget === 'ok',
-      fr: value.fr, rank: value.rank.title, muz: m.muz, state: value.widget, week: value.week });
-  }, [ready, pReady, value.streak, value.best, value.widget, value.fr, value.rank.title, m.muz, value.week]);
+      fr: value.fr, rank: value.rank.title, muz: m.muz, state: value.widget, week: value.week, areas: areasKey ? JSON.parse(areasKey) : undefined });
+  }, [ready, pReady, value.streak, value.best, value.widget, value.fr, value.rank.title, m.muz, value.week, areasKey]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

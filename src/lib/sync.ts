@@ -14,7 +14,7 @@ import { FRIENDS } from './edition';
 import { dayKey } from './streak';
 
 export interface SyncConfig { url: string; token: string }
-export interface NobuStatus { streak: number; best: number; today: boolean; fr?: number; rank?: string; muz?: number; state?: string; week?: number }
+export interface NobuStatus { streak: number; best: number; today: boolean; fr?: number; rank?: string; muz?: number; state?: string; week?: number; areas?: Record<string, number> }
 
 const CFG_KEY = 'nobu.sync.config';
 const clean = (url: string) => url.trim().replace(/\/+$/, '');   // "https://x.app/" → "https://x.app"
