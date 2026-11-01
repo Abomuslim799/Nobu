@@ -16,7 +16,8 @@ import { Avatar } from '@/ui/nobu';
 import { fnById } from './engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from './ui';
 
-import { textHash } from './lessons';
+import { prefetch, ttsUrl } from '@/lib/tts';
+import { sayText } from './speech';
 import m0 from './boards/m0.json';
 
 type XY = [number, number];
@@ -62,6 +63,7 @@ export function Board({ id }: { id: string }) {
   const player = useRef<AudioPlayer | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stepRef = useRef({ n: 0, playing: false });
+  const want = useRef(0);
   stepRef.current = { n, playing };
 
   useClock(ms < 4000, (dt) => setMs((x) => x + dt * 1000));
@@ -75,6 +77,7 @@ export function Board({ id }: { id: string }) {
     });
     return () => { sub.remove(); p.remove(); if (timer.current) clearTimeout(timer.current); };
   }, []);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (sc) prefetch(sc.steps.map((st) => sayText(st.say))).catch(() => {}); }, [id]);   // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!sc) return null;
   const steps = sc.steps;
@@ -92,15 +95,14 @@ export function Board({ id }: { id: string }) {
     setN(k); setMs(0); setPlaying(true);
     stepRef.current = { n: k, playing: true };
     const p = player.current;
-    const part = `b${k}`;
-    if (p && AUDIO[`sci-${sc.id}`]?.includes(part)) {
-      p.replace({ uri: `${AUDIO_BASE}sci-${sc.id}-${part}.mp3?v=${textHash(steps[k].say)}` });
-      p.play();
-    } else {
-      advanceLater(Math.max(2500, steps[k].say.length * 70));     // ovoz yo'q — o'qish vaqti bo'yicha
-    }
+    const my = ++want.current;
+    ttsUrl(sayText(steps[k].say)).then((url) => {
+      if (my !== want.current || !stepRef.current.playing) return;
+      if (p && url) { p.replace({ uri: url }); p.play(); }
+      else advanceLater(Math.max(2500, steps[k].say.length * 70));     // ovoz yo'q — o'qish vaqti bo'yicha
+    });
   };
-  const pause = () => { setPlaying(false); player.current?.pause(); if (timer.current) clearTimeout(timer.current); };
+  const pause = () => { want.current++; setPlaying(false); player.current?.pause(); if (timer.current) clearTimeout(timer.current); };
   const go = (k: number) => { pause(); setN(k); setMs(10_000); };
 
   const { items, axes, formula } = stateAt(sc, n);

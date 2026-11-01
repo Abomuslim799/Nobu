@@ -6,6 +6,7 @@ import {
   checkNumber, FUNCS, motionV, motionX, pendulumPeriodSmall, pendulumStep, projectile, projectileDrag, riemann, secantSlope, polar, add, len,
 } from '../src/science/engine';
 import { LESSONS } from '../src/science/lessons';
+import { sayText } from '../src/science/speech';
 import m0b from '../src/science/boards/m0.json';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b };
 
@@ -90,6 +91,11 @@ for (const l of LESSONS) {
   }
 }
 ok(checkNumber('6,1', 6.1, 0.003) && !checkNumber('6.3', 6.1, 0.003) && !checkNumber('abc', 1), 'checkNumber');
+
+// Ovoz matni: o'zbekcha so'zlar buzilmasin, oʻ/gʻ to'g'ri, yolg'iz harflar nomi bilan
+ok(sayText("yaxshi xona yo'l") === 'yaxshi xona yoʻl', `sayText 1: ${sayText("yaxshi xona yo'l")}`);
+ok(sayText("Δy bo'linsin x") === 'delta igrek boʻlinsin iks', `sayText 2: ${sayText("Δy bo'linsin x")}`);
+ok(sayText("ma'no") === 'maʼno', 'sayText 3');
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
 console.log(`OK — science: ${LESSONS.length} dars, ${Object.keys(expect).length} mashq, fizika testlari o'tdi`);

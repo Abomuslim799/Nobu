@@ -135,7 +135,7 @@ export default function SciLesson() {
         </View>
         {!finished && (b?.k !== 'board') && nar.has(i) && (
           <Pressable onPress={() => (nar.speaking ? nar.stop() : nar.play(i))} hitSlop={8} style={s.spk}>
-            <T size={15}>{nar.speaking ? '⏸' : '🔊'}</T>
+            <T size={15}>{nar.loading ? '⏳' : nar.speaking ? '⏸' : '🔊'}</T>
           </Pressable>
         )}
         <Pressable onPress={nar.toggle} hitSlop={8}><T dim size={12}>{nar.on ? '🔈 Avto' : '🔇 Jim'}</T></Pressable>
