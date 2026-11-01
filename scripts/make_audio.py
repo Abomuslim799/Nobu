@@ -142,7 +142,7 @@ async def main() -> None:
     lines = [f"  '{wid}': [{', '.join(parts)}]," for wid, parts in table.items()]
     MAP.write_text(
         "// Avtomatik yasalgan (scripts/make_audio.py) — qo'lda o'zgartirmang.\n"
-        "import type { AudioMap } from '@/lib/speak';\n\n"
+        "import type { AudioMap } from '@/features/english/speak';\n\n"
         "export const AUDIO: AudioMap = {\n" + "\n".join(lines) + "\n};\n",
         encoding="utf-8",
     )
