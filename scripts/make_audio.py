@@ -127,7 +127,7 @@ async def main() -> None:
     lessons = []
     sj = os.environ.get("SAY_JSON")
     if sj and Path(sj).exists():
-        lessons = [(x["id"], x["part"], say_text(x["text"]), UZ) for x in json.loads(Path(sj).read_text(encoding="utf-8"))]
+        lessons = [(x["id"], x["part"], say_text(x["text"]), UZ) for x in json.loads(Path(sj).read_text(encoding="utf-8")) if x["part"].startswith("s")]
     for wid, part, text, voice in texts + unit_texts() + boards + lessons:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))

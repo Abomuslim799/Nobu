@@ -30,7 +30,7 @@ export function ttsUrl(text: string): Promise<string | null> {
     try {
       const r = await fetch(`${cfg.url}/api/nobu/tts`, {
         method: 'POST', headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, voice: USTOZ_VOICE }),
+        body: JSON.stringify({ text, voice: USTOZ_VOICE, h }),
       });
       const d = await r.json();
       if (!r.ok || !d.url) return null;
