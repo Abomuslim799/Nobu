@@ -2,8 +2,8 @@
 import { router } from 'expo-router';
 import { View } from 'react-native';
 
-import { C, PAD } from '@/constants/theme';
-import { Button, T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { Button, T } from '@/core/ui/kit';
 
 export default function LiveWeb() {
   return (

@@ -7,10 +7,10 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { SUBJECTS } from '@/data/subjects';
-import { EnglishFolder, ItFolder, ScienceFolder } from '@/ui/folders';
-import { T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { SUBJECTS } from '@/features/subjects';
+import { EnglishFolder, ItFolder, ScienceFolder } from '@/features/folders';
+import { T } from '@/core/ui/kit';
 
 export default function SubjectScreen() {
   const insets = useSafeAreaInsets();

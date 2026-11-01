@@ -7,10 +7,10 @@ import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { C, R } from '@/constants/theme';
-import { useProgress } from '@/lib/progress';
-import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
-import { QuoteCard } from '@/ui/quote-card';
+import { C, R } from '@/core/theme';
+import { useProgress } from '@/core/store/progress';
+import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
+import { QuoteCard } from '@/features/library/quote-card';
 
 type Tab = 'books' | 'quotes';
 

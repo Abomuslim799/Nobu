@@ -8,14 +8,14 @@ import { useEffect, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View, type ScrollViewInstance } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { nobuChat, type TutorMsg } from '@/lib/ai';
-import { buildContext } from '@/lib/nobuContext';
-import { ttsUrl } from '@/lib/tts';
-import { sayText } from '@/science/speech';
+import { C, PAD } from '@/core/theme';
+import { nobuChat, type TutorMsg } from '@/core/ai';
+import { buildContext } from '@/features/assistant/context';
+import { ttsUrl } from '@/core/audio/tts';
+import { sayText } from '@/features/science/speech';
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
-import { T } from '@/ui/kit';
-import { Avatar, NobuSays, type Who } from '@/ui/nobu';
+import { T } from '@/core/ui/kit';
+import { Avatar, NobuSays, type Who } from '@/core/ui/avatar';
 
 const STARTERS: Record<string, string[]> = {
   lesson: ['Bu qonunni boshqacha tushuntirib bering', 'Menga qiyinroq masala bering', 'Bu kundalik hayotda qayerda uchraydi?'],

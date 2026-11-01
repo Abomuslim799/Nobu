@@ -8,13 +8,13 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { nobuOverview, type Overview } from '@/lib/ai';
-import { allData, buildContext } from '@/lib/nobuContext';
-import { getSciLog, type SciEntry } from '@/lib/science';
-import { AREAS } from '@/science/lessons';
-import { Button, Card, T } from '@/ui/kit';
-import { NobuSays } from '@/ui/nobu';
+import { C, PAD } from '@/core/theme';
+import { nobuOverview, type Overview } from '@/core/ai';
+import { allData, buildContext } from '@/features/assistant/context';
+import { getSciLog, type SciEntry } from '@/features/science/log';
+import { AREAS } from '@/features/science/lessons';
+import { Button, Card, T } from '@/core/ui/kit';
+import { NobuSays } from '@/core/ui/avatar';
 
 export default function NobuReport() {
   const insets = useSafeAreaInsets();

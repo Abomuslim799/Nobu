@@ -15,11 +15,11 @@ import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
-import { findLesson } from '@/data/tracks';
-import type { Step } from '@/data/types';
-import { useProgress } from '@/lib/progress';
-import { Bar, Button, Card, T } from '@/ui/kit';
+import { C, PAD, R } from '@/core/theme';
+import { findLesson } from '@/features/it/tracks';
+import type { Step } from '@/features/it/types';
+import { useProgress } from '@/core/store/progress';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
 
 export default function LessonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

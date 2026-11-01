@@ -4,13 +4,13 @@
  */
 import {
   checkNumber, FUNCS, motionV, motionX, pendulumPeriodSmall, pendulumStep, projectile, projectileDrag, riemann, secantSlope, polar, add, len,
-} from '../src/science/engine';
-import { LESSONS } from '../src/science/lessons';
-import { sayText } from '../src/science/speech';
-import m0b from '../src/science/boards/m0.json';
-import m1b from '../src/science/boards/m1.json';
-import { GENS, makeQ, dailyTest, seeded } from '../src/lib/questions';
-import { update, START, dayXP, streakBonus, overall, rankOf } from '../src/lib/rating';
+} from '@/features/science/engine';
+import { LESSONS } from '@/features/science/lessons';
+import { sayText } from '@/features/science/speech';
+import m0b from '@content/science/boards/m0.json';
+import m1b from '@content/science/boards/m1.json';
+import { GENS, makeQ, dailyTest, seeded } from '@/features/assessment/questions';
+import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/assessment/rating';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;

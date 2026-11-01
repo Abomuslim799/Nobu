@@ -11,11 +11,11 @@ import { useEffect, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { READ_MIN, useProgress, type Book } from '@/lib/progress';
-import { clock, openMutolaa } from '@/lib/reading';
-import { Bar, Button, Card, T } from '@/ui/kit';
-import { QuoteCard } from '@/ui/quote-card';
+import { C, PAD } from '@/core/theme';
+import { READ_MIN, useProgress, type Book } from '@/core/store/progress';
+import { clock, openMutolaa } from '@/features/library/reading';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
+import { QuoteCard } from '@/features/library/quote-card';
 
 export default function BookScreen() {
   const insets = useSafeAreaInsets();

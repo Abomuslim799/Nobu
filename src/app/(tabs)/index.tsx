@@ -5,23 +5,23 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { GAMES } from '@/data/games';
-import { pushPlan } from '@/lib/sync';
-import { LESSONS as SCI } from '@/science/lessons';
-import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/lib/brain';
+import { GAMES } from '@/features/brain/games';
+import { pushPlan } from '@/core/server';
+import { LESSONS as SCI } from '@/features/science/lessons';
+import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/features/brain/brain';
 
-import { C, FONT_DISPLAY } from '@/constants/theme';
-import { STREAK_SEC, fmtDur, useMeta } from '@/lib/meta';
-import { Astrolabe, fmtN } from '@/ui/astrolabe';
-import { ALL_LESSONS } from '@/data/tracks';
-import { useProgress } from '@/lib/progress';
-import { dayKey, lastDays } from '@/lib/streak';
-import { AUDIO } from '@/data/audio';
-import { quoteOfDay } from '@/lib/reading';
-import { STEPS, UNITS, stepsDone } from '@/data/units';
-import { VERSION } from '@/lib/version';
-import { QuoteCard } from '@/ui/quote-card';
-import { Button, Card, Screen, T } from '@/ui/kit';
+import { C, FONT_DISPLAY } from '@/core/theme';
+import { STREAK_SEC, fmtDur, useMeta } from '@/core/store/rating';
+import { Astrolabe, fmtN } from '@/features/assessment/astrolabe';
+import { ALL_LESSONS } from '@/features/it/tracks';
+import { useProgress } from '@/core/store/progress';
+import { dayKey, lastDays } from '@/core/date';
+import { AUDIO } from '@/features/english/data/audio';
+import { quoteOfDay } from '@/features/library/reading';
+import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
+import { VERSION } from '@/core/config';
+import { QuoteCard } from '@/features/library/quote-card';
+import { Button, Card, Screen, T } from '@/core/ui/kit';
 
 const WEEKDAYS = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];   // Date.getDay(): 0 = yakshanba
 

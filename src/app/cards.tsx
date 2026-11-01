@@ -15,14 +15,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Animated, Pressable, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
-import { DECKS, ALL_WORDS } from '@/data/vocab';
-import type { Word } from '@/data/words';
-import { useProgress } from '@/lib/progress';
-import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
-import { Bar, Button, Card, T } from '@/ui/kit';
-import { RateSwitch, SoundButton } from '@/ui/sound';
-import { Stress } from '@/ui/stress';
+import { C, PAD, R } from '@/core/theme';
+import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
+import type { Word } from '@/features/english/data/words';
+import { useProgress } from '@/core/store/progress';
+import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
+import { RateSwitch, SoundButton } from '@/core/ui/sound';
+import { Stress } from '@/features/english/ui/stress';
 
 const SESSION = 20;   // bir o'tirishda nechta karta
 

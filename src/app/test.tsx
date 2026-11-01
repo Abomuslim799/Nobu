@@ -10,14 +10,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, FONT_DISPLAY, PAD } from '@/constants/theme';
-import { fmtN } from '@/ui/astrolabe';
-import { useMeta, fmtDur, type TestItem, type TestLog } from '@/lib/meta';
-import { dailyTest, seeded, type Q } from '@/lib/questions';
-import { AREA_META, maxPoints, type Area } from '@/lib/rating';
-import { dayKey } from '@/lib/streak';
-import { Button, Card, T } from '@/ui/kit';
-import { UstozPicture } from '@/ui/nobu';
+import { C, FONT_DISPLAY, PAD } from '@/core/theme';
+import { fmtN } from '@/features/assessment/astrolabe';
+import { useMeta, fmtDur, type TestItem, type TestLog } from '@/core/store/rating';
+import { dailyTest, seeded, type Q } from '@/features/assessment/questions';
+import { AREA_META, maxPoints, type Area } from '@/features/assessment/rating';
+import { dayKey } from '@/core/date';
+import { Button, Card, T } from '@/core/ui/kit';
+import { UstozPicture } from '@/core/ui/avatar';
 
 const LEVEL = (d: number) => (d < 1000 ? 'oson' : d < 1300 ? "o'rta" : d < 1600 ? 'qiyin' : 'juda qiyin');
 const buzz = (ok: boolean) => {

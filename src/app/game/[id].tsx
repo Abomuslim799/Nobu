@@ -8,14 +8,14 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { GAMES } from '@/data/games';
-import { ChessPuzzles } from '@/games/chess';
-import { LogicAI, MemoryGrid, NBack, Reaction, Sequence, SpeedMath, Stroop, Sudoku, type GameProps } from '@/games/quick';
-import { finishGame, getLevel } from '@/lib/brain';
-import { useMeta } from '@/lib/meta';
-import { useProgress } from '@/lib/progress';
-import { Button, Card, T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { GAMES } from '@/features/brain/games';
+import { ChessPuzzles } from '@/features/brain/games/chess';
+import { LogicAI, MemoryGrid, NBack, Reaction, Sequence, SpeedMath, Stroop, Sudoku, type GameProps } from '@/features/brain/games/quick';
+import { finishGame, getLevel } from '@/features/brain/brain';
+import { useMeta } from '@/core/store/rating';
+import { useProgress } from '@/core/store/progress';
+import { Button, Card, T } from '@/core/ui/kit';
 
 const COMPONENTS: Record<string, (p: GameProps) => ReactNode> = {
   chess: ChessPuzzles, sequence: Sequence, sudoku: Sudoku, 'logic-ai': LogicAI, 'memory-grid': MemoryGrid,

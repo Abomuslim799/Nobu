@@ -13,15 +13,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
-import { CORE_WORDS } from '@/data/core';
-import { UNITS, type Unit } from '@/data/units';
-import { grammarSet, skillsReport, writeCheck, type GrammarItem, type SkillsReport, type WriteResult } from '@/lib/ai';
-import { getLog, logSkill, SKILLS, stats, summarize, type SkillEntry } from '@/lib/skills';
-import { say, stopSpeaking } from '@/lib/speak';
-import { QuizRunner, Rich } from '@/ui/choice';
-import { Bar, Button, Card, T } from '@/ui/kit';
-import { RateSwitch } from '@/ui/sound';
+import { C, PAD, R } from '@/core/theme';
+import { CORE_WORDS } from '@/features/english/data/core';
+import { UNITS, type Unit } from '@/features/english/data/units';
+import { grammarSet, skillsReport, writeCheck, type GrammarItem, type SkillsReport, type WriteResult } from '@/core/ai';
+import { getLog, logSkill, SKILLS, stats, summarize, type SkillEntry } from '@/features/english/skills';
+import { say, stopSpeaking } from '@/core/audio/speak';
+import { QuizRunner, Rich } from '@/core/ui/quiz-runner';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
+import { RateSwitch } from '@/core/ui/sound';
 
 const TITLES: Record<string, string> = {
   grammar: '🧩 Grammar', listening: '🎧 Listening', writing: '✍️ Writing', speaking: '🗣 Speaking', report: '📊 Statistika va AI tahlil',

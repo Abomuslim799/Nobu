@@ -7,10 +7,10 @@ import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-import { C } from '@/constants/theme';
-import { GAMES } from '@/data/games';
-import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/lib/brain';
-import { Button, Card, Screen, T, Title } from '@/ui/kit';
+import { C } from '@/core/theme';
+import { GAMES } from '@/features/brain/games';
+import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/features/brain/brain';
+import { Button, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Brain() {
   const [log, setLog] = useState<BrainEntry[]>([]);

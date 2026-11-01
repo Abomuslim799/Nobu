@@ -11,17 +11,17 @@ import { useEffect, useRef, useState, type ComponentRef } from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
-import { STEPS, UNITS, type StepId, type Unit } from '@/data/units';
-import { useProgress } from '@/lib/progress';
-import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/lib/ai';
-import { logSkill } from '@/lib/skills';
-import { useMic } from '@/ui/conversation';
-import { say, stopSpeaking } from '@/lib/speak';
-import { QuizRunner, Rich } from '@/ui/choice';
-import { Button, Card, T } from '@/ui/kit';
-import { RateSwitch, SoundButton } from '@/ui/sound';
-import { Stress } from '@/ui/stress';
+import { C, PAD, R } from '@/core/theme';
+import { STEPS, UNITS, type StepId, type Unit } from '@/features/english/data/units';
+import { useProgress } from '@/core/store/progress';
+import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/core/ai';
+import { logSkill } from '@/features/english/skills';
+import { useMic } from '@/core/audio/mic';
+import { say, stopSpeaking } from '@/core/audio/speak';
+import { QuizRunner, Rich } from '@/core/ui/quiz-runner';
+import { Button, Card, T } from '@/core/ui/kit';
+import { RateSwitch, SoundButton } from '@/core/ui/sound';
+import { Stress } from '@/features/english/ui/stress';
 
 export default function UnitScreen() {
   const insets = useSafeAreaInsets();

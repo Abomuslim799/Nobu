@@ -8,15 +8,15 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
-import { DECKS, ALL_WORDS } from '@/data/vocab';
-import type { Word } from '@/data/words';
-import { useProgress } from '@/lib/progress';
-import { buildQuiz, STAGES, type Question } from '@/lib/quiz';
-import { hasUzbekAudio, say, stopSpeaking } from '@/lib/speak';
-import { Bar, Button, Card, T } from '@/ui/kit';
-import { logSkill } from '@/lib/skills';
-import { RateSwitch, SoundButton } from '@/ui/sound';
+import { C, PAD, R } from '@/core/theme';
+import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
+import type { Word } from '@/features/english/data/words';
+import { useProgress } from '@/core/store/progress';
+import { buildQuiz, STAGES, type Question } from '@/features/english/quiz';
+import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
+import { logSkill } from '@/features/english/skills';
+import { RateSwitch, SoundButton } from '@/core/ui/sound';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();

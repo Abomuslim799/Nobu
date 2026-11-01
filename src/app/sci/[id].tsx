@@ -11,16 +11,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, type ScrollViewInstance } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { useProgress } from '@/lib/progress';
-import { logScience } from '@/lib/science';
-import { checkNumber } from '@/science/engine';
-import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/science/lessons';
-import { Board } from '@/science/board';
-import { useNarrator } from '@/science/narrate';
-import { SIMS } from '@/science/sims';
-import { Button, Card, T } from '@/ui/kit';
-import { NobuSays } from '@/ui/nobu';
+import { C, PAD } from '@/core/theme';
+import { useProgress } from '@/core/store/progress';
+import { logScience } from '@/features/science/log';
+import { checkNumber } from '@/features/science/engine';
+import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/features/science/lessons';
+import { Board } from '@/features/science/board';
+import { useNarrator } from '@/features/science/narrate';
+import { SIMS } from '@/features/science/sims';
+import { Button, Card, T } from '@/core/ui/kit';
+import { NobuSays } from '@/core/ui/avatar';
 
 const gate = (b: Block) => b.k === 'predict' || b.k === 'sim' || b.k === 'ex' || b.k === 'choice';
 // O'zbekchada qo'shimchada k → g bo'ladi (qiyalik → qiyaligi), shuning uchun oxirgi k ham, g ham mos keladi

@@ -4,7 +4,7 @@ make_audio.py — so'zlar uchun ovoz fayllarini yasaydi (GitHub Actions'da, har 
     en-GB-RyanNeural  — London erkak ovozi: so'z (-w) va misol gap (-s)
     uz-UZ-SardorNeural — o'zbekcha erkak ovozi: tarjima (-uz)
 
-Natija: assets/audio/<id>-w.mp3 ... va src/data/audio.ts (require xaritasi).
+Natija: assets/audio/<id>-w.mp3 ... va src/features/english/data/audio.ts.
 Biror fayl yasalmasa — o'sha qism telefonning o'z ovoziga tushadi, ilova buzilmaydi.
 """
 
@@ -18,7 +18,7 @@ import edge_tts
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "audio"
-MAP = ROOT / "src" / "data" / "audio.ts"
+MAP = ROOT / "src" / "features" / "english" / "data" / "audio.ts"
 EN, UZ = "en-GB-RyanNeural", "uz-UZ-SardorNeural"
 
 FIELD = r"""{name}:\s*(['"])((?:\\.|(?!\1).)*)\1"""
@@ -30,7 +30,7 @@ def field(block: str, name: str) -> str | None:
 
 
 def words() -> list[dict]:
-    src = (ROOT / "src" / "data" / "words.ts").read_text(encoding="utf-8")
+    src = (ROOT / "src" / "features" / "english" / "data" / "words.ts").read_text(encoding="utf-8")
     body = src.split("export const WORDS", 1)[1]
     out = []
     for block in body.split("{ id:")[1:]:
@@ -100,7 +100,7 @@ async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> boo
 def unit_texts() -> list[tuple[str, str, str, str]]:
     """Unitlardan: (id, part, matn, ovoz). So'zlar ham words() bilan bir xil shaklda."""
     out = []
-    for path in sorted((ROOT / "src" / "data" / "units").glob("*.json")):
+    for path in sorted((ROOT / "content" / "english" / "units").glob("*.json")):
         u = json.loads(path.read_text(encoding="utf-8"))
         uid = u["id"]
         for w in u["vocab"] + u["collocations"]:
@@ -120,7 +120,7 @@ async def main() -> None:
              for part, text, voice in (("w", w["word"], EN), ("s", w["example"], EN), ("uz", w["translation"], UZ))]
     # Science doskasi: Nobu ovozi (o'zbekcha, Sardor) — sci-<dars>-b<n>.mp3
     boards = []
-    for path in sorted((ROOT / "src" / "science" / "boards").glob("*.json")):
+    for path in sorted((ROOT / "content" / "science" / "boards").glob("*.json")):
         b = json.loads(path.read_text(encoding="utf-8"))
         boards += [(f"sci-{b['id']}", f"b{i}", say_text(st["say"]), UZ) for i, st in enumerate(b["steps"])]
     # Science darslari matni (scripts/dump_say.ts → SAY_JSON)

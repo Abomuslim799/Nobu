@@ -1,4 +1,4 @@
-# Bir martalik: Lichess bazasidan shaxmat masalalarini tanlab, src/data/puzzles.json ga yozadi va commit qiladi.
+# Bir martalik: Lichess bazasidan shaxmat masalalarini tanlab, content/brain/puzzles.json ga yozadi va commit qiladi.
 name: puzzles
 on:
   workflow_dispatch:
@@ -17,6 +17,6 @@ jobs:
       - run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add src/data/puzzles.json
+          git add content/brain/puzzles.json
           git commit -m "Chess puzzles from Lichess database (CC0)" || echo "o'zgarish yo'q"
           git push

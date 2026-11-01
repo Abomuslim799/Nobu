@@ -6,15 +6,15 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Alert, Platform, TextInput, View } from 'react-native';
 
-import { C } from '@/constants/theme';
-import { TRACKS } from '@/data/tracks';
-import { useMeta } from '@/lib/meta';
-import { useProgress } from '@/lib/progress';
-import { pickBackup, exportBackup } from '@/lib/backup';
-import { backupNow, lastBackup, restoreLatest } from '@/lib/cloudBackup';
-import { lastDays } from '@/lib/streak';
-import { getConfig, saveConfig, testConnection } from '@/lib/sync';
-import { Bar, Button, Card, Screen, T, Title } from '@/ui/kit';
+import { C } from '@/core/theme';
+import { TRACKS } from '@/features/it/tracks';
+import { useMeta } from '@/core/store/rating';
+import { useProgress } from '@/core/store/progress';
+import { pickBackup, exportBackup } from '@/core/backup-file';
+import { backupNow, lastBackup, restoreLatest } from '@/core/backup';
+import { lastDays } from '@/core/date';
+import { getConfig, saveConfig, testConnection } from '@/core/server';
+import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Stats() {
   const { data, reset, setReadGoal, exportJSON, importJSON } = useProgress();
@@ -160,7 +160,7 @@ function VoiceCheck() {
   const [msg, setMsg] = useState('');
   const check = async () => {
     setMsg('Tekshirilmoqda…');
-    const tts = await import('@/lib/tts');
+    const tts = await import('@/core/audio/tts');
     const url = await tts.ttsUrl(`Ovoz sinovi ${new Date().getMinutes()}`);
     setMsg(url ? 'Gemini ovozi ishlayapti ✓' : `Gemini ovozi ishlamayapti — darslarda zaxira ovoz (Sardor) chalinadi.\nSabab: ${tts.ttsError() || 'server sozlanmagan'}`);
   };

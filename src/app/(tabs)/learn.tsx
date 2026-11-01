@@ -5,10 +5,10 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { C } from '@/constants/theme';
-import { SUBJECTS, subjectProgress } from '@/data/subjects';
-import { useProgress } from '@/lib/progress';
-import { Bar, Card, Screen, T, Title } from '@/ui/kit';
+import { C } from '@/core/theme';
+import { SUBJECTS, subjectProgress } from '@/features/subjects';
+import { useProgress } from '@/core/store/progress';
+import { Bar, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Learn() {
   const { data } = useProgress();

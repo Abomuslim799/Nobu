@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { brainReport, type BrainReport } from '@/lib/ai';
-import { BRAIN_SKILLS, brainStats, brainSummary, getBrainLog, getChess, type BrainEntry, type ChessState } from '@/lib/brain';
-import { Bar, Button, Card, T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { brainReport, type BrainReport } from '@/core/ai';
+import { BRAIN_SKILLS, brainStats, brainSummary, getBrainLog, getChess, type BrainEntry, type ChessState } from '@/features/brain/brain';
+import { Bar, Button, Card, T } from '@/core/ui/kit';
 
 export default function BrainReportScreen() {
   const insets = useSafeAreaInsets();

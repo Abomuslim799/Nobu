@@ -22,7 +22,7 @@ def gap_found(w: dict) -> bool:
     return re.search(r"\s+".join(parts), w["example"], re.I) is not None
 
 
-for path in sorted((ROOT / "src" / "data" / "units").glob("*.json")):
+for path in sorted((ROOT / "content" / "english" / "units").glob("*.json")):
     u = json.loads(path.read_text(encoding="utf-8"))
     n = path.name
     def err(msg):

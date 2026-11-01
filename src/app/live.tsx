@@ -11,10 +11,10 @@ import { Linking, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
-import { C, PAD } from '@/constants/theme';
-import { logSkill } from '@/lib/skills';
-import { getConfig } from '@/lib/sync';
-import { Button, T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { logSkill } from '@/features/english/skills';
+import { getConfig } from '@/core/server';
+import { Button, T } from '@/core/ui/kit';
 
 export default function Live() {
   const insets = useSafeAreaInsets();

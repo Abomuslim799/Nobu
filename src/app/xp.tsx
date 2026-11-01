@@ -8,12 +8,12 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Rect, Text as SvgText } from 'react-native-svg';
 
-import { C, FONT_DISPLAY, PAD } from '@/constants/theme';
-import { fmtDur, lastDays, useMeta } from '@/lib/meta';
-import { MUZ_MAX, PRICE, RANKS } from '@/lib/rating';
-import { dayKey } from '@/lib/streak';
-import { Card, T } from '@/ui/kit';
-import { fmtN } from '@/ui/astrolabe';
+import { C, FONT_DISPLAY, PAD } from '@/core/theme';
+import { fmtDur, lastDays, useMeta } from '@/core/store/rating';
+import { MUZ_MAX, PRICE, RANKS } from '@/features/assessment/rating';
+import { dayKey } from '@/core/date';
+import { Card, T } from '@/core/ui/kit';
+import { fmtN } from '@/features/assessment/astrolabe';
 
 const WD = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];
 

@@ -5,7 +5,7 @@
 
 import { NativeTabs } from 'expo-router/native-tabs';
 
-import { C } from '@/constants/theme';
+import { C } from '@/core/theme';
 
 const home = require('@/assets/images/tabIcons/home.png');
 const explore = require('@/assets/images/tabIcons/explore.png');

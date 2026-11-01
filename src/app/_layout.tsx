@@ -13,9 +13,9 @@ import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { Appearance, DevSettings, View } from 'react-native';
 
-import { C, SCHEME } from '@/constants/theme';
-import { MetaProvider, markActive } from '@/lib/meta';
-import { ProgressProvider } from '@/lib/progress';
+import { C, SCHEME } from '@/core/theme';
+import { MetaProvider, markActive } from '@/core/store/rating';
+import { ProgressProvider } from '@/core/store/progress';
 
 export default function RootLayout() {
   useFonts({ YoungSerif_400Regular });

@@ -7,9 +7,9 @@ import { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD } from '@/constants/theme';
-import { useProgress } from '@/lib/progress';
-import { Button, T } from '@/ui/kit';
+import { C, PAD } from '@/core/theme';
+import { useProgress } from '@/core/store/progress';
+import { Button, T } from '@/core/ui/kit';
 
 export default function QuoteScreen() {
   const insets = useSafeAreaInsets();

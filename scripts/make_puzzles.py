@@ -2,7 +2,7 @@
 make_puzzles.py — Lichess ochiq bazasidan (CC0, database.lichess.org) shaxmat masalalarini tanlaydi.
 
 Reyting oralig'i 500–2300, har 100 lik "pog'ona"dan PER_BAND tadan — faqat mashhur va
-ko'p o'ynalgan (ishonchli) masalalar. Natija: src/data/puzzles.json
+ko'p o'ynalgan (ishonchli) masalalar. Natija: content/brain/puzzles.json
   [id, fen, moves, rating, themes]
   fen   — raqib yurishidan OLDINGI holat; moves[0] — raqib yurishi, keyingilari — yechim (UCI)
 Bir martalik ishga tushiriladi (GitHub Actions → puzzles workflow).
@@ -17,7 +17,7 @@ from pathlib import Path
 import zstandard
 
 URL = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
-OUT = Path(__file__).resolve().parent.parent / "src" / "data" / "puzzles.json"
+OUT = Path(__file__).resolve().parent.parent / "content" / "brain" / "puzzles.json"
 PER_BAND = 90
 LO, HI = 500, 2300
 
