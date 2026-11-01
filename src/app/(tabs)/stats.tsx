@@ -150,8 +150,26 @@ function ServerLink() {
         value={token} onChangeText={setToken} autoCapitalize="none" autoCorrect={false} secureTextEntry />
       <Button label="Saqlash va tekshirish" onPress={save} />
       {!!status && <T dim size={13}>{status}</T>}
+      <VoiceCheck />
       <BackupBox />
     </Card>
+  );
+}
+
+/** Ustoz ovozini tekshirish: Gemini (server) ishlayaptimi, ishlamasa — sababi. */
+function VoiceCheck() {
+  const [msg, setMsg] = useState('');
+  const check = async () => {
+    setMsg('Tekshirilmoqda…');
+    const tts = await import('@/lib/tts');
+    const url = await tts.ttsUrl(`Ovoz sinovi ${new Date().getMinutes()}`);
+    setMsg(url ? 'Gemini ovozi ishlayapti ✓' : `Gemini ovozi ishlamayapti — darslarda zaxira ovoz (Sardor) chalinadi.\nSabab: ${tts.ttsError() || 'server sozlanmagan'}`);
+  };
+  return (
+    <View style={{ gap: 6 }}>
+      <Button kind="ghost" label="🔊 Ustoz ovozini tekshirish" onPress={check} />
+      {!!msg && <T dim size={13}>{msg}</T>}
+    </View>
   );
 }
 

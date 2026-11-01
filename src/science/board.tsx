@@ -98,7 +98,7 @@ export function Board({ id }: { id: string }) {
     stepRef.current = { n: k, playing: true };
     const p = player.current;
     const my = ++want.current;
-    ttsUrl(sayText(steps[k].say)).then((url) => {
+    ttsUrl(sayText(steps[k].say), `${AUDIO_BASE}sci-${id}-b${k}.mp3`).then((url) => {   // zaxira — Sardor
       if (my !== want.current || !stepRef.current.playing) return;
       if (p && url) { p.replace({ uri: url }); p.play(); }
       else advanceLater(Math.max(2500, steps[k].say.length * 70));     // ovoz yo'q — o'qish vaqti bo'yicha

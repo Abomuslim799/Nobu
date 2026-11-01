@@ -98,9 +98,9 @@ export default function TestScreen() {
       {top}
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
         <View style={s.track}><View style={[s.fill, { width: `${frac * 100}%` }]} /></View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <T dim size={13}>{AREA_META[q.area].title} · {q.topic} · {LEVEL(q.d)} · {maxPoints(q.d)} ball</T>
-          <T size={14} bold color={left <= 5 && picked === null ? C.red : C.dim} style={{ fontVariant: ['tabular-nums'] }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
+          <T dim size={13} style={{ flex: 1 }}>{AREA_META[q.area].title} · {q.topic} · {LEVEL(q.d)} · {maxPoints(q.d)} ball</T>
+          <T size={14} bold color={left <= 5 && picked === null ? C.red : C.dim} style={{ fontVariant: ['tabular-nums'], minWidth: 40, textAlign: 'right' }}>
             {picked === null ? `${Math.floor(Math.max(0, left) / 60)}:${String(Math.max(0, left) % 60).padStart(2, '0')}` : ''}</T>
         </View>
 

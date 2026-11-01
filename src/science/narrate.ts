@@ -14,6 +14,7 @@ import { prefetch, ttsUrl } from '@/lib/tts';
 import { blockSay, type SciLesson } from './lessons';
 import { sayText } from './speech';
 const KEY = 'nobu.sci.autoread';
+const AUDIO_BASE = 'https://abomuslim799.github.io/Nobu/audio/';
 
 export function useNarrator(lesson: SciLesson | undefined) {
   const player = useRef<AudioPlayer | null>(null);
@@ -48,7 +49,7 @@ export function useNarrator(lesson: SciLesson | undefined) {
     if (!text) return;
     const my = ++want.current;
     setLoading(true);
-    const url = await ttsUrl(sayText(text));
+    const url = await ttsUrl(sayText(text), `${AUDIO_BASE}sci-${lesson.id}-s${idx}${after ? 'r' : ''}.mp3`);   // zaxira — Sardor
     if (my !== want.current) return;              // foydalanuvchi boshqa qadamga o'tib bo'lgan
     setLoading(false);
     if (!url) return;
