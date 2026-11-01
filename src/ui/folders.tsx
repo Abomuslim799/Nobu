@@ -119,7 +119,7 @@ export function ScienceFolder() {
   return (
     <>
       <Card style={{ gap: 8 }}>
-        <T bold>🤖 Nobu bilan</T>
+        <T bold>Ustoz Farobiy bilan</T>
         <T dim size={14}>Istalgan mavzuni muhokama qiling, masala so'rang yoki jonli gaplashing.</T>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <View style={{ flex: 1 }}><Button label="💬 Suhbat" onPress={() => router.push({ pathname: '/nobu', params: { key: 'science' } })} /></View>
@@ -146,7 +146,7 @@ export function ScienceFolder() {
               const r = data.lessons[`sci-${l.id}`];
               return (
                 <Pressable key={l.id} onPress={() => router.push(`/sci/${l.id}`)} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1,
-                  flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)' })}>
+                  flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8, borderTopWidth: 1, borderTopColor: C.subtle })}>
                   <T size={16}>{r ? '✅' : `${l.n}.`}</T>
                   <View style={{ flex: 1 }}>
                     <T size={15} bold={!r}>{l.title}</T>

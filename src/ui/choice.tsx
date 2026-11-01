@@ -53,7 +53,7 @@ const s = StyleSheet.create({
   fill: { height: 6, backgroundColor: C.green },
   feedback: { padding: 12, borderRadius: 12, borderWidth: 1, gap: 4, backgroundColor: C.card },
   next: { paddingVertical: 15, borderRadius: 14, backgroundColor: C.green, alignItems: 'center' },
-  nextText: { color: C.bg, fontSize: 17, fontWeight: '800' },
+  nextText: { color: C.onAccent, fontSize: 17, fontWeight: '800' },
   review: { gap: 2, paddingVertical: 8, borderTopWidth: 1, borderTopColor: C.cardBorder },
   opt: { padding: 12, borderRadius: R - 4, backgroundColor: C.codeBg, borderWidth: 1, borderColor: C.cardBorder },
   right: { backgroundColor: C.greenSoft, borderColor: C.green },

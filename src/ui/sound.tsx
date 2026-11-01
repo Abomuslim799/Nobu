@@ -23,7 +23,7 @@ export function RateSwitch() {
       {RATES.map((r) => (
         <Pressable key={r} onPress={() => setRate(r)} hitSlop={4}
           style={[s.rate, rate === r && { backgroundColor: C.green }]}>
-          <Text style={[s.rateText, rate === r && { color: C.bg }]}>{r}×</Text>
+          <Text style={[s.rateText, rate === r && { color: C.onAccent }]}>{r}×</Text>
         </Pressable>
       ))}
     </View>

@@ -6,16 +6,28 @@
  * ProgressProvider — barcha ekranlarga natijalarni (streak, darslar) beradi.
  */
 
+import { useFonts, YoungSerif_400Regular } from '@expo-google-fonts/young-serif';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import * as Updates from 'expo-updates';
+import { useEffect } from 'react';
+import { Appearance, DevSettings } from 'react-native';
 
-import { C } from '@/constants/theme';
+import { C, SCHEME } from '@/constants/theme';
 import { ProgressProvider } from '@/lib/progress';
 
 export default function RootLayout() {
+  useFonts({ YoungSerif_400Regular });
+  // Telefon tun/kun rejimini almashtirsa — ilova yangi ranglar bilan qayta yuklanadi
+  useEffect(() => {
+    const sub = Appearance.addChangeListener(({ colorScheme }) => {
+      if ((colorScheme === 'light' ? 'light' : 'dark') !== SCHEME) Updates.reloadAsync().catch(() => DevSettings.reload());
+    });
+    return () => sub.remove();
+  }, []);
   return (
     <ProgressProvider>
-      <StatusBar style="light" />
+      <StatusBar style={SCHEME === 'light' ? 'dark' : 'light'} />
       {/* Barcha sahifalar o'ngdan kiradi; chapdan o'ngga surib (ekranning istalgan joyidan) orqaga qaytiladi. */}
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg },
         gestureEnabled: true, fullScreenGestureEnabled: true, animation: 'slide_from_right' }}>

@@ -15,13 +15,13 @@ import {
 import { Axes, COLORS, path, sample, Slider, sx, sy, useClock, useWidth, type View2D } from './ui';
 
 const Box = ({ children, onLayout }: { children: React.ReactNode; onLayout?: (e: any) => void }) => (
-  <View onLayout={onLayout} style={{ backgroundColor: '#0E1512', borderRadius: 14, borderWidth: 1, borderColor: C.cardBorder, overflow: 'hidden' }}>{children}</View>
+  <View onLayout={onLayout} style={{ backgroundColor: C.simBg, borderRadius: 14, borderWidth: 1, borderColor: C.cardBorder, overflow: 'hidden' }}>{children}</View>
 );
 // Qiymatlar: 2 ustunli qat'iy to'r va bir xil kenglikdagi raqamlar — son o'zgarganda qutilar sakramaydi
 const Readout = ({ rows }: { rows: [string, string, string?][] }) => (
   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
     {rows.map(([k, v, c]) => (
-      <View key={k} style={{ flexBasis: '48%', flexGrow: 1, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.05)' }}>
+      <View key={k} style={{ flexBasis: '48%', flexGrow: 1, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: C.subtle }}>
         <Text style={{ color: C.dim, fontSize: 11 }} numberOfLines={1}>{k}</Text>
         <Text style={{ color: c ?? C.text, fontSize: 16, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{v}</Text>
       </View>
@@ -65,7 +65,7 @@ function Slope() {
             <Line x1={sx(v, x2)} x2={sx(v, x2)} y1={sy(v, f(x1))} y2={sy(v, f(x2))} stroke={COLORS.b} strokeWidth={3} />
             <SvgText x={(sx(v, x1) + sx(v, x2)) / 2} y={sy(v, f(x1)) + (k >= 0 ? 16 : -8)} fill={COLORS.c} fontSize={13} textAnchor="middle">Δx = 1</SvgText>
             <SvgText x={sx(v, x2) + 6} y={(sy(v, f(x1)) + sy(v, f(x2))) / 2 + 4} fill={COLORS.b} fontSize={13}>{`Δy = ${fmt(k, 2)}`}</SvgText>
-            <Circle cx={sx(v, x1)} cy={sy(v, f(x1))} r={5} fill="#fff" /><Circle cx={sx(v, x2)} cy={sy(v, f(x2))} r={5} fill="#fff" />
+            <Circle cx={sx(v, x1)} cy={sy(v, f(x1))} r={5} fill={C.text} /><Circle cx={sx(v, x2)} cy={sy(v, f(x2))} r={5} fill={C.text} />
           </Svg>
         )}
       </Box>
@@ -138,7 +138,7 @@ function Integral() {
             {R.rects.map((r, i) => {
               const top = Math.max(r.h, 0), bot = Math.min(r.h, 0);
               return <Rect key={i} x={sx(v, r.x)} width={Math.max(0.5, sx(v, r.x + r.w) - sx(v, r.x))} y={sy(v, top)} height={sy(v, bot) - sy(v, top)}
-                fill={r.h >= 0 ? 'rgba(52,211,153,0.28)' : 'rgba(248,113,113,0.28)'} stroke={r.h >= 0 ? COLORS.d : COLORS.red} strokeWidth={n > 40 ? 0 : 1} />;
+                fill={r.h >= 0 ? C.cardBorder : 'rgba(248,113,113,0.28)'} stroke={r.h >= 0 ? COLORS.d : COLORS.red} strokeWidth={n > 40 ? 0 : 1} />;
             })}
             <Path d={path(v, sample(fn.f, fn.xmin, fn.xmax))} stroke={COLORS.a} strokeWidth={2.5} fill="none" />
             <Line x1={sx(v, a)} x2={sx(v, a)} y1={0} y2={v.H} stroke={COLORS.c} strokeDasharray="4 4" />
@@ -181,10 +181,10 @@ function UnitCircle() {
             <Line x1={cx} x2={cx} y1={cy - R - 10} y2={cy + R + 10} stroke="rgba(255,255,255,0.3)" />
             <Circle cx={cx} cy={cy} r={R} stroke="rgba(255,255,255,0.4)" fill="none" />
             <Path d={`M${cx + 22},${cy} A22,22 0 ${deg > 180 ? 1 : 0},0 ${cx + 22 * Math.cos(r)},${cy - 22 * Math.sin(r)}`} stroke={COLORS.c} fill="none" strokeWidth={2} />
-            <Line x1={cx} y1={cy} x2={px} y2={py} stroke="#fff" strokeWidth={2} />
+            <Line x1={cx} y1={cy} x2={px} y2={py} stroke={C.text} strokeWidth={2} />
             <Line x1={cx} y1={cy} x2={px} y2={cy} stroke={COLORS.a} strokeWidth={4} />
             <Line x1={px} y1={cy} x2={px} y2={py} stroke={COLORS.b} strokeWidth={4} />
-            <Circle cx={px} cy={py} r={6} fill="#fff" />
+            <Circle cx={px} cy={py} r={6} fill={C.text} />
             <SvgText x={cx + 4} y={cy + 16} fill={COLORS.a} fontSize={12}>cos</SvgText>
             <SvgText x={px + 5} y={(py + cy) / 2} fill={COLORS.b} fontSize={12}>sin</SvgText>
             {gw > 50 && <>
@@ -348,8 +348,8 @@ function Projectile() {
               </G>
             ))}
             {t === null && <Path d={path(v, cur.pts)} stroke="rgba(255,255,255,0.18)" strokeWidth={1.5} strokeDasharray="3 5" fill="none" />}
-            {shown && <Path d={path(v, shown)} stroke="#fff" strokeWidth={2.5} fill="none" />}
-            {ball && <Circle cx={sx(v, ball.x)} cy={sy(v, ball.y)} r={6} fill="#fff" />}
+            {shown && <Path d={path(v, shown)} stroke={C.text} strokeWidth={2.5} fill="none" />}
+            {ball && <Circle cx={sx(v, ball.x)} cy={sy(v, ball.y)} r={6} fill={C.text} />}
             <Line x1={sx(v, 0)} y1={sy(v, 0)} x2={sx(v, 0) + 26 * Math.cos((deg * Math.PI) / 180)} y2={sy(v, 0) - 26 * Math.sin((deg * Math.PI) / 180)} stroke={COLORS.c} strokeWidth={6} strokeLinecap="round" />
           </Svg>
         )}
@@ -397,7 +397,7 @@ function Pendulum() {
           <Svg width={W} height={H}>
             <Line x1={px - 40} x2={px + 40} y1={py} y2={py} stroke="rgba(255,255,255,0.5)" strokeWidth={3} />
             <Line x1={px} x2={px} y1={py} y2={py + Lpx} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 4" />
-            <Line x1={px} y1={py} x2={bx} y2={by} stroke="#fff" strokeWidth={2} />
+            <Line x1={px} y1={py} x2={bx} y2={by} stroke={C.text} strokeWidth={2} />
             <Circle cx={bx} cy={by} r={13} fill={COLORS.c} />
           </Svg>
         )}

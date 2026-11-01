@@ -22,7 +22,7 @@ export default function Library() {
       <View style={s.segment}>
         {(['books', 'quotes'] as Tab[]).map((t) => (
           <Pressable key={t} onPress={() => setTab(t)} style={[s.segBtn, tab === t && s.segOn]}>
-            <Text style={[s.segText, tab === t && { color: C.bg }]}>{t === 'books' ? '📚 Kitoblar' : '❝ Iqtiboslar'}</Text>
+            <Text style={[s.segText, tab === t && { color: C.onAccent }]}>{t === 'books' ? '📚 Kitoblar' : '❝ Iqtiboslar'}</Text>
           </Pressable>
         ))}
       </View>
@@ -110,7 +110,7 @@ function Quotes() {
 function Chip({ on, label, onPress }: { on: boolean; label: string; onPress: () => void }) {
   return (
     <Pressable onPress={onPress} style={[s.chip, on && { backgroundColor: C.green }]}>
-      <Text style={[s.chipText, on && { color: C.bg }]}>{label}</Text>
+      <Text style={[s.chipText, on && { color: C.onAccent }]}>{label}</Text>
     </Pressable>
   );
 }

@@ -39,7 +39,7 @@ export default function NobuReport() {
     <View style={[s.root, { paddingTop: insets.top }]}>
       <View style={s.top}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
-        <T bold size={18}>🤖 Nobu tahlili</T>
+        <T bold size={18}>Nobu tahlili</T>
       </View>
       <ScrollView contentContainerStyle={{ padding: PAD, gap: 12, paddingBottom: insets.bottom + 40 }}>
         <Card style={{ gap: 6 }}>

@@ -40,7 +40,7 @@ export default function Stats() {
 
   return (
     <Screen>
-      <Title>Statistika</Title>
+      <Title sub="Shaxsiy yordamchingiz: natijalar, tahlil, sozlamalar">Nobu</Title>
       {!FRIENDS && <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu-report')} />}
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
@@ -56,7 +56,7 @@ export default function Stats() {
             const xp = data.days[d]?.xp ?? 0;
             return (
               <View key={d} style={{ flex: 1, height: `${Math.max(3, (xp / maxXp) * 100)}%`,
-                borderRadius: 4, backgroundColor: xp ? C.green : 'rgba(255,255,255,0.08)' }} />
+                borderRadius: 4, backgroundColor: xp ? C.green : C.subtle2 }} />
             );
           })}
         </View>

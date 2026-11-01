@@ -12,7 +12,7 @@ import { C, PAD } from '@/constants/theme';
 import { nobuChat, type TutorMsg } from '@/lib/ai';
 import { buildContext } from '@/lib/nobuContext';
 import { T } from '@/ui/kit';
-import { NobuSays } from '@/ui/nobu';
+import { Avatar, NobuSays, type Who } from '@/ui/nobu';
 
 const STARTERS: Record<string, string[]> = {
   lesson: ['Bu qonunni boshqacha tushuntirib ber', 'Menga qiyinroq masala ber', 'Bu kundalik hayotda qayerda uchraydi?'],
@@ -61,27 +61,29 @@ export default function NobuChat() {
   const cancel = () => { reqId.current++; setBusy(false); setErr("Bekor qilindi. Savolni qayta yuborishingiz mumkin."); };
   const call = () => ctx && router.push({ pathname: '/live', params: { mode: 'nobu', topic: ctx.topic, ctx: ctx.ctx.slice(0, 9000) } });
   const kind = key.startsWith('lesson:') ? 'lesson' : key;
+  const who: Who = kind === 'stats' ? 'nobu' : 'ustoz';     // darslar va Science — Ustoz, statistika — Nobu
 
   return (
     <KeyboardAvoidingView style={[s.root, { paddingTop: insets.top }]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={s.top}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
         <View style={{ flex: 1 }}>
-          <T bold>🤖 Nobu</T>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}><Avatar who={who} size={28} /><T bold>{who === 'ustoz' ? 'Ustoz Farobiy' : 'Nobu'}</T></View>
           <T dim size={12} style={{}}>{ctx?.topic ?? '...'}</T>
         </View>
-        <Pressable onPress={call} style={s.call}><T bold color={C.bg}>📞 Jonli</T></Pressable>
+        <Pressable onPress={call} style={s.call}><T bold color={C.onAccent}>📞 Jonli</T></Pressable>
       </View>
       <ScrollView ref={scroll} contentContainerStyle={{ padding: PAD, gap: 10 }} keyboardShouldPersistTaps="handled">
-        <NobuSays text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
+        <NobuSays who={who} pose="kitob" text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
           : kind === 'stats' ? "Barcha natijalaringiz oldimda: ingliz tili, miya o'yinlari, shaxmat, science. Nimani muhokama qilamiz?"
             : 'Matematika, geometriya yoki fizika — nimani muhokama qilamiz?'} />
-        {msgs.map((m, i) => m.role === 'nobu' ? <NobuSays key={i} text={m.text} /> : (
+        {msgs.map((m, i) => m.role === 'nobu' ? <NobuSays key={i} who={who} text={m.text} /> : (
           <View key={i} style={s.me}><T size={15}>{m.text}</T></View>
         ))}
         {busy && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-            <T dim>Nobu o'ylayapti... {sec}s</T>
+            <Avatar who={who} pose="oyla" size={30} />
+            <T dim>{who === 'ustoz' ? 'Ustoz' : 'Nobu'} o'ylayapti... {sec}s</T>
             {sec >= 5 && <Pressable onPress={cancel} hitSlop={8}><T color={C.red} size={13}>✕ Bekor qilish</T></Pressable>}
           </View>
         )}
@@ -95,10 +97,10 @@ export default function NobuChat() {
         )}
       </ScrollView>
       <View style={[s.bar, { paddingBottom: insets.bottom + 8 }]}>
-        <TextInput style={s.input} value={text} onChangeText={setText} placeholder="Nobu'ga yozing..." placeholderTextColor={C.dim}
+        <TextInput style={s.input} value={text} onChangeText={setText} placeholder={who === 'ustoz' ? "Ustozga yozing..." : "Nobu'ga yozing..."} placeholderTextColor={C.dim}
           multiline onSubmitEditing={() => send(text)} />
         <Pressable onPress={() => send(text)} disabled={busy || !text.trim()} style={[s.send, (busy || !text.trim()) && { opacity: 0.4 }]}>
-          <T bold color={C.bg}>➤</T>
+          <T bold color={C.onAccent}>➤</T>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
@@ -107,11 +109,11 @@ export default function NobuChat() {
 
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: C.bg },
-  top: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: PAD, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.06)' },
+  top: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: PAD, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: C.subtle },
   call: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, backgroundColor: C.green },
   me: { alignSelf: 'flex-end', maxWidth: '85%', padding: 12, borderRadius: 16, backgroundColor: 'rgba(96,165,250,0.15)', borderWidth: 1, borderColor: 'rgba(96,165,250,0.35)' },
   chip: { alignSelf: 'flex-start', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1, borderColor: C.cardBorder },
-  bar: { flexDirection: 'row', gap: 8, paddingHorizontal: PAD, paddingTop: 8, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', alignItems: 'flex-end' },
+  bar: { flexDirection: 'row', gap: 8, paddingHorizontal: PAD, paddingTop: 8, borderTopWidth: 1, borderTopColor: C.subtle, alignItems: 'flex-end' },
   input: { flex: 1, maxHeight: 120, color: C.text, fontSize: 16, padding: 12, borderRadius: 16, backgroundColor: C.codeBg, borderWidth: 1, borderColor: C.cardBorder },
   send: { width: 44, height: 44, borderRadius: 22, backgroundColor: C.green, alignItems: 'center', justifyContent: 'center' },
 });

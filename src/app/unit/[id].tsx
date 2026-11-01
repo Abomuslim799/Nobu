@@ -59,7 +59,7 @@ export default function UnitScreen() {
         {STEPS.map((x) => (
           <Pressable key={x.id} onPress={() => { stopSpeaking(); setStep(x.id); }}
             style={[s.stepChip, step === x.id && { backgroundColor: C.green }]}>
-            <Text style={[s.stepText, step === x.id && { color: C.bg }]}>
+            <Text style={[s.stepText, step === x.id && { color: C.onAccent }]}>
               {done.includes(x.id) ? '✓ ' : ''}{x.icon} {x.title}
             </Text>
           </Pressable>

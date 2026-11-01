@@ -12,6 +12,7 @@ import Svg, { Circle, G, Line, Path, Polygon, Text as SvgText } from 'react-nati
 
 import { C } from '@/constants/theme';
 import { AUDIO } from '@/data/audio';
+import { Avatar } from '@/ui/nobu';
 import { fnById } from './engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from './ui';
 
@@ -30,7 +31,7 @@ export interface BoardScript { id: string; view: { x0: number; x1: number; y0: n
 export const BOARDS: Record<string, BoardScript> = { m0: m0 as BoardScript };
 
 const AUDIO_BASE = 'https://abomuslim799.github.io/Nobu/audio/';
-const col = (c?: string) => (c === 'w' ? '#FFFFFF' : c && c in COLORS ? COLORS[c as keyof typeof COLORS] : c ?? COLORS.a);
+const col = (c?: string) => (c === 'w' ? C.text : c && c in COLORS ? COLORS[c as keyof typeof COLORS] : c ?? COLORS.a);
 const DRAW_MS = 700;        // bitta amalning chizilish vaqti
 const STAGGER_MS = 350;     // bir qadamdagi amallar orasidagi kechikish
 
@@ -109,7 +110,7 @@ export function Board({ id }: { id: string }) {
 
   return (
     <View style={{ gap: 10 }}>
-      <View onLayout={onLayout} style={{ backgroundColor: '#0E1512', borderRadius: 14, borderWidth: 1, borderColor: C.cardBorder, overflow: 'hidden' }}>
+      <View onLayout={onLayout} style={{ backgroundColor: C.simBg, borderRadius: 14, borderWidth: 1, borderColor: C.cardBorder, overflow: 'hidden' }}>
         {W > 0 && (
           <Svg width={W} height={H}>
             {axes && <Axes v={v} />}
@@ -151,8 +152,11 @@ export function Board({ id }: { id: string }) {
       </View>
 
       {/* Subtitr */}
-      <View style={{ minHeight: 72, padding: 12, borderRadius: 12, backgroundColor: 'rgba(52,211,153,0.08)', borderWidth: 1, borderColor: 'rgba(52,211,153,0.25)' }}>
-        <Text style={{ color: C.green, fontSize: 12, fontWeight: '700' }}>🤖 Nobu · {n + 1}/{steps.length}</Text>
+      <View style={{ minHeight: 72, padding: 12, borderRadius: 12, backgroundColor: C.greenSoft, borderWidth: 1, borderColor: C.cardBorder }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+          <Avatar who="ustoz" pose={playing ? 'tushuntir' : 'kitob'} size={30} />
+          <Text style={{ color: C.gold, fontSize: 12, fontWeight: '700' }}>Ustoz Farobiy · {n + 1}/{steps.length}</Text>
+        </View>
         <Text style={{ color: C.text, fontSize: 16, lineHeight: 23 }}>{steps[n].sub ?? steps[n].say}</Text>
       </View>
 
@@ -161,7 +165,7 @@ export function Board({ id }: { id: string }) {
         <Pressable onPress={() => (playing ? pause() : play(n >= steps.length - 1 && !playing && ms > 4000 ? 0 : n))}
           style={{ flex: 1, height: 46, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: playing ? C.redSoft : C.green }}>
           <Text style={{ color: playing ? C.text : C.bg, fontWeight: '800', fontSize: 16 }}>
-            {playing ? '⏸ Pauza' : n === 0 && ms > 4000 ? '▶ Nobu tushuntirsin' : n >= steps.length - 1 ? '🔁 Boshidan' : '▶ Davom'}
+            {playing ? '⏸ Pauza' : n === 0 && ms > 4000 ? '▶ Ustoz tushuntirsin' : n >= steps.length - 1 ? '🔁 Boshidan' : '▶ Davom'}
           </Text>
         </Pressable>
         <Ctl label="›" onPress={() => go(Math.min(steps.length - 1, n + 1))} disabled={n >= steps.length - 1} />
@@ -173,7 +177,7 @@ export function Board({ id }: { id: string }) {
 function Ctl({ label, onPress, disabled }: { label: string; onPress: () => void; disabled?: boolean }) {
   return (
     <Pressable onPress={onPress} disabled={disabled} style={{ width: 46, height: 46, borderRadius: 12, alignItems: 'center', justifyContent: 'center',
-      backgroundColor: 'rgba(255,255,255,0.06)', opacity: disabled ? 0.3 : 1 }}>
+      backgroundColor: C.subtle, opacity: disabled ? 0.3 : 1 }}>
       <Text style={{ color: C.text, fontSize: 22 }}>{label}</Text>
     </Pressable>
   );

@@ -1,7 +1,7 @@
 /**
  * sci/[id].tsx — Science darsi, BITTA QADAM bir ekranda (slayd kabi): kam matn, bitta g'oya.
  * Taxmin / simulyatsiya / mashq bajarilmaguncha "Keyingi" yopiq. Atamalar (qiyalik, urinma...) bosilsa — izoh.
- * Har qadamda "🤖 Tushunmadim" — Nobu shu qadamni boshqacha tushuntiradi.
+ * Har qadamda "🙋 Tushunmadim" — Nobu shu qadamni boshqacha tushuntiradi.
  * Oxirida natija jurnalga yoziladi (streak + Nobu tahlili).
  */
 
@@ -129,7 +129,7 @@ export default function SciLesson() {
             <T bold size={20}>✅ Dars tugadi</T>
             <T>Mashqlar: {t.correct}/{t.total} · taxminlar: {t.predicted}/{t.predictTotal}</T>
             {t.mistakes.length > 0 && <T dim size={14}>Qaytarish kerak: {t.mistakes.join(' · ')}</T>}
-            <Button label="🤖 Nobu bilan muhokama qilish" onPress={() => router.push({ pathname: '/nobu', params: { key: `lesson:${lesson.id}` } })} />
+            <Button label="🙋 Ustoz bilan muhokama qilish" onPress={() => router.push({ pathname: '/nobu', params: { key: `lesson:${lesson.id}` } })} />
             {nextLesson && <Button kind="ghost" label={`Keyingi dars: ${nextLesson.title}`} onPress={() => router.replace(`/sci/${nextLesson.id}`)} />}
             <Button kind="ghost" label="Orqaga" onPress={() => router.back()} />
           </Card>
@@ -141,9 +141,9 @@ export default function SciLesson() {
       {!finished && (
         <View style={[s.bar, { paddingBottom: insets.bottom + 8 }]}>
           <Pressable onPress={() => i > 0 && go(i - 1)} disabled={i === 0} style={[s.navBtn, i === 0 && { opacity: 0.3 }]}><T size={20}>‹</T></Pressable>
-          <Pressable onPress={ask} style={s.askBtn}><T size={14}>🤖 Tushunmadim</T></Pressable>
+          <Pressable onPress={ask} style={s.askBtn}><T size={14}>🙋 Tushunmadim</T></Pressable>
           <Pressable disabled={!canNext} onPress={() => (i + 1 < blocks.length ? go(i + 1) : finish())}
-            style={[s.nextBtn, { backgroundColor: canNext ? C.green : 'rgba(255,255,255,0.08)' }]}>
+            style={[s.nextBtn, { backgroundColor: canNext ? C.green : C.subtle2 }]}>
             <Text style={{ color: canNext ? C.bg : C.dim, fontWeight: '800', fontSize: 16 }}>
               {!canNext ? (b.k === 'sim' ? 'Sinab ko\'ring' : 'Javob bering') : i + 1 < blocks.length ? 'Keyingi ›' : 'Yakunlash ✓'}
             </Text>
@@ -156,7 +156,7 @@ export default function SciLesson() {
 
 function BlockView({ b, idx, res, solved, onResolved }: { b: Block; idx: number; res: Res; solved: boolean; onResolved: () => void }) {
   switch (b.k) {
-    case 'nobu': return <NobuSays text={b.text} />;
+    case 'nobu': return <NobuSays text={b.text} who="ustoz" pose="tushuntir" />;
     case 'board': return <Board id={b.id} />;
     case 'text': return <Card><GlossText text={b.text} /></Card>;
     case 'law': return (
@@ -265,10 +265,10 @@ const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: C.bg },
   top: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: PAD, paddingVertical: 8 },
   dots: { flexDirection: 'row', gap: 4, paddingHorizontal: PAD, paddingBottom: 8 },
-  dot: { flex: 1, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.12)' },
+  dot: { flex: 1, height: 4, borderRadius: 2, backgroundColor: C.subtle2 },
   body: { padding: PAD, gap: 14, paddingBottom: 40 },
-  bar: { flexDirection: 'row', gap: 8, alignItems: 'center', paddingHorizontal: PAD, paddingTop: 10, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)' },
-  navBtn: { width: 48, height: 48, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.06)' },
+  bar: { flexDirection: 'row', gap: 8, alignItems: 'center', paddingHorizontal: PAD, paddingTop: 10, borderTopWidth: 1, borderTopColor: C.subtle },
+  navBtn: { width: 48, height: 48, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: C.subtle },
   askBtn: { height: 48, paddingHorizontal: 12, borderRadius: 14, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: C.cardBorder },
   nextBtn: { flex: 1, height: 48, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
   gloss: { padding: 10, borderRadius: 10, backgroundColor: 'rgba(147,197,253,0.1)', borderWidth: 1, borderColor: 'rgba(147,197,253,0.3)' },

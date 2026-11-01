@@ -147,9 +147,9 @@ export default function Today() {
 const s = StyleSheet.create({
   fire: { fontSize: 44 },
   week: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 10, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.04)' },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 10, borderRadius: 12, backgroundColor: C.subtle },
   rowDone: { opacity: 0.6 },
-  dot: { width: 26, height: 26, borderRadius: 13, backgroundColor: 'rgba(255,255,255,0.07)' },
+  dot: { width: 26, height: 26, borderRadius: 13, backgroundColor: C.subtle },
   dotOn: { backgroundColor: C.green },
   dotToday: { borderWidth: 2, borderColor: C.fire },
 });

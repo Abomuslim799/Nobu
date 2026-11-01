@@ -204,7 +204,7 @@ const s = StyleSheet.create({
     paddingHorizontal: 8, paddingVertical: 3 },
   code: { backgroundColor: C.codeBg, borderRadius: 10, padding: 12 },
   codeText: { color: '#D1E7DD', fontFamily: 'Menlo', fontSize: 13, lineHeight: 19 },
-  option: { borderWidth: 1, borderColor: 'rgba(255,255,255,0.12)', borderRadius: R - 4, padding: 14 },
+  option: { borderWidth: 1, borderColor: C.subtle2, borderRadius: R - 4, padding: 14 },
   optionText: { color: C.text, fontSize: 15 },
   input: { borderWidth: 1, borderColor: C.cardBorder, borderRadius: 12, padding: 12,
     color: C.text, fontSize: 16, fontFamily: 'Menlo' },

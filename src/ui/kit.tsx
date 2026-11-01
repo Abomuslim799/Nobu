@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, PAD, R } from '@/constants/theme';
+import { C, FONT_DISPLAY, PAD, R } from '@/constants/theme';
 
 /** Tab ichidagi ekran. iPhone'da tepada "Dynamic Island", pastda tab paneli va
  *  "home" chizig'i bor — kontent ularning ostida qolmasligi kerak.
@@ -92,13 +92,13 @@ const s = StyleSheet.create({
   scroll: { paddingHorizontal: PAD, gap: 12 },
   card: {
     backgroundColor: C.card, borderColor: C.cardBorder, borderWidth: 1,
-    borderRadius: R, padding: 16, gap: 8,
+    borderRadius: R + 2, padding: 16, gap: 8,
   },
-  title: { color: C.text, fontSize: 30, fontWeight: '800' },
+  title: { color: C.text, fontSize: 32, fontFamily: FONT_DISPLAY },
   sub: { color: C.dim, fontSize: 15, marginTop: 2 },
   btn: { backgroundColor: C.green, borderRadius: 14, paddingVertical: 14, alignItems: 'center' },
-  btnGhost: { backgroundColor: C.greenSoft },
-  btnText: { color: '#04140D', fontSize: 16, fontWeight: '700' },
-  barTrack: { height: 8, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.08)', overflow: 'hidden' },
+  btnGhost: { backgroundColor: 'transparent', borderWidth: 1, borderColor: C.green },
+  btnText: { color: C.onAccent, fontSize: 16, fontWeight: '800' },
+  barTrack: { height: 8, borderRadius: 4, backgroundColor: C.subtle2, overflow: 'hidden' },
   barFill: { height: 8, borderRadius: 4 },
 });

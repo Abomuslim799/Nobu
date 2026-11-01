@@ -42,7 +42,7 @@ export function Slider({ label, value, min, max, step, unit = '', onChange, colo
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Pressable onPress={() => nudge(-1)} hitSlop={8}><Text style={{ color: C.dim, fontSize: 20, width: 18, textAlign: 'center' }}>−</Text></Pressable>
         <View style={{ flex: 1, height: 32, justifyContent: 'center' }} onLayout={(e) => setW(e.nativeEvent.layout.width)} {...pan.panHandlers}>
-          <View pointerEvents="none" style={{ height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.12)' }}>
+          <View pointerEvents="none" style={{ height: 6, borderRadius: 3, backgroundColor: C.subtle2 }}>
             <View style={{ width: `${frac * 100}%`, height: 6, borderRadius: 3, backgroundColor: color }} />
           </View>
           <View pointerEvents="none" style={{ position: 'absolute', left: frac * w - 11, width: 22, height: 22, borderRadius: 11, backgroundColor: '#fff', borderWidth: 3, borderColor: color }} />
