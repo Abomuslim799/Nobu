@@ -22,11 +22,11 @@ import {
 import type { Q } from '@/features/assessment/questions';
 import { idleFor, markActive } from '@/core/activity';
 import { addDays, dayKey } from '@/core/date';
-
-export { markActive };
 import { bestStreak, currentStreak } from '@/features/assessment/streak';
 import { pushStatus } from '@/core/server';
 import { KEYS } from '@/core/storage';
+
+export { markActive };
 
 export interface TestLog { at: number; day: string; kind: TestKind | 'practice'; n: number; ok: number; sec: number; before: number; after: number; by: Partial<Record<Area, { ok: number; n: number; d: number }>> }
 interface RatingData {

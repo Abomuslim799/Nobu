@@ -76,7 +76,7 @@ export default function SciLesson() {
     AsyncStorage.getItem(posKey).then((raw) => {
       try {
         const p = raw ? JSON.parse(raw) : null;
-        if (p && lesson && p.i < lesson.blocks.length) { setI(p.i); setResolved(p.resolved ?? {}); res.current = p.res ?? res.current; }
+        if (p && lesson && p.i < lesson.blocks.length) { setI(p.i); setResolved(p.resolved ?? {}); res.current = { ...res.current, ...p.res }; }
       } catch { /* buzilgan yozuv — boshidan */ }
       setLoaded(true);
     });
