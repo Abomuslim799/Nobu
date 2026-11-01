@@ -50,7 +50,7 @@ export const LESSONS: SciLesson[] = [
       { k: 'predict', q: "Mashina 2 soatda 120 km yurdi. 1-soat oxirida spidometr aniq 60 km/soat ko'rsatganmi?",
         options: ['Ha, albatta', "Yo'q, shart emas", "Spidometr bilan bog'liq emas"], answer: "Yo'q, shart emas",
         reveal: "120 / 2 = 60 — bu o'rtacha tezlik. Lahzadagi tezlik butunlay boshqacha bo'lishi mumkin (svetoforda 0, trassada 100). Lahzadagi tezlikni topish uchun oraliqni juda kichik qilib olish kerak — hosila g'oyasi shu." },
-      { k: 'text', text: "G'oya: egri chiziqda ikkita yaqin nuqta olamiz va ular orqali to'g'ri chiziq o'tkazamiz (kesuvchi). Uning qiyaligini topish oson. Nuqtalarni bir-biriga yaqinlashtirsak — kesuvchi urinmaga aylanadi." },
+      { k: 'board', id: 'm1' },
       { k: 'sim', id: 'derivative', task: "h ni 2 dan 0.01 gacha asta kamaytiring. Pushti kesuvchi chiziq nimaga aylanyapti? Uning qiyaligi qaysi songa yaqinlashyapti?" },
       { k: 'law', title: 'Hosilaning ta\'rifi', formula: ["f′(x) = lim (h → 0) [f(x + h) − f(x)] / h"],
         meaning: "Hosila — shu nuqtadagi urinmaning qiyaligi. Fizikada: yo'ldan hosila — tezlik, tezlikdan hosila — tezlanish." },

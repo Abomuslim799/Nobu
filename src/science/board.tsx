@@ -20,6 +20,7 @@ import { markActive } from '@/lib/meta';
 import { prefetch, ttsUrl } from '@/lib/tts';
 import { sayText } from './speech';
 import m0 from './boards/m0.json';
+import m1 from './boards/m1.json';
 
 type XY = [number, number];
 export type Act =
@@ -31,7 +32,7 @@ export type Act =
   | { t: 'text'; id: string; at: XY; text: string; c?: string; anchor?: 'start' | 'middle' | 'end' };
 export interface BoardScript { id: string; view: { x0: number; x1: number; y0: number; y1: number }; steps: { say: string; sub?: string; draw: Act[] }[] }
 
-export const BOARDS: Record<string, BoardScript> = { m0: m0 as BoardScript };
+export const BOARDS: Record<string, BoardScript> = { m0: m0 as BoardScript, m1: m1 as BoardScript };
 
 const AUDIO_BASE = 'https://abomuslim799.github.io/Nobu/audio/';
 const col = (c?: string) => (c === 'w' ? C.text : c && c in COLORS ? COLORS[c as keyof typeof COLORS] : c ?? COLORS.a);

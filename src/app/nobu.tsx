@@ -11,13 +11,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD } from '@/constants/theme';
 import { nobuChat, type TutorMsg } from '@/lib/ai';
 import { buildContext } from '@/lib/nobuContext';
+import { ttsUrl } from '@/lib/tts';
+import { sayText } from '@/science/speech';
+import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { T } from '@/ui/kit';
 import { Avatar, NobuSays, type Who } from '@/ui/nobu';
 
 const STARTERS: Record<string, string[]> = {
-  lesson: ['Bu qonunni boshqacha tushuntirib ber', 'Menga qiyinroq masala ber', 'Bu kundalik hayotda qayerda uchraydi?'],
+  lesson: ['Bu qonunni boshqacha tushuntirib bering', 'Menga qiyinroq masala bering', 'Bu kundalik hayotda qayerda uchraydi?'],
   stats: ['Eng zaif tomonim nima?', 'Bu hafta nimaga e\'tibor beray?', 'Qayerda o\'syapman?'],
-  science: ['Qaysi mavzuni takrorlashim kerak?', 'Menga aralash masala ber'],
+  science: ['Qaysi mavzuni takrorlashim kerak?', 'Menga aralash masala bering'],
 };
 
 export default function NobuChat() {
@@ -29,10 +32,31 @@ export default function NobuChat() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const scroll = useRef<ScrollViewInstance>(null);
+  // 🔊 Javobni ovozda eshitish (server: Gemini/ElevenLabs; bu matnlar oldindan yasalmagan — bosilganda yasaladi)
+  const player = useRef<AudioPlayer | null>(null);
+  const [voice, setVoice] = useState<{ i: number; st: 'load' | 'play' | 'err' | '' }>({ i: -1, st: '' });
+  useEffect(() => {
+    setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
+    const p = createAudioPlayer(null);
+    player.current = p;
+    const sub = p.addListener('playbackStatusUpdate', (st) => { if (st.didJustFinish) setVoice({ i: -1, st: '' }); });
+    return () => { sub.remove(); p.remove(); };
+  }, []);
+  const say = async (i: number, t: string) => {
+    const p = player.current;
+    if (!p) return;
+    if (voice.i === i && voice.st === 'play') { p.pause(); setVoice({ i: -1, st: '' }); return; }
+    p.pause();
+    setVoice({ i, st: 'load' });
+    const url = await ttsUrl(sayText(t));
+    if (!url) { setVoice({ i, st: 'err' }); return; }
+    p.replace({ uri: url }); p.play();
+    setVoice({ i, st: 'play' });
+  };
   useEffect(() => { buildContext(key, step !== undefined ? Number(step) : undefined).then(setCtx); }, [key, step]);
   // Darsdagi "Tushunmadim" — Nobu o'zi boshlaydi
   const asked = useRef(false);
-  useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib ber.'); } }, [ctx]);   // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (ctx && step !== undefined && !asked.current) { asked.current = true; send('Shu qadamni tushunmadim, oddiyroq tushuntirib bering.'); } }, [ctx]);   // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 100); }, [msgs, busy]);
 
   // Kutish: soniyalar sanaladi, "Bekor qilish" — javobni kutmaymiz (kech kelsa, e'tiborsiz qoldiriladi)
@@ -77,7 +101,14 @@ export default function NobuChat() {
         <NobuSays who={who} pose="kitob" text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
           : kind === 'stats' ? "Barcha natijalaringiz oldimda: ingliz tili, miya o'yinlari, shaxmat, science. Nimani muhokama qilamiz?"
             : 'Matematika, geometriya yoki fizika — nimani muhokama qilamiz?'} />
-        {msgs.map((m, i) => m.role === 'nobu' ? <NobuSays key={i} who={who} text={m.text} /> : (
+        {msgs.map((m, i) => m.role === 'nobu' ? (
+          <View key={i} style={{ gap: 4 }}>
+            <NobuSays who={who} text={m.text} />
+            <Pressable onPress={() => say(i, m.text)} hitSlop={8} style={s.say}>
+              <T size={13} color={C.green}>{voice.i === i ? (voice.st === 'load' ? '⏳ ovoz tayyorlanmoqda…' : voice.st === 'play' ? '⏸ to\'xtatish' : voice.st === 'err' ? '⚠️ ovoz yo\'q (server)' : '🔊 eshitish') : '🔊 eshitish'}</T>
+            </Pressable>
+          </View>
+        ) : (
           <View key={i} style={s.me}><T size={15}>{m.text}</T></View>
         ))}
         {busy && (
@@ -108,6 +139,7 @@ export default function NobuChat() {
 }
 
 const s = StyleSheet.create({
+  say: { alignSelf: 'flex-start', marginLeft: 58, paddingVertical: 2 },
   root: { flex: 1, backgroundColor: C.bg },
   top: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: PAD, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: C.subtle },
   call: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, backgroundColor: C.green },

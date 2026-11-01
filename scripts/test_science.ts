@@ -8,9 +8,10 @@ import {
 import { LESSONS } from '../src/science/lessons';
 import { sayText } from '../src/science/speech';
 import m0b from '../src/science/boards/m0.json';
+import m1b from '../src/science/boards/m1.json';
 import { GENS, makeQ, dailyTest, seeded } from '../src/lib/questions';
 import { update, START, dayXP, streakBonus, overall, rankOf } from '../src/lib/rating';
-const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b };
+const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;
 const ok = (cond: boolean, msg: string) => { if (!cond) { fails++; console.error('✗ ' + msg); } };

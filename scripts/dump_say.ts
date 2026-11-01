@@ -7,6 +7,7 @@
 import { blockSay, LESSONS, textHash } from '../src/science/lessons';
 import { sayText } from '../src/science/speech';
 import m0 from '../src/science/boards/m0.json';
+import m1 from '../src/science/boards/m1.json';
 
 const VOICE = 'Iapetus';    // lib/tts.ts dagi USTOZ_VOICE bilan bir xil
 const out: { id: string; part: string; text: string; speak: string; h: string }[] = [];
@@ -22,5 +23,5 @@ for (const l of LESSONS) {
     if (s.after) add(`sci-${l.id}`, `s${i}r`, s.after);
   });
 }
-for (const b of [m0]) b.steps.forEach((st, i) => add(`sci-${b.id}`, `b${i}`, st.say));
+for (const b of [m0, m1]) b.steps.forEach((st, i) => add(`sci-${b.id}`, `b${i}`, st.say));
 console.log(JSON.stringify(out));
