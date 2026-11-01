@@ -16,6 +16,7 @@ import { Avatar } from '@/ui/nobu';
 import { fnById } from './engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from './ui';
 
+import { markActive } from '@/lib/meta';
 import { prefetch, ttsUrl } from '@/lib/tts';
 import { sayText } from './speech';
 import m0 from './boards/m0.json';
@@ -73,6 +74,7 @@ export function Board({ id }: { id: string }) {
     const p = createAudioPlayer(null);
     player.current = p;
     const sub = p.addListener('playbackStatusUpdate', (st) => {
+      if (st.playing) markActive();                 // ustozni tinglash — faol vaqt
       if (st.didJustFinish && stepRef.current.playing) advanceLater(800);
     });
     return () => { sub.remove(); p.remove(); if (timer.current) clearTimeout(timer.current); };

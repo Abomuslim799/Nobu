@@ -11,9 +11,10 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
-import { Appearance, DevSettings } from 'react-native';
+import { Appearance, DevSettings, View } from 'react-native';
 
 import { C, SCHEME } from '@/constants/theme';
+import { MetaProvider, markActive } from '@/lib/meta';
 import { ProgressProvider } from '@/lib/progress';
 
 export default function RootLayout() {
@@ -26,7 +27,9 @@ export default function RootLayout() {
     return () => sub.remove();
   }, []);
   return (
-    <ProgressProvider>
+    <ProgressProvider><MetaProvider>
+      {/* Har teginish — faol vaqt (XP va streak uchun; 60 s tegilmasa hisob to'xtaydi) */}
+      <View style={{ flex: 1 }} onTouchStart={markActive}>
       <StatusBar style={SCHEME === 'light' ? 'dark' : 'light'} />
       {/* Barcha sahifalar o'ngdan kiradi; chapdan o'ngga surib (ekranning istalgan joyidan) orqaga qaytiladi. */}
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg },
@@ -46,7 +49,10 @@ export default function RootLayout() {
         <Stack.Screen name="sci/[id]" options={{ gestureEnabled: false, fullScreenGestureEnabled: false }} />   {/* surish — slayder uchun; orqaga faqat ‹ */}
         <Stack.Screen name="nobu" />
         <Stack.Screen name="nobu-report" />
+        <Stack.Screen name="test" options={{ gestureEnabled: false, fullScreenGestureEnabled: false }} />
+        <Stack.Screen name="xp" />
       </Stack>
-    </ProgressProvider>
+      </View>
+    </MetaProvider></ProgressProvider>
   );
 }

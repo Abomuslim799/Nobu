@@ -16,7 +16,6 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 
 import { bestStreak, currentStreak, dayKey } from './streak';
 import { autoBackup } from './cloudBackup';
-import { pushStatus } from './sync';
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
@@ -292,11 +291,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
       saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep]);
 
-  // Widget uchun: streak o'zgarsa (yoki ilova ochilsa) serverga yuboramiz.
-  const todayActive = !!data.days[dayKey()];
-  useEffect(() => {
-    if (ready) pushStatus({ streak: value.streak, best: value.best, today: todayActive });
-  }, [ready, value.streak, value.best, todayActive]);
+  // Widget holati endi meta.tsx'dan yuboriladi (yangi streak: kamida 5 daqiqa faol vaqt).
   useEffect(() => { if (ready) autoBackup(); }, [ready]);   // kuniga bir marta serverga zaxira
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;

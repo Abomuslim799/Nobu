@@ -13,6 +13,7 @@ import { GAMES } from '@/data/games';
 import { ChessPuzzles } from '@/games/chess';
 import { LogicAI, MemoryGrid, NBack, Reaction, Sequence, SpeedMath, Stroop, Sudoku, type GameProps } from '@/games/quick';
 import { finishGame, getLevel } from '@/lib/brain';
+import { useMeta } from '@/lib/meta';
 import { useProgress } from '@/lib/progress';
 import { Button, Card, T } from '@/ui/kit';
 
@@ -25,6 +26,7 @@ export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const game = GAMES.find((g) => g.id === id);
   const { recordGame } = useProgress();
+  const { recordBrain, syncChess } = useMeta();
   const insets = useSafeAreaInsets();
   const [level, setLevel] = useState(1);
   const [phase, setPhase] = useState<'intro' | 'play' | 'done'>('intro');
@@ -37,10 +39,11 @@ export default function GameScreen() {
     if (!game) return;
     const score = Math.max(0, Math.min(100, Math.round(raw)));
     const next = await finishGame(game.skill, game.id, score, level, mistakes);
-    recordGame(game.id, score);                 // streak va kunlik faollik uchun
+    recordGame(game.id, score);                 // kunlik faollik uchun
+    if (game.skill === 'chess') syncChess(); else recordBrain(level, score);   // FR: miya / shaxmat
     setResult({ score, next, mistakes });
     setPhase('done');
-  }, [game, level, recordGame]);
+  }, [game, level, recordGame, recordBrain, syncChess]);
 
   if (!game) return <View style={s.root}><T>O'yin topilmadi</T></View>;
   const Game = COMPONENTS[game.id];

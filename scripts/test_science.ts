@@ -8,6 +8,8 @@ import {
 import { LESSONS } from '../src/science/lessons';
 import { sayText } from '../src/science/speech';
 import m0b from '../src/science/boards/m0.json';
+import { GENS, makeQ, dailyTest, seeded } from '../src/lib/questions';
+import { update, START, dayXP, streakBonus, overall, rankOf } from '../src/lib/rating';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b };
 
 let fails = 0;
@@ -96,6 +98,33 @@ ok(checkNumber('6,1', 6.1, 0.003) && !checkNumber('6.3', 6.1, 0.003) && !checkNu
 ok(sayText("yaxshi xona yo'l") === 'yaxshi xona yoʻl', `sayText 1: ${sayText("yaxshi xona yo'l")}`);
 ok(sayText("Δy bo'linsin x") === 'delta igrek boʻlinsin iks', `sayText 2: ${sayText("Δy bo'linsin x")}`);
 ok(sayText("ma'no") === 'maʼno', 'sayText 3');
+
+// Test savollari: har generator 40 marta — 4 ta noyob variant, to'g'ri javob ichida, son cheksiz emas
+{
+  const r = seeded('test');
+  for (const [area, gens] of Object.entries(GENS)) for (const g of gens) for (let i = 0; i < 40; i++) {
+    const x = g.make(r);
+    ok(x.opts.length === 4 && new Set(x.opts).size === 4, `${area}/${g.id}: variantlar ${x.opts}`);
+    ok(x.ans >= 0 && x.ans < 4, `${area}/${g.id}: javob yo'q ${x.q} ${x.opts}`);
+    ok(x.opts.every((o) => !/NaN|Infinity|undefined/.test(o)), `${area}/${g.id}: ${x.opts}`);
+  }
+  for (let i = 0; i < 200; i++) {
+    const q = makeQ('en', r, 800 + (i % 10) * 100);
+    ok(q.opts.length >= 2 && q.ans >= 0 && new Set(q.opts).size === q.opts.length, `en: ${q.key} ${q.q} ${q.opts}`);
+  }
+  const t = dailyTest(seeded('2026-11-01'), START);
+  ok(t.length === 10 && new Set(t.map((q) => q.key)).size === 10, 'kunlik test 10 noyob savol');
+  ok(JSON.stringify(dailyTest(seeded('d'), START).map((q) => q.key)) === JSON.stringify(dailyTest(seeded('d'), START).map((q) => q.key)), 'kunlik test bir kunda bir xil');
+}
+// FR va XP
+{
+  const a = update(START.math, 1000, 1, 'daily');
+  ok(a.r > 1000 && a.r < 1011, `FR o'sishi ${a.r}`);
+  ok(update(START.math, 1000, 0, 'daily').r < 1000, 'FR tushishi');
+  ok(dayXP(4) === 0 && dayXP(5) === 1 && dayXP(19) === 1 && dayXP(20) === 2 && dayXP(35) === 5, 'dayXP');
+  ok(streakBonus(1) === 5 && streakBonus(3) === 10 && streakBonus(7) === 15 && streakBonus(14) === 20 && streakBonus(30) === 20 && streakBonus(2) === 0, 'streakBonus');
+  ok(overall(START) === 1067 && overall({ ...START, math: { ...START.math, r: 900 } }) < 1067 && rankOf(1250).title === 'Mutaallim', `overall/rank ${overall(START)}`);
+}
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
 console.log(`OK — science: ${LESSONS.length} dars, ${Object.keys(expect).length} mashq, fizika testlari o'tdi`);

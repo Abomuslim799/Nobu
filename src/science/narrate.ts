@@ -5,6 +5,7 @@
  * Avtomatik o'qish yoqilgan/o'chirilgani telefonda saqlanadi.
  */
 
+import { markActive } from '@/lib/meta';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { useEffect, useRef, useState } from 'react';
@@ -26,7 +27,7 @@ export function useNarrator(lesson: SciLesson | undefined) {
     setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
     const p = createAudioPlayer(null);
     player.current = p;
-    const sub = p.addListener('playbackStatusUpdate', (st) => { setSpeaking(!!st.playing); });
+    const sub = p.addListener('playbackStatusUpdate', (st) => { setSpeaking(!!st.playing); if (st.playing) markActive(); });   // tinglash ham faol vaqt
     return () => { sub.remove(); p.remove(); };
   }, []);
   // Dars ochilganda barcha qadamlar ovozini fonda tayyorlab qo'yamiz
