@@ -8,6 +8,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { eloStep } from '@/core/elo';
+import { KEYS, readJSON } from '@/core/storage';
 
 export type BrainSkill = 'speed' | 'attention' | 'memory' | 'working' | 'chess' | 'logic';
 export const BRAIN_SKILLS: { id: BrainSkill; title: string; icon: string }[] = [
@@ -21,18 +22,8 @@ export const BRAIN_SKILLS: { id: BrainSkill; title: string; icon: string }[] = [
 
 export interface BrainEntry { skill: BrainSkill; game: string; at: number; score: number; level: number; mistakes: string[] }
 
-const LOG = 'nobu.brain.log.v1';
-const LEVELS = 'nobu.brain.levels.v1';
-const CHESS = 'nobu.brain.chess.v1';
-
-async function read<T>(key: string, empty: T): Promise<T> {
-  try {
-    const raw = await AsyncStorage.getItem(key);
-    return raw ? JSON.parse(raw) : empty;
-  } catch {
-    return empty;
-  }
-}
+const LOG = KEYS.brainLog, LEVELS = KEYS.brainLevels, CHESS = KEYS.chess;
+const read = readJSON;
 
 export const getBrainLog = () => read<BrainEntry[]>(LOG, []);
 

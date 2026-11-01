@@ -9,7 +9,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { nobuOverview, type Overview } from '@/core/ai';
+import { nobuOverview, type Overview } from '@/features/assistant/ai';
 import { allData, buildContext } from '@/features/assistant/context';
 import { getSciLog, type SciEntry } from '@/features/science/log';
 import { AREAS } from '@/features/science/lessons';
@@ -32,7 +32,7 @@ export default function NobuReport() {
   };
   const call = async () => {
     const c = await buildContext('stats');
-    router.push({ pathname: '/live', params: { mode: 'nobu', topic: c.topic, ctx: c.ctx.slice(0, 9000) } });
+    router.push({ pathname: '/nobu/live', params: { mode: 'nobu', topic: c.topic, ctx: c.ctx.slice(0, 9000) } });
   };
 
   return (
@@ -63,7 +63,7 @@ export default function NobuReport() {
           </>
         )}
         <View style={{ flexDirection: 'row', gap: 8 }}>
-          <View style={{ flex: 1 }}><Button kind="ghost" label="💬 Yozishish" onPress={() => router.push({ pathname: '/nobu', params: { key: 'stats' } })} /></View>
+          <View style={{ flex: 1 }}><Button kind="ghost" label="💬 Yozishish" onPress={() => router.push({ pathname: '/nobu/chat', params: { key: 'stats' } })} /></View>
           <View style={{ flex: 1 }}><Button kind="ghost" label="📞 Jonli gaplashish" onPress={call} /></View>
         </View>
       </ScrollView>

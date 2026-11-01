@@ -5,6 +5,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KEYS, readList } from '@/core/storage';
 
 export type Skill = 'vocab' | 'grammar' | 'listening' | 'writing' | 'speaking';
 export const SKILLS: { id: Skill; title: string; icon: string }[] = [
@@ -23,15 +24,11 @@ export interface SkillEntry {
   mistakes: string[];    // qisqa: "said me → told me", "braces"
 }
 
-const KEY = 'nobu.skills.v1';
+const KEY = KEYS.skills;
 const MAX = 400;
 
 export async function getLog(): Promise<SkillEntry[]> {
-  try {
-    return JSON.parse((await AsyncStorage.getItem(KEY)) ?? '[]');
-  } catch {
-    return [];
-  }
+  return readList<SkillEntry>(KEY);
 }
 
 /** Natijani yozadi (ekranni kutdirmaydi). */

@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import { logicSet } from '@/core/ai';
+import { logicSet } from '@/features/brain/ai';
 import { makeProblem, type Problem } from '@/features/brain/speed-math';
 import { QuizRunner } from '@/core/ui/quiz-runner';
 import { Bar, Button, T } from '@/core/ui/kit';

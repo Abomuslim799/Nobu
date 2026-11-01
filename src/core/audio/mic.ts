@@ -6,13 +6,10 @@ import {
   RecordingPresets, requestRecordingPermissionsAsync, setAudioModeAsync, useAudioRecorder,
 } from 'expo-audio';
 import { useState } from 'react';
-import { Alert, Pressable, Text } from 'react-native';
+import { Alert } from 'react-native';
 
-import { C } from '@/core/theme';
-import { chatTurn, type ChatMsg, type ChatResult } from '@/core/ai';
-import { logSkill } from '@/features/english/skills';
-import { say, stopSpeaking } from '@/core/audio/speak';
-import { Button, Card, T } from '@/core/ui/kit';
+import { stopSpeaking } from '@/core/audio/speak';
+
 
 /** Mikrofon bilan yozish: bitta yozuvchi, qaysi narsa yozilayotgani `tag` bilan belgilanadi. */
 export function useMic() {

@@ -6,7 +6,7 @@
  */
 
 import { AUDIO_BASE } from '@/core/config';
-import { markActive } from '@/core/store/rating';
+import { markActive } from '@/core/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { useEffect, useRef, useState } from 'react';
@@ -14,7 +14,8 @@ import { useEffect, useRef, useState } from 'react';
 import { prefetch, ttsUrl } from '@/core/audio/tts';
 import { blockSay, type SciLesson } from '@/features/science/lessons';
 import { sayText } from '@/features/science/speech';
-const KEY = 'nobu.sci.autoread';
+import { KEYS } from '@/core/storage';
+const KEY = KEYS.autoread;
 
 export function useNarrator(lesson: SciLesson | undefined) {
   const player = useRef<AudioPlayer | null>(null);

@@ -9,7 +9,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
 import { SUBJECTS } from '@/features/subjects';
-import { EnglishFolder, ItFolder, ScienceFolder } from '@/features/folders';
+import { EnglishFolder } from '@/features/english/folder';
+import { ItFolder } from '@/features/it/folder';
+import { ScienceFolder } from '@/features/science/folder';
 import { T } from '@/core/ui/kit';
 
 export default function SubjectScreen() {

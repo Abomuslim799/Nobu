@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
 import type { Word } from '@/features/english/data/words';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { RateSwitch, SoundButton } from '@/core/ui/sound';
@@ -103,7 +103,7 @@ export default function CardsScreen() {
             {Object.keys(DECKS)
               .filter((d) => all.filter((w) => w.deck === d).length >= 4)
               .map((d) => (
-                <Pressable key={d} style={s.chip} onPress={() => router.push(`/quiz?deck=${d}`)}>
+                <Pressable key={d} style={s.chip} onPress={() => router.push(`/english/quiz?deck=${d}`)}>
                   <Text numberOfLines={1} style={{ color: C.green, fontWeight: '700', fontSize: 15 }}>{DECKS[d]}</Text>
                 </Pressable>
               ))}

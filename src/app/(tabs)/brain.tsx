@@ -39,7 +39,7 @@ export default function Brain() {
               const lastE = mine[mine.length - 1];
               const best = mine.reduce((m, e) => Math.max(m, e.score), 0);
               return (
-                <Pressable key={g.id} onPress={() => router.push(`/game/${g.id}`)}>
+                <Pressable key={g.id} onPress={() => router.push(`/brain/${g.id}`)}>
                   <Card style={{ gap: 4 }}>
                     <T bold>{g.icon} {g.title}</T>
                     <T dim size={13}>{g.about}</T>
@@ -51,7 +51,7 @@ export default function Brain() {
           </View>
         );
       })}
-      <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/brain-report')} />
+      <Button label="📊 Statistika va AI tahlil" onPress={() => router.push('/brain/report')} />
     </Screen>
   );
 }

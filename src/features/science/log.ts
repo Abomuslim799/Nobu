@@ -6,12 +6,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import type { Area } from '@/features/science/lessons';
+import { KEYS, readList } from '@/core/storage';
 
 export interface SciEntry { lesson: string; area: Area; title: string; at: number; correct: number; total: number; predicted: number; predictTotal: number; mistakes: string[] }
-const KEY = 'nobu.science.v1';
+const KEY = KEYS.scienceLog;
 
 export async function getSciLog(): Promise<SciEntry[]> {
-  try { const raw = await AsyncStorage.getItem(KEY); return raw ? JSON.parse(raw) : []; } catch { return []; }
+  return readList<SciEntry>(KEY);
 }
 export async function logScience(e: Omit<SciEntry, 'at'>) {
   const log = await getSciLog();

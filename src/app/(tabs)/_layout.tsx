@@ -29,7 +29,7 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>Kutubxona</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'books.vertical', selected: 'books.vertical.fill' }} src={explore} />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="stats">
+      <NativeTabs.Trigger name="nobu">
         <NativeTabs.Trigger.Label>Nobu</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'sparkles', selected: 'sparkles' }} src={explore} />
       </NativeTabs.Trigger>

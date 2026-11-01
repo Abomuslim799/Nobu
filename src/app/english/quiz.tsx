@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
 import type { Word } from '@/features/english/data/words';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { buildQuiz, STAGES, type Question } from '@/features/english/quiz';
 import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
@@ -98,7 +98,7 @@ export default function QuizScreen() {
               <T dim style={{ textAlign: 'center' }}>Takrorlash kerak: {missed.join(', ')}</T>
             )}
             <Button label="Yana bir bor" onPress={restart} />
-            {missed.length > 0 && <Button kind="ghost" label="🎴 Kartochkada takrorlash" onPress={() => router.replace('/cards')} />}
+            {missed.length > 0 && <Button kind="ghost" label="🎴 Kartochkada takrorlash" onPress={() => router.replace('/english/cards')} />}
             <Button kind="ghost" label="Tugatish" onPress={() => router.back()} />
           </Card>
         ) : (

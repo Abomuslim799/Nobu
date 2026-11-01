@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { CORE_WORDS } from '@/features/english/data/core';
 import { UNITS, type Unit } from '@/features/english/data/units';
-import { grammarSet, skillsReport, writeCheck, type GrammarItem, type SkillsReport, type WriteResult } from '@/core/ai';
+import { grammarSet, skillsReport, writeCheck, type GrammarItem, type SkillsReport, type WriteResult } from '@/features/english/ai';
 import { getLog, logSkill, SKILLS, stats, summarize, type SkillEntry } from '@/features/english/skills';
 import { say, stopSpeaking } from '@/core/audio/speak';
 import { QuizRunner, Rich } from '@/core/ui/quiz-runner';
@@ -283,7 +283,7 @@ const TOPICS = [
 ];
 
 function SpeakingPractice() {
-  const call = (topic: string, words = '') => router.push({ pathname: '/live', params: { topic, words } });
+  const call = (topic: string, words = '') => router.push({ pathname: '/nobu/live', params: { topic, words } });
   return (
     <>
       <T dim>Mavzuni tanlang — Nobu bilan jonli ovozli suhbat (telefon qo'ng'irog'idek). Oxirida AI ball va xatolaringizni ko'rsatadi, natija statistikaga yoziladi.</T>

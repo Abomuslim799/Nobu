@@ -5,11 +5,12 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { textHash } from '@/features/science/lessons';
-import { getConfig } from '@/core/server';
+import { textHash } from '@/core/hash';
+import { api, getConfig, serverUrl } from '@/core/server';
+import { KEYS } from '@/core/storage';
 
 const USTOZ_VOICE = 'Iapetus';
-const KEY = 'nobu.tts.v1';
+const KEY = KEYS.tts;
 let mem: Record<string, string> | null = null;
 const inflight: Record<string, Promise<string | null>> = {};
 
@@ -30,24 +31,19 @@ export function ttsUrl(text: string, fallback?: string): Promise<string | null> 
     const c = await cache();
     const cfg = await getConfig();
     if (!cfg) return null;
-    if (c[h]) return `${cfg.url}${c[h]}`;
+    if (c[h]) return serverUrl(c[h]);
     if (Date.now() < downUntil) return null;
-    const ctl = new AbortController();
-    const t = setTimeout(() => ctl.abort(), 15_000);
     try {
-      const r = await fetch(`${cfg.url}/api/nobu/tts`, {
-        method: 'POST', headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, voice: USTOZ_VOICE, h }), signal: ctl.signal,
-      });
-      const d = await r.json();
-      if (!r.ok || !d.url) { lastError = String(d.error ?? `HTTP ${r.status}`); downUntil = Date.now() + 10 * 60_000; return null; }
+      const d = await api<{ url?: string; error?: string }>('/tts', { text, voice: USTOZ_VOICE, h }, { timeoutMs: 15_000, cfg });
+      if (!d.url) throw new Error(d.error ?? "ovoz yo'q");
       c[h] = d.url;
       AsyncStorage.setItem(KEY, JSON.stringify(c)).catch(() => {});
-      return `${cfg.url}${d.url}`;
+      return serverUrl(d.url);
     } catch (e) {
-      lastError = String(e); downUntil = Date.now() + 2 * 60_000;
+      lastError = e instanceof Error ? e.message : String(e);
+      downUntil = Date.now() + (/uzoq|ulanib/.test(lastError) ? 2 : 10) * 60_000;   // tarmoq — 2 daq, limit/xato — 10 daq
       return null;
-    } finally { clearTimeout(t); }
+    }
   })().finally(() => { setTimeout(() => { delete inflight[h]; }, 0); });
   return inflight[h].then((u) => u ?? fb);
 }

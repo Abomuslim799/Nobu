@@ -8,9 +8,9 @@ import { Alert, Platform, TextInput, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { TRACKS } from '@/features/it/tracks';
-import { useMeta } from '@/core/store/rating';
-import { useProgress } from '@/core/store/progress';
-import { pickBackup, exportBackup } from '@/core/backup-file';
+import { useRating } from '@/core/store';
+import { useProgress } from '@/core/store';
+import { pickBackup, exportBackup } from '@/core/backup';
 import { backupNow, lastBackup, restoreLatest } from '@/core/backup';
 import { lastDays } from '@/core/date';
 import { getConfig, saveConfig, testConnection } from '@/core/server';
@@ -18,7 +18,7 @@ import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Stats() {
   const { data, reset, setReadGoal, exportJSON, importJSON } = useProgress();
-  const { streak, best, fr, rank, m: meta } = useMeta();
+  const { streak, best, fr, rank, m: rating } = useRating();
   const readTotal = data.sessions.reduce((a, x) => a + x.minutes, 0);
 
   const restore = async () => {
@@ -37,12 +37,12 @@ export default function Stats() {
   const correct = results.reduce((sum, r) => sum + r.correct, 0);
   const total = results.reduce((sum, r) => sum + r.total, 0);
   const days = lastDays(14);
-  const maxXp = Math.max(10, ...days.map((d) => Math.floor((meta.sec[d] ?? 0) / 60)));
+  const maxXp = Math.max(10, ...days.map((d) => Math.floor((rating.sec[d] ?? 0) / 60)));
 
   return (
     <Screen>
       <Title sub="Shaxsiy yordamchingiz: natijalar, tahlil, sozlamalar">Nobu</Title>
-      <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu-report')} />
+      <Button label="🤖 Nobu tahlili — barcha bo'limlar" onPress={() => router.push('/nobu/report')} />
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <Stat label="Seriya" value={`${streak}🔥`} />
@@ -54,7 +54,7 @@ export default function Stats() {
         <T dim>Oxirgi 14 kun · faol daqiqa</T>
         <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 110, gap: 4 }}>
           {days.map((d) => {
-            const xp = Math.floor((meta.sec[d] ?? 0) / 60);
+            const xp = Math.floor((rating.sec[d] ?? 0) / 60);
             return (
               <View key={d} style={{ flex: 1, height: `${Math.max(3, (xp / maxXp) * 100)}%`,
                 borderRadius: 4, backgroundColor: xp ? C.green : C.subtle2 }} />

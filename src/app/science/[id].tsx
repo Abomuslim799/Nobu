@@ -12,7 +12,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, type ScrollVi
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { logScience } from '@/features/science/log';
 import { checkNumber } from '@/features/science/engine';
 import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/features/science/lessons';
@@ -21,6 +21,7 @@ import { useNarrator } from '@/features/science/narrate';
 import { SIMS } from '@/features/science/sims';
 import { Button, Card, T } from '@/core/ui/kit';
 import { NobuSays } from '@/core/ui/avatar';
+import { KEYS } from '@/core/storage';
 
 const gate = (b: Block) => b.k === 'predict' || b.k === 'sim' || b.k === 'ex' || b.k === 'choice';
 // O'zbekchada qo'shimchada k → g bo'ladi (qiyalik → qiyaligi), shuning uchun oxirgi k ham, g ham mos keladi
@@ -69,7 +70,7 @@ export default function SciLesson() {
   const scroll = useRef<ScrollViewInstance>(null);
 
   // Qolgan joydan davom ettirish: qadam, o'tilgan qadamlar va javoblar telefonda saqlanadi
-  const posKey = `nobu.sci.pos.${id}`;
+  const posKey = KEYS.sciPos(id);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     AsyncStorage.getItem(posKey).then((raw) => {
@@ -121,7 +122,7 @@ export default function SciLesson() {
     logScience({ lesson: lesson.id, area: lesson.area, title: lesson.title, ...t });
     setFinished(true);
   };
-  const ask = () => router.push({ pathname: '/nobu', params: { key: `lesson:${lesson.id}`, step: String(i) } });
+  const ask = () => router.push({ pathname: '/nobu/chat', params: { key: `lesson:${lesson.id}`, step: String(i) } });
   const nextLesson = lessonsOf(lesson.area).find((l) => l.n === lesson.n + 1);
   const t = totals();
 
@@ -151,8 +152,8 @@ export default function SciLesson() {
             <T bold size={20}>✅ Dars tugadi</T>
             <T>Mashqlar: {t.correct}/{t.total} · taxminlar: {t.predicted}/{t.predictTotal}</T>
             {t.mistakes.length > 0 && <T dim size={14}>Qaytarish kerak: {t.mistakes.join(' · ')}</T>}
-            <Button label="🙋 Ustoz bilan muhokama qilish" onPress={() => router.push({ pathname: '/nobu', params: { key: `lesson:${lesson.id}` } })} />
-            {nextLesson && <Button kind="ghost" label={`Keyingi dars: ${nextLesson.title}`} onPress={() => router.replace(`/sci/${nextLesson.id}`)} />}
+            <Button label="🙋 Ustoz bilan muhokama qilish" onPress={() => router.push({ pathname: '/nobu/chat', params: { key: `lesson:${lesson.id}` } })} />
+            {nextLesson && <Button kind="ghost" label={`Keyingi dars: ${nextLesson.title}`} onPress={() => router.replace(`/science/${nextLesson.id}`)} />}
             <Button kind="ghost" label="Orqaga" onPress={() => router.back()} />
           </Card>
         ) : (

@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { C, R } from '@/core/theme';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 import { QuoteCard } from '@/features/library/quote-card';
 
@@ -46,7 +46,7 @@ function Books() {
       </Card>
 
       {active && (
-        <Pressable onPress={() => router.push(`/book/${active.id}`)}>
+        <Pressable onPress={() => router.push(`/library/book/${active.id}`)}>
           <Card style={{ borderColor: C.green }}>
             <T color={C.green} bold>⏱ Hozir o'qilmoqda: {active.title}</T>
             <T dim>Tugatish va tahlil yozish uchun bosing</T>
@@ -54,11 +54,11 @@ function Books() {
         </Pressable>
       )}
 
-      <Button label="＋ Kitob qo'shish" onPress={() => router.push('/book/new')} />
+      <Button label="＋ Kitob qo'shish" onPress={() => router.push('/library/book/new')} />
 
       {data.books.length === 0 && <T dim>Hozircha kitob yo'q. Mutolaa'da o'qiyotgan kitobingizni qo'shing.</T>}
       {data.books.map((b) => (
-        <Pressable key={b.id} onPress={() => router.push(`/book/${b.id}`)}>
+        <Pressable key={b.id} onPress={() => router.push(`/library/book/${b.id}`)}>
           <Card>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
               <View style={{ flex: 1 }}>
@@ -93,7 +93,7 @@ function Quotes() {
 
   return (
     <>
-      <Button label="＋ Iqtibos qo'shish" onPress={() => router.push('/quote/new')} />
+      <Button label="＋ Iqtibos qo'shish" onPress={() => router.push('/library/quote/new')} />
       <TextInput style={s.search} placeholder="Qidirish: matn, muallif, kitob" placeholderTextColor={C.dim}
         value={query} onChangeText={setQuery} />
       <View style={s.chips}>

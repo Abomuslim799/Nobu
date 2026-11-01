@@ -13,8 +13,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD, R } from '@/core/theme';
 import { STEPS, UNITS, type StepId, type Unit } from '@/features/english/data/units';
-import { useProgress } from '@/core/store/progress';
-import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/core/ai';
+import { useProgress } from '@/core/store';
+import { shadowScore, writeCheck, type ShadowResult, type WriteResult } from '@/features/english/ai';
 import { logSkill } from '@/features/english/skills';
 import { useMic } from '@/core/audio/mic';
 import { say, stopSpeaking } from '@/core/audio/speak';
@@ -22,6 +22,7 @@ import { QuizRunner, Rich } from '@/core/ui/quiz-runner';
 import { Button, Card, T } from '@/core/ui/kit';
 import { RateSwitch, SoundButton } from '@/core/ui/sound';
 import { Stress } from '@/features/english/ui/stress';
+import { KEYS } from '@/core/storage';
 
 export default function UnitScreen() {
   const insets = useSafeAreaInsets();
@@ -160,7 +161,7 @@ function Vocab({ unit, onDone }: { unit: Unit; onDone: () => void }) {
       <T bold size={18}>{unit.collocations.length} ta collocation — birga ishlatiladigan so'zlar</T>
       <T dim>Ingliz tilida so'zlar "juft" yuradi: make a decision, lekin do a decision emas. Ularni yaxlit yodlang.</T>
       {unit.collocations.map(row)}
-      <Button kind="ghost" label="🎴 Kartochkada mashq" onPress={() => router.push(`/cards?deck=${unit.id}`)} />
+      <Button kind="ghost" label="🎴 Kartochkada mashq" onPress={() => router.push(`/english/cards?deck=${unit.id}`)} />
       <Button label="Yodladim → grammatika" onPress={onDone} />
     </>
   );
@@ -226,7 +227,7 @@ function Listening({ unit, onDone }: { unit: Unit; onDone: (score: number) => vo
 /** Matnni yozish: so'z soni va movie so'zlaridan nechtasi ishlatilgani sanaladi. Matn telefonda saqlanadi. */
 const MIN_MOVIE_WORDS = 6;
 function Writing({ unit, onDone }: { unit: Unit; onDone: (score: number) => void }) {
-  const key = `nobu.writing.${unit.id}`;
+  const key = KEYS.writing(unit.id);
   const [text, setText] = useState('');
   useEffect(() => { AsyncStorage.getItem(key).then((v) => v && setText(v)).catch(() => {}); }, [key]);
   const change = (t: string) => { setText(t); AsyncStorage.setItem(key, t).catch(() => {}); };
@@ -360,7 +361,7 @@ function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {
       <Card style={{ gap: 6, marginTop: 8 }}>
         <T bold>2) Jonli suhbat — {unit.source}</T>
         <T dim size={14}>Telefon qo'ng'irog'idek: siz gapirasiz, Nobu darhol ovoz bilan javob beradi, uning gapini bo'lishingiz ham mumkin. Oxirida AI xatolaringiz va ballni ko'rsatadi.</T>
-        <Button label="📞 Jonli suhbatni boshlash" onPress={() => router.push({ pathname: '/live', params: {
+        <Button label="📞 Jonli suhbatni boshlash" onPress={() => router.push({ pathname: '/nobu/live', params: {
           topic: `the film "${unit.source}"`, words: [...unit.vocab, ...unit.collocations].map((w) => w.word).join(','),
         } })} />
       </Card>
@@ -377,8 +378,8 @@ function TestStep({ unit, onDone }: { unit: Unit; onDone: () => void }) {
         <T bold>Yakuniy test — 3 bosqich</T>
         <T dim size={14}>Shu movie'ning {unit.vocab.length + unit.collocations.length} so'zi: tarjima ↔ so'z, ovoz → so'z, gapdagi bo'sh joy. Xato topilgan so'zlar kartochkalarda tezroq qaytadi.</T>
       </Card>
-      <Button label="🧪 Testni boshlash" onPress={() => { onDone(); router.push(`/quiz?deck=${unit.id}`); }} />
-      <Button kind="ghost" label="🎴 Avval kartochkalar" onPress={() => router.push(`/cards?deck=${unit.id}`)} />
+      <Button label="🧪 Testni boshlash" onPress={() => { onDone(); router.push(`/english/quiz?deck=${unit.id}`); }} />
+      <Button kind="ghost" label="🎴 Avval kartochkalar" onPress={() => router.push(`/english/cards?deck=${unit.id}`)} />
     </>
   );
 }

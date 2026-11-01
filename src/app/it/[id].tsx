@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { findLesson } from '@/features/it/tracks';
 import type { Step } from '@/features/it/types';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 
 export default function LessonScreen() {

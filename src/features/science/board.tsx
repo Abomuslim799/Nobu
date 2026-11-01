@@ -17,7 +17,7 @@ import { fnById } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from '@/features/science/ui';
 
 import { AUDIO_BASE } from '@/core/config';
-import { markActive } from '@/core/store/rating';
+import { markActive } from '@/core/store';
 import { prefetch, ttsUrl } from '@/core/audio/tts';
 import { sayText } from '@/features/science/speech';
 import m0 from '@content/science/boards/m0.json';

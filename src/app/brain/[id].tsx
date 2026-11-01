@@ -13,8 +13,8 @@ import { GAMES } from '@/features/brain/games';
 import { ChessPuzzles } from '@/features/brain/games/chess';
 import { LogicAI, MemoryGrid, NBack, Reaction, Sequence, SpeedMath, Stroop, Sudoku, type GameProps } from '@/features/brain/games/quick';
 import { finishGame, getLevel } from '@/features/brain/brain';
-import { useMeta } from '@/core/store/rating';
-import { useProgress } from '@/core/store/progress';
+import { useRating } from '@/core/store';
+import { useProgress } from '@/core/store';
 import { Button, Card, T } from '@/core/ui/kit';
 
 const COMPONENTS: Record<string, (p: GameProps) => ReactNode> = {
@@ -26,7 +26,7 @@ export default function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const game = GAMES.find((g) => g.id === id);
   const { recordGame } = useProgress();
-  const { recordBrain, syncChess } = useMeta();
+  const { recordBrain, syncChess } = useRating();
   const insets = useSafeAreaInsets();
   const [level, setLevel] = useState(1);
   const [phase, setPhase] = useState<'intro' | 'play' | 'done'>('intro');

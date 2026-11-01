@@ -8,7 +8,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { Button, T } from '@/core/ui/kit';
 
 export default function QuoteScreen() {

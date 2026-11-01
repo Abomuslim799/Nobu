@@ -1,12 +1,12 @@
 /**
- * meta.tsx — Nobu tizimi: FR (Farobiy Reytingi), daraja, faol vaqt → XP, streak, muz.
+ * rating.tsx — reyting ombori: FR (Farobiy Reytingi), daraja, faol vaqt → XP, streak, muz.
  *
  *  • FR — bilim (testlar, darslar, miya o'yinlari, shaxmat). Pul/XP bilan sotib olinmaydi.
  *  • XP — mehnat: faqat FAOL vaqtdan (ekranga tegilmasa 60 s dan keyin to'xtaydi).
  *    Kunlik: <5 daq 0, 5–19 daq 1, 20 daq 2, keyin har 5 daqiqa +1. Streak milestone bonuslari.
  *  • Streak kuni — kamida 5 daqiqa faol vaqt. O'tkazib yuborilgan kun muz bilan saqlanadi (⏸ → ❄️ → 0).
  *  • Muz — 30 XP (ko'pi bilan 2 ta), tiklash — 90 XP (48 soat ichida).
- * Telefon xotirasida: nobu.meta.v1 (bulutli zaxiraga avtomatik kiradi).
+ * Telefon xotirasida: KEYS.rating (bulutli zaxiraga avtomatik kiradi).
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,9 +23,10 @@ import type { Q } from '@/features/assessment/questions';
 import { addDays, dayKey, fmtDur, lastDays } from '@/core/date';
 import { bestStreak, currentStreak } from '@/features/assessment/streak';
 import { pushStatus } from '@/core/server';
+import { KEYS } from '@/core/storage';
 
 export interface TestLog { at: number; day: string; kind: TestKind | 'practice'; n: number; ok: number; sec: number; before: number; after: number; by: Partial<Record<Area, { ok: number; n: number; d: number }>> }
-interface MetaData {
+interface RatingData {
   v: 1;
   fr: FRState;
   hist: Record<string, number>;        // kun → umumiy FR (kun oxiridagi)
@@ -41,8 +42,8 @@ interface MetaData {
   checked: string;                     // muz qaysi kungacha tekshirilgan
   disabled: Area[];
 }
-const KEY = 'nobu.meta.v1';
-const fresh = (): MetaData => ({
+const KEY = KEYS.rating;
+const fresh = (): RatingData => ({
   v: 1, fr: START, hist: {}, title: 'shogird', sec: {}, frozen: [], muz: MUZ_MAX, spent: 0, bonus: {}, seen: {}, tests: [],
   cutover: dayKey(), checked: addDays(dayKey(), -1), disabled: [],
 });
@@ -60,9 +61,9 @@ const IDLE_MS = 60_000, TICK_MS = 10_000;
 export type DayMark = 'ok' | 'frozen' | 'none';
 export interface TestItem { q: Q; s: number }      // s: 0…1 (1-urinish 1, 2-urinish 0.5, maslahat 0.3)
 
-interface Meta {
+interface Rating {
   ready: boolean;
-  m: MetaData;
+  m: RatingData;
   fr: number;                          // umumiy FR
   rank: { id: RankId; title: string };
   frRank: ReturnType<typeof rankOf>;   // FR bo'yicha (imtihon ochilishi uchun)
@@ -80,11 +81,11 @@ interface Meta {
   buyMuz: () => boolean;
   restore: () => boolean;
 }
-const Ctx = createContext<Meta | null>(null);
+const Ctx = createContext<Rating | null>(null);
 
-export function MetaProvider({ children }: { children: ReactNode }) {
+export function RatingProvider({ children }: { children: ReactNode }) {
   const { data, ready: pReady } = useProgress();
-  const [m, setM] = useState<MetaData>(fresh);
+  const [m, setM] = useState<RatingData>(fresh);
   const [ready, setReady] = useState(false);
   const ref = useRef(m);
   ref.current = m;
@@ -119,7 +120,7 @@ export function MetaProvider({ children }: { children: ReactNode }) {
   }, [ready]);
 
   const legacy = data.days;
-  const qual = useCallback((d: string, x: MetaData = ref.current) =>
+  const qual = useCallback((d: string, x: RatingData = ref.current) =>
     (x.sec[d] ?? 0) >= STREAK_SEC || x.frozen.includes(d) || (d < x.cutover && !!legacy[d]), [legacy]);
 
   // Muz: o'tkazib yuborilgan kunlar (kechagacha) — streak tirik bo'lsa va muz bor bo'lsa, avtomatik
@@ -129,7 +130,7 @@ export function MetaProvider({ children }: { children: ReactNode }) {
     const x = ref.current;
     if (x.checked >= yest) return;
     let { muz } = x; const frozen = [...x.frozen];
-    const y: MetaData = { ...x, frozen };
+    const y: RatingData = { ...x, frozen };
     for (let d = addDays(x.checked, 1); d <= yest; d = addDays(d, 1)) {
       if (qual(d, y)) continue;
       if (muz > 0 && qual(addDays(d, -1), y)) { frozen.push(d); muz--; }
@@ -137,7 +138,7 @@ export function MetaProvider({ children }: { children: ReactNode }) {
     setM({ ...x, frozen, muz, checked: yest });
   }, [ready, pReady, today, qual]);
 
-  const value = useMemo<Meta>(() => {
+  const value = useMemo<Rating>(() => {
     const days = new Set<string>([...Object.keys(m.sec), ...m.frozen, ...Object.keys(legacy)].filter((d) => qual(d, m)));
     const streak = currentStreak(days, today);
     const fr = overall(m.fr, m.disabled);
@@ -237,10 +238,9 @@ export function MetaProvider({ children }: { children: ReactNode }) {
 
 const RANK_TITLE: Record<string, string> = { tolib: 'Tolib', shogird: 'Shogird', mutaallim: 'Mutaallim', mudarris: 'Mudarris', domla: 'Domla', alloma: 'Alloma', muallim: 'Muallimi soniy' };
 
-export function useMeta(): Meta {
+export function useRating(): Rating {
   const ctx = useContext(Ctx);
-  if (!ctx) throw new Error('useMeta() faqat <MetaProvider> ichida');
+  if (!ctx) throw new Error('useRating() faqat <RatingProvider> ichida');
   return ctx;
 }
 
-export { fmtDur, lastDays };

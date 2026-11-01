@@ -15,12 +15,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { dayKey } from '@/core/date';
-import { bestStreak, currentStreak } from '@/features/assessment/streak';
 import { autoBackup } from '@/core/backup';
+import { KEYS } from '@/core/storage';
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
-export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; steps?: number; xp: number }   // steps — movie qadamlari   // read — daqiqa
+export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; steps?: number; xp?: number }   // steps — movie qadamlari   // read — daqiqa
 /** So'z kartochkasi holati (Leitner tizimi — Nobu'dagidek). */
 export interface CardState { box: number; due: number }   // due — ms (Date.now() formati)
 export interface CustomWord { id: string; word: string; translation: string; example: string; image?: string }
@@ -63,7 +63,7 @@ interface Data {
   unitSteps: Record<string, string[]>;        // unitId → bajarilgan qadamlar
 }
 
-const KEY = 'dojo.progress.v1';
+const KEY = KEYS.progress;
 const EMPTY: Data = {
   version: 1, lessons: {}, days: {}, games: {}, cards: {}, myWords: [],
   books: [], sessions: [], quotes: [], activeRead: null, settings: { readGoal: 20 }, unitSteps: {},
@@ -78,8 +78,6 @@ const BOX_INTERVALS = [10 * MIN, DAY, 3 * DAY, 7 * DAY, 21 * DAY];
 interface Progress {
   ready: boolean;
   data: Data;
-  streak: number;
-  best: number;
   today: DayActivity;
   completeLesson: (id: string, correct: number, total: number) => void;
   recordGame: (id: string, score: number) => void;
@@ -124,9 +122,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     if (ready) AsyncStorage.setItem(KEY, JSON.stringify(data)).catch(() => {});
   }, [data, ready]);
 
-  const bump = (d: Data, field: 'lessons' | 'games' | 'cards' | 'read' | 'steps', xp: number, amount = 1, key = dayKey()): Data['days'] => {
-    const day = d.days[key] ?? { lessons: 0, games: 0, xp: 0 };
-    return { ...d.days, [key]: { ...day, [field]: (day[field] ?? 0) + amount, xp: day.xp + xp } };
+  /** Kunlik faollik hisoblagichi (Bugun rejasi va eski kunlar streaki uchun). XP endi faol vaqtdan — store/rating. */
+  const bump = (d: Data, field: 'lessons' | 'games' | 'cards' | 'read' | 'steps', amount = 1, key = dayKey()): Data['days'] => {
+    const day = d.days[key] ?? { lessons: 0, games: 0 };
+    return { ...d.days, [key]: { ...day, [field]: (day[field] ?? 0) + amount } };
   };
 
   // ── Kutubxona ──
@@ -168,7 +167,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         books: d.books.map((b) => (b.id === x.bookId && x.progress !== undefined
           ? { ...b, progress: x.progress, finished: x.progress >= 1 } : b)),
         // 5 daqiqadan kam yoki tahlilsiz — saqlanadi, lekin kunlik maqsadga qo'shilmaydi.
-        days: counts ? bump(d, 'read', Math.round(x.minutes / 2), x.minutes, day) : d.days,
+        days: counts ? bump(d, 'read', x.minutes, day) : d.days,
       };
     });
   }, []);
@@ -181,8 +180,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return {
         ...d,
         sessions: d.sessions.filter((s) => s.id !== id),
-        days: counted && day ? { ...d.days, [x.day]: { ...day, read: Math.max(0, (day.read ?? 0) - x.minutes),
-          xp: Math.max(0, day.xp - Math.round(x.minutes / 2)) } } : d.days,
+        days: counted && day ? { ...d.days, [x.day]: { ...day, read: Math.max(0, (day.read ?? 0) - x.minutes) } } : d.days,
       };
     });
   }, []);
@@ -210,7 +208,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return {
         ...d,
         unitSteps: first ? { ...d.unitSteps, [unitId]: [...done, step] } : d.unitSteps,
-        days: bump({ ...d, days: bump(d, 'lessons', (first ? 8 : 3) + score) }, 'steps', 0),
+        days: bump({ ...d, days: bump(d, 'lessons') }, 'steps'),
       };
     });
   }, []);
@@ -235,7 +233,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return {
         ...d,
         cards: { ...d.cards, [wordId]: { box, due: Date.now() + BOX_INTERVALS[box] } },
-        days: bump(d, 'cards', knew ? 2 : 1),
+        days: bump(d, 'cards'),
       };
     });
   }, []);
@@ -252,7 +250,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     setData((d) => ({
       ...d,
       lessons: { ...d.lessons, [id]: { day: dayKey(), correct, total } },
-      days: bump(d, 'lessons', 10 + correct * 2),
+      days: bump(d, 'lessons'),
     }));
   }, []);
 
@@ -262,7 +260,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return {
         ...d,
         games: { ...d.games, [id]: { best: Math.max(g.best, score), plays: g.plays + 1, last: score } },
-        days: bump(d, 'games', 5 + Math.floor(score / 5)),
+        days: bump(d, 'games'),
       };
     });
   }, []);
@@ -271,13 +269,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 
   // useMemo — hisob faqat `data` o'zgarganda qayta bajariladi, har chizishda emas.
   const value = useMemo<Progress>(() => {
-    const active = new Set(Object.keys(data.days));
     return {
       ready,
       data,
-      streak: currentStreak(active),
-      best: bestStreak(active),
-      today: data.days[dayKey()] ?? { lessons: 0, games: 0, xp: 0 },
+      today: data.days[dayKey()] ?? { lessons: 0, games: 0 },
       completeLesson,
       recordGame,
       reviewCard,
@@ -292,7 +287,6 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
       saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep]);
 
-  // Widget holati endi meta.tsx'dan yuboriladi (yangi streak: kamida 5 daqiqa faol vaqt).
   useEffect(() => { if (ready) autoBackup(); }, [ready]);   // kuniga bir marta serverga zaxira
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;

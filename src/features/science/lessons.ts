@@ -245,9 +245,3 @@ export function blockSay(b: Block): { main: string; after?: string } | null {
     case 'board': return null;   // doska o'z ovozi bilan
   }
 }
-/** Matn xeshi — ovoz fayli o'zgarsa, telefon eski (keshdagi) faylni emas, yangisini olsin. */
-export function textHash(t: string) {
-  let h = 2166136261;
-  for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); }
-  return (h >>> 0).toString(36);
-}

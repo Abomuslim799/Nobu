@@ -6,12 +6,12 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import type { Quote } from '@/core/store/progress';
+import type { Quote } from '@/core/store';
 import { Card, T } from '@/core/ui/kit';
 
 export function QuoteCard({ q, book, onFav }: { q: Quote; book?: string; onFav?: () => void }) {
   return (
-    <Pressable onPress={() => router.push(`/quote/${q.id}`)}>
+    <Pressable onPress={() => router.push(`/library/quote/${q.id}`)}>
       <Card style={{ gap: 6 }}>
         <Text style={s.quote}>“{q.text}”</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>

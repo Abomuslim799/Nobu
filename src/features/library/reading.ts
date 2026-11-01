@@ -4,7 +4,7 @@
 
 import { Linking } from 'react-native';
 
-import type { Quote } from '@/core/store/progress';
+import type { Quote } from '@/core/store';
 
 const MUTOLAA_APP = 'mutolaa://';
 const MUTOLAA_STORE = 'https://apps.apple.com/app/id6475738561';

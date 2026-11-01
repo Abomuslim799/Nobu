@@ -1,9 +1,8 @@
 /**
- * _layout.tsx (ildiz) — ilovaning skeleti.
- *
- * Stack — sahifalar ustma-ust ochiladi: pastda tablar, dars ochilganda
- * u tablar USTIGA chiqadi, "orqaga" bilan yopiladi.
- * ProgressProvider — barcha ekranlarga natijalarni (streak, darslar) beradi.
+ * _layout.tsx (ildiz) — ilova skeleti.
+ *   StoreProvider — yagona holat (xotira ko'chirilgandan keyin yuklanadi).
+ *   Ildiz View har teginishda markActive() — faol vaqt (XP, streak) shundan hisoblanadi.
+ *   Stack — ekranlar o'ngdan kiradi, chapdan surib orqaga qaytiladi (dars va testda o'chirilgan — slayder/tasodifiy chiqish).
  */
 
 import { useFonts, YoungSerif_400Regular } from '@expo-google-fonts/young-serif';
@@ -13,9 +12,10 @@ import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { Appearance, DevSettings, View } from 'react-native';
 
+import { StoreProvider, markActive } from '@/core/store';
 import { C, SCHEME } from '@/core/theme';
-import { MetaProvider, markActive } from '@/core/store/rating';
-import { ProgressProvider } from '@/core/store/progress';
+
+const NO_SWIPE = { gestureEnabled: false, fullScreenGestureEnabled: false };
 
 export default function RootLayout() {
   useFonts({ YoungSerif_400Regular });
@@ -27,32 +27,17 @@ export default function RootLayout() {
     return () => sub.remove();
   }, []);
   return (
-    <ProgressProvider><MetaProvider>
-      {/* Har teginish — faol vaqt (XP va streak uchun; 60 s tegilmasa hisob to'xtaydi) */}
+    <StoreProvider>
       <View style={{ flex: 1 }} onTouchStart={markActive}>
-      <StatusBar style={SCHEME === 'light' ? 'dark' : 'light'} />
-      {/* Barcha sahifalar o'ngdan kiradi; chapdan o'ngga surib (ekranning istalgan joyidan) orqaga qaytiladi. */}
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg },
-        gestureEnabled: true, fullScreenGestureEnabled: true, animation: 'slide_from_right' }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="lesson/[id]" />
-        <Stack.Screen name="game/[id]" />
-        <Stack.Screen name="cards" />
-        <Stack.Screen name="quiz" />
-        <Stack.Screen name="book/[id]" />
-        <Stack.Screen name="quote/[id]" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="subject/[id]" />
-        <Stack.Screen name="unit/[id]" />
-        <Stack.Screen name="practice/[skill]" />
-        <Stack.Screen name="live" />
-        <Stack.Screen name="brain-report" />
-        <Stack.Screen name="sci/[id]" options={{ gestureEnabled: false, fullScreenGestureEnabled: false }} />   {/* surish — slayder uchun; orqaga faqat ‹ */}
-        <Stack.Screen name="nobu" />
-        <Stack.Screen name="nobu-report" />
-        <Stack.Screen name="test" options={{ gestureEnabled: false, fullScreenGestureEnabled: false }} />
-        <Stack.Screen name="xp" />
-      </Stack>
+        <StatusBar style={SCHEME === 'light' ? 'dark' : 'light'} />
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg },
+          gestureEnabled: true, fullScreenGestureEnabled: true, animation: 'slide_from_right' }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="science/[id]" options={NO_SWIPE} />
+          <Stack.Screen name="test" options={NO_SWIPE} />
+          <Stack.Screen name="library/quote/[id]" options={{ presentation: 'modal' }} />
+        </Stack>
       </View>
-    </MetaProvider></ProgressProvider>
+    </StoreProvider>
   );
 }

@@ -12,7 +12,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { READ_MIN, useProgress, type Book } from '@/core/store/progress';
+import { READ_MIN, useProgress, type Book } from '@/core/store';
 import { clock, openMutolaa } from '@/features/library/reading';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { QuoteCard } from '@/features/library/quote-card';
@@ -33,7 +33,7 @@ export default function BookScreen() {
       </View>
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
         {editing || !book
-          ? <BookForm book={book} onDone={(newId) => (book ? setEditing(false) : router.replace(`/book/${newId}`))} />
+          ? <BookForm book={book} onDone={(newId) => (book ? setEditing(false) : router.replace(`/library/book/${newId}`))} />
           : <BookView book={book} />}
       </ScrollView>
     </View>
@@ -110,7 +110,7 @@ function BookView({ book }: { book: Book }) {
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <T bold size={17}>Iqtiboslar ({quotes.length})</T>
-        <Pressable onPress={() => router.push(`/quote/new?book=${book.id}`)} hitSlop={10}><T color={C.green}>＋ Qo'shish</T></Pressable>
+        <Pressable onPress={() => router.push(`/library/quote/new?book=${book.id}`)} hitSlop={10}><T color={C.green}>＋ Qo'shish</T></Pressable>
       </View>
       {quotes.map((q) => <QuoteCard key={q.id} q={q} />)}
     </>

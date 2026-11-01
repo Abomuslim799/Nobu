@@ -12,7 +12,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
 import { fmtN } from '@/features/assessment/astrolabe';
-import { useMeta, fmtDur, type TestItem, type TestLog } from '@/core/store/rating';
+import { useRating, type TestItem, type TestLog } from '@/core/store';
+import { fmtDur } from '@/core/date';
 import { dailyTest, seeded, type Q } from '@/features/assessment/questions';
 import { AREA_META, maxPoints, type Area } from '@/features/assessment/rating';
 import { dayKey } from '@/core/date';
@@ -26,11 +27,11 @@ const buzz = (ok: boolean) => {
 };
 
 export default function TestScreen() {
-  const meta = useMeta();
+  const rating = useRating();
   const insets = useSafeAreaInsets();
-  const [practice] = useState(() => !!meta.dailyDone);     // ochilgan paytdagi holat (natijadan keyin o'zgarmasin)
+  const [practice] = useState(() => !!rating.dailyDone);     // ochilgan paytdagi holat (natijadan keyin o'zgarmasin)
   const [qs] = useState<Q[]>(() =>
-    dailyTest(seeded(practice ? `p${Date.now()}` : `daily:${dayKey()}`), meta.m.fr, practice ? {} : meta.m.seen, meta.m.disabled));
+    dailyTest(seeded(practice ? `p${Date.now()}` : `daily:${dayKey()}`), rating.m.fr, practice ? {} : rating.m.seen, rating.m.disabled));
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);      // -1 — vaqt tugadi
   const [items, setItems] = useState<TestItem[]>([]);
@@ -68,7 +69,7 @@ export default function TestScreen() {
 
   const finish = (all: TestItem[]) => {
     const kind = practice ? 'practice' : 'daily';
-    setResult(meta.recordTest(kind, all, Math.round((Date.now() - t0.current) / 1000)));
+    setResult(rating.recordTest(kind, all, Math.round((Date.now() - t0.current) / 1000)));
   };
   const next = () => {
     if (i + 1 >= qs.length) { finish(items); return; }
@@ -146,7 +147,7 @@ export default function TestScreen() {
 }
 
 function Result({ r, items, practice, pad }: { r: TestLog; items: TestItem[]; practice: boolean; pad: { top: number; bottom: number } }) {
-  const meta = useMeta();
+  const rating = useRating();
   const d = Math.round(r.after - r.before);
   const pct = r.n ? r.ok / r.n : 0;
   const wrong = useMemo(() => [...new Set(items.filter((x) => x.s < 1).map((x) => `${AREA_META[x.q.area].title}: ${x.q.topic}`))], [items]);
@@ -163,8 +164,8 @@ function Result({ r, items, practice, pad }: { r: TestLog; items: TestItem[]; pr
         </View>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <Card style={{ flex: 1, alignItems: 'center', gap: 2 }}>
-            <T size={22} bold color={C.gold}>{meta.todayXP} XP</T>
-            <T dim size={12}>bugun · {fmtDur(meta.todaySec)}</T>
+            <T size={22} bold color={C.gold}>{rating.todayXP} XP</T>
+            <T dim size={12}>bugun · {fmtDur(rating.todaySec)}</T>
           </Card>
           <Card style={{ flex: 1, alignItems: 'center', gap: 2 }}>
             <T size={22} bold color={practice ? C.dim : d >= 0 ? C.green : C.red}>{practice ? '—' : `${d >= 0 ? '+' : ''}${d} FR`}</T>

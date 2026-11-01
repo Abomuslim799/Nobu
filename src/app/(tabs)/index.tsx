@@ -11,10 +11,11 @@ import { LESSONS as SCI } from '@/features/science/lessons';
 import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/features/brain/brain';
 
 import { C, FONT_DISPLAY } from '@/core/theme';
-import { STREAK_SEC, fmtDur, useMeta } from '@/core/store/rating';
+import { STREAK_SEC, useRating } from '@/core/store';
+import { fmtDur } from '@/core/date';
 import { Astrolabe, fmtN } from '@/features/assessment/astrolabe';
 import { ALL_LESSONS } from '@/features/it/tracks';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/core/store';
 import { dayKey, lastDays } from '@/core/date';
 import { AUDIO } from '@/features/english/data/audio';
 import { quoteOfDay } from '@/features/library/reading';
@@ -52,21 +53,21 @@ export default function Today() {
 
   const goals = [
     { icon: '🎴', label: `So'z takrori · ${today.cards ?? 0}/${cardGoal}`, sub: due ? `${due} ta so'z takror kutmoqda` : 'Yangi so\'zlar',
-      done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/cards') },
+      done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/english/cards') },
     { icon: unit.emoji, label: `Movie: ${unit.source} — ${nextStep.title}`, sub: `${stepsDone(data.unitSteps[unit.id])}/${STEPS.length} qadam`,
-      done: (today.steps ?? 0) >= 1, go: () => router.push(`/unit/${unit.id}`) },
+      done: (today.steps ?? 0) >= 1, go: () => router.push(`/english/unit/${unit.id}`) },
     { icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
-        done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/game/${weakGame.id}`) },
+        done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) },
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
-        done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/game/chess') },
+        done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/brain/chess') },
       ...(() => {
         const sl = SCI.find((l) => !data.lessons[`sci-${l.id}`]);
         const doneToday = SCI.some((l) => data.lessons[`sci-${l.id}`]?.day === dayKey());
         return sl || doneToday ? [{ icon: '🔬', label: sl ? `Science: ${sl.title}` : 'Science: dars tugatildi', sub: sl ? `${sl.sub} · ~${sl.minutes} daq` : '',
-          done: doneToday, go: () => router.push(sl ? `/sci/${sl.id}` : '/subject/science') }] : [];
+          done: doneToday, go: () => router.push(sl ? `/science/${sl.id}` : '/subject/science') }] : [];
       })(),
       { icon: '📚', label: `Kitob · ${todayRead}/${readGoal} daq`, sub: data.activeRead ? "o'qilmoqda" : '',
-        done: todayRead >= readGoal, go: () => router.push(data.activeRead ? `/book/${data.activeRead.bookId}` : '/library') },
+        done: todayRead >= readGoal, go: () => router.push(data.activeRead ? `/library/book/${data.activeRead.bookId}` : '/library') },
   ];
   const goalDone = goals.filter((g) => g.done).length;
   const leftKey = goals.filter((g) => !g.done).map((g) => `${g.icon} ${g.label}`).join('|');
@@ -74,12 +75,12 @@ export default function Today() {
     pushPlan({ done: goalDone, total: goals.length, left: leftKey ? leftKey.split('|') : [] });
   }, [goalDone, goals.length, leftKey]);
 
-  const meta = useMeta();
+  const rating = useRating();
   const now = new Date();
   const hour = now.getHours();
   const hello = hour < 5 ? 'Xayrli tun' : hour < 11 ? 'Xayrli tong' : hour < 17 ? 'Xayrli kun' : hour < 23 ? 'Xayrli kech' : 'Xayrli tun';
-  const needMin = Math.max(0, Math.ceil((STREAK_SEC - meta.todaySec) / 60));
-  const dd = meta.dailyDone;
+  const needMin = Math.max(0, Math.ceil((STREAK_SEC - rating.todaySec) / 60));
+  const dd = rating.dailyDone;
 
   return (
     <Screen>
@@ -89,23 +90,23 @@ export default function Today() {
           <Text style={s.h1}>{hello}</Text>
         </View>
         <Pressable onPress={() => router.push('/xp')} style={s.chips} hitSlop={8}>
-          <View style={[s.chip, { backgroundColor: C.goldSoft }]}><T bold size={13} color={meta.widget === 'ok' ? C.gold : C.dim}>🔥 {meta.streak}</T></View>
-          <View style={s.chip}><T bold size={13}>🧊 {meta.m.muz}</T></View>
+          <View style={[s.chip, { backgroundColor: C.goldSoft }]}><T bold size={13} color={rating.widget === 'ok' ? C.gold : C.dim}>🔥 {rating.streak}</T></View>
+          <View style={s.chip}><T bold size={13}>🧊 {rating.m.muz}</T></View>
         </Pressable>
       </View>
       <Pressable onPress={() => router.push('/xp')}>
         <Card style={{ alignItems: 'center', paddingTop: 8, paddingBottom: 12, gap: 6 }}>
-          <Astrolabe fr={meta.fr} title={meta.rank.title} rankId={meta.rank.id} size={220} />
+          <Astrolabe fr={rating.fr} title={rating.rank.title} rankId={rating.rank.id} size={220} />
           <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <View style={[s.chip, { backgroundColor: meta.week >= 0 ? C.greenSoft : C.redSoft }]}>
-              <T bold size={12} color={meta.week >= 0 ? C.green : C.red}>{meta.week >= 0 ? '+' : ''}{meta.week} bu hafta</T></View>
-            <T dim size={12}>eng yuqori {fmtN(meta.peak)}</T>
+            <View style={[s.chip, { backgroundColor: rating.week >= 0 ? C.greenSoft : C.redSoft }]}>
+              <T bold size={12} color={rating.week >= 0 ? C.green : C.red}>{rating.week >= 0 ? '+' : ''}{rating.week} bu hafta</T></View>
+            <T dim size={12}>eng yuqori {fmtN(rating.peak)}</T>
           </View>
           <T dim size={12}>
-            {meta.widget === 'ok' ? `🔥 ${meta.streak} kun · bugun ✓ · ${fmtDur(meta.todaySec)}, ${meta.todayXP} XP`
-              : meta.widget === 'pause' ? `⏸ Kecha muz ishlatildi · streakni saqlash uchun yana ${needMin} daqiqa`
-              : meta.widget === 'ice' ? `❄️ 2 kun o'tkazildi — bugun ${needMin} daqiqa ishlamasangiz streak 0 bo'ladi`
-              : `Bugun streak uchun yana ${needMin} daqiqa · ${fmtDur(meta.todaySec)} ishlandi`}
+            {rating.widget === 'ok' ? `🔥 ${rating.streak} kun · bugun ✓ · ${fmtDur(rating.todaySec)}, ${rating.todayXP} XP`
+              : rating.widget === 'pause' ? `⏸ Kecha muz ishlatildi · streakni saqlash uchun yana ${needMin} daqiqa`
+              : rating.widget === 'ice' ? `❄️ 2 kun o'tkazildi — bugun ${needMin} daqiqa ishlamasangiz streak 0 bo'ladi`
+              : `Bugun streak uchun yana ${needMin} daqiqa · ${fmtDur(rating.todaySec)} ishlandi`}
           </T>
         </Card>
       </Pressable>
@@ -118,7 +119,7 @@ export default function Today() {
       <Card style={{ gap: 8 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={s.h2}>{goalDone === goals.length ? '✅ Reja bajarildi' : 'Bugungi reja'}</Text>
-          <T dim size={13} style={{ fontVariant: ['tabular-nums'] }}>{goalDone}/{goals.length} · {Math.floor(meta.todaySec / 60)} daq</T>
+          <T dim size={13} style={{ fontVariant: ['tabular-nums'] }}>{goalDone}/{goals.length} · {Math.floor(rating.todaySec / 60)} daq</T>
         </View>
         {goals.map((g) => (
           <Pressable key={g.label} onPress={g.go} style={({ pressed }) => [s.row, g.done && s.rowDone, pressed && { opacity: 0.7 }]}>
@@ -135,12 +136,12 @@ export default function Today() {
       <Pressable onPress={() => router.push('/xp')}>
         <Card>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <T dim>Haftalik faollik</T><T dim size={13}>{fmtN(meta.xp)} XP ›</T>
+            <T dim>Haftalik faollik</T><T dim size={13}>{fmtN(rating.xp)} XP ›</T>
           </View>
           <View style={s.week}>
             {lastDays(7).map((day) => {
               const [y, m, d] = day.split('-').map(Number);
-              const mk = meta.mark(day);
+              const mk = rating.mark(day);
               return (
                 <View key={day} style={{ alignItems: 'center', gap: 6 }}>
                   <View style={[s.dot, mk === 'ok' && s.dotOn, mk === 'frozen' && s.dotIce, day === dayKey() && s.dotToday]}>
@@ -161,7 +162,7 @@ export default function Today() {
           <T dim>Keyingi dars · {next.track.icon} {next.track.title}</T>
           <T size={18} bold>{next.lesson.title}</T>
           <T dim>~{next.lesson.minutes} daqiqa</T>
-          <Button label="Boshlash" onPress={() => router.push(`/lesson/${next.lesson.id}`)} />
+          <Button label="Boshlash" onPress={() => router.push(`/it/${next.lesson.id}`)} />
         </Card>
       ) : null}
 

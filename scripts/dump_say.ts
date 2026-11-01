@@ -4,7 +4,8 @@
  * Natija: [{ id, part, text (asl), speak (ovoz uchun tayyor), h (ilova ishlatadigan xesh — fayl nomi) }]
  * Sayt (GitHub Pages) uni /say.json qilib joylaydi; server shu ro'yxat bo'yicha ovozlarni o'zi yasab qo'yadi.
  */
-import { blockSay, LESSONS, textHash } from '@/features/science/lessons';
+import { textHash } from '@/core/hash';
+import { blockSay, LESSONS } from '@/features/science/lessons';
 import { sayText } from '@/features/science/speech';
 import m0 from '@content/science/boards/m0.json';
 import m1 from '@content/science/boards/m1.json';

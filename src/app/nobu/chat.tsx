@@ -9,7 +9,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { nobuChat, type TutorMsg } from '@/core/ai';
+import { nobuChat, type TutorMsg } from '@/features/assistant/ai';
 import { buildContext } from '@/features/assistant/context';
 import { ttsUrl } from '@/core/audio/tts';
 import { sayText } from '@/features/science/speech';
@@ -83,7 +83,7 @@ export default function NobuChat() {
     }
   };
   const cancel = () => { reqId.current++; setBusy(false); setErr("Bekor qilindi. Savolni qayta yuborishingiz mumkin."); };
-  const call = () => ctx && router.push({ pathname: '/live', params: { mode: 'nobu', topic: ctx.topic, ctx: ctx.ctx.slice(0, 9000) } });
+  const call = () => ctx && router.push({ pathname: '/nobu/live', params: { mode: 'nobu', topic: ctx.topic, ctx: ctx.ctx.slice(0, 9000) } });
   const kind = key.startsWith('lesson:') ? 'lesson' : key;
   const who: Who = kind === 'stats' ? 'nobu' : 'ustoz';     // darslar va Science — Ustoz, statistika — Nobu
 

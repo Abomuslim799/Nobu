@@ -12,7 +12,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import rows from '@content/brain/puzzles.json';
-import { chessExplain, type ChessExplain } from '@/core/ai';
+import { chessExplain, type ChessExplain } from '@/features/brain/ai';
 import { chessResult, getChess } from '@/features/brain/brain';
 import { Button, Card, T } from '@/core/ui/kit';
 import type { GameProps } from '@/features/brain/games/quick';

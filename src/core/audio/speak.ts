@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { AUDIO_BASE } from '@/core/config';
 
 import { AUDIO } from '@/features/english/data/audio';
+import { KEYS } from '@/core/storage';
 
 /** w — so'z, s — misol gap, uz — o'zbekcha tarjima; unitlarda: p0.. (matn), d0.. (diktant), sh0.., q (iqtibos). */
 export type Part = string;
@@ -24,7 +25,7 @@ export type AudioMap = Record<string, string[]>;    // id → mavjud qismlar: ['
 export const RATES = [0.5, 0.75, 1] as const;
 
 // ── Tezlik ──────────────────────────────────────────────────────────────────
-const RATE_KEY = 'dojo.rate';
+const RATE_KEY = KEYS.speakRate;
 let rate = 1;
 const listeners = new Set<(r: number) => void>();
 AsyncStorage.getItem(RATE_KEY).then((v) => v && setRate(Number(v))).catch(() => {});

@@ -16,11 +16,11 @@ export const SUBJECTS: Subject[] = [
   { id: 'science', title: 'Science', icon: '🔬', color: '#F59E0B', about: 'Matematika · Geometriya · Fizika — simulyatsiyalar va Nobu bilan' },
 ];
 
-export const IT_TRACKS = TRACKS;   // ingliz tili endi faqat film unitlari va kartochkalarda
+
 
 export function subjectProgress(id: Subject['id'], data: { lessons: Record<string, unknown>; unitSteps: Record<string, string[]> }) {
   if (id === 'it') {
-    const all = IT_TRACKS.flatMap((t) => t.lessons);
+    const all = TRACKS.flatMap((t) => t.lessons);
     return { done: all.filter((l) => data.lessons[l.id]).length, total: all.length };
   }
   if (id === 'en') {

@@ -9,7 +9,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Rect, Text as SvgText } from 'react-native-svg';
 
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
-import { fmtDur, lastDays, useMeta } from '@/core/store/rating';
+import { useRating } from '@/core/store';
+import { fmtDur, lastDays } from '@/core/date';
 import { MUZ_MAX, PRICE, RANKS } from '@/features/assessment/rating';
 import { dayKey } from '@/core/date';
 import { Card, T } from '@/core/ui/kit';
@@ -18,15 +19,15 @@ import { fmtN } from '@/features/assessment/astrolabe';
 const WD = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];
 
 export default function XPScreen() {
-  const meta = useMeta();
+  const rating = useRating();
   const insets = useSafeAreaInsets();
   const [msg, setMsg] = useState('');
   const days = lastDays(7);
-  const mins = days.map((d) => Math.floor((meta.m.sec[d] ?? 0) / 60));
+  const mins = days.map((d) => Math.floor((rating.m.sec[d] ?? 0) / 60));
   const maxM = Math.max(30, ...mins);
   const W = 300, H = 96;
-  const frozenDay = days.find((d) => meta.mark(d) === 'frozen');
-  const rankIdx = RANKS.findIndex((r) => r.id === meta.rank.id);
+  const frozenDay = days.find((d) => rating.mark(d) === 'frozen');
+  const rankIdx = RANKS.findIndex((r) => r.id === rating.rank.id);
 
   return (
     <View style={[s.root, { paddingTop: insets.top + 4 }]}>
@@ -36,9 +37,9 @@ export default function XPScreen() {
       </View>
       <ScrollView contentContainerStyle={[s.body, { paddingBottom: insets.bottom + 30 }]}>
         <Card style={{ alignItems: 'center', gap: 2 }}>
-          <T size={36} bold color={C.gold} style={{ fontVariant: ['tabular-nums'] }}>{fmtN(meta.xp)} XP</T>
-          <T dim size={13}>Jami ishlangan vaqt: {fmtDur(meta.totalSec)}</T>
-          <T dim size={13}>Bugun: {fmtDur(meta.todaySec)} · {meta.todayXP} XP · 🔥 {meta.streak} kun (rekord {meta.best})</T>
+          <T size={36} bold color={C.gold} style={{ fontVariant: ['tabular-nums'] }}>{fmtN(rating.xp)} XP</T>
+          <T dim size={13}>Jami ishlangan vaqt: {fmtDur(rating.totalSec)}</T>
+          <T dim size={13}>Bugun: {fmtDur(rating.todaySec)} · {rating.todayXP} XP · 🔥 {rating.streak} kun (rekord {rating.best})</T>
         </Card>
 
         <Card style={{ gap: 6 }}>
@@ -46,7 +47,7 @@ export default function XPScreen() {
           <Svg width="100%" height={H + 16} viewBox={`0 0 ${W} ${H + 16}`}>
             {days.map((d, k) => {
               const m = mins[k], h = Math.max(3, (m / maxM) * (H - 14)), x = k * (W / 7) + 8, bw = W / 7 - 16;
-              const fr = meta.mark(d) === 'frozen';
+              const fr = rating.mark(d) === 'frozen';
               const [y, mo, dd] = d.split('-').map(Number);
               return [
                 <Rect key={`b${d}`} x={x} y={H - h} width={bw} height={h} rx={5} fill={fr ? '#7DD3FC' : m >= 5 ? C.green : C.subtle2} opacity={d === dayKey() ? 1 : 0.85} />,
@@ -59,12 +60,12 @@ export default function XPScreen() {
           <T dim size={12}>Streak kuni — kamida 5 daqiqa faol vaqt. XP: 5–19 daq → 1, 20 daq → 2, keyin har 5 daqiqa +1. Ekranga 60 s tegilmasa vaqt hisoblanmaydi.</T>
         </Card>
 
-        <Shop icon="🧊" title="Muz" sub={`Kirmagan kuningiz streakni saqlaydi (avtomatik) · ${meta.m.muz}/${MUZ_MAX} zaxirada`} price={PRICE.muz}
-          disabled={meta.m.muz >= MUZ_MAX || meta.xp < PRICE.muz}
-          onPress={() => setMsg(meta.buyMuz() ? '🧊 Muz olindi' : meta.m.muz >= MUZ_MAX ? `Ko'pi bilan ${MUZ_MAX} ta` : 'XP yetmaydi')} />
-        <Shop icon="🔧" title="Streakni tiklash" sub={meta.canRestore.length ? `Uzilgan ${meta.canRestore.length} kun qaytariladi (48 soat ichida)` : 'Streak uzilmagan — kerak emas'}
-          price={PRICE.tiklash} disabled={!meta.canRestore.length || meta.xp < PRICE.tiklash}
-          onPress={() => setMsg(meta.restore() ? '🔧 Streak tiklandi' : 'XP yetmaydi')} />
+        <Shop icon="🧊" title="Muz" sub={`Kirmagan kuningiz streakni saqlaydi (avtomatik) · ${rating.m.muz}/${MUZ_MAX} zaxirada`} price={PRICE.muz}
+          disabled={rating.m.muz >= MUZ_MAX || rating.xp < PRICE.muz}
+          onPress={() => setMsg(rating.buyMuz() ? '🧊 Muz olindi' : rating.m.muz >= MUZ_MAX ? `Ko'pi bilan ${MUZ_MAX} ta` : 'XP yetmaydi')} />
+        <Shop icon="🔧" title="Streakni tiklash" sub={rating.canRestore.length ? `Uzilgan ${rating.canRestore.length} kun qaytariladi (48 soat ichida)` : 'Streak uzilmagan — kerak emas'}
+          price={PRICE.tiklash} disabled={!rating.canRestore.length || rating.xp < PRICE.tiklash}
+          onPress={() => setMsg(rating.restore() ? '🔧 Streak tiklandi' : 'XP yetmaydi')} />
         {!!msg && <T bold color={C.gold} style={{ textAlign: 'center' }}>{msg}</T>}
 
         <Card style={{ gap: 4 }}>
