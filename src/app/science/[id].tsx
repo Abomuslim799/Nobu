@@ -1,5 +1,5 @@
 /**
- * sci/[id].tsx — Science darsi, BITTA QADAM bir ekranda (slayd kabi): kam matn, bitta g'oya.
+ * science/[id].tsx — Science darsi, BITTA QADAM bir ekranda (slayd kabi): kam matn, bitta g'oya.
  * Taxmin / simulyatsiya / mashq bajarilmaguncha "Keyingi" yopiq. Atamalar (qiyalik, urinma...) bosilsa — izoh.
  * Har qadamda "🙋 Tushunmadim" — Nobu shu qadamni boshqacha tushuntiradi.
  * Oxirida natija jurnalga yoziladi (streak + Nobu tahlili).
@@ -12,7 +12,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, type ScrollVi
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { logScience } from '@/features/science/log';
 import { checkNumber } from '@/features/science/engine';
 import { AREAS, GLOSSARY, lessonById, lessonsOf, type Block } from '@/features/science/lessons';
@@ -20,7 +20,7 @@ import { Board } from '@/features/science/board';
 import { useNarrator } from '@/features/science/narrate';
 import { SIMS } from '@/features/science/sims';
 import { Button, Card, T } from '@/core/ui/kit';
-import { NobuSays } from '@/core/ui/avatar';
+import { Bubble } from '@/core/ui/avatar';
 import { KEYS } from '@/core/storage';
 
 const gate = (b: Block) => b.k === 'predict' || b.k === 'sim' || b.k === 'ex' || b.k === 'choice';
@@ -179,7 +179,7 @@ export default function SciLesson() {
 
 function BlockView({ b, idx, res, solved, onResolved }: { b: Block; idx: number; res: Res; solved: boolean; onResolved: () => void }) {
   switch (b.k) {
-    case 'nobu': return <NobuSays text={b.text} who="ustoz" pose="tushuntir" />;
+    case 'nobu': return <Bubble text={b.text} who="ustoz" pose="tushuntir" />;
     case 'board': return <Board id={b.id} />;
     case 'text': return <Card><GlossText text={b.text} /></Card>;
     case 'law': return (

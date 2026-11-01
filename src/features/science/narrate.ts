@@ -1,17 +1,17 @@
 /**
- * narrate.ts — Ustoz darsdagi matnni ovozda o'qiydi (Gemini Iapetus, server yasaydi va keshlaydi — lib/tts.ts).
+ * narrate.ts — Ustoz darsdagi matnni ovozda o'qiydi (Gemini Iapetus, server yasaydi va keshlaydi — core/audio/tts.ts).
  *   main — blok ochilganda, after ("r") — javobdan keyin (izoh/yechim).
  *   ?v=<xesh> — matn o'zgarsa, telefon keshdagi eski ovozni emas, yangisini oladi.
  * Avtomatik o'qish yoqilgan/o'chirilgani telefonda saqlanadi.
  */
 
 import { AUDIO_BASE } from '@/core/config';
-import { markActive } from '@/core/store';
+import { markActive } from '@/core/activity';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { useEffect, useRef, useState } from 'react';
 
-import { prefetch, ttsUrl } from '@/core/audio/tts';
+import { prefetch, ttsUrl } from '@/core/tts';
 import { blockSay, type SciLesson } from '@/features/science/lessons';
 import { sayText } from '@/features/science/speech';
 import { KEYS } from '@/core/storage';

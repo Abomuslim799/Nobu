@@ -1,5 +1,5 @@
 /**
- * choice.tsx — bitta test savoli (variantlar). Javobdan keyin to'g'ri/xato rangi va izoh.
+ * quiz-runner.tsx — bitta test savoli (variantlar). Javobdan keyin to'g'ri/xato rangi va izoh.
  * Rich — **qalin** joylarni yashil qilib ko'rsatadigan matn.
  */
 

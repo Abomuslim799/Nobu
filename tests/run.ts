@@ -1,6 +1,6 @@
 /**
- * test_science.ts — Science bo'limi fizikasi va darslardagi javoblarni tekshiradi (CI'da, nashrdan oldin).
- * Ishga tushirish: npx esbuild scripts/test_science.ts --bundle --platform=node --outfile=/tmp/ts.js && node /tmp/ts.js
+ * run.ts — mantiq testlari (CI'da, har nashrdan oldin): fizika, darslar javoblari, test savollari, FR/XP, xotira ko'chirishi, sana.
+ * Ishga tushirish: npm test
  */
 import {
   checkNumber, FUNCS, motionV, motionX, pendulumPeriodSmall, pendulumStep, projectile, projectileDrag, riemann, secantSlope, polar, add, len,
@@ -10,6 +10,8 @@ import { sayText } from '@/features/science/speech';
 import m0b from '@content/science/boards/m0.json';
 import m1b from '@content/science/boards/m1.json';
 import { GENS, makeQ, dailyTest, seeded } from '@/features/assessment/questions';
+import { KEYS, legacyTarget } from '@/core/keys';
+import { addDays, lastDays } from '@/core/date';
 import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/assessment/rating';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
@@ -127,5 +129,19 @@ ok(sayText("ma'no") === 'maʼno', 'sayText 3');
   ok(overall(START) === 1067 && overall({ ...START, math: { ...START.math, r: 900 } }) < 1067 && rankOf(1250).title === 'Mutaallim', `overall/rank ${overall(START)}`);
 }
 
+// Xotira: eski kalitlar yangisiga to'g'ri ko'chadi, yangilari tegilmaydi
+{
+  ok(legacyTarget('dojo.progress.v1') === KEYS.progress && legacyTarget('nobu.meta.v1') === KEYS.rating, 'migratsiya: asosiy omborlar');
+  ok(legacyTarget('nobu.sync.config') === KEYS.server && legacyTarget('dojo.rate') === KEYS.speakRate, 'migratsiya: sozlamalar');
+  ok(legacyTarget('nobu.sci.pos.m1') === KEYS.sciPos('m1') && legacyTarget('nobu.writing.fg1') === KEYS.writing('fg1'), 'migratsiya: dars joyi, yozuv');
+  ok(legacyTarget('nobu.brain.chess.v1') === KEYS.chess && legacyTarget('nobu.tts.v1') === KEYS.tts, 'migratsiya: miya, ovoz');
+  ok(legacyTarget(KEYS.progress) === null && legacyTarget('boshqa') === null, 'migratsiya: yangi kalitga tegmaydi');
+  const all = Object.values(KEYS).map((v) => (typeof v === 'string' ? v : v('x')));
+  ok(all.every((k) => k.startsWith('farobiy.')) && new Set(all).size === all.length, 'kalitlar: farobiy. va takrorsiz');
+}
+// Sana
+ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2025-12-31', 'addDays oy/yil');
+ok(lastDays(3, '2026-11-02').join() === '2026-10-31,2026-11-01,2026-11-02', 'lastDays');
+
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
-console.log(`OK — science: ${LESSONS.length} dars, ${Object.keys(expect).length} mashq, fizika testlari o'tdi`);
+console.log(`OK — ${LESSONS.length} dars, ${Object.keys(expect).length} mashq; fizika, savollar, FR, xotira, sana testlari o'tdi`);

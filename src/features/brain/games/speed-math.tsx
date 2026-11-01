@@ -6,7 +6,7 @@ import { Pressable, Text, View } from 'react-native';
 import { C } from '@/core/theme';
 import { makeProblem, type Problem } from '@/features/brain/speed-math';
 import { Bar, T } from '@/core/ui/kit';
-import { type GameProps, s, useCountdown } from './kit';
+import { type GameProps, s, useCountdown } from '@/features/brain/games/kit';
 
 // ── ⚡ Tezkor hisob ─────────────────────────────────────────────────────────
 export function SpeedMath({ level, onDone }: GameProps) {

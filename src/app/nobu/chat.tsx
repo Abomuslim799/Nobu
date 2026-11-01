@@ -1,5 +1,5 @@
 /**
- * nobu.tsx — Nobu bilan suhbat (matn). Kontekst: dars (key=lesson:f2), Science yoki butun statistika (key=stats).
+ * nobu/chat.tsx — Nobu bilan suhbat (matn). Kontekst: dars (key=lesson:f2), Science yoki butun statistika (key=stats).
  * 📞 — o'sha kontekst bilan jonli ovozli suhbat (Gemini Live, Nobu ovozi butun ilovada bir xil).
  */
 
@@ -11,11 +11,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD } from '@/core/theme';
 import { nobuChat, type TutorMsg } from '@/features/assistant/ai';
 import { buildContext } from '@/features/assistant/context';
-import { ttsUrl } from '@/core/audio/tts';
+import { ttsUrl } from '@/core/tts';
 import { sayText } from '@/features/science/speech';
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { T } from '@/core/ui/kit';
-import { Avatar, NobuSays, type Who } from '@/core/ui/avatar';
+import { Avatar, Bubble, type Who } from '@/core/ui/avatar';
 
 const STARTERS: Record<string, string[]> = {
   lesson: ['Bu qonunni boshqacha tushuntirib bering', 'Menga qiyinroq masala bering', 'Bu kundalik hayotda qayerda uchraydi?'],
@@ -98,12 +98,12 @@ export default function NobuChat() {
         <Pressable onPress={call} style={s.call}><T bold color={C.onAccent}>📞 Jonli</T></Pressable>
       </View>
       <ScrollView ref={scroll} contentContainerStyle={{ padding: PAD, gap: 10 }} keyboardShouldPersistTaps="handled">
-        <NobuSays who={who} pose="kitob" text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
+        <Bubble who={who} pose="kitob" text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
           : kind === 'stats' ? "Barcha natijalaringiz oldimda: ingliz tili, miya o'yinlari, shaxmat, science. Nimani muhokama qilamiz?"
             : 'Matematika, geometriya yoki fizika — nimani muhokama qilamiz?'} />
         {msgs.map((m, i) => m.role === 'nobu' ? (
           <View key={i} style={{ gap: 4 }}>
-            <NobuSays who={who} text={m.text} />
+            <Bubble who={who} text={m.text} />
             <Pressable onPress={() => say(i, m.text)} hitSlop={8} style={s.say}>
               <T size={13} color={C.green}>{voice.i === i ? (voice.st === 'load' ? '⏳ ovoz tayyorlanmoqda…' : voice.st === 'play' ? '⏸ to\'xtatish' : voice.st === 'err' ? '⚠️ ovoz yo\'q (server)' : '🔊 eshitish') : '🔊 eshitish'}</T>
             </Pressable>

@@ -1,5 +1,5 @@
 /**
- * quiz.tsx — bitta blok (to'plam) bo'yicha so'z testi, 3 bosqich (lib/quiz.ts).
+ * english/quiz.tsx — bitta blok (to'plam) bo'yicha so'z testi, 3 bosqich (features/english/quiz.ts).
  * Xato topilgan so'z kartochkalarda tezroq takrorga qaytadi (reviewCard → 1-quti).
  */
 
@@ -11,12 +11,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
 import type { Word } from '@/features/english/data/words';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { buildQuiz, STAGES, type Question } from '@/features/english/quiz';
-import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
+import { hasUzbekAudio, say, stopSpeaking } from '@/features/english/speak';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { logSkill } from '@/features/english/skills';
-import { RateSwitch, SoundButton } from '@/core/ui/sound';
+import { RateSwitch, SoundButton } from '@/features/english/ui/sound';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();

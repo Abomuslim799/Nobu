@@ -1,5 +1,5 @@
 /**
- * live.tsx — jonli ovozli suhbat (telefon qo'ng'irog'idek): Gemini Live.
+ * nobu/live.tsx — jonli ovozli suhbat (telefon qo'ng'irog'idek): Gemini Live.
  * Sahifa Railway serverida (web/live.html); ilova uni WebView ichida ochadi va
  * suhbat oxiridagi natijani (ball, xatolar) ko'nikmalar jurnaliga yozadi.
  * Expo Go ovoz oqimini o'zi bajara olmaydi — shuning uchun brauzer (WebView) orqali.
@@ -39,7 +39,7 @@ export default function Live() {
       </View>
       {noServer ? (
         <View style={{ padding: PAD, gap: 12 }}>
-          <T>Server ulanmagan: Statistika → 🔗 Server (widget + AI) bo'limini to'ldiring.</T>
+          <T>Server ulanmagan: Nobu → 🔗 Server bo'limini to'ldiring.</T>
           <Button label="Orqaga" onPress={() => router.back()} />
         </View>
       ) : url ? (

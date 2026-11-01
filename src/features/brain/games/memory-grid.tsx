@@ -5,7 +5,7 @@ import { Pressable, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { T } from '@/core/ui/kit';
-import { type GameProps, shuffle } from './kit';
+import { type GameProps, shuffle } from '@/features/brain/games/kit';
 
 // ── 🧠 Xotira panjarasi ─────────────────────────────────────────────────────
 export function MemoryGrid({ level, onDone }: GameProps) {

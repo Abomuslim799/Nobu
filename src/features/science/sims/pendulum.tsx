@@ -7,7 +7,7 @@ import Svg, { Circle, Line } from 'react-native-svg';
 import { C } from '@/core/theme';
 import { fmt, pendulumPeriodSmall, pendulumStep } from '@/features/science/engine';
 import { COLORS, Slider, useClock, useWidth } from '@/features/science/ui';
-import { Box, PlayBtn, Readout } from './kit';
+import { Box, PlayBtn, Readout } from '@/features/science/sims/kit';
 
 // ── 7. Mayatnik: davr amplitudaga bog'liqmi? ────────────────────────────────
 export function Pendulum() {

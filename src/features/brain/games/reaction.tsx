@@ -5,7 +5,7 @@ import { Pressable, Text } from 'react-native';
 
 import { C } from '@/core/theme';
 import { T } from '@/core/ui/kit';
-import { type GameProps, rnd, s } from './kit';
+import { type GameProps, rnd, s } from '@/features/brain/games/kit';
 
 // ── ⚡ Reaksiya ─────────────────────────────────────────────────────────────
 export function Reaction({ onDone }: GameProps) {

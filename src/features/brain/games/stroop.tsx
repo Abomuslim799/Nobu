@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { T } from '@/core/ui/kit';
-import { type GameProps, rnd, s, shuffle, useCountdown } from './kit';
+import { type GameProps, rnd, s, shuffle, useCountdown } from '@/features/brain/games/kit';
 
 // ── 🎯 Stroop: so'z bir rangda yozilgan, ma'nosi boshqa rang ─────────────────
 // Tugmalarda rang NOMLARI yoziladi (rang emas) va o'zi ham chalg'ituvchi rangda — shunda so'zni o'qish

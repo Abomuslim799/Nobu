@@ -8,7 +8,7 @@ import { grammarSet, type GrammarItem } from '@/features/english/ai';
 import { logSkill } from '@/features/english/skills';
 import { QuizRunner, Rich } from '@/core/ui/quiz-runner';
 import { Button, Card, T } from '@/core/ui/kit';
-import { Pick } from './kit';
+import { Pick } from '@/features/english/practice/kit';
 
 // ── Grammar ─────────────────────────────────────────────────────────────────
 export function GrammarPractice() {

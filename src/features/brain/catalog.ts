@@ -1,5 +1,5 @@
 /**
- * games.ts — Miya o'yinlari ro'yxati. Har biri game/[id].tsx da o'ynaladi (komponentlar: src/games/).
+ * catalog.ts — Miya o'yinlari ro'yxati. Har biri game/[id].tsx da o'ynaladi (komponentlar: src/games/).
  * skill — qaysi ko'nikmaga yoziladi (statistika va AI tahlil shu bo'yicha).
  */
 

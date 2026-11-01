@@ -5,9 +5,9 @@
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { legacyTarget } from './keys';
+import { legacyTarget } from '@/core/keys';
 
-export { KEYS, LOCAL_ONLY } from './keys';
+export { KEYS, LOCAL_ONLY } from '@/core/keys';
 
 /** Eski kalitlarni yangisiga ko'chiradi (eski qiymat ustun — u yangiroq zaxiradan kelgan bo'lishi mumkin). */
 export async function migrate(): Promise<number> {

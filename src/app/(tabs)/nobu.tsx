@@ -8,7 +8,7 @@ import { Alert, Platform, TextInput, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { TRACKS } from '@/features/it/tracks';
-import { useRating , useProgress } from '@/core/store';
+import { useRating , useProgress } from '@/store';
 import { pickBackup, exportBackup , backupNow, lastBackup, restoreLatest } from '@/core/backup';
 import { lastDays } from '@/core/date';
 import { getConfig, saveConfig, testConnection } from '@/core/server';
@@ -25,7 +25,7 @@ export default function Stats() {
       if (raw === null) return;
       Alert.alert('Zaxirani tiklash', 'Hozirgi natijalar fayldagisi bilan almashtiriladi.', [
         { text: 'Bekor', style: 'cancel' },
-        { text: 'Tiklash', onPress: () => Alert.alert(importJSON(raw) ? 'Tiklandi ✓' : 'Fayl Nobu zaxirasi emas') },
+        { text: 'Tiklash', onPress: () => Alert.alert(importJSON(raw) ? 'Tiklandi ✓' : 'Fayl Farobiy zaxirasi emas') },
       ]);
     } catch (e) {
       Alert.alert('Xato', String(e));
@@ -155,7 +155,7 @@ function VoiceCheck() {
   const [msg, setMsg] = useState('');
   const check = async () => {
     setMsg('Tekshirilmoqda…');
-    const tts = await import('@/core/audio/tts');
+    const tts = await import('@/core/tts');
     const url = await tts.ttsUrl(`Ovoz sinovi ${new Date().getMinutes()}`);
     setMsg(url ? 'Gemini ovozi ishlayapti ✓' : `Gemini ovozi ishlamayapti — darslarda zaxira ovoz (Sardor) chalinadi.\nSabab: ${tts.ttsError() || 'server sozlanmagan'}`);
   };

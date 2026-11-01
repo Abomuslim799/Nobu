@@ -17,35 +17,18 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 import { dayKey } from '@/core/date';
 import { autoBackup } from '@/core/backup';
 import { KEYS } from '@/core/storage';
+import type { ActiveRead, Book, Quote, ReadingSession } from '@/features/library/types';
+
+export type { ActiveRead, Book, Quote, ReadingSession };
 
 // ── 1. Saqlanadigan ma'lumot shakli ─────────────────────────────────────────
 export interface LessonResult { day: string; correct: number; total: number }
 export interface DayActivity { lessons: number; games: number; cards?: number; read?: number; steps?: number; xp?: number }   // steps — movie qadamlari   // read — daqiqa
-/** So'z kartochkasi holati (Leitner tizimi — Nobu'dagidek). */
+/** So'z kartochkasi holati (Leitner tizimi). */
 export interface CardState { box: number; due: number }   // due — ms (Date.now() formati)
 export interface CustomWord { id: string; word: string; translation: string; example: string; image?: string }
 export interface GameStats { best: number; plays: number; last: number }
 
-// ── Kutubxona ──
-export interface Book {
-  id: string; title: string; author: string; lang: 'uz' | 'en' | 'ru';
-  pages?: number;            // jami sahifa (bo'lmasa — foizda kuzatiladi)
-  progress: number;          // 0..1 — qayergacha o'qildi
-  cover?: string;            // muqova surati (telefondagi fayl)
-  summary?: string;          // umumiy xulosa (o'zingiz yozasiz)
-  finished?: boolean;
-  created: number;
-}
-export interface ReadingSession {
-  id: string; bookId: string; day: string; start: number;
-  minutes: number; note: string; upto?: string;   // "120-bet" yoki "45%"
-}
-export interface Quote {
-  id: string; text: string; author: string; bookId?: string;
-  tags: string[]; fav: boolean; created: number;
-}
-/** Hozir o'qilayotgan kitob (Mutolaa'ga o'tib ketganda ham vaqt yo'qolmasin). */
-export interface ActiveRead { bookId: string; start: number }
 export const READ_MIN = 5;           // sessiya hisoblanishi uchun minimal daqiqa
 
 interface Data {

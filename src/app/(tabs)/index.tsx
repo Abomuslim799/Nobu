@@ -11,14 +11,14 @@ import { LESSONS as SCI } from '@/features/science/lessons';
 import { BRAIN_SKILLS, brainStats, getBrainLog, type BrainEntry } from '@/features/brain/brain';
 
 import { C, FONT_DISPLAY } from '@/core/theme';
-import { STREAK_SEC, useRating , useProgress } from '@/core/store';
+import { STREAK_SEC, useRating , useProgress } from '@/store';
 import { fmtDur , dayKey, lastDays } from '@/core/date';
 import { Astrolabe, fmtN } from '@/features/assessment/astrolabe';
 import { ALL_LESSONS } from '@/features/it/tracks';
 import { AUDIO } from '@/features/english/data/audio';
 import { quoteOfDay } from '@/features/library/reading';
 import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
-import { VERSION } from '@/core/config';
+import { APP_NAME, VERSION } from '@/core/config';
 import { QuoteCard } from '@/features/library/quote-card';
 import { Button, Card, Screen, T } from '@/core/ui/kit';
 
@@ -164,7 +164,7 @@ export default function Today() {
         </Card>
       ) : null}
 
-      <T dim size={12}>Nobu v{VERSION} · ovoz: {Object.keys(AUDIO).length ? `Ryan (${Object.keys(AUDIO).length} so'z)` : 'telefon'}</T>
+      <T dim size={12}>{APP_NAME} v{VERSION} · ovoz: {Object.keys(AUDIO).length ? `Ryan (${Object.keys(AUDIO).length} so'z)` : 'telefon'}</T>
     </Screen>
   );
 }

@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { T } from '@/core/ui/kit';
-import { type GameProps, s, shuffle } from './kit';
+import { type GameProps, s, shuffle } from '@/features/brain/games/kit';
 
 // ── 🧩 Sudoku 4×4 / 6×6 ─────────────────────────────────────────────────────
 function makeSudoku(n: 4 | 6): number[] {

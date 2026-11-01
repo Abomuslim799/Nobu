@@ -1,5 +1,5 @@
 /**
- * board.tsx — Nobu doskada tushuntiradi: har qadamda ovoz (Sardor, mp3) va shu paytda doskada chizish.
+ * board.tsx — Ustoz doskada tushuntiradi: har qadamda ovoz (server TTS, zaxira — Sardor mp3) va shu paytda doskada chizish.
  * Ssenariy — src/science/boards/<dars>.json: { say (ovoz matni), sub? (subtitr), draw: [amallar] }.
  * Ovoz CI'da yasaladi (scripts/make_audio.py → sci-<dars>-b<n>.mp3). mp3 bo'lmasa — subtitr bilan vaqt bo'yicha davom etadi.
  * Amallar: axes, fn (y = kx + b), curve (FUNCS), seg, arrow, point, text, formula, hide, clear.
@@ -16,8 +16,8 @@ import { fnById } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, sx, sy, useClock, useWidth, type View2D } from '@/features/science/ui';
 
 import { AUDIO_BASE } from '@/core/config';
-import { markActive } from '@/core/store';
-import { prefetch, ttsUrl } from '@/core/audio/tts';
+import { markActive } from '@/core/activity';
+import { prefetch, ttsUrl } from '@/core/tts';
 import { sayText } from '@/features/science/speech';
 import m0 from '@content/science/boards/m0.json';
 import m1 from '@content/science/boards/m1.json';

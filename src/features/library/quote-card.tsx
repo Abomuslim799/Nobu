@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import type { Quote } from '@/core/store';
+import type { Quote } from '@/features/library/types';
 import { Card, T } from '@/core/ui/kit';
 
 export function QuoteCard({ q, book, onFav }: { q: Quote; book?: string; onFav?: () => void }) {

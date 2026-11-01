@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
 import { fmtN } from '@/features/assessment/astrolabe';
-import { useRating, type TestItem, type TestLog } from '@/core/store';
+import { useRating, type TestItem, type TestLog } from '@/store';
 import { fmtDur , dayKey } from '@/core/date';
 import { dailyTest, seeded, type Q } from '@/features/assessment/questions';
 import { AREA_META, maxPoints, type Area } from '@/features/assessment/rating';

@@ -1,5 +1,5 @@
 /**
- * brain-report.tsx — Miya statistikasi: har ko'nikma bo'yicha ball, daraja, o'sish,
+ * brain/report.tsx — Miya statistikasi: har ko'nikma bo'yicha ball, daraja, o'sish,
  * shaxmat masalalari va ko'p takrorlanayotgan xatolar + AI tahlil (kuchli/zaif tomonlar, reja).
  */
 

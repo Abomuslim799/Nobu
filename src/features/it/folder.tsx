@@ -3,13 +3,12 @@
 import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
-import { useProgress } from '@/core/store';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { TRACKS } from '@/features/it/tracks';
 import type { Track } from '@/features/it/types';
 
-export function ItFolder() {
+export function ItFolder({ lessons }: { lessons: Record<string, { correct: number; total: number }> }) {
   return (
     <>
       <Card style={{ gap: 8 }}>
@@ -20,14 +19,13 @@ export function ItFolder() {
           <View style={{ flex: 1 }}><Button kind="ghost" label="🧪 Test" onPress={() => router.push('/english/quiz?deck=it')} /></View>
         </View>
       </Card>
-      {TRACKS.map((t) => <TrackCard key={t.id} track={t} />)}
+      {TRACKS.map((t) => <TrackCard key={t.id} track={t} lessons={lessons} />)}
     </>
   );
 }
 
-function TrackCard({ track }: { track: Track }) {
-  const { data } = useProgress();
-  const done = track.lessons.filter((l) => data.lessons[l.id]).length;
+function TrackCard({ track, lessons }: { track: Track; lessons: Record<string, { correct: number; total: number }> }) {
+  const done = track.lessons.filter((l) => lessons[l.id]).length;
   return (
     <Card>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -37,7 +35,7 @@ function TrackCard({ track }: { track: Track }) {
       <T dim size={14}>{track.about}</T>
       <Bar value={done / track.lessons.length} color={track.color} />
       {track.lessons.map((lesson, i) => {
-        const result = data.lessons[lesson.id];
+        const result = lessons[lesson.id];
         return (
           <Pressable key={lesson.id} onPress={() => router.push(`/it/${lesson.id}`)}
             style={({ pressed }) => ({ paddingVertical: 8, opacity: pressed ? 0.6 : 1,

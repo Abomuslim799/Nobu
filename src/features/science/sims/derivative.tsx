@@ -6,7 +6,7 @@ import Svg, { Circle, Line, Path } from 'react-native-svg';
 
 import { FUNCS, fmt, fnById, secantSlope } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, Slider, sx, sy, useWidth, type View2D } from '@/features/science/ui';
-import { Box, Chips, Readout } from './kit';
+import { Box, Chips, Readout } from '@/features/science/sims/kit';
 
 // ── 1. Hosila: kesuvchidan urinmaga ─────────────────────────────────────────
 export function Derivative() {

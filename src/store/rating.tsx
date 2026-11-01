@@ -11,16 +11,19 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, Platform } from 'react-native';
+import { AppState } from 'react-native';
 
 import { getChess } from '@/features/brain/brain';
-import { useProgress } from '@/core/store/progress';
+import { useProgress } from '@/store/progress';
 import {
   AREAS, MUZ_MAX, PRICE, START, dayXP, overall, rankOf, streakBonus, update,
   type Area, type FRState, type RankId, type TestKind,
 } from '@/features/assessment/rating';
 import type { Q } from '@/features/assessment/questions';
+import { idleFor, markActive } from '@/core/activity';
 import { addDays, dayKey } from '@/core/date';
+
+export { markActive };
 import { bestStreak, currentStreak } from '@/features/assessment/streak';
 import { pushStatus } from '@/core/server';
 import { KEYS } from '@/core/storage';
@@ -50,12 +53,6 @@ const fresh = (): RatingData => ({
 export const STREAK_SEC = 300;
 
 // ── Faol vaqt: ildizdagi View har teginishda markActive() chaqiradi ──────────
-let lastActive = Date.now();
-export const markActive = () => { lastActive = Date.now(); };
-// Brauzerda (kompyuter) — sichqoncha, klaviatura va g'ildirak ham faollik
-if (Platform.OS === 'web' && typeof document !== 'undefined') {
-  for (const ev of ['pointerdown', 'keydown', 'wheel']) document.addEventListener(ev, markActive, { passive: true, capture: true });
-}
 const IDLE_MS = 60_000, TICK_MS = 10_000;
 
 export type DayMark = 'ok' | 'frozen' | 'none';
@@ -112,7 +109,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
       setToday(k);
     };
     const id = setInterval(() => {
-      if (AppState.currentState === 'active' && Date.now() - lastActive < IDLE_MS) pending.current += TICK_MS / 1000;
+      if (AppState.currentState === 'active' && idleFor() < IDLE_MS) pending.current += TICK_MS / 1000;
       if (pending.current >= 60) flush();
     }, TICK_MS);
     const sub = AppState.addEventListener('change', (st) => { if (st === 'active') { markActive(); setToday(dayKey()); } else flush(); });

@@ -9,10 +9,10 @@ import { C } from '@/core/theme';
 import { type Unit } from '@/features/english/data/units';
 import { shadowScore, type ShadowResult } from '@/features/english/ai';
 import { logSkill } from '@/features/english/skills';
-import { useMic } from '@/core/audio/mic';
+import { useMic } from '@/features/english/mic';
 import { Button, Card, T } from '@/core/ui/kit';
-import { SoundButton } from '@/core/ui/sound';
-import { s } from './styles';
+import { SoundButton } from '@/features/english/ui/sound';
+import { s } from '@/features/english/unit/styles';
 
 // ── 6. Speaking — shadowing (Gemini baholaydi) + suhbat ─────────────────────
 export function Speaking({ unit, onDone }: { unit: Unit; onDone: () => void }) {

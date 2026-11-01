@@ -7,7 +7,7 @@ import Svg, { Circle, G, Line, Path, Rect, Text as SvgText } from 'react-native-
 import { C } from '@/core/theme';
 import { fmt, motionV, motionX } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, Slider, sx, sy, useClock, useWidth, type View2D } from '@/features/science/ui';
-import { Box, PlayBtn, Readout } from './kit';
+import { Box, PlayBtn, Readout } from '@/features/science/sims/kit';
 
 // ── 5. Harakat: x(t) va v(t) grafiklari bir vaqtda ──────────────────────────
 export function Motion() {

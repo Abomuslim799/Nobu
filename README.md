@@ -1,63 +1,49 @@
-# Nobu — til, IT va miya mashqlari (telefon ilovasi)
+# Farobiy
 
-iPhone ilovasi (Expo / React Native). Darslardagi kod misollari — bizning
-loyihalarimizdan (Nobu PC va telefon ilovasi), qaysi faylda turgani ko'rsatilgan.
+Shaxsiy o'qish ilovasi (Expo / React Native, iPhone — Expo Go): ingliz tili (filmlar), Science (matematika,
+geometriya, fizika — doska va simulyatsiyalar), IT, miya o'yinlari, kutubxona. Natija — **FR** (Farobiy Reytingi),
+mehnat — **XP** va streak. **Nobu** — ichidagi shaxsiy yordamchi (tahlil, suhbat), **Ustoz Farobiy** — darslarni o'tadi.
 
-## Ishga tushirish (Windows → iPhone)
-
-1. **Node.js LTS** o'rnating: https://nodejs.org (bir marta).
-2. iPhone'ga App Store'dan **Expo Go** ilovasini o'rnating (bepul).
-3. Shu papkada terminal oching (papkada o'ng tugma → *Open in Terminal*):
-   ```
-   npm install
-   npx expo start
-   ```
-4. Ekranda QR kod chiqadi — iPhone **kamerasi** bilan skanerlang → Expo Go'da ochiladi.
-   Kompyuter va telefon **bitta Wi-Fi**da bo'lishi kerak.
-   Ulanmasa: `npx expo start --tunnel`.
-
-Kodni o'zgartirsangiz — telefonda o'zi yangilanadi (saqlash bilan).
-
-## Tuzilish
+## Tuzilma
 
 ```
-src/app/                 ← ekranlar (har fayl — bitta sahifa, Expo Router)
-  _layout.tsx            ← ilova skeleti: Stack + natijalar (ProgressProvider)
-  (tabs)/_layout.tsx     ← pastki 4 ta tab
-  (tabs)/index.tsx       ← Bugun: streak, kunlik maqsad, keyingi dars
-  (tabs)/learn.tsx       ← Darslar: yo'nalishlar va darslar
-  (tabs)/brain.tsx       ← Miya mashqlari
-  (tabs)/stats.tsx       ← Statistika
-  lesson/[id].tsx        ← interaktiv dars (matn → kod → test → to'ldirish)
-  game/[id].tsx          ← Tezkor hisob o'yini
-src/data/
-  types.ts               ← dars qadamlari turlari (TypeScript 1-darsida misol)
-  tracks.ts              ← DARSLAR MAZMUNI — yangi dars shu yerga qo'shiladi
-  games.ts               ← mashqlar ro'yxati
-src/lib/
-  streak.ts              ← kun seriyasi hisobi (TypeScript 2-darsida misol)
-  progress.tsx           ← natijalarni telefonda saqlash (AsyncStorage)
-  speed-math.ts          ← o'yin uchun misol yasash
-src/ui/kit.tsx           ← umumiy tugma, karta, matn, progress chizig'i
-src/constants/theme.ts   ← ranglar (Nobu bilan bir xil: qora + yashil)
+src/app/            yo'llar (expo-router) — ekran fayllari yupqa: ma'lumotni bo'limdan oladi va ko'rsatadi
+  (tabs)/           Bugun · O'rganish · Miya · Kutubxona · Nobu
+  english/ science/ it/ brain/ library/ nobu/   ichki ekranlar bo'lim bo'yicha
+  test.tsx xp.tsx   kunlik test, XP va streak
+src/features/       bo'limlar: mantiq + ekran bo'laklari
+  english/          filmlar (unit qadamlari), kartochkalar, mashqlar, AI
+  science/          engine (testlangan formulalar), darslar, doska, simulyatsiyalar, talaffuz
+  it/ brain/ library/
+  assessment/       FR (Elo), darajalar, savol generatorlari, streak
+  assistant/        Nobu: suhbat, tahlil, kontekst
+src/store/          yagona holat: progress (o'qish) + rating (FR, XP, streak, muz); ochilishda xotira ko'chiriladi
+src/core/           umumiy yadro: storage (barcha xotira kalitlari + migratsiya), server (yagona API mijozi),
+                    tts, backup, date, elo, hash, config, theme, ui
+content/            kontent JSON: english/ (filmlar, 2 801 so'z), science/boards/, brain/puzzles.json
+tests/run.ts        mantiq testlari (fizika, dars javoblari, savollar, FR/XP, xotira ko'chirishi)
+scripts/            ovoz yasash (edge-tts), say.json eksporti, shaxmat masalalari, kontent tekshiruvi
 ```
 
-**O'qish tartibi:** `types.ts` → `tracks.ts` → `streak.ts` → `progress.tsx` → `lesson/[id].tsx`.
+Qatlamlar: `app → store → features → core`. `core/` hech narsani import qilmaydi (faqat o'zini).
+Bo'limlar bir-biriga tayanmaydi; istisno — `assessment` (test savollari so'zlardan) va `assistant` (Nobu barcha
+bo'limlar natijasini o'qiydi). Telefon xotirasiga faqat `core/storage` orqali (`farobiy.*` kalitlari),
+serverga faqat `core/server` → `api()` orqali.
 
-## Yo'nalishlar
+## Ishga tushirish
 
-| | Darslar | Misollar manbasi |
-|---|---|---|
-| 🐍 Python | dataclass, regex, deque, interpolyatsiya | Nobu |
-| 🟦 TypeScript | union turlar, streak | shu ilova |
-| ☕ Java | dataclass → record | Nobu kodining Java'dagi ko'rinishi (Java loyihamiz hali yo'q) |
-| 🗄️ SQL | jadval, INSERT, yumshoq o'chirish | Nobu |
-| 🇬🇧 English | ish so'zlari, phrasal verbs | Nobu lug'ati |
+```
+npm install
+npx expo start          # iPhone: Expo Go bilan QR kod
+npm run typecheck && npm run lint && npm test
+```
 
-## Keyingi bosqichlar
+## Nashr
 
-1. Yangi darslar (har yo'nalishga) va qolgan 3 ta miya o'yini
-2. Railway server (FastAPI + PostgreSQL): natijalar barcha qurilmalarda, Telegram'dagi
-   to-do tracker ilovaga ko'chadi
-3. AI ustoz (Gemini) — xatoni tushuntiradi
-4. Boshqalar uchun: ro'yxatdan o'tish, App Store (Apple Developer $99/yil)
+`main` ga push → GitHub Actions: ovozlar, typecheck, lint, testlar → EAS Update (Expo Go havolasi o'zgarmaydi).
+Ovoz fayllari va `say.json` — GitHub Pages (`site.yml`).
+
+## Server
+
+Railway (`Abomuslim799/daily-tracking-` repo, `farobiy_api.py`): AI (Gemini), Ustoz ovozi (TTS), widget holati,
+kunlik zaxira. Yo'llar `/api/farobiy/*`, `APP_TOKEN` bilan. Kalitlar faqat serverda.

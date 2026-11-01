@@ -1,7 +1,7 @@
 /**
  * units.ts — ingliz tili unitlari: bitta real kontekst (film, kitob) atrofida
  * reading → so'zlar (15 + 5 collocation) → grammatika → listening → speaking → test.
- * Kontent JSON fayllarda (src/data/units/*.json) — ovozlar ham shulardan yasaladi.
+ * Kontent JSON fayllarda (content/english/units/*.json) — ovozlar ham shulardan yasaladi.
  */
 
 import type { Word } from '@/features/english/data/words';

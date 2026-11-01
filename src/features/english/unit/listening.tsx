@@ -6,8 +6,8 @@ import { TextInput, View } from 'react-native';
 import { C } from '@/core/theme';
 import { type Unit } from '@/features/english/data/units';
 import { Button, Card, T } from '@/core/ui/kit';
-import { SoundButton } from '@/core/ui/sound';
-import { s } from './styles';
+import { SoundButton } from '@/features/english/ui/sound';
+import { s } from '@/features/english/unit/styles';
 
 // ── 5. Listening — diktant ──────────────────────────────────────────────────
 export function Listening({ unit, onDone }: { unit: Unit; onDone: (score: number) => void }) {

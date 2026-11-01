@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Rect, Text as SvgText } from 'react-native-svg';
 
 import { C, FONT_DISPLAY, PAD } from '@/core/theme';
-import { useRating } from '@/core/store';
+import { useRating } from '@/store';
 import { fmtDur, lastDays , dayKey } from '@/core/date';
 import { MUZ_MAX, PRICE, RANKS } from '@/features/assessment/rating';
 import { Card, T } from '@/core/ui/kit';

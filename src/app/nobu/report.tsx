@@ -1,5 +1,5 @@
 /**
- * nobu-report.tsx — Nobu tahlili: barcha bo'limlar (ingliz tili, miya, shaxmat, science) bo'yicha bitta umumiy tahlil.
+ * nobu/report.tsx — Nobu tahlili: barcha bo'limlar (ingliz tili, miya, shaxmat, science) bo'yicha bitta umumiy tahlil.
  * Pastda — Nobu bilan statistikangiz haqida matnli yoki jonli suhbat.
  */
 
@@ -14,7 +14,7 @@ import { allData, buildContext } from '@/features/assistant/context';
 import { getSciLog, type SciEntry } from '@/features/science/log';
 import { AREAS } from '@/features/science/lessons';
 import { Button, Card, T } from '@/core/ui/kit';
-import { NobuSays } from '@/core/ui/avatar';
+import { Bubble } from '@/core/ui/avatar';
 
 export default function NobuReport() {
   const insets = useSafeAreaInsets();
@@ -55,7 +55,7 @@ export default function NobuReport() {
         {!!err && <T color={C.red}>{err}</T>}
         {ai && (
           <>
-            <NobuSays text={ai.summary_uz} />
+            <Bubble text={ai.summary_uz} />
             {ai.areas?.map((x) => <T key={x.area} size={14}><T bold size={14}>{x.area}:</T> {x.comment_uz}</T>)}
             <Card style={{ gap: 4 }}><T bold color={C.green}>💪 Kuchli</T>{ai.strengths_uz?.map((x) => <T key={x} size={14}>• {x}</T>)}</Card>
             <Card style={{ gap: 4 }}><T bold color={C.red}>🎯 Zaif</T>{ai.weaknesses_uz?.map((x) => <T key={x} size={14}>• {x}</T>)}</Card>

@@ -1,7 +1,7 @@
 /**
  * words.ts — inglizcha so'z kartochkalari. Oldi: so'z; orqasi: tarjima,
  * misol gap va eslab qolish uchun izoh (Nobu'dagi kabi "ilmoq").
- * O'zingiz qo'shgan so'zlar — progress.tsx → myWords da, shu ro'yxatga qo'shiladi.
+ * O'zingiz qo'shgan so'zlar — store/progress → myWords da, shu ro'yxatga qo'shiladi.
  */
 
 export interface Word {

@@ -12,11 +12,13 @@ import { SUBJECTS } from '@/features/subjects';
 import { EnglishFolder } from '@/features/english/folder';
 import { ItFolder } from '@/features/it/folder';
 import { ScienceFolder } from '@/features/science/folder';
+import { useProgress } from '@/store';
 import { T } from '@/core/ui/kit';
 
 export default function SubjectScreen() {
   const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { data } = useProgress();
   const sub = SUBJECTS.find((x) => x.id === id);
 
   return (
@@ -26,9 +28,9 @@ export default function SubjectScreen() {
         <T size={24} bold>{sub?.icon} {sub?.title}</T>
       </View>
       <ScrollView contentContainerStyle={{ padding: PAD, gap: 12, paddingBottom: insets.bottom + 40 }}>
-        {id === 'it' && <ItFolder />}
-        {id === 'en' && <EnglishFolder />}
-        {id === 'science' && <ScienceFolder />}
+        {id === 'it' && <ItFolder lessons={data.lessons} />}
+        {id === 'en' && <EnglishFolder unitSteps={data.unitSteps} />}
+        {id === 'science' && <ScienceFolder lessons={data.lessons} />}
       </ScrollView>
     </View>
   );

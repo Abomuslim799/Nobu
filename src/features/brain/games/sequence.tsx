@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { Button, T } from '@/core/ui/kit';
-import { type GameProps, rnd, s, shuffle } from './kit';
+import { type GameProps, rnd, s, shuffle } from '@/features/brain/games/kit';
 
 // ── 🧩 Ketma-ketlik: keyingi son qaysi? ──────────────────────────────────────
 function makeSequence(level: number): { shown: number[]; answer: number; rule: string; opts: number[] } {

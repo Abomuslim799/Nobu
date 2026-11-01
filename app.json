@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Nobu",
+    "name": "Farobiy",
     "slug": "nobu-dojo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "nobudojo",
+    "scheme": "farobiy",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"

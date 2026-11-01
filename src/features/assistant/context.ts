@@ -1,5 +1,5 @@
 /**
- * nobuContext.ts — Nobu suhbati uchun kontekst: dars mazmuni yoki foydalanuvchining butun statistikasi.
+ * context.ts — Nobu suhbati uchun kontekst: dars mazmuni yoki foydalanuvchining butun statistikasi.
  */
 
 import { getBrainLog, getChess, brainSummary } from '@/features/brain/brain';

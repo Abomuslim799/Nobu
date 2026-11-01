@@ -3,18 +3,16 @@
 import { router } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { useProgress } from '@/core/store';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
 
-export function EnglishFolder() {
-  const { data } = useProgress();
+export function EnglishFolder({ unitSteps }: { unitSteps: Record<string, string[]> }) {
   return (
     <>
       <T bold size={18}>🎬 Movies</T>
       {UNITS.map((u) => {
-        const done = stepsDone(data.unitSteps[u.id]);
+        const done = stepsDone(unitSteps[u.id]);
         return (
           <Pressable key={u.id} onPress={() => router.push(`/english/unit/${u.id}`)}>
             <Card style={{ gap: 8, borderColor: C.green }}>

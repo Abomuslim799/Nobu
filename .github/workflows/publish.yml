@@ -38,7 +38,7 @@ jobs:
           SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi — telefon ovozi ishlatiladi"
 
       - run: npx tsc --noEmit
-      - run: npx eslint src scripts
+      - run: npx eslint src scripts tests
       - name: Testlar (fizika, darslar, savollar, FR, xotira)
         run: npm test
       - name: Nashr

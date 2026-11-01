@@ -6,7 +6,7 @@ import Svg, { G, Line, Polygon } from 'react-native-svg';
 
 import { add, angleDeg, fmt, len, polar } from '@/features/science/engine';
 import { Axes, COLORS, Slider, sx, sy, useWidth, type View2D } from '@/features/science/ui';
-import { Box, Readout } from './kit';
+import { Box, Readout } from '@/features/science/sims/kit';
 
 // ── 4. Vektorlar: qo'shish va tashkil etuvchilar ────────────────────────────
 export function Vectors() {

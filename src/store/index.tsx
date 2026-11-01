@@ -7,13 +7,13 @@
 import { ReactNode, useEffect, useState } from 'react';
 
 import { migrate } from '@/core/storage';
-import { ProgressProvider } from './progress';
-import { RatingProvider } from './rating';
+import { ProgressProvider } from '@/store/progress';
+import { RatingProvider } from '@/store/rating';
 
-export { useProgress, READ_MIN } from './progress';
-export type { Book, CustomWord, Quote, ReadingSession } from './progress';
-export { markActive, useRating, STREAK_SEC } from './rating';
-export type { TestItem, TestLog } from './rating';
+export { useProgress, READ_MIN } from '@/store/progress';
+export type { Book, CustomWord, Quote, ReadingSession } from '@/store/progress';
+export { markActive, useRating, STREAK_SEC } from '@/store/rating';
+export type { TestItem, TestLog } from '@/store/rating';
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);

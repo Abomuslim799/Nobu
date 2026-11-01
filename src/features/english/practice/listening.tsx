@@ -7,9 +7,9 @@ import { C } from '@/core/theme';
 import { CORE_WORDS } from '@/features/english/data/core';
 import { UNITS } from '@/features/english/data/units';
 import { logSkill } from '@/features/english/skills';
-import { say } from '@/core/audio/speak';
+import { say } from '@/features/english/speak';
 import { Button, Card, T } from '@/core/ui/kit';
-import { Pick, s } from './kit';
+import { Pick, s } from '@/features/english/practice/kit';
 
 // ── Listening: eshit → to'liq yoz ────────────────────────────────────────────
 interface Line { id: string; part: string; text: string }

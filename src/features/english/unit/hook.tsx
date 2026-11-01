@@ -6,8 +6,8 @@ import { C } from '@/core/theme';
 import { type Unit } from '@/features/english/data/units';
 import { Rich } from '@/core/ui/quiz-runner';
 import { Card, T } from '@/core/ui/kit';
-import { SoundButton } from '@/core/ui/sound';
-import { s } from './styles';
+import { SoundButton } from '@/features/english/ui/sound';
+import { s } from '@/features/english/unit/styles';
 
 // ── Kirish kartasi (Vocab tepasida) ─────────────────────────────────────────
 export function Hook({ unit }: { unit: Unit }) {

@@ -6,9 +6,9 @@ import { Text, View } from 'react-native';
 import { C } from '@/core/theme';
 import { type Unit } from '@/features/english/data/units';
 import { Button, Card, T } from '@/core/ui/kit';
-import { SoundButton } from '@/core/ui/sound';
+import { SoundButton } from '@/features/english/ui/sound';
 import { Stress } from '@/features/english/ui/stress';
-import { Hook } from './hook';
+import { Hook } from '@/features/english/unit/hook';
 
 // ── 3. So'zlar ──────────────────────────────────────────────────────────────
 export function Vocab({ unit, onDone }: { unit: Unit; onDone: () => void }) {

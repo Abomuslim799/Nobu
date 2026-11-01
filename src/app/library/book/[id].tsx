@@ -1,5 +1,5 @@
 /**
- * book/[id].tsx — bitta kitob: o'qish taymeri, "nimani tushundim", shu kitob tahlillari,
+ * library/book/[id].tsx — bitta kitob: o'qish taymeri, "nimani tushundim", shu kitob tahlillari,
  * umumiy xulosa va iqtiboslar. id = "new" — yangi kitob qo'shish.
  *
  * Taymer qanday ishlaydi: boshlanganda vaqt belgisi (start) saqlanadi. Siz Mutolaa'ga
@@ -12,7 +12,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { READ_MIN, useProgress, type Book } from '@/core/store';
+import { READ_MIN, useProgress, type Book } from '@/store';
 import { clock, openMutolaa } from '@/features/library/reading';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { QuoteCard } from '@/features/library/quote-card';

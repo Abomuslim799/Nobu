@@ -1,5 +1,5 @@
 /**
- * nobu.tsx — kim gapiryapti: Nobu (shaxsiy yordamchi — statistika, tahlil) yoki Ustoz Farobiy (darslar).
+ * avatar.tsx — kim gapiryapti: Nobu (shaxsiy yordamchi — statistika, tahlil) yoki Ustoz Farobiy (darslar).
  *   Ustoz — rasm (assets/images/ustoz): kitob (tinch), oyla (o'ylayapti), tushuntir (tushuntiryapti).
  *   Nobu — girih yulduzi belgisi.
  */
@@ -38,8 +38,8 @@ export function Avatar({ who, pose = 'kitob', size = 38 }: { who: Who; pose?: Us
   );
 }
 
-/** Gapirayotgan blok (dars matni, suhbat javobi). */
-export function NobuSays({ text, who = 'nobu', pose = 'tushuntir' }: { text: string; who?: Who; pose?: UstozPose }) {
+/** Gapirayotgan blok: Nobu yoki Ustoz (dars matni, suhbat javobi). */
+export function Bubble({ text, who = 'nobu', pose = 'tushuntir' }: { text: string; who?: Who; pose?: UstozPose }) {
   return (
     <View style={[st.box, who === 'ustoz' && { backgroundColor: C.card, borderColor: C.cardBorder }]}>
       <Avatar who={who} pose={pose} />

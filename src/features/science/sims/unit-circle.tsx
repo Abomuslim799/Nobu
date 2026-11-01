@@ -6,7 +6,7 @@ import Svg, { Circle, Line, Path, Text as SvgText } from 'react-native-svg';
 
 import { C } from '@/core/theme';
 import { COLORS, Slider, useClock, useWidth } from '@/features/science/ui';
-import { Box, PlayBtn, Readout } from './kit';
+import { Box, PlayBtn, Readout } from '@/features/science/sims/kit';
 
 // ── 3. Birlik aylana: sin va cos qayerdan keladi ────────────────────────────
 export function UnitCircle() {

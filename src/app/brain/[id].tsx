@@ -1,6 +1,6 @@
 /**
- * game/[id].tsx — bitta miya o'yini: kirish (daraja) → o'yin → natija.
- * Natija lib/brain.ts jurnaliga yoziladi va daraja moslashadi (≥80% — oshadi, <50% — pasayadi).
+ * brain/[id].tsx — bitta miya o'yini: kirish (daraja) → o'yin → natija.
+ * Natija features/brain/brain.ts jurnaliga yoziladi va daraja moslashadi (≥80% — oshadi, <50% — pasayadi).
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
@@ -12,7 +12,7 @@ import { C, PAD } from '@/core/theme';
 import { GAMES } from '@/features/brain/catalog';
 import { GAME_COMPONENTS } from '@/features/brain/games';
 import { finishGame, getLevel } from '@/features/brain/brain';
-import { useProgress, useRating } from '@/core/store';
+import { useProgress, useRating } from '@/store';
 import { Button, Card, T } from '@/core/ui/kit';
 
 export default function GameScreen() {

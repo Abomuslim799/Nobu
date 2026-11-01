@@ -10,7 +10,7 @@ import { writeCheck, type WriteResult } from '@/features/english/ai';
 import { logSkill } from '@/features/english/skills';
 import { Button, Card, T } from '@/core/ui/kit';
 import { KEYS } from '@/core/storage';
-import { s } from './styles';
+import { s } from '@/features/english/unit/styles';
 
 // ── 5. Writing ──────────────────────────────────────────────────────────────
 /** Matnni yozish: so'z soni va movie so'zlaridan nechtasi ishlatilgani sanaladi. Matn telefonda saqlanadi. */

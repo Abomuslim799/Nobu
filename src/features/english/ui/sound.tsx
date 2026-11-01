@@ -5,7 +5,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import { RATES, say, useRate, type Part } from '@/core/audio/speak';
+import { RATES, say, useRate, type Part } from '@/features/english/speak';
 
 export function SoundButton({ id, part, text, label }: { id: string; part: Part; text: string; label: string }) {
   return (

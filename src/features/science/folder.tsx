@@ -3,13 +3,11 @@
 import { router } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { useProgress } from '@/core/store';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { AREAS, lessonsOf } from '@/features/science/lessons';
 
-export function ScienceFolder() {
-  const { data } = useProgress();
+export function ScienceFolder({ lessons }: { lessons: Record<string, { correct: number; total: number }> }) {
   return (
     <>
       <Card style={{ gap: 8 }}>
@@ -22,7 +20,7 @@ export function ScienceFolder() {
       </Card>
       {AREAS.map((a) => {
         const ls = lessonsOf(a.id);
-        const done = ls.filter((l) => data.lessons[`sci-${l.id}`]).length;
+        const done = ls.filter((l) => lessons[`sci-${l.id}`]).length;
         return (
           <Card key={a.id} style={{ gap: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
@@ -37,7 +35,7 @@ export function ScienceFolder() {
             </View>
             <Bar value={ls.length ? done / ls.length : 0} color={a.color} />
             {ls.map((l) => {
-              const r = data.lessons[`sci-${l.id}`];
+              const r = lessons[`sci-${l.id}`];
               return (
                 <Pressable key={l.id} onPress={() => router.push(`/science/${l.id}`)} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1,
                   flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8, borderTopWidth: 1, borderTopColor: C.subtle })}>

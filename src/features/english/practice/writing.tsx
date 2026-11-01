@@ -8,7 +8,7 @@ import { UNITS } from '@/features/english/data/units';
 import { writeCheck, type WriteResult } from '@/features/english/ai';
 import { logSkill } from '@/features/english/skills';
 import { Button, Card, T } from '@/core/ui/kit';
-import { Pick, s } from './kit';
+import { Pick, s } from '@/features/english/practice/kit';
 
 // ── Writing ─────────────────────────────────────────────────────────────────
 const FREE_TASKS = [

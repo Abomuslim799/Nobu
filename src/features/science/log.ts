@@ -1,5 +1,5 @@
 /**
- * science.ts — Science (Matematika, Geometriya, Fizika) natijalari jurnali: har dars tugaganda
+ * log.ts — Science (Matematika, Geometriya, Fizika) natijalari jurnali: har dars tugaganda
  * taxminlar, mashqlar va xatolar yoziladi. Statistika va Nobu tahlili shu yerdan oladi.
  */
 

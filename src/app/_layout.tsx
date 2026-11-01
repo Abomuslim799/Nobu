@@ -12,7 +12,7 @@ import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { Appearance, DevSettings, View } from 'react-native';
 
-import { StoreProvider, markActive } from '@/core/store';
+import { StoreProvider, markActive } from '@/store';
 import { C, SCHEME } from '@/core/theme';
 
 const NO_SWIPE = { gestureEnabled: false, fullScreenGestureEnabled: false };

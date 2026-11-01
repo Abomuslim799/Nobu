@@ -1,5 +1,5 @@
 /**
- * cards.tsx — inglizcha so'z kartochkalari (Leitner usuli).
+ * english/cards.tsx — inglizcha so'z kartochkalari (Leitner usuli).
  *
  * Kartani bosing → aylanadi (orqasida tarjima va misol).
  * "Bildim" → so'z keyingi qutiga o'tadi va keyinroq qaytadi (1 kun, 3 kun, 1 hafta...).
@@ -18,10 +18,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { DECKS, ALL_WORDS } from '@/features/english/data/vocab';
 import type { Word } from '@/features/english/data/words';
-import { useProgress } from '@/core/store';
-import { hasUzbekAudio, say, stopSpeaking } from '@/core/audio/speak';
+import { useProgress } from '@/store';
+import { hasUzbekAudio, say, stopSpeaking } from '@/features/english/speak';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
-import { RateSwitch, SoundButton } from '@/core/ui/sound';
+import { RateSwitch, SoundButton } from '@/features/english/ui/sound';
 import { Stress } from '@/features/english/ui/stress';
 
 const SESSION = 20;   // bir o'tirishda nechta karta

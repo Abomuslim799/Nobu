@@ -7,7 +7,7 @@ import Svg, { Line, Path, Rect } from 'react-native-svg';
 import { C } from '@/core/theme';
 import { FUNCS, fmt, fnById, riemann } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, Slider, sx, sy, useWidth, type View2D } from '@/features/science/ui';
-import { Box, Chips, Readout } from './kit';
+import { Box, Chips, Readout } from '@/features/science/sims/kit';
 
 // ── 2. Integral: to'rtburchaklar yig'indisi → yuza ──────────────────────────
 export function Integral() {

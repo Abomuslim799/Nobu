@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 
 import { UNITS } from '@/features/english/data/units';
 import { T } from '@/core/ui/kit';
-import { Pick } from './kit';
+import { Pick } from '@/features/english/practice/kit';
 
 // ── Speaking ────────────────────────────────────────────────────────────────
 const TOPICS = [

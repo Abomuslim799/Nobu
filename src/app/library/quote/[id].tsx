@@ -1,5 +1,5 @@
 /**
- * quote/[id].tsx — iqtibos qo'shish/tahrirlash. id = "new"; ?book=<id> — kitob oldindan tanlangan.
+ * library/quote/[id].tsx — iqtibos qo'shish/tahrirlash. id = "new"; ?book=<id> — kitob oldindan tanlangan.
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
@@ -8,7 +8,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, PAD } from '@/core/theme';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { Button, T } from '@/core/ui/kit';
 
 export default function QuoteScreen() {

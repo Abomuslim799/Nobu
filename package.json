@@ -1,5 +1,5 @@
 {
-  "name": "nobu-dojo",
+  "name": "farobiy",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
@@ -48,9 +48,9 @@
   "scripts": {
     "start": "expo start",
     "web": "expo start --web",
-    "lint": "eslint src scripts",
+    "lint": "eslint src scripts tests",
     "typecheck": "tsc --noEmit",
-    "test": "esbuild scripts/test_science.ts --bundle --platform=node --outfile=/tmp/farobiy-test.js --log-level=warning && node /tmp/farobiy-test.js"
+    "test": "esbuild tests/run.ts --bundle --platform=node --outfile=/tmp/farobiy-test.js --log-level=warning && node /tmp/farobiy-test.js"
   },
   "private": true
 }

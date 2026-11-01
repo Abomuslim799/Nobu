@@ -8,7 +8,7 @@ import { Button, T } from '@/core/ui/kit';
 export default function LiveWeb() {
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, padding: PAD, gap: 12 }}>
-      <T>Jonli suhbat faqat Nobu ilovasida ishlaydi.</T>
+      <T>Jonli suhbat faqat telefon ilovasida ishlaydi.</T>
       <Button label="Orqaga" onPress={() => router.back()} />
     </View>
   );

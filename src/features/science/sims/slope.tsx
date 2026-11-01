@@ -7,7 +7,7 @@ import Svg, { Circle, Line, Path, Text as SvgText } from 'react-native-svg';
 import { C } from '@/core/theme';
 import { fmt } from '@/features/science/engine';
 import { Axes, COLORS, path, Slider, sx, sy, useWidth, type View2D } from '@/features/science/ui';
-import { Box, Readout } from './kit';
+import { Box, Readout } from '@/features/science/sims/kit';
 
 // ── 0. Qiyalik: y = kx + b ──────────────────────────────────────────────────
 export function Slope() {

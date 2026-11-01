@@ -1,7 +1,7 @@
 /**
- * unit/[id].tsx — bitta Movie 7 qadamda: Vocab → Grammar → Reading → Listening → Writing →
+ * english/unit/[id].tsx — bitta Movie 7 qadamda: Vocab → Grammar → Reading → Listening → Writing →
  * Speaking → Test. Har qadam tugaganda belgilanadi va kunlik maqsadga qo'shiladi.
- * Kontent: src/data/units/*.json. Ovozlar: London (Ryan), GitHub'da yasaladi.
+ * Kontent: content/english/units/*.json. Ovozlar: London (Ryan), GitHub'da yasaladi.
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
@@ -11,11 +11,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C } from '@/core/theme';
 import { STEPS, UNITS, type StepId } from '@/features/english/data/units';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { logSkill } from '@/features/english/skills';
-import { stopSpeaking } from '@/core/audio/speak';
+import { stopSpeaking } from '@/features/english/speak';
 import { T } from '@/core/ui/kit';
-import { RateSwitch } from '@/core/ui/sound';
+import { RateSwitch } from '@/features/english/ui/sound';
 import { s } from '@/features/english/unit/styles';
 import { Reading } from '@/features/english/unit/reading';
 import { Vocab } from '@/features/english/unit/vocab';

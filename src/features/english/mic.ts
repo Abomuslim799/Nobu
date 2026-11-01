@@ -8,7 +8,7 @@ import {
 import { useState } from 'react';
 import { Alert } from 'react-native';
 
-import { stopSpeaking } from '@/core/audio/speak';
+import { stopSpeaking } from '@/features/english/speak';
 
 
 /** Mikrofon bilan yozish: bitta yozuvchi, qaysi narsa yozilayotgani `tag` bilan belgilanadi. */

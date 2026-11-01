@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { SUBJECTS, subjectProgress } from '@/features/subjects';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { Bar, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Learn() {

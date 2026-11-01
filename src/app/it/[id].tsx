@@ -1,5 +1,5 @@
 /**
- * lesson/[id].tsx — interaktiv dars: qadamlar birma-bir ko'rsatiladi.
+ * it/[id].tsx — interaktiv dars: qadamlar birma-bir ko'rsatiladi.
  *
  * [id] — fayl nomidagi kvadrat qavs "dinamik yo'l" degani: /lesson/py-regex
  * ochilganda id = "py-regex". useLocalSearchParams() shuni o'qiydi.
@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C, PAD, R } from '@/core/theme';
 import { findLesson } from '@/features/it/tracks';
 import type { Step } from '@/features/it/types';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 
 export default function LessonScreen() {

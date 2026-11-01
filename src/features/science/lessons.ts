@@ -1,5 +1,5 @@
 /**
- * lessons.ts — Science darslari: Matematika, Geometriya, Fizika. Darslarni Nobu olib boradi.
+ * lessons.ts — Science darslari: Matematika, Geometriya, Fizika. Darslarni Ustoz Farobiy olib boradi.
  * Tuzilish: Nobu kirish so'zi → taxmin (avval o'ylang) → simulyatsiya → qonuniyat → yechilgan misol → mashqlar.
  * Sonli javoblar scripts/test_science.ts da formulalar bilan qayta hisoblanib tekshiriladi.
  */

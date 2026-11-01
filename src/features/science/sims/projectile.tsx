@@ -7,7 +7,7 @@ import Svg, { Circle, G, Line, Path, Text as SvgText } from 'react-native-svg';
 import { C } from '@/core/theme';
 import { fmt, projectile, projectileDrag } from '@/features/science/engine';
 import { Axes, COLORS, path, sample, Slider, sx, sy, useClock, useWidth, type View2D } from '@/features/science/ui';
-import { Box, Chips, PlayBtn, Readout } from './kit';
+import { Box, Chips, PlayBtn, Readout } from '@/features/science/sims/kit';
 
 // ── 6. Otilgan jism ─────────────────────────────────────────────────────────
 interface Trace { deg: number; v0: number; drag: boolean; pts: { x: number; y: number }[]; range: number; hMax: number; tF: number }

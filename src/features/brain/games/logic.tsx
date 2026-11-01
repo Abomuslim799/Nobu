@@ -7,7 +7,7 @@ import { C } from '@/core/theme';
 import { logicSet } from '@/features/brain/ai';
 import { QuizRunner } from '@/core/ui/quiz-runner';
 import { Button, T } from '@/core/ui/kit';
-import { type GameProps } from './kit';
+import { type GameProps } from '@/features/brain/games/kit';
 
 // ── 🧩 Mantiqiy masalalar (AI yaratadi) ─────────────────────────────────────
 export function LogicAI({ level, onDone }: GameProps) {

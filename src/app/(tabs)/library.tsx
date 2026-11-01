@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { C, R } from '@/core/theme';
-import { useProgress } from '@/core/store';
+import { useProgress } from '@/store';
 import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 import { QuoteCard } from '@/features/library/quote-card';
 
@@ -18,7 +18,7 @@ export default function Library() {
   const [tab, setTab] = useState<Tab>('books');
   return (
     <Screen>
-      <Title sub="Mutolaa'da o'qing — Nobu vaqtni va fikrlaringizni saqlaydi.">Kutubxona</Title>
+      <Title sub="Mutolaa'da o'qing — Farobiy vaqtni va fikrlaringizni saqlaydi.">Kutubxona</Title>
       <View style={s.segment}>
         {(['books', 'quotes'] as Tab[]).map((t) => (
           <Pressable key={t} onPress={() => setTab(t)} style={[s.segBtn, tab === t && s.segOn]}>

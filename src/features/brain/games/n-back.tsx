@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { Bar, Button, T } from '@/core/ui/kit';
-import { type GameProps, rnd, s } from './kit';
+import { type GameProps, rnd, s } from '@/features/brain/games/kit';
 
 // ── 🔁 N-back ───────────────────────────────────────────────────────────────
 // Harflar birin-ketin chiqadi. Hozirgi harf N qadam OLDINGI harf bilan bir xil bo'lsa — "Mos" ni bosing.
