@@ -43,7 +43,7 @@ export function ListeningPractice() {
       <>
         <T dim>Gapni eshiting va TO'LIQ yozing (matnni ko'rmasdan). Har gap so'zma-so'z tekshiriladi. Sessiya — {SESSION} gap.</T>
         <Pick label="🎬 Movie gaplari" sub={`${MOVIE_LINES.length} ta gap · London ovozi (Ryan)`} onPress={() => start(MOVIE_LINES, 'Movie gaplari')} />
-        <Pick label="📚 Core misollar" sub={`${CORE_LINES.length} ta qisqa gap · telefon ovozi`} onPress={() => start(CORE_LINES, 'Core misollar')} />
+        <Pick label="📚 Core misollar" sub={`${CORE_LINES.length} ta qisqa gap · London ovozi (Ryan)`} onPress={() => start(CORE_LINES, 'Core misollar')} />
       </>
     );
   }

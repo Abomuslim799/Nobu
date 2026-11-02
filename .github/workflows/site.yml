@@ -27,6 +27,12 @@ jobs:
       - run: npm ci
       - name: Dars matnlari (ovoz uchun)
         run: npx -y esbuild@0.25.0 scripts/dump_say.ts --bundle --platform=node --outfile=/tmp/ds.js && node /tmp/ds.js > /tmp/say.json
+      - name: Ovozlar keshi (yasalganlar qayta yasalmaydi)
+        uses: actions/cache@v4
+        with:
+          path: assets/audio
+          key: audio-${{ github.run_id }}
+          restore-keys: audio-
       - name: Ovozlar
         run: |
           pip install -q edge-tts

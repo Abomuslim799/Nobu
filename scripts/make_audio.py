@@ -1,14 +1,16 @@
 """
 make_audio.py — so'zlar uchun ovoz fayllarini yasaydi (GitHub Actions'da, har push'da).
 
-    en-GB-RyanNeural  — London erkak ovozi: so'z (-w) va misol gap (-s)
-    uz-UZ-SardorNeural — o'zbekcha erkak ovozi: tarjima (-uz)
+    en-GB-RyanNeural  — London erkak ovozi: so'z (-w) va misol gap (-s); filmlar, Core (2 801 so'z)
+    uz-UZ-SardorNeural — o'zbekcha erkak ovozi: tarjima (-uz), Science darslari (zaxira ovoz)
 
-Natija: assets/audio/<id>-w.mp3 ... va src/features/english/data/audio.ts.
-Biror fayl yasalmasa — o'sha qism telefonning o'z ovoziga tushadi, ilova buzilmaydi.
+Natija: assets/audio/<id>-<qism>.mp3 va src/features/english/data/audio.ts.
+assets/audio CI keshida saqlanadi; .manifest.json — har fayl qaysi matndan yasalgan: matn o'zgarsa qayta yasaladi,
+o'zgarmasa o'tkazib yuboriladi. Biror fayl yasalmasa — o'sha qism telefon ovoziga tushadi, ilova buzilmaydi.
 """
 
 import asyncio
+import hashlib
 import json
 import os
 import re
@@ -83,18 +85,35 @@ assert say_text("Δy bo'linsin x") == "del-ta igrek boʻlinsin iks", say_text("�
 assert say_text("ma'no") == "maʼno"
 
 
+MANIFEST = OUT / ".manifest.json"
+manifest: dict[str, str] = json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {}
+
+
 async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> bool:
-    if path.exists() and path.stat().st_size > 0:
+    h = hashlib.sha1(f"{voice}|{text}".encode()).hexdigest()[:12]
+    if path.exists() and path.stat().st_size > 0 and manifest.get(path.name) == h:
         return True
     async with sem:
         for _ in range(3):
             try:
                 await edge_tts.Communicate(text, voice).save(str(path))
-                return path.stat().st_size > 0
+                if path.stat().st_size > 0:
+                    manifest[path.name] = h
+                    return True
             except Exception as exc:  # tarmoq xatosi — qayta urinamiz
                 print("retry", path.name, exc)
                 await asyncio.sleep(2)
     return False
+
+
+def core_texts() -> list[tuple[str, str, str, str]]:
+    """Core (NGSL) so'zlari: id ilovadagidek — ng-<harflar> (src/features/english/data/core.ts)."""
+    rows = json.loads((ROOT / "content" / "english" / "core.json").read_text(encoding="utf-8"))
+    out = []
+    for word, _ipa, _tr, example in rows:
+        wid = "ng-" + re.sub(r"[^a-z]", "", word.lower())
+        out += [(wid, "w", word, EN), (wid, "s", example, EN)]
+    return out
 
 
 def unit_texts() -> list[tuple[str, str, str, str]]:
@@ -128,10 +147,11 @@ async def main() -> None:
     sj = os.environ.get("SAY_JSON")
     if sj and Path(sj).exists():
         lessons = [(x["id"], x["part"], say_text(x["text"]), UZ) for x in json.loads(Path(sj).read_text(encoding="utf-8")) if x["part"].startswith("s")]
-    for wid, part, text, voice in texts + unit_texts() + boards + lessons:
+    for wid, part, text, voice in texts + unit_texts() + core_texts() + boards + lessons:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))
+    MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, sort_keys=True))
 
     # Fayllar ilova paketiga qo'shilmaydi (update hajmi juda katta bo'lib ketardi):
     # ular GitHub Pages'ga joylanadi (site.yml), ilova esa URL orqali chaladi.
@@ -149,4 +169,5 @@ async def main() -> None:
     print(f"{sum(results)}/{len(jobs)} ta ovoz tayyor")
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

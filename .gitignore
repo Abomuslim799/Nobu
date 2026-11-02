@@ -5,3 +5,4 @@ web-build/
 *.log
 .DS_Store
 assets/audio/
+__pycache__/
