@@ -20,7 +20,7 @@ export interface RunResult { correct: number; total: number; mistakes: string[];
 type Fb = { ok: boolean; msg: string } | null;
 
 export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[]; onDone: (r: RunResult) => void }) {
-  const voice = useVoice();
+  const voice = useVoice(topic.id);
   const [i, setI] = useState(0);
   const [fb, setFb] = useState<Fb>(null);
   const [solved, setSolved] = useState(false);
@@ -94,6 +94,7 @@ export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[];
           <Avatar who="ustoz" pose={voice.busy ? 'tushuntir' : 'kitob'} size={34} />
           <View style={{ flex: 1, gap: 2 }}>
             <T size={16}>{st.sub ?? st.say}</T>
+            {!!voice.err && voice.on && <T dim size={11}>⚠️ Ovoz: {voice.err}</T>}
           </View>
           <Pressable onPress={() => (voice.busy ? voice.stop() : voice.say(st.say))} hitSlop={10}><T size={18}>{voice.busy ? '⏸' : '🔁'}</T></Pressable>
           <Pressable onPress={voice.toggle} hitSlop={10}><T size={18}>{voice.on ? '🔊' : '🔇'}</T></Pressable>

@@ -46,9 +46,10 @@ export const MODE_INFO: Record<Mode, { icon: string; name: string; time: string 
 };
 export const MODES: Mode[] = ['low', 'medium', 'high'];
 
-/** Son kiritish: "−3/4", "-0,75", "1 000" — hammasi son. */
+/** Son kiritish: "−3/4", "-0,75", "1 000", "-6/8=-0.75" — hammasi son. */
 export function parseNum(s: string): number | null {
-  const t = s.replace(/[−–]/g, '-').replace(/,/g, '.').replace(/\s/g, '');
+  // "−6/8 = −0.75" kabi yechim bilan yozilsa — oxirgi "=" dan keyingi qism javob
+  const t = (s.split('=').map((x) => x.trim()).filter(Boolean).pop() ?? '').replace(/[−–]/g, '-').replace(/,/g, '.').replace(/\s/g, '');
   if (!t) return null;
   const m = t.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
   const v = m ? Number(m[1]) / Number(m[2]) : Number(t);
