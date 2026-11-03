@@ -17,6 +17,8 @@ export const KEYS = {
   backupLast: 'farobiy.backup.last',    // oxirgi zaxira kuni (zaxiraga kirmaydi)
   sciPos: (lesson: string) => `farobiy.sci.pos.${lesson}`,
   writing: (unit: string) => `farobiy.writing.${unit}`,
+  v2: (topic: string) => `farobiy.v2.${topic}`,   // v2 dars: o'tilgan rejimlar, Feynman bahosi
+  v2feyn: 'farobiy.v2.feyn',                      // + .<kun> — kunlik Feynman sessiyalari soni
 } as const;
 
 /** Zaxiraga kirmaydigan kalitlar (qurilmaga xos). */

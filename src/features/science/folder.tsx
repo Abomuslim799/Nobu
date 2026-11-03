@@ -18,6 +18,13 @@ export function ScienceFolder({ lessons }: { lessons: Record<string, { correct: 
           <View style={{ flex: 1 }}><Button kind="ghost" label="📊 Tahlil" onPress={() => router.push('/nobu/report')} /></View>
         </View>
       </Card>
+      <Pressable onPress={() => router.push('/v2/qiyalik')} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+        <Card style={{ gap: 4, borderColor: C.gold }}>
+          <T dim size={12}>🧪 Yangi metodika · test</T>
+          <T bold size={17}>Qiyalik — 🌱 Urug' · 🌿 Nihol · 🌳 Daraxt</T>
+          <T dim size={13}>Interaktiv doska: chiziqqa tegish, nuqtani surish, AI ga tushuntirish</T>
+        </Card>
+      </Pressable>
       {AREAS.map((a) => {
         const ls = lessonsOf(a.id);
         const done = ls.filter((l) => lessons[`sci-${l.id}`]).length;

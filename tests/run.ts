@@ -13,6 +13,8 @@ import { GENS, makeQ, dailyTest, seeded } from '@/features/assessment/questions'
 import { KEYS, legacyTarget } from '@/core/keys';
 import { addDays, lastDays } from '@/core/date';
 import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/assessment/rating';
+import { TOPICS2 } from '@/features/lesson2/topics';
+import { MODES, parseNum, slope, type XY } from '@/features/lesson2/types';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;
@@ -138,6 +140,28 @@ ok(sayText("ma'no") === 'maʼno', 'sayText 3');
   ok(legacyTarget(KEYS.progress) === null && legacyTarget('boshqa') === null, 'migratsiya: yangi kalitga tegmaydi');
   const all = Object.values(KEYS).map((v) => (typeof v === 'string' ? v : v('x')));
   ok(all.every((k) => k.startsWith('farobiy.')) && new Set(all).size === all.length, 'kalitlar: farobiy. va takrorsiz');
+}
+
+// v2 darslar: kasr/minus kiritish; har savol to'g'ri tuzilgan (javob variantlarda, tap nishoni doskada, drag boshida javob emas);
+// shablon mashqlarda javob = chizilgan nuqtalar qiyaligi
+ok(parseNum('−3/4') === -0.75 && parseNum('-0,75') === -0.75 && parseNum('1 000') === 1000 && parseNum('abc') === null, 'parseNum');
+for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0; rep < 25; rep++) {
+  const steps = [t.recap, ...t.modes[m]()];
+  let ids = new Set<string>();
+  steps.forEach((st, k) => {
+    for (const a of st.draw ?? []) { if (a.t === 'scene') ids = new Set(); else if ('id' in a) ids.add(a.id); }
+    const q = st.ask?.q, w = `${t.id}/${m}/${k}`;
+    if (!q) return;
+    if (q.t === 'choice') ok(q.options.includes(q.answer), `${w}: variant`);
+    if (q.t === 'tap') ok(q.targets.includes(q.answer) && q.targets.every((x) => ids.has(x)), `${w}: tap nishon`);
+    if (q.t === 'drag') ok(!q.ok(q.start), `${w}: drag boshida javob`);
+    if (q.t === 'steps') ok(q.wrong >= 0 && q.wrong < q.lines.length, `${w}: xato qadam`);
+    if (q.t === 'num') {
+      ok(Number.isFinite(q.answer) && !(q.traps ?? []).some((tr) => tr.v === q.answer), `${w}: son/tuzoq`);
+      const pts = (st.draw ?? []).filter((a) => a.t === 'point' && (a.id === 'A' || a.id === 'B')).map((a) => (a as { at: XY }).at);
+      if (/^(Mashq|Yakuniy test 1)/.test(st.sub ?? '') && pts.length === 2) near(slope(pts[0], pts[1]), q.answer, 1e-9, `${w}: shablon qiyalik`);
+    }
+  });
 }
 // Sana
 ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2025-12-31', 'addDays oy/yil');
