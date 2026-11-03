@@ -14,9 +14,9 @@ import { Bar, Button, T } from '@/core/ui/kit';
 import { Board2, FORMULA_C, hasBoard, type BoardInput } from '@/features/lesson2/board';
 import { FeynmanChat } from '@/features/lesson2/feynman';
 import { useVoice } from '@/features/lesson2/voice';
-import { checkNum, type Step, type Topic2, type XY } from '@/features/lesson2/types';
+import { checkNum, standalone, type Step, type Topic2, type XY } from '@/features/lesson2/types';
 
-export interface RunResult { correct: number; total: number; mistakes: string[]; feyn?: number | null }
+export interface RunResult { correct: number; total: number; mistakes: string[]; missed: Step[]; feyn?: number | null }
 type Fb = { ok: boolean; msg: string } | null;
 
 export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[]; onDone: (r: RunResult) => void }) {
@@ -28,7 +28,7 @@ export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[];
   const [pick, setPick] = useState<string | null>(null);
   const [drag, setDrag] = useState<XY>([0, 0]);
   const [feyn, setFeyn] = useState<number | null | undefined>(undefined);
-  const res = useRef<{ first: Record<number, boolean>; mistakes: string[] }>({ first: {}, mistakes: [] });
+  const res = useRef<{ first: Record<number, boolean>; mistakes: string[]; missed: Step[] }>({ first: {}, mistakes: [], missed: [] });
   const scroll = useRef<ScrollViewInstance>(null);
   const st = steps[i];
   const q = st.ask?.q;
@@ -49,7 +49,7 @@ export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[];
     if (!a) return;
     if (!(i in res.current.first)) {
       res.current.first[i] = ok;
-      if (!ok) res.current.mistakes.push(st.sub ? `${st.sub}: ${a.prompt}` : a.prompt);
+      if (!ok) { res.current.mistakes.push(st.sub ? `${st.sub}: ${a.prompt}` : a.prompt); res.current.missed.push(standalone(steps, i)); }
     }
     const m = ok ? a.ok : msg ?? a.no;
     setFb({ ok, msg: m });
@@ -62,7 +62,7 @@ export function Runner({ topic, steps, onDone }: { topic: Topic2; steps: Step[];
     voice.stop();
     if (i + 1 < steps.length) { setI(i + 1); return; }
     const first = Object.values(res.current.first);
-    onDone({ correct: first.filter(Boolean).length, total: first.length, mistakes: res.current.mistakes, feyn });
+    onDone({ correct: first.filter(Boolean).length, total: first.length, mistakes: res.current.mistakes, missed: res.current.missed, feyn });
   };
 
   // Doskadagi javob

@@ -23,6 +23,9 @@ const par = (n: number) => (n < 0 ? `(${neg(n)})` : String(n));
 
 /** Shablon: ikki nuqta orqali qiyalik (k butun son). */
 function tplTwoPoints(sub: string): Step {
+  return { ...twoPoints(sub), regen: () => tplTwoPoints(sub) };
+}
+function twoPoints(sub: string): Step {
   const k = pick([-3, -2, -1, 1, 2, 3]);
   const x1 = ri(-3, 1), x2 = x1 + ri(1, 3), y1 = ri(-3, 3), y2 = y1 + k * (x2 - x1);
   const a: XY = [x1, y1], b: XY = [x2, y2];
@@ -42,6 +45,9 @@ function tplTwoPoints(sub: string): Step {
 
 /** Shablon: nuqtani surib, berilgan qiyalikdagi chiziq. */
 function tplDrag(sub: string): Step {
+  return { ...dragK(sub), regen: () => tplDrag(sub) };
+}
+function dragK(sub: string): Step {
   const k = pick([2, -1, 3, -2]);
   return {
     say: `Koordinata boshidan qiyaligi ${word(k)} bo'lgan chiziq o'tkazing. Ikkinchi nuqtani suring.`,
@@ -99,6 +105,13 @@ const medium = (): Step[] => [
     sub: 'Ikki nuqta orqali qiyalik',
     draw: [grid(-1, 6, -1, 10), { t: 'line', id: 'L', p: [[1, 2], [4, 8]], c: 'a' }, pt('P1', [1, 2], 'P₁'), pt('P2', [4, 8], 'P₂'),
       ...stair('t', [1, 2], [4, 8], 'Δx = 3', 'Δy = 6', [2.5, 1.3], [4.9, 5]), { t: 'formula', text: 'k = (y₂ − y₁) / (x₂ − x₁) = 6 / 3 = 2' }] },
+  { say: "Nega aynan igrekni iksga bo'lamiz, teskarisi emas? Chunki qiyalik shu savolga javob beradi: iks bir birlikka o'zgarsa, igrek qanchaga o'zgaradi? Soat bitta oshsa — pul qancha oshadi. Shuning uchun nima o'zgarishini, ya'ni igrekni, nimaga nisbatan, ya'ni iksga bo'lamiz.",
+    sub: "Nega Δy / Δx: x 1 ga o'zgarsa, y qanchaga o'zgaradi",
+    draw: [{ t: 'scene', v: INCOME }, { t: 'line', id: 'A', p: [[0, 0], [5, 200]], c: 'a' }, pt('a1', [2, 80]), pt('a2', [3, 120]),
+      ...stair('t', [2, 80], [3, 120], 'x: +1 soat', "y: +40", [2.5, 58], [3.75, 100]), { t: 'formula', text: "k = 40 → har 1 soatda +40 ming so'm" }],
+    ask: { prompt: 'k = 40 nimani bildiradi?', q: { t: 'choice', options: ["Har 1 soatda 40 ming so'm qo'shiladi", "40 soatda 1 ming so'm qo'shiladi", "Jami 40 ming so'm topiladi"], answer: "Har 1 soatda 40 ming so'm qo'shiladi" },
+      ok: "To'g'ri: qiyalik — x ning bir birligiga to'g'ri keladigan y o'zgarishi. Δx / Δy olsak, savol teskari bo'lib qoladi: 1 ming so'm uchun necha soat.",
+      no: "Qiyalik — x bir birlikka (1 soat) o'zgarganda y qanchaga o'zgarishi: har soatda +40 ming. Jami emas, va teskari ham emas." } },
   { say: "Bu chiziq chapdan o'ngga pastga tushyapti. Iks oshganda igrek kamayadi. Delta igrek qanday bo'ladi?",
     sub: 'Pastga tushayotgan chiziq',
     draw: [grid(-1, 5, -2, 8), { t: 'line', id: 'L', p: [[0, 6], [3, 0]], c: 'b' }, pt('p1', [0, 6]), pt('p2', [3, 0])],
@@ -221,9 +234,16 @@ export const QIYALIK: Topic2 = {
     sub: 'Eslatma · 30 soniya', draw: [...MAP, { t: 'formula', text: 'k = Δy / Δx' }] },
   feynman: {
     task: "Salom! Men qiyalik haqida hech narsa bilmayman. Menga tushuntirib bera olasizmi? Bu nima va nimaga kerak?",
-    checklist: ["Δy / Δx ma'nosi — ko'tarilish bo'linadi yurishga", "Ishora: musbat — chiziq ko'tariladi, manfiy — tushadi",
-      "Maxsus holatlar: gorizontal chiziq k = 0, vertikal chiziq — aniqlanmagan", 'Hayotdan real misol (tezlik, narx, daromad...)'],
-    followups: ['Nega Δx / Δy emas?', 'Vertikal chiziqda nima bo\'ladi?', 'Manfiy qiyalikka hayotdan misol?', 'Qiyalik 0 bo\'lsa chiziq qanday?'],
+    core: "Qiyalik k = Δy / Δx = (y₂ − y₁) / (x₂ − x₁): x bir birlikka o'zgarganda y qanchaga o'zgarishi (shuning uchun Δx/Δy emas). "
+      + "k > 0 — chiziq ko'tariladi, k < 0 — tushadi. Gorizontal chiziq: k = 0. Vertikal chiziq: Δx = 0, qiyalik aniqlanmagan (0 emas). "
+      + "Tiklik |k| ga bog'liq. Misollar: masofa–vaqt grafigida tezlik, soatlik daromad, narx o'sishi.",
+    checklist: [
+      { point: "Ma'nosi: k = Δy / Δx — x bir birlikka o'zgarganda y qanchaga o'zgaradi (nega Δx/Δy emas)", review: "🌿 Nihol — \"Nega Δy / Δx\" qadami" },
+      { point: "Ishora: k > 0 — chiziq ko'tariladi, k < 0 — tushadi", review: '🌿 Nihol — pastga tushayotgan chiziq' },
+      { point: "Maxsus holatlar: gorizontal chiziq k = 0, vertikal — aniqlanmagan", review: '🌿 Nihol — gorizontal va vertikal chiziq' },
+      { point: 'Hayotdan aniq misol (tezlik, daromad, narx...) va uning qiyaligi nimani bildirishi', review: "🌳 Daraxt — Ko'prik qadami" },
+    ],
+    followups: ['Nega Δx / Δy emas?', 'Gorizontal chiziqning qiyaligi qancha?', 'Vertikal chiziqda nima bo\'ladi?', 'Manfiy qiyalikka hayotdan misol?'],
   },
   next: 'To\'g\'ri chiziq: y = kx + b',
 };

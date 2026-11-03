@@ -5,8 +5,8 @@ import { api } from '@/core/server';
 
 export interface TutorMsg { role: 'user' | 'nobu'; text: string }
 /** Nobu bilan matnli suhbat (dars yoki statistika konteksti bilan). */
-export async function nobuChat(topic: string, ctx: string, history: TutorMsg[]): Promise<string> {
-  const r = await api<{ reply: string }>('/tutor', { topic, ctx,
+export async function nobuChat(topic: string, ctx: string, history: TutorMsg[], smart = false): Promise<string> {
+  const r = await api<{ reply: string }>('/tutor', { topic, ctx, smart,
     history: history.map((m) => ({ role: m.role === 'user' ? 'user' : 'model', text: m.text })) });
   return r.reply;
 }

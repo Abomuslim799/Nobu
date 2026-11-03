@@ -14,7 +14,7 @@ import { KEYS, legacyTarget } from '@/core/keys';
 import { addDays, lastDays } from '@/core/date';
 import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/assessment/rating';
 import { TOPICS2 } from '@/features/lesson2/topics';
-import { MODES, parseNum, slope, type XY } from '@/features/lesson2/types';
+import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;
@@ -146,6 +146,15 @@ ok(sayText("ma'no") === 'maʼno', 'sayText 3');
 // shablon mashqlarda javob = chizilgan nuqtalar qiyaligi
 ok(parseNum('−3/4') === -0.75 && parseNum('-0,75') === -0.75 && parseNum('1 000') === 1000 && parseNum('abc') === null && parseNum('-6/8=-0.75') === -0.75
   && parseNum('18:00') === 18 && parseNum('−10%') === -10 && parseNum('40 km/soat') === 40 && parseNum("1 000 so'm") === 1000 && parseNum('6/8-1') === null, 'parseNum');
+{
+  const f = feynScore('BALL: 25, 10, 0, 0\nYetishmadi...', 4);
+  ok(!!f && f.total === 35 && f.items.join() === '25,10,0,0' && feynScore('BAHO: 75', 4) === null && feynScore('BALL: 24,9,1,3', 4)?.total === 35, 'feynScore');
+}
+for (const t of Object.values(TOPICS2)) for (const m of MODES) {
+  const steps = t.modes[m]();
+  steps.forEach((st, i) => { if (st.ask) { const s = standalone(steps, i); const sc = (s.draw ?? []).filter((a) => a.t === 'scene').length;
+    ok(sc <= 1 && (sc === 1 || !steps.slice(0, i + 1).some((x) => (x.draw ?? []).some((a) => a.t === 'scene'))), `${t.id}/${m}/${i}: mustaqil doska`); } });
+}
 for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0; rep < 25; rep++) {
   const steps = [t.recap, ...t.modes[m]()];
   let ids = new Set<string>();

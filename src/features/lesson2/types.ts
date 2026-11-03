@@ -28,9 +28,31 @@ export type Q =
 
 export interface Ask { prompt: string; q: Q; ok: string; no: string }
 /** Bitta qadam: Ustoz aytadi (say), doskada chiziladi (draw), kerak bo'lsa savol (ask). */
-export interface Step { say: string; sub?: string; draw?: Act[]; ask?: Ask; card?: string }
+export interface Step { say: string; sub?: string; draw?: Act[]; ask?: Ask; card?: string; regen?: () => Step }   // regen — shablon: yangi raqamlar bilan qayta yasash
 
-export interface Feynman { task: string; checklist: string[]; followups: string[] }
+/** 🌳 sharti: Daraxt rejimida birinchi urinishda to'g'ri javoblar ulushi. */
+export const MASTERY = 0.8;
+
+/** Qadamning doskasi mustaqil bo'lishi uchun: oxirgi sahnadan shu qadamgacha chizilganlarning hammasi (xatolarni qayta ishlashda). */
+export function standalone(steps: Step[], i: number): Step {
+  let j = i;
+  while (j > 0 && !(steps[j].draw ?? []).some((a) => a.t === 'scene')) j--;
+  const hasScene = (steps[j].draw ?? []).some((a) => a.t === 'scene');
+  return hasScene ? { ...steps[i], draw: steps.slice(j, i + 1).flatMap((st) => st.draw ?? []) } : steps[i];
+}
+
+/** Feynman: core — to'g'ri bilim (AI tekshirishi uchun), checklist — 4 nuqta (har biri 25 ball), review — nuqta bo'yicha qayta ko'rish joyi. */
+export interface Feynman { task: string; core: string; checklist: { point: string; review: string }[]; followups: string[] }
+
+/** AI bahosi: "BALL: 25,10,0,0" → har nuqta 0/10/25 ga yaxlitlanadi, umumiy 0–100. */
+export function feynScore(reply: string, n: number): { items: number[]; total: number } | null {
+  const m = reply.match(/BALL:\s*([\d,\s/]+)/i);
+  if (!m) return null;
+  const raw = m[1].split(/[,\s/]+/).filter(Boolean).map(Number).slice(0, n);
+  if (raw.length < n) return null;
+  const items = raw.map((v) => [0, 10, 25].reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a)));
+  return { items, total: Math.round((items.reduce((a, b) => a + b, 0) * 100) / (25 * n)) };
+}
 export interface Topic2 {
   id: string; title: string; subject: string; idea: string;
   modes: Record<Mode, () => Step[]>;
