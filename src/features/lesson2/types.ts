@@ -46,13 +46,15 @@ export const MODE_INFO: Record<Mode, { icon: string; name: string; time: string 
 };
 export const MODES: Mode[] = ['low', 'medium', 'high'];
 
-/** Son kiritish: "−3/4", "-0,75", "1 000", "-6/8=-0.75" — hammasi son. */
+/** Son kiritish: "−3/4", "-0,75", "1 000", "-6/8=-0.75", "18:00", "-10%", "40 km/soat" — hammasi son. */
 export function parseNum(s: string): number | null {
-  // "−6/8 = −0.75" kabi yechim bilan yozilsa — oxirgi "=" dan keyingi qism javob
+  // yechim bilan yozilsa ("−6/8 = −0.75") — oxirgi "=" dan keyingi qism javob
   const t = (s.split('=').map((x) => x.trim()).filter(Boolean).pop() ?? '').replace(/[−–]/g, '-').replace(/,/g, '.').replace(/\s/g, '');
-  if (!t) return null;
-  const m = t.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
-  const v = m ? Number(m[1]) / Number(m[2]) : Number(t);
+  const time = t.match(/^(\d{1,2}):(\d{2})$/);                       // soat: 18:00 → 18
+  if (time) return Number(time[1]) + Number(time[2]) / 60;
+  const m = t.match(/^(-?\d+(?:\.\d+)?)(?:\/(-?\d+(?:\.\d+)?))?(.*)$/u);
+  if (!m || !/^[%\p{L}'ʻ’/.]*$/u.test(m[3])) return null;          // oxirida faqat birlik bo'lishi mumkin (%, km/soat, so'm)
+  const v = m[2] !== undefined ? Number(m[1]) / Number(m[2]) : Number(m[1]);
   return Number.isFinite(v) ? v : null;
 }
 export const near = (a: number, b: number, tol = 0.01) => (b === 0 ? Math.abs(a) <= tol : Math.abs(a - b) <= Math.abs(b) * tol);

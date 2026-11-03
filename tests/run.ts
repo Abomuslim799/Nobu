@@ -144,7 +144,8 @@ ok(sayText("ma'no") === 'maʼno', 'sayText 3');
 
 // v2 darslar: kasr/minus kiritish; har savol to'g'ri tuzilgan (javob variantlarda, tap nishoni doskada, drag boshida javob emas);
 // shablon mashqlarda javob = chizilgan nuqtalar qiyaligi
-ok(parseNum('−3/4') === -0.75 && parseNum('-0,75') === -0.75 && parseNum('1 000') === 1000 && parseNum('abc') === null && parseNum('-6/8=-0.75') === -0.75, 'parseNum');
+ok(parseNum('−3/4') === -0.75 && parseNum('-0,75') === -0.75 && parseNum('1 000') === 1000 && parseNum('abc') === null && parseNum('-6/8=-0.75') === -0.75
+  && parseNum('18:00') === 18 && parseNum('−10%') === -10 && parseNum('40 km/soat') === 40 && parseNum("1 000 so'm") === 1000 && parseNum('6/8-1') === null, 'parseNum');
 for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0; rep < 25; rep++) {
   const steps = [t.recap, ...t.modes[m]()];
   let ids = new Set<string>();
