@@ -16,7 +16,7 @@ import { AppState } from 'react-native';
 import { getChess } from '@/features/brain/brain';
 import { useProgress } from '@/store/progress';
 import {
-  AREAS, MUZ_MAX, PRICE, START, dayXP, overall, rankOf, streakBonus, update,
+  AREAS, MUZ_MAX, PRICE, START, offAreas, dayXP, overall, rankOf, streakBonus, update,
   type Area, type FRState, type RankId, type TestKind,
 } from '@/features/assessment/rating';
 import type { Q } from '@/features/assessment/questions';
@@ -138,7 +138,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
   const value = useMemo<Rating>(() => {
     const days = new Set<string>([...Object.keys(m.sec), ...m.frozen, ...Object.keys(legacy)].filter((d) => qual(d, m)));
     const streak = currentStreak(days, today);
-    const fr = overall(m.fr, m.disabled);
+    const fr = overall(m.fr, offAreas(m.disabled));
     const wk = Object.keys(m.hist).filter((d) => d <= addDays(today, -7)).sort().pop();
     const week = wk ? fr - m.hist[wk] : fr - (Object.values(m.hist)[0] ?? fr);
     const xpDays = Object.values(m.sec).reduce((s, v) => s + dayXP(Math.floor(v / 60)), 0);
@@ -166,7 +166,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
       canRestore,
       recordTest: (kind, items, sec) => {
         const x = ref.current;
-        const before = overall(x.fr, x.disabled);
+        const before = overall(x.fr, offAreas(x.disabled));
         const frs = { ...x.fr };
         const by: TestLog['by'] = {};
         const seen = { ...x.seen }, now = Date.now();
@@ -177,7 +177,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
           by[q.area] = { ok: b.ok + (s >= 1 ? 1 : 0), n: b.n + 1, d: 0 };
         }
         for (const a of AREAS) if (by[a]) by[a]!.d = Math.round(frs[a].r - x.fr[a].r);
-        const after = overall(frs, x.disabled);
+        const after = overall(frs, offAreas(x.disabled));
         const log: TestLog = { at: now, day: dayKey(), kind, n: items.length, ok: items.filter((i) => i.s >= 1).length, sec, before, after, by };
         const base = Object.keys(x.hist).length ? {} : { [addDays(dayKey(), -1)]: before };   // birinchi test: haftalik o'zgarish shu nuqtadan
         const next = { ...x, fr: frs, seen, tests: [...x.tests, log].slice(-400), hist: { ...base, ...x.hist, [dayKey()]: after } };
@@ -187,7 +187,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
       recordBrain: (level, score) => {
         const x = ref.current;
         const frs = { ...x.fr, brain: update(x.fr.brain, 800 + level * 100, Math.max(0, Math.min(1, score / 100)), 'lesson') };
-        const next = { ...x, fr: frs, hist: { ...x.hist, [dayKey()]: overall(frs, x.disabled) } };
+        const next = { ...x, fr: frs, hist: { ...x.hist, [dayKey()]: overall(frs, offAreas(x.disabled)) } };
         ref.current = next; setM(next);
       },
       syncChess: () => {
@@ -195,7 +195,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
           const x = ref.current, n = c.solved + c.failed;
           if (!n || (x.fr.chess.r === c.rating && x.fr.chess.n === n)) return;
           const frs = { ...x.fr, chess: { r: c.rating, n, pts: c.solved * 20, last: Date.now() } };
-          setM({ ...x, fr: frs, hist: { ...x.hist, [dayKey()]: overall(frs, x.disabled) } });
+          setM({ ...x, fr: frs, hist: { ...x.hist, [dayKey()]: overall(frs, offAreas(x.disabled)) } });
         }).catch(() => {});
       },
       buyMuz: () => {
@@ -224,7 +224,7 @@ export function RatingProvider({ children }: { children: ReactNode }) {
   useEffect(() => { if (ready) value.syncChess(); }, [ready]);    
 
   // Widget va kechki eslatma uchun holat (bo'limlar FR — katta widget ustunchalari)
-  const areasKey = JSON.stringify(Object.fromEntries(AREAS.filter((a) => !m.disabled.includes(a)).map((a) => [a, Math.round(m.fr[a].r)])));
+  const areasKey = JSON.stringify(Object.fromEntries(AREAS.filter((a) => !offAreas(m.disabled).includes(a)).map((a) => [a, Math.round(m.fr[a].r)])));
   useEffect(() => {
     if (ready && pReady) pushStatus({ streak: value.streak, best: value.best, today: value.widget === 'ok',
       fr: value.fr, rank: value.rank.title, muz: m.muz, state: value.widget, week: value.week, areas: areasKey ? JSON.parse(areasKey) : undefined });

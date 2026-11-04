@@ -8,7 +8,10 @@ import { useCallback, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { C } from '@/core/theme';
-import { GAMES } from '@/features/brain/catalog';
+import { ARCHIVE } from '@/features/archive';
+import { GAMES as ALL_GAMES } from '@/features/brain/catalog';
+
+const GAMES = ALL_GAMES.filter((g) => !ARCHIVE.brainGames || g.skill === 'chess');
 import { BRAIN_SKILLS, getBrainLog, getChess, type BrainEntry } from '@/features/brain/brain';
 import { Button, Card, Screen, T, Title } from '@/core/ui/kit';
 
@@ -23,7 +26,7 @@ export default function Brain() {
 
   return (
     <Screen>
-      <Title sub="Kuniga 10–15 daqiqa: shaxmat, mantiq, xotira, diqqat, tezlik.">Miya</Title>
+      <Title sub={ARCHIVE.brainGames ? 'Shaxmat: masalalar' : 'Kuniga 10–15 daqiqa: shaxmat, mantiq, xotira, diqqat, tezlik.'}>Miya</Title>
       <Card style={{ gap: 4, borderColor: C.green }}>
         <T dim>♟️ Masala reytingi</T>
         <T size={28} bold>{rating}</T>

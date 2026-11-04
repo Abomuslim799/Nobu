@@ -4,19 +4,20 @@
  * qisqa darslar; Fizika — tez kunda.
  */
 
+import { ARCHIVE } from '@/features/archive';
 import { TRACKS } from '@/features/it/tracks';
 import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
 import { LESSONS as SCI } from '@/features/science/lessons';
 
 export interface Subject { id: 'it' | 'en' | 'science'; title: string; icon: string; color: string; about: string; soon?: boolean }
 
-export const SUBJECTS: Subject[] = [
+const ALL_SUBJECTS: Subject[] = [
   { id: 'it', title: 'IT', icon: '💻', color: '#34D399', about: 'Python · TypeScript · Java · SQL · IT so\'zlari' },
   { id: 'en', title: 'Ingliz tili', icon: '🇬🇧', color: '#60A5FA', about: 'Movies: vocab · grammar · reading · listening · writing · speaking' },
   { id: 'science', title: 'Science', icon: '🔬', color: '#F59E0B', about: 'Matematika · Geometriya · Fizika — simulyatsiyalar va Nobu bilan' },
 ];
-
-
+/** Ko'rinadigan papkalar (arxivdagilar yashirin — features/archive.ts). */
+export const SUBJECTS = ALL_SUBJECTS.filter((s) => !(s.id === 'science' && ARCHIVE.science) && !(s.id === 'it' && ARCHIVE.it));
 
 export function subjectProgress(id: Subject['id'], data: { lessons: Record<string, unknown>; unitSteps: Record<string, string[]> }) {
   if (id === 'it') {

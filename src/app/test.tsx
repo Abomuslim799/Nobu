@@ -15,7 +15,7 @@ import { fmtN } from '@/features/assessment/astrolabe';
 import { useRating, type TestItem, type TestLog } from '@/store';
 import { fmtDur , dayKey } from '@/core/date';
 import { dailyTest, seeded, type Q } from '@/features/assessment/questions';
-import { AREA_META, maxPoints, type Area } from '@/features/assessment/rating';
+import { AREA_META, maxPoints, offAreas, type Area } from '@/features/assessment/rating';
 import { Button, Card, T } from '@/core/ui/kit';
 import { UstozPicture } from '@/core/ui/avatar';
 
@@ -30,7 +30,7 @@ export default function TestScreen() {
   const insets = useSafeAreaInsets();
   const [practice] = useState(() => !!rating.dailyDone);     // ochilgan paytdagi holat (natijadan keyin o'zgarmasin)
   const [qs] = useState<Q[]>(() =>
-    dailyTest(seeded(practice ? `p${Date.now()}` : `daily:${dayKey()}`), rating.m.fr, practice ? {} : rating.m.seen, rating.m.disabled));
+    dailyTest(seeded(practice ? `p${Date.now()}` : `daily:${dayKey()}`), rating.m.fr, practice ? {} : rating.m.seen, offAreas(rating.m.disabled)));
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);      // -1 — vaqt tugadi
   const [items, setItems] = useState<TestItem[]>([]);

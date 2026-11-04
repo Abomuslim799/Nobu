@@ -5,6 +5,7 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ARCHIVE } from '@/features/archive';
 import { GAMES } from '@/features/brain/catalog';
 import { pushPlan } from '@/core/server';
 import { LESSONS as SCI } from '@/features/science/lessons';
@@ -54,14 +55,14 @@ export default function Today() {
       done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/english/cards') },
     { icon: unit.emoji, label: `Movie: ${unit.source} — ${nextStep.title}`, sub: `${stepsDone(data.unitSteps[unit.id])}/${STEPS.length} qadam`,
       done: (today.steps ?? 0) >= 1, go: () => router.push(`/english/unit/${unit.id}`) },
-    { icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
-        done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) },
+    ...(ARCHIVE.brainGames ? [] : [{ icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
+        done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) }]),
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
         done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/brain/chess') },
       ...(() => {
         const sl = SCI.find((l) => !data.lessons[`sci-${l.id}`]);
         const doneToday = SCI.some((l) => data.lessons[`sci-${l.id}`]?.day === dayKey());
-        return sl || doneToday ? [{ icon: '🔬', label: sl ? `Science: ${sl.title}` : 'Science: dars tugatildi', sub: sl ? `${sl.sub} · ~${sl.minutes} daq` : '',
+        return !ARCHIVE.science && (sl || doneToday) ? [{ icon: '🔬', label: sl ? `Science: ${sl.title}` : 'Science: dars tugatildi', sub: sl ? `${sl.sub} · ~${sl.minutes} daq` : '',
           done: doneToday, go: () => router.push(sl ? `/science/${sl.id}` : '/subject/science') }] : [];
       })(),
       { icon: '📚', label: `Kitob · ${todayRead}/${readGoal} daq`, sub: data.activeRead ? "o'qilmoqda" : '',
@@ -110,8 +111,8 @@ export default function Today() {
       </Pressable>
 
       <Pressable onPress={() => router.push('/test')} style={({ pressed }) => [s.bolt, dd && s.boltDone, pressed && { opacity: 0.8 }]}>
-        <Text style={[s.boltT, dd && { color: C.text }]}>{dd ? `✓ Bugungi test · ${dd.ok}/${dd.n}` : '⚡ Kunlik test · 10 savol'}</Text>
-        <Text style={[s.boltS, dd && { color: C.dim }]}>{dd ? `${dd.after - dd.before >= 0 ? '+' : ''}${dd.after - dd.before} FR · yana mashq qilish` : 'ingliz · matematika · geometriya · fizika'}</Text>
+        <Text style={[s.boltT, dd && { color: C.text }]}>{dd ? `✓ Bugungi test · ${dd.ok}/${dd.n}` : `⚡ Kunlik test · ${ARCHIVE.science ? 4 : 10} savol`}</Text>
+        <Text style={[s.boltS, dd && { color: C.dim }]}>{dd ? `${dd.after - dd.before >= 0 ? '+' : ''}${dd.after - dd.before} FR · yana mashq qilish` : ARCHIVE.science ? 'ingliz tili' : 'ingliz · matematika · geometriya · fizika'}</Text>
       </Pressable>
 
       <Card style={{ gap: 8 }}>
@@ -155,7 +156,7 @@ export default function Today() {
 
       {quote ? <QuoteCard q={quote} book={data.books.find((b) => b.id === quote.bookId)?.title} /> : null}
 
-      {next ? (
+      {next && !ARCHIVE.it ? (
         <Card>
           <T dim>Keyingi dars · {next.track.icon} {next.track.title}</T>
           <T size={18} bold>{next.lesson.title}</T>

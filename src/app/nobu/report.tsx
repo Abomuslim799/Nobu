@@ -3,6 +3,7 @@
  * Pastda — Nobu bilan statistikangiz haqida matnli yoki jonli suhbat.
  */
 
+import { ARCHIVE } from '@/features/archive';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
@@ -42,7 +43,7 @@ export default function NobuReport() {
         <T bold size={18}>Nobu tahlili</T>
       </View>
       <ScrollView contentContainerStyle={{ padding: PAD, gap: 12, paddingBottom: insets.bottom + 40 }}>
-        <Card style={{ gap: 6 }}>
+        {!ARCHIVE.science && <Card style={{ gap: 6 }}>
           <T bold>🔬 Science</T>
           {AREAS.map((a) => {
             const xs = sci.filter((e) => e.area === a.id);
@@ -50,7 +51,7 @@ export default function NobuReport() {
             const p = xs.reduce((n, e) => n + e.predicted, 0), pt = xs.reduce((n, e) => n + e.predictTotal, 0);
             return <T key={a.id} size={14}>{a.icon} {a.title}: {xs.length ? `${new Set(xs.map((e) => e.lesson)).size} dars · mashqlar ${t ? Math.round((c / t) * 100) : 0}% · taxmin ${p}/${pt}` : "hali boshlanmagan"}</T>;
           })}
-        </Card>
+        </Card>}
         <Button label={busy ? '⏳ Nobu tahlil qilmoqda...' : '🤖 Umumiy tahlil (barcha bo\'limlar)'} disabled={busy} onPress={analyse} />
         {!!err && <T color={C.red}>{err}</T>}
         {ai && (

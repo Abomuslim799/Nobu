@@ -4,6 +4,7 @@
  *   Umumiy FR — bo'limlar o'rtachasi; qiyin ishlar ko'p qilingan bo'lim ko'proq ta'sir qiladi (og'irlik — to'plangan ball).
  * Sof funksiyalar: scripts/test_science.ts tekshiradi.
  */
+import { ARCHIVE } from '@/features/archive';
 import { eloStep } from '@/core/elo';
 
 export type Area = 'en' | 'math' | 'geo' | 'phys' | 'brain' | 'chess';
@@ -16,6 +17,10 @@ export const AREA_META: Record<Area, { title: string; short: string; icon: strin
   chess: { title: 'Shaxmat', short: 'Shaxmat', icon: '♟' },
 };
 export const AREAS: Area[] = ['en', 'math', 'geo', 'phys', 'brain', 'chess'];
+/** Arxivdagi bo'limlar (features/archive.ts) — FR va testlarga kirmaydi. */
+export const ARCHIVED_AREAS: Area[] = [...(ARCHIVE.science ? (['math', 'geo', 'phys'] as Area[]) : []), ...(ARCHIVE.brainGames ? (['brain'] as Area[]) : [])];
+export const offAreas = (disabled: Area[]): Area[] => [...new Set([...disabled, ...ARCHIVED_AREAS])];
+export const ACTIVE_AREAS: Area[] = AREAS.filter((a) => !ARCHIVED_AREAS.includes(a));
 
 export interface AreaR { r: number; n: number; pts: number; last: number }
 export type FRState = Record<Area, AreaR>;
