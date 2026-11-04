@@ -108,6 +108,13 @@ export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => 
   return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
 }
 
+/** Bitta o'yinni (qayta) tahlil qilib saqlash. */
+export async function reanalyse(g: ComGame, onPly?: (i: number, n: number) => void) {
+  const r = await analyseGame(g, onPly);
+  const an = await loadAn(); an[g.id] = r; await saveAn(an);
+  return r;
+}
+
 /** Navbatdagi tahlil qilinmagan o'yinlarni ketma-ket tahlil qilish (to'xtatish mumkin). */
 export async function analyseAll(onProgress: (done: number, total: number, ply: number, plies: number) => void, stop: () => boolean) {
   const { games } = await loadCom();

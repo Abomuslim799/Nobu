@@ -14,7 +14,7 @@ import { Button, Card, T } from '@/core/ui/kit';
 import { nobuChat } from '@/features/assistant/ai';
 import { CAUSE, LABEL, type Label } from '@/features/chess/analysis';
 import { ChessBoard } from '@/features/chess/board';
-import { loadAn, loadCom, type ComGame, type GameAn, type MoveAn } from '@/features/chess/chesscom';
+import { fresh, loadAn, loadCom, reanalyse, type ComGame, type GameAn, type MoveAn } from '@/features/chess/chesscom';
 
 const san = (fen: string, u: string) => { try { return new Chess(fen).move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }).san; } catch { return u; } };
 const line = (fen: string, pv: string[]) => { const g = new Chess(fen), out: string[] = []; for (const u of pv) { try { out.push(g.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }).san); } catch { break; } } return out.join(' '); };
@@ -31,6 +31,7 @@ export default function Review() {
   const [coach, setCoach] = useState<Record<number, string>>({});
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const [re, setRe] = useState<string | null>(null);
 
   useEffect(() => {
     loadCom().then((c) => setG(c.games.find((x) => x.id === id) ?? null));
@@ -99,6 +100,11 @@ O'zbekcha, qisqa (6–8 gap), maqtovsiz javob bering, 4 qism:
       </View>
       <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 8, gap: 10, paddingBottom: insets.bottom + 30 }}>
 
+        <Card style={{ gap: 6, borderColor: fresh(a) ? C.cardBorder : C.gold }}>
+          <T size={13} dim={fresh(a)}>{fresh(a) ? "Tahlil yangi qoidalar bilan qilingan." : "Bu o'yin eski qoida bilan tahlil qilingan (nazariya yurishlari xato deb belgilangan bo'lishi mumkin)."}</T>
+          <Button kind={fresh(a) ? 'ghost' : 'primary'} label={re ?? '🔍 Qayta tahlil qilish (~40 s)'} disabled={!!re}
+            onPress={async () => { setRe('⏳ Tahlil…'); try { const r = await reanalyse(g, (i, n) => setRe(`⏳ Tahlil: ${i}/${n} pozitsiya`)); setA(r); setMom(null); } finally { setRe(null); } }} />
+        </Card>
         <T bold>⚡ Hal qiluvchi lahzalar</T>
         {!moments.length && <T dim>Katta xato yo'q — yaxshi o'yin.</T>}
         {moments.map((m) => (
