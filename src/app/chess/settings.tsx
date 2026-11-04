@@ -13,7 +13,7 @@ import { Card, T } from '@/core/ui/kit';
 import { ChessBoard } from '@/features/chess/board';
 import { BOARDS, PIECE_SETS, boardOf, setLook, useLook } from '@/features/chess/look';
 import { PIECE_IMG } from '@/features/chess/pieces';
-import { playSound } from '@/features/chess/sound';
+import { moveSound, playSound, type SoundKind } from '@/features/chess/sound';
 
 const DEMO = 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4';
 const CREDIT: Record<string, string> = {
@@ -29,7 +29,7 @@ export default function ChessSettings() {
   const [demo, setDemo] = useState<{ fen: string; last: [Square, Square] }>({ fen: DEMO, last: ['f8', 'c5'] });
   const tryMove = (from: Square, to: Square) => {
     const g = new Chess(demo.fen);
-    try { const m = g.move({ from, to, promotion: 'q' }); playSound(m.captured ? 'capture' : 'move', look.sound); const f = g.fen().split(' '); f[1] = 'w'; f[3] = '-';   // demo: har doim oqlar yuradi
+    try { const m = g.move({ from, to, promotion: 'q' }); playSound(moveSound(m), look.sound); const f = g.fen().split(' '); f[1] = 'w'; f[3] = '-';   // demo: har doim oqlar yuradi
       setDemo({ fen: f.join(' '), last: [from, to] }); } catch { /* noto'g'ri */ }
   };
   return (
@@ -70,6 +70,15 @@ export default function ChessSettings() {
             <T style={{ flex: 1 }}>🔊 Tovushlar</T>
             <Switch value={look.sound} onValueChange={(v) => { setLook({ sound: v }); if (v) playSound('move'); }} />
           </View>
+          {look.sound && (
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
+              {([['move', 'Yurish'], ['capture', 'Olish'], ['castle', 'Rokirovka'], ['check', 'Shax'], ['mate', 'Mat'], ['good', 'Yechildi'], ['bad', 'Xato']] as [SoundKind, string][]).map(([k, l]) => (
+                <Pressable key={k} onPress={() => playSound(k)} style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: C.subtle }}>
+                  <T size={13}>▶ {l}</T>
+                </Pressable>
+              ))}
+            </View>
+          )}
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <T style={{ flex: 1 }}>🔤 Koordinatalar (a–h, 1–8)</T>
             <Switch value={look.coords} onValueChange={(v) => setLook({ coords: v })} />

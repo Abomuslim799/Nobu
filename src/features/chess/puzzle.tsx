@@ -49,9 +49,9 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
     return () => timers.current.forEach(clearTimeout);
   }, []);
 
-  const finish = (ok: boolean) => {
+  const finish = (ok: boolean, quiet = false) => {
     setState(ok ? 'ok' : 'fail');
-    later(150, () => playSound(ok ? 'good' : 'bad', look.sound));
+    if (!quiet) later(350, () => playSound(ok ? 'good' : 'bad', look.sound));   // mat bo'lsa — mat tovushi yetarli
     if (sprint) later(ok ? 500 : 1300, () => onFinish(ok));
   };
 
@@ -65,7 +65,7 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
     const test = new Chess(before); test.move(uci(mine));
     if (mine.slice(0, 4) === want.slice(0, 4) || test.isCheckmate()) {
       push(mine, { sq: to, text: '★', color: GOOD });
-      if (test.isCheckmate() || ply + 1 >= moves.length) return finish(true);
+      if (test.isCheckmate() || ply + 1 >= moves.length) return finish(true, test.isCheckmate());
       setPly(ply + 2);
       later(450, () => push(moves[ply + 1]));
     } else {
