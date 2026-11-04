@@ -147,7 +147,13 @@ async def main() -> None:
     sj = os.environ.get("SAY_JSON")
     if sj and Path(sj).exists():
         lessons = [(x["id"], x["part"], say_text(x["text"]), UZ) for x in json.loads(Path(sj).read_text(encoding="utf-8")) if x["part"].startswith("s")]
-    for wid, part, text, voice in texts + unit_texts() + core_texts() + boards + lessons:
+    # Shaxmat: Farobiy bot gaplari (inglizcha, Ryan) — chess-<tur><n>.mp3
+    chess_ph = []
+    pj = ROOT / "content" / "chess" / "phrases.json"
+    if pj.exists():
+        for cls, arr in json.loads(pj.read_text(encoding="utf-8")).items():
+            chess_ph += [("chess", f"{cls}{i}", t, EN) for i, t in enumerate(arr)]
+    for wid, part, text, voice in texts + unit_texts() + core_texts() + boards + lessons + chess_ph:
         if text:
             jobs.append((wid, part, make(text, voice, OUT / f"{wid}-{part}.mp3", sem)))
     results = await asyncio.gather(*(j[2] for j in jobs))

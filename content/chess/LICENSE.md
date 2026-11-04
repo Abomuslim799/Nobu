@@ -1,0 +1,1 @@
+openings.json — lichess-org/chess-openings (CC0) asosida yasalgan: pozitsiya (FEN ning birinchi 3 maydoni, FNV-1a xesh) → debyut nomi; nazariya yurishlari; mashq uchun King's Indian va Pirc: Austrian Attack variantlari.

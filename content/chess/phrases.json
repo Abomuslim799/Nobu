@@ -1,0 +1,14 @@
+{
+  "brilliant": ["Brilliant! I didn't see that coming.", "Remarkable. A true sacrifice.", "Now that is chess."],
+  "best": ["Precise. Let's see how you handle this.", "Exactly the move I feared.", "Strong. My turn.", "Good eye. Now, what about this?"],
+  "good": ["Good move. My turn.", "Solid. Let's continue.", "Reasonable. But the game is long.", "Fine. Watch this."],
+  "inaccuracy": ["Not a bad idea… but what do you say to this?", "Hmm. There was something better.", "Playable, but not the best.", "Interesting choice. How about this?"],
+  "mistake": ["Hmm. That gives me a chance.", "A mistake. Watch closely.", "You'll want that move back.", "That was too quick."],
+  "blunder": ["A blunder! You'll regret that.", "Oh no. That was a gift.", "Careful! That loses a lot.", "Did you check my threats?"],
+  "miss": ["You missed something big there.", "You let your advantage slip.", "There was a win in that position.", "So close. Look again next time."],
+  "start": ["Let us begin. Show me what you have learned.", "A new game. Think before you move.", "I am ready. Your move."],
+  "win": ["Well played. You beat me fair and square.", "Impressive. You earned this win."],
+  "loss": ["Checkmate. Study this game — the lesson is in your mistakes.", "The game is mine this time. Try again."],
+  "draw": ["A draw. Neither of us gave in.", "Peace for today. A fair result."],
+  "resign": ["You resigned. Every lost game is a lesson."]
+}

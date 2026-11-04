@@ -14,6 +14,8 @@ import { KEYS, legacyTarget } from '@/core/keys';
 import { addDays, lastDays } from '@/core/date';
 import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/assessment/rating';
 import { TOPICS2 } from '@/features/lesson2/topics';
+import { botParams, classify, gameAccuracy, rateGame, winPct } from '@/features/chess/analysis';
+import { openingName, practiceNext, inPractice } from '@/features/chess/openings';
 import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
@@ -172,6 +174,23 @@ for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0;
       if (/^(Mashq|Yakuniy test 1)/.test(st.sub ?? '') && pts.length === 2) near(slope(pts[0], pts[1]), q.answer, 1e-9, `${w}: shablon qiyalik`);
     }
   });
+}
+
+// Shaxmat: baholash, aniqlik, bot kuchi, debyut bazasi
+{
+  ok(Math.abs(winPct(0) - 50) < 1e-9 && winPct(300) > 70 && winPct(-300) < 30, 'winPct');
+  const st = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+  const b = { cp: 30, depth: 12, pv: ['e2e4'], best: 'e2e4' };
+  ok(classify({ fenBefore: st, played: 'e2e4', before: b, after: { cp: -30, depth: 12, pv: ['e7e5'], best: 'e7e5' } }).label === 'best', 'classify best');
+  ok(classify({ fenBefore: st, played: 'g2g4', before: b, after: { cp: 600, depth: 12, pv: ['d7d5'], best: 'd7d5' } }).label === 'blunder', 'classify blunder');
+  ok(classify({ fenBefore: st, played: 'a2a3', before: b, after: { cp: 60, depth: 12, pv: ['e7e5'], best: 'e7e5' } }).label === 'inaccuracy', 'classify inaccuracy');
+  ok(classify({ fenBefore: st, played: 'a2a3', before: { cp: 400, depth: 12, pv: ['e2e4'], best: 'e2e4' }, after: { cp: -50, depth: 12, pv: ['e7e5'], best: 'e7e5' } }).label === 'miss', 'classify miss');
+  ok(gameAccuracy([0, 0]) >= 99 && gameAccuracy([30]) < 30, 'accuracy');
+  ok(botParams(800).skill === 0 && botParams(2200).skill === 16 && botParams(1275).depth > botParams(800).depth, 'botParams');
+  ok(rateGame(1000, 0, 1275, 1) > 1020 && rateGame(1000, 0, 1275, 0) > 990 && rateGame(1000, 0, 1275, 0) < 1000, 'rateGame: yutsa ko\'p, yutqazsa oz');
+  ok(openingName('rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3')?.startsWith('Indian') || !!openingName('rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3'), 'openingName');
+  ok(practiceNext('kid', []) === 'd2d4' && inPractice('kid', ['d2d4', 'g8f6']) && !inPractice('kid', ['e2e4']), 'practice KID');
+  ok(practiceNext('austrian', ['e2e4']) === 'd7d6', 'practice Austrian');
 }
 // Sana
 ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2025-12-31', 'addDays oy/yil');

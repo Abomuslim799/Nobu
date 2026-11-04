@@ -22,10 +22,11 @@ export interface Badge { sq: Square; text: string; color: string }
 type Arrow = { from: Square; to: Square; c: number };
 type Mark = { sq: Square; c: number };
 
-export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey, onBusy }: {
+export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey, onBusy, premove = false, onPremove, premoveSq = null }: {
   fen: string; orientation: 'w' | 'b'; movable?: 'w' | 'b' | null; lastMove?: [Square, Square] | null;
   onMove?: (from: Square, to: Square) => void; badge?: Badge | null; pen?: boolean; clearKey?: unknown;
   onBusy?: (busy: boolean) => void;   // barmoq doskada — ota ScrollView aylanmasin
+  premove?: boolean; onPremove?: (from: Square, to: Square) => void; premoveSq?: [Square, Square] | null;   // raqib o'ylayotganda oldindan yurish
 }) {
   const look = useLook();
   const th = boardOf(look);
@@ -71,8 +72,12 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
     if (c < 0 || c > 7 || r < 0 || r > 7) return null;
     return `${FILES[flip ? 7 - c : c]}${flip ? r + 1 : 8 - r}` as Square;
   };
-  const canMove = (sq: Square) => { const p = game.get(sq); return !!p && !!movable && p.color === movable && game.turn() === movable; };
-  const targets = useMemo(() => (sel && canMove(sel) ? game.moves({ square: sel, verbose: true }).map((m) => m.to) : []), [sel, game, movable]);
+  const canMove = (sq: Square) => { const p = game.get(sq); return !!p && !!movable && p.color === movable && (game.turn() === movable || premove); };
+  const targets = useMemo(() => {
+    if (!sel || !canMove(sel)) return [];
+    if (game.turn() === movable) return game.moves({ square: sel, verbose: true }).map((m) => m.to);
+    try { const f = fen.split(' '); f[1] = movable ?? 'w'; f[3] = '-'; return new Chess(f.join(' ')).moves({ square: sel, verbose: true }).map((m) => m.to); } catch { return []; }   // premove: navbat bizda deb faraz qilib
+  }, [sel, game, movable, premove]);
 
   const cycle = <T extends { c: number },>(list: T[], hit: (x: T) => boolean, make: () => T): T[] => {
     const i = list.findIndex(hit);
@@ -81,7 +86,9 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
     return nx >= MARK.length ? list.filter((_, k) => k !== i) : list.map((x, k) => (k === i ? { ...x, c: nx } : x));
   };
   const doMove = (from: Square, to: Square) => {
-    setSel(null); setArrows([]); setMarks([]);
+    setSel(null);
+    if (game.turn() !== movable) { onPremove?.(from, to); return; }
+    setArrows([]); setMarks([]);
     onMove?.(from, to);
   };
   const tap = (sq: Square) => {
@@ -165,7 +172,7 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
           {W > 0 && board.map((row, r) => row.map((_, c) => {
             const sq = `${FILES[c]}${8 - r}` as Square;
             const [x, y] = xy(sq), light = (r + c) % 2 === 0;
-            const hl = sel === sq ? th.sel : lastMove && (lastMove[0] === sq || lastMove[1] === sq) ? th.last : null;
+            const hl = sel === sq ? th.sel : premoveSq && (premoveSq[0] === sq || premoveSq[1] === sq) ? 'rgba(60,110,220,0.5)' : lastMove && (lastMove[0] === sq || lastMove[1] === sq) ? th.last : null;
             const fileLbl = (flip ? r === 0 : r === 7), rankLbl = (flip ? c === 7 : c === 0);
             return (
               <View key={sq} style={{ position: 'absolute', left: x, top: y, width: S, height: S, backgroundColor: light ? th.light : th.dark }}>

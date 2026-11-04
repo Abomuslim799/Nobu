@@ -13,6 +13,7 @@ import { KEYS } from '@/core/storage';
 import { C } from '@/core/theme';
 import { Button, Card, T } from '@/core/ui/kit';
 import { chessResult, finishGame, getChess, type ChessState } from '@/features/brain/brain';
+import { getOwn } from '@/features/chess/bot';
 import { PuzzleView } from '@/features/chess/puzzle';
 import { preloadSounds } from '@/features/chess/sound';
 import { pick, SPRINT_LIVES, SPRINT_SEC, sprintRating, THEMES, themesUz, type Row } from '@/features/chess/puzzles';
@@ -52,9 +53,10 @@ export default function ChessScreen() {
         {tab === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
         {tab === 'sprint' && st && <Sprint base={st.rating} onBusy={setLock} />}
         {tab === 'bot' && (
-          <Card style={{ gap: 6 }}>
+          <Card style={{ gap: 8 }}>
             <T bold size={17}>🤖 Farobiy bilan o'yin</T>
-            <T dim>2-bosqichda: bot darajangizga moslashadi, har yurishingizni baholaydi (Best move, Mistake, Blunder…) va 2 soniyadan keyin javob beradi.</T>
+            <T dim size={14}>Bot darajangizga moslashadi va doim sizdan kuchliroq. Har yurishingizni baholaydi (Best move, Mistake, Blunder…), 2 soniyadan keyin javob beradi. Debyut mashqi: King's Indian, Austrian Attack.</T>
+            <Button label="O'ynash" onPress={() => router.push('/chess/bot')} />
           </Card>
         )}
       </ScrollView>
@@ -63,11 +65,12 @@ export default function ChessScreen() {
 }
 
 /** 5 ta masala; mavzu berilsa — faqat shu mavzudan. Natija reyting, FR va kunlik rejaga yoziladi. */
-function Session({ st, onSt, theme, onExit, onBusy }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void; onBusy?: (b: boolean) => void }) {
+function Session({ st, onSt, theme, onExit, onBusy, pool }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void; onBusy?: (b: boolean) => void; pool?: Row[] }) {
+  const next = (s: ChessState) => (pool?.length ? (pool.find((p) => !s.seen.includes(p[0])) ?? pool[Math.floor(Math.random() * pool.length)]) : pick(s.rating, s.seen, theme));
   const { recordGame } = useProgress();
   const { syncChess } = useRating();
   const [n, setN] = useState(0);
-  const [row, setRow] = useState<Row>(() => pick(st.rating, st.seen, theme));
+  const [row, setRow] = useState<Row>(() => next(st));
   const [res, setRes] = useState<boolean[]>([]);
   const fails = useRef<string[]>([]);
   const done = res.length >= SESSION;
@@ -83,7 +86,7 @@ function Session({ st, onSt, theme, onExit, onBusy }: { st: ChessState; onSt: (s
       await finishGame('chess', 'chess', score, 1, fails.current);
       recordGame('chess', score);
       syncChess();
-    } else { setRow(pick(s2.rating, s2.seen, theme)); setN(n + 1); }
+    } else { setRow(next(s2)); setN(n + 1); }
   };
 
   if (done) {
@@ -96,7 +99,7 @@ function Session({ st, onSt, theme, onExit, onBusy }: { st: ChessState; onSt: (s
         <View style={{ flexDirection: 'row', gap: 6 }}>{res.map((x, i) => <T key={i} size={20}>{x ? '★' : '✗'}</T>)}</View>
         {fails.current.length > 0 && <T dim size={13}>Xato mavzular: {[...new Set(fails.current)].join(' · ')}</T>}
         <View style={{ alignSelf: 'stretch', gap: 8 }}>
-          <Button label="Yana 5 ta" onPress={() => { fails.current = []; setRes([]); setN(0); setRow(pick(st.rating, st.seen, theme)); }} />
+          <Button label="Yana 5 ta" onPress={() => { fails.current = []; setRes([]); setN(0); setRow(next(st)); }} />
           {onExit && <Button kind="ghost" label="Mavzular" onPress={onExit} />}
         </View>
       </Card>
@@ -116,9 +119,18 @@ function Session({ st, onSt, theme, onExit, onBusy }: { st: ChessState; onSt: (s
 
 function Themes({ st, onSt, onBusy }: { st: ChessState; onSt: (s: ChessState) => void; onBusy?: (b: boolean) => void }) {
   const [theme, setTheme] = useState<string | null>(null);
+  const [own, setOwn] = useState<Row[]>([]);
+  useEffect(() => { getOwn().then(setOwn); }, [theme]);
+  if (theme === 'own') return <Session key="own" st={st} onSt={onSt} pool={own} onExit={() => setTheme(null)} onBusy={onBusy} />;
   if (theme) return <Session key={theme} st={st} onSt={onSt} theme={theme} onExit={() => setTheme(null)} onBusy={onBusy} />;
   return (
     <View style={{ gap: 14 }}>
+      {own.length > 0 && (
+        <Pressable onPress={() => setTheme('own')} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, padding: 14, borderRadius: 14, backgroundColor: C.card, borderWidth: 1.5, borderColor: C.gold, gap: 2 })}>
+          <T bold size={16}>📌 Xatolarim · {own.length}</T>
+          <T dim size={12}>Farobiy bilan o'yinlaringizdagi Mistake, Blunder va Miss — endi masala</T>
+        </Pressable>
+      )}
       <T dim size={13}>Mavzuni tanlang — 5 ta masala, reytingingizga yaqin.</T>
       {THEME_GROUPS.map((g) => {
         const items = THEMES.filter((t) => g.ids.includes(t.id));

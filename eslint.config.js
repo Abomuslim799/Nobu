@@ -4,7 +4,7 @@ const expoConfig = require('eslint-config-expo/flat');
 
 module.exports = defineConfig([
   expoConfig,
-  { ignores: ['dist/*', 'node_modules/*'] },
+  { ignores: ['dist/*', 'node_modules/*', 'src/features/chess/engine/sf10.ts'] },
   {
     rules: {
       'react/no-unescaped-entities': 'off',       // React Native — HTML emas; o'zbekcha apostrof (o'z, g'oya) xato emas
