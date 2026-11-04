@@ -17,6 +17,7 @@ import { playSound } from '@/features/chess/sound';
 
 const DEMO = 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4';
 const CREDIT: Record<string, string> = {
+  samarqand: 'Farobiy uchun asl dizayn (Temuriylar: minora, fil, arg\'umoq, vazir, Go\'ri Amir gumbazi, sarboz)',
   klassik: 'chessnut — Alexis Luengas (Apache 2.0)', seltik: 'celtic — Maurizio Monge (MIT)', neo: 'spatial — Maurizio Monge (MIT)',
   iliq: 'rhosgfx — RhosGFX (CC0)', fantaziya: 'fantasy — Maurizio Monge (MIT)', minimal: 'kiwen-suwi — neverRare (CC BY 4.0)',
 };
@@ -45,7 +46,7 @@ export default function ChessSettings() {
         {PIECE_SETS.map((p) => (
           <Pressable key={p.id} onPress={() => setLook({ pieces: p.id })}
             style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 10, borderRadius: 14, backgroundColor: C.card, borderWidth: 2, borderColor: look.pieces === p.id ? C.gold : C.cardBorder }}>
-            <View style={{ width: 80 }}><T bold>{p.name}</T></View>
+            <View style={{ width: 100 }}><T bold>{p.name}</T></View>
             <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end', backgroundColor: boardOf(look).light, borderRadius: 8, paddingHorizontal: 4 }}>
               {['wK', 'wQ', 'wN', 'bK', 'bQ', 'bN'].map((c) => <Image key={c} source={PIECE_IMG[p.id][c]} style={{ width: 34, height: 34 }} />)}
             </View>

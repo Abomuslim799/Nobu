@@ -16,6 +16,7 @@ export const BOARDS: BoardTheme[] = [
   { id: 'night', name: 'Tun', light: '#7D8BA1', dark: '#4A586E', last: 'rgba(232,184,74,0.55)', sel: 'rgba(53,208,194,0.45)' },
 ];
 export const PIECE_SETS: { id: string; name: string }[] = [
+  { id: 'samarqand', name: 'Samarqand' },
   { id: 'klassik', name: 'Klassik' }, { id: 'seltik', name: 'Seltik' }, { id: 'neo', name: 'Neo' },
   { id: 'iliq', name: 'Iliq' }, { id: 'fantaziya', name: 'Fantaziya' }, { id: 'minimal', name: 'Minimal' },
 ];

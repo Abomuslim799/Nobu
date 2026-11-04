@@ -10,3 +10,4 @@ SVG manba: https://github.com/lichess-org/lila/tree/master/public/piece (PNG ga 
 | Iliq | rhosgfx | RhosGFX | CC0 1.0 |
 | Minimal | kiwen-suwi | neverRare | CC BY 4.0 |
 | Fantaziya | fantasy | Maurizio Monge | MIT |
+| Samarqand | — | Farobiy (asl dizayn, manba: assets/chess/src/samarqand_gen.py) | loyiha egasiniki |
