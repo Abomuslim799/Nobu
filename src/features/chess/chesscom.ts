@@ -87,11 +87,14 @@ export async function fetchCom(user: string, want = 30): Promise<{ user: string;
 }
 
 /** Bitta o'yinni tahlil qilish: har pozitsiya bir marta baholanadi (yurishdan oldingisi va keyingisi shulardan olinadi). */
-export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450): Promise<GameAn> {
+export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450, resume: Info[] = [], onPart?: (info: Info[]) => void): Promise<GameAn> {
   const c = new Chess(), fens = [c.fen()];
   for (const u of g.moves) { c.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); fens.push(c.fen()); }
-  const info: Info[] = [];
-  for (let i = 0; i < fens.length; i++) { info.push(await analyse(fens[i], movetime, 12)); onPly?.(i + 1, fens.length); }
+  const info: Info[] = resume.slice(0, fens.length);                // to'xtatilgan joydan davom
+  for (let i = info.length; i < fens.length; i++) {
+    info.push(await analyse(fens[i], movetime, 12)); onPly?.(i + 1, fens.length);
+    if (i % 8 === 7) onPart?.(info);
+  }
   const evals = info.map((x, i) => { const w = x.mate !== undefined ? (x.mate > 0 ? 100 : 0) : 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * (x.cp ?? 0))) - 1); return fens[i].split(' ')[1] === 'w' ? w : 100 - w; });
   const moves: MoveAn[] = [];
   let opening: string | null = null, bookOut: number | null = null;
@@ -119,12 +122,20 @@ export async function reanalyse(g: ComGame, onPly?: (i: number, n: number) => vo
 export async function analyseAll(onProgress: (done: number, total: number, ply: number, plies: number) => void, stop: () => boolean) {
   const { games } = await loadCom();
   const an = await loadAn();
-  const todo = games.filter((g) => !fresh(an[g.id]));
+  const todo = games.filter((g) => !an[g.id]);
+  const PART = `${KEYS.chessComAn}.part`;
+  let part: { id: string; info: Info[] } | null = null;
+  try { part = JSON.parse((await AsyncStorage.getItem(PART)) ?? 'null'); } catch { part = null; }
   let done = 0;
   for (const g of todo) {
     if (stop()) break;
-    an[g.id] = await analyseGame(g, (i, n) => onProgress(done, todo.length, i, n));
+    const resume = part && part.id === g.id ? part.info : [];
+    try {
+      an[g.id] = await analyseGame(g, (i, n) => onProgress(done, todo.length, i, n), 450, resume,
+        (info) => { AsyncStorage.setItem(PART, JSON.stringify({ id: g.id, info })).catch(() => {}); if (stop()) throw new Error('stop'); });
+    } catch { break; }                                    // to'xtatildi — qisman natija saqlangan, keyin shu joydan davom
     await saveAn(an);
+    AsyncStorage.removeItem(PART).catch(() => {});
     done++;
     onProgress(done, todo.length, 0, 0);
   }

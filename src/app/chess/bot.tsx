@@ -60,6 +60,7 @@ export default function BotGame() {
   const [voiceOn, setVoiceOn] = useState(true);
   const [book, setBook] = useState<{ name: string | null; out: number | null }>({ name: null, out: null });
   const [end, setEnd] = useState<End | null>(null);
+  const [auto, setAuto] = useState(false);   // ▶ — har 1.5 s keyingi yurish
   const cache = useRef(new Map<string, Promise<Info>>());
   const token = useRef(0);
   const extra = useRef<number[]>([]);                 // Retry qilingan yurishlar yo'qotishi (aniqlikka kiradi)
@@ -89,6 +90,11 @@ export default function BotGame() {
   };
   const persist = (x: Saved) => { setG(x); saveGame(x); };
 
+  useEffect(() => {
+    if (!auto) return;
+    const t = setInterval(() => setView((v) => { const N = fens.current.length - 1, n = (v ?? N) + 1; if (n >= N) { setAuto(false); return null; } return n; }), 1500);
+    return () => clearInterval(t);
+  }, [auto]);
   // ── soat ───────────────────────────────────────────────────────────────
   useEffect(() => {
     if (phase !== 'play' || !g || !g.tc || thinking || game.current.turn() !== g.color) return;
@@ -316,13 +322,14 @@ export default function BotGame() {
                 lastMove={view === null ? last : vm ? [vm.slice(0, 2) as Square, vm.slice(2, 4) as Square] : null}
                 badge={view === null ? badge : vm && vl ? { sq: vm.slice(2, 4) as Square, text: LABEL[vl].sym, color: LABEL[vl].color } : null}
                 onMove={userMove} pen={pen} clearKey={g.moves.length} onBusy={setLock} />
-              <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
-                <Small label="⏮" onPress={() => go(0)} />
-                <Small label="‹" onPress={() => go(cur - 1)} />
-                <Small label="›" onPress={() => go(cur + 1)} />
-                <Small label="⏭" onPress={() => go(N)} />
-                <Small label="‹⚠️" onPress={() => jumpBad(-1)} />
-                <Small label="⚠️›" onPress={() => jumpBad(1)} />
+              <View style={{ flexDirection: 'row', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
+                <Small label="⏮" onPress={() => { setAuto(false); go(0); }} />
+                <Small label="‹" onPress={() => { setAuto(false); go(cur - 1); }} />
+                <Small label="›" onPress={() => { setAuto(false); go(cur + 1); }} />
+                <Small label="⏭" onPress={() => { setAuto(false); go(N); }} />
+                {phase === 'end' && <Small label={auto ? '⏸' : '▶'} gold={auto} onPress={() => { if (!auto && view === null) setView(0); setAuto(!auto); }} />}
+                <Small label="‹⚠️" onPress={() => { setAuto(false); jumpBad(-1); }} />
+                <Small label="⚠️›" onPress={() => { setAuto(false); jumpBad(1); }} />
                 <T dim size={12} style={{ flex: 1, textAlign: 'right' }}>{cur}/{N}</T>
               </View>
             </View>
@@ -372,7 +379,7 @@ function Chips<V extends string | number | null>({ items, value, onChange }: { i
 }
 function Small({ label, onPress, gold }: { label: string; onPress: () => void; gold?: boolean }) {
   return (
-    <Pressable onPress={onPress} style={{ paddingHorizontal: 12, paddingVertical: 9, borderRadius: 10, backgroundColor: gold ? C.gold : C.subtle }}>
+    <Pressable onPress={onPress} style={{ paddingHorizontal: 10, paddingVertical: 9, borderRadius: 10, backgroundColor: gold ? C.gold : C.subtle }}>
       <T size={14} bold={gold} color={gold ? '#2A1E0A' : C.text}>{label}</T>
     </Pressable>
   );

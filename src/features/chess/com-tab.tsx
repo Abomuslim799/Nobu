@@ -9,7 +9,7 @@ import { Pressable, TextInput, View } from 'react-native';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { CAUSE, LABEL, type Label } from '@/features/chess/analysis';
-import { analyseAll, fetchCom, fresh, loadAn, loadCom, type ComGame, type GameAn } from '@/features/chess/chesscom';
+import { analyseAll, fetchCom, loadAn, loadCom, type ComGame, type GameAn } from '@/features/chess/chesscom';
 import { diagnose, style, weeklyPlan } from '@/features/chess/coach';
 
 export function ComTab() {
@@ -22,8 +22,10 @@ export function ComTab() {
   const stop = useRef(false);
 
   useEffect(() => {
-    loadCom().then((c) => { setUser(c.user); setGames(c.games); });
-    loadAn().then(setAn);
+    Promise.all([loadCom(), loadAn()]).then(([c, m]) => {
+      setUser(c.user); setGames(c.games); setAn(m);
+      if (c.games.some((x) => !m[x.id])) run();            // navbatdagilar — o'zi davom etadi
+    });
     return () => { stop.current = true; };
   }, []);
 
@@ -43,7 +45,7 @@ export function ComTab() {
   };
 
   const d = diagnose(games, an), st = d.games >= 5 ? style(games, an) : [], plan = weeklyPlan(d);
-  const todo = games.filter((g) => !fresh(an[g.id])).length;
+  const todo = games.filter((g) => !an[g.id]).length;
   return (
     <View style={{ gap: 12 }}>
       <Card style={{ gap: 8 }}>
