@@ -13,6 +13,8 @@ export const KEYS = {
   chessBot: 'farobiy.chess.bot',          // Farobiy bot: reytingingiz, o'yinlar tarixi
   chessGame: 'farobiy.chess.game',        // tugallanmagan o'yin (davom ettirish uchun)
   chessOwn: 'farobiy.chess.own',          // o'z xatolaringizdan yasalgan masalalar
+  chessCom: 'farobiy.chess.com',          // chess.com o'yinlari (username, yurishlar, soat)
+  chessComAn: 'farobiy.chess.com.an',     // ularning tahlili (yig'ilib boradi)
   scienceLog: 'farobiy.science.v1',
   skills: 'farobiy.skills.v1',          // ingliz tili ko'nikmalar jurnali
   tts: 'farobiy.tts.v1',                // Ustoz ovozi manzillari keshi

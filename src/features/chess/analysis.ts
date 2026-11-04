@@ -41,8 +41,8 @@ export function material(fen: string, color: 'w' | 'b') {
 export function classify(x: { fenBefore: string; played: string; before: Info; after: Info }): { label: Label; drop: number; winBefore: number; winAfter: number } {
   const winBefore = winOf(x.before);
   const winAfter = 100 - winOf(x.after);
-  const drop = Math.max(0, winBefore - winAfter);
-  const isBest = x.played === x.before.best || drop < 0.5;
+  const isBest = x.played === x.before.best || winBefore - winAfter < 0.5;
+  const drop = isBest ? 0 : Math.max(0, winBefore - winAfter);   // dvigatel tanlovi — yo'qotish 0 (chuqurlik farqi shovqini emas)
   let label: Label;
   if (isBest) label = 'best';
   else if (drop < 5) label = 'good';
@@ -79,4 +79,29 @@ export function rateGame(rating: number, games: number, botElo: number, score: n
   const exp = 1 / (1 + 10 ** ((botElo - rating) / 400));
   const k = games < 10 ? 40 : 24;
   return Math.round(rating + k * (score - exp));
+}
+
+// ── Xato sababi (murabbiy tashxisi uchun) ─────────────────────────────────
+export type Cause = 'none' | 'time' | 'opening' | 'threat' | 'tactic' | 'positional';
+export const CAUSE: Record<Exclude<Cause, 'none'>, { name: string; icon: string; tip: string }> = {
+  threat: { name: "Raqib tahdidini ko'rmadingiz", icon: '👁️', tip: 'Har yurishdan oldin: raqibning shax, olish va tahdidlari (CCT) — 3 soniya tekshiruv.' },
+  tactic: { name: "O'z taktikangizni ko'rmadingiz", icon: '⚔️', tip: "Yutuq bo'lgan joyda avval majburiy yurishlarni (shax, olish) hisoblang." },
+  time: { name: 'Vaqt tanqisligi', icon: '⏱️', tip: "Debyut va oddiy pozitsiyalarda tezroq; vaqtni hal qiluvchi lahzalarga saqlang." },
+  opening: { name: 'Debyutni bilmaslik', icon: '📖', tip: "O'z debyutlaringizning birinchi 8–10 yurishini mashq qiling." },
+  positional: { name: "Pozitsiyani noto'g'ri baholash / hisob", icon: '♟️', tip: "Yurishdan oldin reja: qaysi dona yomon turibdi, piyodalar qayerga ko'rsatadi." },
+};
+/** Yomon yurish sababi (qoidalar bilan, taxminiy). */
+export function cause(x: { fenBefore: string; fenAfter: string; label: Label; after: Info; ply: number; inBook: boolean; bookMove: boolean; played: string; clock: number | null; base: number }): Cause {
+  if (!BAD.includes(x.label) && x.label !== 'inaccuracy') return 'none';
+  if (x.clock !== null && x.base > 0 && x.clock < Math.max(15, x.base * 0.08)) return 'time';
+  if (x.ply < 24 && x.inBook && !x.bookMove) return 'opening';   // nazariyadagi pozitsiyada nazariyadan tashqari yurish
+  if (x.label === 'miss') return 'tactic';
+  try {
+    const me = new Chess(x.fenBefore).turn();
+    const g = new Chess(x.fenAfter);
+    const m0 = material(x.fenAfter, me);
+    for (const u of x.after.pv.slice(0, 2)) g.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
+    if (material(g.fen(), me) - m0 <= -2 || g.isCheckmate()) return 'threat';
+  } catch { /* variant yo'q */ }
+  return 'positional';
 }

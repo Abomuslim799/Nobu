@@ -21,7 +21,6 @@ import { BAD, BOT_GAP, LABEL, botParams, classify, gameAccuracy, rateGame, type 
 import { ChessBoard, type Badge } from '@/features/chess/board';
 import { addOwn, getBot, getSaved, phrase, saveBot, saveGame, type BotState, type GameRec, type PhraseKind, type Saved } from '@/features/chess/bot';
 import { analyse, botMove, type Info } from '@/features/chess/engine/engine';
-import { EngineHost } from '@/features/chess/engine/host';
 import { useLook } from '@/features/chess/look';
 import { PRACTICES, inPractice, openingName, practiceNext, type Practice } from '@/features/chess/openings';
 import type { Row } from '@/features/chess/puzzles';
@@ -246,7 +245,6 @@ export default function BotGame() {
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
-      <EngineHost />
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 8 }}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
         <T bold size={18} style={{ flex: 1 }}>🤖 Farobiy</T>

@@ -14,14 +14,16 @@ import { C } from '@/core/theme';
 import { Button, Card, T } from '@/core/ui/kit';
 import { chessResult, finishGame, getChess, type ChessState } from '@/features/brain/brain';
 import { getOwn } from '@/features/chess/bot';
+import { ComTab } from '@/features/chess/com-tab';
+import { EngineHost } from '@/features/chess/engine/host';
 import { PuzzleView } from '@/features/chess/puzzle';
 import { preloadSounds } from '@/features/chess/sound';
 import { pick, SPRINT_LIVES, SPRINT_SEC, sprintRating, THEMES, themesUz, type Row } from '@/features/chess/puzzles';
 import { useProgress, useRating } from '@/store';
 
-type Tab = 'puzzles' | 'sprint' | 'themes' | 'bot';
+type Tab = 'puzzles' | 'sprint' | 'themes' | 'bot' | 'analysis';
 const TABS: { id: Tab; label: string }[] = [
-  { id: 'puzzles', label: '🧩 Masalalar' }, { id: 'sprint', label: '⚡ Sprint' }, { id: 'themes', label: '🎯 Mavzular' }, { id: 'bot', label: '🤖 Bot' },
+  { id: 'puzzles', label: '🧩 Masalalar' }, { id: 'sprint', label: '⚡ Sprint' }, { id: 'themes', label: '🎯 Mavzular' }, { id: 'bot', label: '🤖 Bot' }, { id: 'analysis', label: '🔍 Tahlil' },
 ];
 const SESSION = 5;
 
@@ -35,6 +37,7 @@ export default function ChessScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
+      <EngineHost />{/* Stockfish — bitta, shu ekran ochiq ekan bot va tahlil ishlatadi */}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 8 }}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
         <T bold size={18} style={{ flex: 1 }}>♟️ Shaxmat</T>
@@ -52,6 +55,7 @@ export default function ChessScreen() {
         {tab === 'puzzles' && st && <Session key="p" st={st} onSt={setSt} onBusy={setLock} />}
         {tab === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
         {tab === 'sprint' && st && <Sprint base={st.rating} onBusy={setLock} />}
+        {tab === 'analysis' && <ComTab />}
         {tab === 'bot' && (
           <Card style={{ gap: 8 }}>
             <T bold size={17}>🤖 Farobiy bilan o'yin</T>
