@@ -14,6 +14,7 @@ import { C } from '@/core/theme';
 import { Button, Card, T } from '@/core/ui/kit';
 import { chessResult, finishGame, getChess, type ChessState } from '@/features/brain/brain';
 import { PuzzleView } from '@/features/chess/puzzle';
+import { preloadSounds } from '@/features/chess/sound';
 import { pick, SPRINT_LIVES, SPRINT_SEC, sprintRating, THEMES, themesUz, type Row } from '@/features/chess/puzzles';
 import { useProgress, useRating } from '@/store';
 
@@ -27,7 +28,9 @@ export default function ChessScreen() {
   const insets = useSafeAreaInsets();
   const [tab, setTab] = useState<Tab>('puzzles');
   const [st, setSt] = useState<ChessState | null>(null);
+  const [lock, setLock] = useState(false);              // barmoq doskada — sahifa aylanmaydi
   useFocusEffect(useCallback(() => { getChess().then(setSt); }, []));
+  useEffect(() => { preloadSounds(); }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
@@ -37,17 +40,17 @@ export default function ChessScreen() {
         {st && <T dim size={13}>Reyting {st.rating}</T>}
         <Pressable onPress={() => router.push('/chess/settings')} hitSlop={10}><T size={20}>⚙️</T></Pressable>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }} contentContainerStyle={{ gap: 6, paddingHorizontal: 16, paddingBottom: 8 }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, flexShrink: 0 }} contentContainerStyle={{ gap: 6, paddingHorizontal: 16, paddingBottom: 8 }}>
         {TABS.map((t) => (
           <Pressable key={t.id} onPress={() => setTab(t.id)} style={{ paddingHorizontal: 13, paddingVertical: 8, borderRadius: 999, backgroundColor: tab === t.id ? C.gold : C.card }}>
             <T size={14} bold={tab === t.id} color={tab === t.id ? '#2A1E0A' : C.text}>{t.label}</T>
           </Pressable>
         ))}
       </ScrollView>
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 12, paddingBottom: insets.bottom + 30 }} scrollEnabled>
-        {tab === 'puzzles' && st && <Session key="p" st={st} onSt={setSt} />}
-        {tab === 'themes' && st && <Themes st={st} onSt={setSt} />}
-        {tab === 'sprint' && st && <Sprint base={st.rating} />}
+      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 12, paddingBottom: insets.bottom + 30 }} scrollEnabled={!lock}>
+        {tab === 'puzzles' && st && <Session key="p" st={st} onSt={setSt} onBusy={setLock} />}
+        {tab === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
+        {tab === 'sprint' && st && <Sprint base={st.rating} onBusy={setLock} />}
         {tab === 'bot' && (
           <Card style={{ gap: 6 }}>
             <T bold size={17}>🤖 Farobiy bilan o'yin</T>
@@ -60,7 +63,7 @@ export default function ChessScreen() {
 }
 
 /** 5 ta masala; mavzu berilsa — faqat shu mavzudan. Natija reyting, FR va kunlik rejaga yoziladi. */
-function Session({ st, onSt, theme, onExit }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void }) {
+function Session({ st, onSt, theme, onExit, onBusy }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void; onBusy?: (b: boolean) => void }) {
   const { recordGame } = useProgress();
   const { syncChess } = useRating();
   const [n, setN] = useState(0);
@@ -106,30 +109,48 @@ function Session({ st, onSt, theme, onExit }: { st: ChessState; onSt: (s: ChessS
         <T dim size={13} style={{ flex: 1 }}>{theme ? `${THEMES.find((t) => t.id === theme)?.name} · ` : ''}Masala {n + 1}/{SESSION}</T>
         <View style={{ flexDirection: 'row', gap: 3 }}>{Array.from({ length: SESSION }, (_, i) => <T key={i} size={14} color={i < res.length ? (res[i] ? '#5B9E2E' : '#D64545') : C.dim}>{i < res.length ? (res[i] ? '★' : '✗') : '·'}</T>)}</View>
       </View>
-      <PuzzleView key={row[0] + n} row={row} onFinish={finish} />
+      <PuzzleView key={row[0] + n} row={row} onFinish={finish} onBusy={onBusy} />
     </View>
   );
 }
 
-function Themes({ st, onSt }: { st: ChessState; onSt: (s: ChessState) => void }) {
+function Themes({ st, onSt, onBusy }: { st: ChessState; onSt: (s: ChessState) => void; onBusy?: (b: boolean) => void }) {
   const [theme, setTheme] = useState<string | null>(null);
-  if (theme) return <Session key={theme} st={st} onSt={onSt} theme={theme} onExit={() => setTheme(null)} />;
+  if (theme) return <Session key={theme} st={st} onSt={onSt} theme={theme} onExit={() => setTheme(null)} onBusy={onBusy} />;
   return (
-    <View style={{ gap: 8 }}>
-      <T dim size={13}>Zaif mavzuni tanlang — 5 ta masala shu mavzudan, reytingingizga yaqin.</T>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-        {THEMES.map((t) => (
-          <Pressable key={t.id} onPress={() => setTheme(t.id)} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 12, backgroundColor: C.card, borderWidth: 1, borderColor: C.cardBorder })}>
-            <T size={14}>{t.name} <T dim size={12}>{t.n}</T></T>
-          </Pressable>
-        ))}
-      </View>
+    <View style={{ gap: 14 }}>
+      <T dim size={13}>Mavzuni tanlang — 5 ta masala, reytingingizga yaqin.</T>
+      {THEME_GROUPS.map((g) => {
+        const items = THEMES.filter((t) => g.ids.includes(t.id));
+        if (!items.length) return null;
+        return (
+          <View key={g.title} style={{ gap: 8 }}>
+            <T bold size={15}>{g.icon} {g.title}</T>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 8 }}>
+              {items.map((t) => (
+                <Pressable key={t.id} onPress={() => setTheme(t.id)} style={({ pressed }) => ({ width: '48.5%', opacity: pressed ? 0.7 : 1, padding: 12, borderRadius: 14,
+                  backgroundColor: C.card, borderWidth: 1, borderColor: C.cardBorder, borderLeftWidth: 4, borderLeftColor: g.color, gap: 2 })}>
+                  <T bold size={15}>{t.name}</T>
+                  <T dim size={12}>{t.n} ta masala</T>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        );
+      })}
     </View>
   );
 }
+
+const THEME_GROUPS: { title: string; icon: string; color: string; ids: string[] }[] = [
+  { title: 'Mat', icon: '♚', color: '#D64545', ids: ['mateIn1', 'mateIn2', 'mateIn3', 'backRankMate'] },
+  { title: 'Taktika', icon: '⚔️', color: '#E8B84A', ids: ['fork', 'pin', 'skewer', 'discoveredAttack', 'discoveredCheck', 'doubleCheck', 'sacrifice', 'deflection', 'attraction', 'intermezzo', 'clearance', 'hangingPiece', 'trappedPiece'] },
+  { title: 'Hujum va himoya', icon: '🛡️', color: '#35D0C2', ids: ['kingsideAttack', 'queensideAttack', 'exposedKing', 'defensiveMove', 'quietMove', 'advancedPawn', 'promotion'] },
+  { title: "O'yin bosqichi", icon: '♟️', color: '#8FA3B8', ids: ['opening', 'middlegame', 'endgame', 'rookEndgame', 'pawnEndgame'] },
+];
 
 /** ⚡ Sprint: 3 daqiqa, 3 ta xato — tugaydi. Masalalar osondan boshlanib qiyinlashadi. */
-function Sprint({ base }: { base: number }) {
+function Sprint({ base, onBusy }: { base: number; onBusy?: (b: boolean) => void }) {
   const { recordGame } = useProgress();
   const [phase, setPhase] = useState<'intro' | 'run' | 'end'>('intro');
   const [left, setLeft] = useState(SPRINT_SEC);
@@ -182,7 +203,7 @@ function Sprint({ base }: { base: number }) {
         <T bold size={18} style={{ flex: 1, textAlign: 'center' }}>★ {solved}</T>
         <T size={18} style={{ flex: 1, textAlign: 'right' }}>{'❤️'.repeat(lives)}{'🖤'.repeat(SPRINT_LIVES - lives)}</T>
       </View>
-      {row && <PuzzleView key={k.current} row={row} sprint onFinish={onFinish} />}
+      {row && <PuzzleView key={k.current} row={row} sprint onFinish={onFinish} onBusy={onBusy} />}
     </View>
   );
 }

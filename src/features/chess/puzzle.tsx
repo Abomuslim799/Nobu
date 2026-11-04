@@ -20,7 +20,7 @@ type Frame = { fen: string; last: [Square, Square] | null; badge: Badge | null }
 const uci = (u: string) => ({ from: u.slice(0, 2) as Square, to: u.slice(2, 4) as Square, promotion: u[4] });
 export const GOOD = '#5B9E2E', BAD = '#D64545';
 
-export function PuzzleView({ row, sprint = false, onFinish }: { row: Row; sprint?: boolean; onFinish: (ok: boolean) => void }) {
+export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row; sprint?: boolean; onFinish: (ok: boolean) => void; onBusy?: (b: boolean) => void }) {
   const [id, fen0, movesStr, prating, themes] = row;
   const moves = useMemo(() => movesStr.split(' '), [movesStr]);
   const look = useLook();
@@ -105,7 +105,7 @@ export function PuzzleView({ row, sprint = false, onFinish }: { row: Row; sprint
         </Pressable>
       </View>
       <ChessBoard fen={fr.fen} orientation={me} movable={!done && view === null ? me : null} lastMove={fr.last} badge={fr.badge}
-        onMove={onMove} pen={pen} clearKey={hist.length} />
+        onMove={onMove} pen={pen} clearKey={hist.length} onBusy={onBusy} />
 
       {!sprint && done && hist.length > 2 && (
         <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>

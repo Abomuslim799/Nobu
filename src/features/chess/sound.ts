@@ -16,7 +16,8 @@ const SRC = {
 export type SoundKind = keyof typeof SRC;
 
 let players: Partial<Record<SoundKind, AudioPlayer>> | null = null;
-function init() {
+/** Tovushlarni oldindan yuklash — ekran ochilganda chaqiriladi (birinchi yurishda jim qolmasin). */
+export function preloadSounds() {
   if (players) return players;
   setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
   players = {};
@@ -25,9 +26,12 @@ function init() {
 }
 export function playSound(kind: SoundKind, on = true) {
   if (!on) return;
-  const p = init()[kind];
+  const p = preloadSounds()[kind];
   if (!p) return;
-  try { p.seekTo(0); p.play(); } catch { /* jim */ }
+  try {
+    if (p.playing || p.currentTime > 0) p.seekTo(0).then(() => p.play()).catch(() => p.play());
+    else p.play();
+  } catch { /* jim */ }
 }
 /** chess.js yurishidan tovush turi. */
 export function moveSound(m: { flags: string; san: string }): SoundKind {

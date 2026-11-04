@@ -71,4 +71,18 @@ export const PIECE_IMG: Record<string, Record<string, number>> = {
     bN: require('../../../assets/chess/minimal/bN.png'),
     bP: require('../../../assets/chess/minimal/bP.png'),
   },
+  fantaziya: {
+    wK: require('../../../assets/chess/fantaziya/wK.png'),
+    wQ: require('../../../assets/chess/fantaziya/wQ.png'),
+    wR: require('../../../assets/chess/fantaziya/wR.png'),
+    wB: require('../../../assets/chess/fantaziya/wB.png'),
+    wN: require('../../../assets/chess/fantaziya/wN.png'),
+    wP: require('../../../assets/chess/fantaziya/wP.png'),
+    bK: require('../../../assets/chess/fantaziya/bK.png'),
+    bQ: require('../../../assets/chess/fantaziya/bQ.png'),
+    bR: require('../../../assets/chess/fantaziya/bR.png'),
+    bB: require('../../../assets/chess/fantaziya/bB.png'),
+    bN: require('../../../assets/chess/fantaziya/bN.png'),
+    bP: require('../../../assets/chess/fantaziya/bP.png'),
+  },
 };

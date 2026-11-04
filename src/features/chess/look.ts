@@ -17,7 +17,7 @@ export const BOARDS: BoardTheme[] = [
 ];
 export const PIECE_SETS: { id: string; name: string }[] = [
   { id: 'klassik', name: 'Klassik' }, { id: 'seltik', name: 'Seltik' }, { id: 'neo', name: 'Neo' },
-  { id: 'iliq', name: 'Iliq' }, { id: 'minimal', name: 'Minimal' },
+  { id: 'iliq', name: 'Iliq' }, { id: 'fantaziya', name: 'Fantaziya' }, { id: 'minimal', name: 'Minimal' },
 ];
 
 export interface Look { board: string; pieces: string; sound: boolean; coords: boolean }

@@ -22,9 +22,10 @@ export interface Badge { sq: Square; text: string; color: string }
 type Arrow = { from: Square; to: Square; c: number };
 type Mark = { sq: Square; c: number };
 
-export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey }: {
+export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey, onBusy }: {
   fen: string; orientation: 'w' | 'b'; movable?: 'w' | 'b' | null; lastMove?: [Square, Square] | null;
   onMove?: (from: Square, to: Square) => void; badge?: Badge | null; pen?: boolean; clearKey?: unknown;
+  onBusy?: (busy: boolean) => void;   // barmoq doskada — ota ScrollView aylanmasin
 }) {
   const look = useLook();
   const th = boardOf(look);
@@ -89,8 +90,8 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
   };
 
   // Barmoq: PanResponder bir marta yaratiladi — joriy qiymatlar ref orqali
-  const live = useRef({ at, canMove, tap, doMove, targets, pen, setPreview, setDrag, setSel, setArrows, setMarks, cycle });
-  live.current = { at, canMove, tap, doMove, targets, pen, setPreview, setDrag, setSel, setArrows, setMarks, cycle };
+  const live = useRef({ at, canMove, tap, doMove, targets, pen, setPreview, setDrag, setSel, setArrows, setMarks, cycle, onBusy });
+  live.current = { at, canMove, tap, doMove, targets, pen, setPreview, setDrag, setSel, setArrows, setMarks, cycle, onBusy };
   const g = useRef<{ mode: 'pending' | 'arrow' | 'drag' | 'none'; sq: Square | null; x0: number; y0: number; t: ReturnType<typeof setTimeout> | null }>({ mode: 'none', sq: null, x0: 0, y0: 0, t: null });
   const pan = useRef(PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -98,6 +99,7 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
     onPanResponderTerminationRequest: () => false,
     onPanResponderGrant: (e) => {
       const L = live.current, x = e.nativeEvent.locationX, y = e.nativeEvent.locationY, sq = L.at(x, y);
+      L.onBusy?.(true);
       g.current = { mode: L.pen ? 'arrow' : 'pending', sq, x0: x, y0: y, t: null };
       if (L.pen && sq) L.setPreview({ from: sq, to: sq });
       else g.current.t = setTimeout(() => {
@@ -118,6 +120,7 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
     onPanResponderRelease: (_e, gs) => {
       const L = live.current, G0 = g.current;
       if (G0.t) clearTimeout(G0.t);
+      L.onBusy?.(false);
       const to = L.at(G0.x0 + gs.dx, G0.y0 + gs.dy);
       if (!G0.sq) return;
       if (G0.mode === 'arrow') {
@@ -131,7 +134,7 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
       } else if (G0.mode === 'pending') L.tap(G0.sq);
       G0.mode = 'none';
     },
-    onPanResponderTerminate: () => { if (g.current.t) clearTimeout(g.current.t); g.current.mode = 'none'; live.current.setPreview(null); live.current.setDrag(null); },
+    onPanResponderTerminate: () => { live.current.onBusy?.(false); if (g.current.t) clearTimeout(g.current.t); g.current.mode = 'none'; live.current.setPreview(null); live.current.setDrag(null); },
   })).current;
 
   const check = game.inCheck() ? (() => { for (const row of board) for (const p of row) if (p && p.type === 'k' && p.color === game.turn()) return p.square; return null; })() : null;

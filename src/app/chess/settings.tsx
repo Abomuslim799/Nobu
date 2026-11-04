@@ -11,19 +11,20 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { C } from '@/core/theme';
 import { Card, T } from '@/core/ui/kit';
 import { ChessBoard } from '@/features/chess/board';
-import { BOARDS, PIECE_SETS, setLook, useLook } from '@/features/chess/look';
+import { BOARDS, PIECE_SETS, boardOf, setLook, useLook } from '@/features/chess/look';
 import { PIECE_IMG } from '@/features/chess/pieces';
 import { playSound } from '@/features/chess/sound';
 
 const DEMO = 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4';
 const CREDIT: Record<string, string> = {
   klassik: 'chessnut — Alexis Luengas (Apache 2.0)', seltik: 'celtic — Maurizio Monge (MIT)', neo: 'spatial — Maurizio Monge (MIT)',
-  iliq: 'rhosgfx — RhosGFX (CC0)', minimal: 'kiwen-suwi — neverRare (CC BY 4.0)',
+  iliq: 'rhosgfx — RhosGFX (CC0)', fantaziya: 'fantasy — Maurizio Monge (MIT)', minimal: 'kiwen-suwi — neverRare (CC BY 4.0)',
 };
 
 export default function ChessSettings() {
   const insets = useSafeAreaInsets();
   const look = useLook();
+  const [lock, setLock] = useState(false);
   const [demo, setDemo] = useState<{ fen: string; last: [Square, Square] }>({ fen: DEMO, last: ['f8', 'c5'] });
   const tryMove = (from: Square, to: Square) => {
     const g = new Chess(demo.fen);
@@ -36,8 +37,8 @@ export default function ChessSettings() {
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
         <T bold size={18}>⚙️ Doska va donalar</T>
       </View>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: insets.bottom + 30 }}>
-        <ChessBoard fen={demo.fen} orientation="w" movable="w" lastMove={demo.last} onMove={tryMove} />
+      <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: insets.bottom + 30 }}>
+        <ChessBoard fen={demo.fen} orientation="w" movable="w" lastMove={demo.last} onMove={tryMove} onBusy={setLock} />
         <Pressable onPress={() => setDemo({ fen: DEMO, last: ['f8', 'c5'] })}><T dim size={12} style={{ textAlign: 'center' }}>Doskada sinab ko'ring (oqlar) · ↺ qaytarish</T></Pressable>
 
         <T bold>Donalar</T>
@@ -45,7 +46,7 @@ export default function ChessSettings() {
           <Pressable key={p.id} onPress={() => setLook({ pieces: p.id })}
             style={{ flexDirection: 'row', alignItems: 'center', gap: 10, padding: 10, borderRadius: 14, backgroundColor: C.card, borderWidth: 2, borderColor: look.pieces === p.id ? C.gold : C.cardBorder }}>
             <View style={{ width: 80 }}><T bold>{p.name}</T></View>
-            <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
+            <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end', backgroundColor: boardOf(look).light, borderRadius: 8, paddingHorizontal: 4 }}>
               {['wK', 'wQ', 'wN', 'bK', 'bQ', 'bN'].map((c) => <Image key={c} source={PIECE_IMG[p.id][c]} style={{ width: 34, height: 34 }} />)}
             </View>
           </Pressable>
