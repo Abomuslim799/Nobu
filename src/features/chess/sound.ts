@@ -29,7 +29,7 @@ export function preloadSounds() {
   setAudioModeAsync({ playsInSilentMode: true }).catch(() => {});
   players = {};
   for (const k of Object.keys(SRC) as SoundKind[]) {
-    try { players[k] = SRC[k].map((s) => createAudioPlayer(s)); } catch { /* tovushsiz */ }
+    try { players[k] = SRC[k].map((s) => { const p = createAudioPlayer(s); p.volume = 1; return p; }); } catch { /* tovushsiz */ }
   }
   return players;
 }
