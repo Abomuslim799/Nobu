@@ -22,7 +22,7 @@ import { ChessBoard, type Badge } from '@/features/chess/board';
 import { addOwn, getBot, getSaved, phrase, saveBot, saveGame, type BotState, type GameRec, type PhraseKind, type Saved } from '@/features/chess/bot';
 import { analyse, botMove, type Info } from '@/features/chess/engine/engine';
 import { useLook } from '@/features/chess/look';
-import { PRACTICES, inPractice, openingName, practiceNext, type Practice } from '@/features/chess/openings';
+import { PRACTICES, bookMoves, inPractice, openingName, practiceNext, type Practice } from '@/features/chess/openings';
 import type { Row } from '@/features/chess/puzzles';
 import { moveSound, playSound, preloadSounds } from '@/features/chess/sound';
 import { useProgress } from '@/store';
@@ -187,7 +187,7 @@ export default function BotGame() {
     const b = await before(fenBefore);
     const a = await analyse(game.current.fen(), 1200, Math.max(8, Math.min(14, b.depth - 1)));   // taxminan bir xil chuqurlik — soxta "yo'qotish" chiqmasin
     if (my !== token.current) return;
-    const c = classify({ fenBefore, played: u, before: b, after: a });
+    const c = classify({ fenBefore, played: u, before: b, after: a, book: bookMoves(fenBefore).includes(u) });
     const ply = y.moves.length - 1;
     const z: Saved = { ...y, labels: y.labels.map((l, i) => (i === ply ? c.label : l)), drops: y.drops.map((d, i) => (i === ply ? c.drop : d)) };
     persist(z);
@@ -287,62 +287,74 @@ export default function BotGame() {
         </ScrollView>
       )}
 
-      {phase !== 'setup' && g && (
-        <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, paddingTop: 0, gap: 8, paddingBottom: insets.bottom + 30 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-            <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={34} />
-            <View style={{ flex: 1 }}>
-              <T bold>Farobiy <T dim size={13}>~{g.botElo}{thinking ? ' · o\'ylayapti…' : ''}</T></T>
-              {bubble && <T size={14} color={bubble.color ?? C.text}>“{bubble.text}”</T>}
-            </View>
-          </View>
-          <ChessBoard fen={shownFen} orientation={g.color} movable={phase === 'play' && view === null ? g.color : null}
-            premove={thinking || !myTurn} onPremove={(a, b) => { setPre([a, b]); preRef.current = [a, b]; }} premoveSq={pre}
-            lastMove={view === null ? last : null} badge={view === null ? badge : null} onMove={userMove} pen={pen} clearKey={g.moves.length} onBusy={setLock} />
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <T bold style={{ flex: 1 }}>Siz <T dim size={13}>{g.color === 'w' ? 'oqlar' : 'qoralar'}</T></T>
-            {g.tc > 0 && <T bold size={18} color={g.myTime < 30 ? C.red : C.text} style={{ fontVariant: ['tabular-nums'] }}>⏱ {clock(g.myTime)}</T>}
-          </View>
-          {(book.name || book.out) && (
-            <T dim size={13}>📖 {book.name ?? ''}{book.out ? ` · nazariyadan ${book.out}-yurishda chiqdingiz` : ''}</T>
-          )}
-          <MoveList moves={g.moves} labels={g.labels} start={fens.current[0]} />
-
-          {phase === 'play' && (
-            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
-              {canRetry && <Small label="↺ Retry" onPress={retry} gold />}
-              <Small label="‹" onPress={() => setView(Math.max(0, (view ?? fens.current.length - 1) - 1))} />
-              <Small label="›" onPress={() => { const n = (view ?? fens.current.length - 1) + 1; setView(n >= fens.current.length - 1 ? null : n); }} />
-              <Small label={pen ? '✏️ Reja ✓' : '✏️ Reja'} onPress={() => setPen(!pen)} />
-              <Small label="🏳 Taslim" onPress={() => finish('loss', 'Taslim')} />
-            </View>
-          )}
-          {pre && <T dim size={12}>⏩ Oldindan yurish: {pre[0]}–{pre[1]} (bot yurgach bajariladi)</T>}
-
-          {phase === 'end' && end && (
-            <Card style={{ gap: 6, alignItems: 'center' }}>
-              <T size={40}>{end.result === 'win' ? '🏆' : end.result === 'draw' ? '🤝' : '♚'}</T>
-              <T bold size={20}>{end.result === 'win' ? 'Siz yutdingiz' : end.result === 'draw' ? 'Durang' : 'Farobiy yutdi'} · {end.why}</T>
-              <T size={15}>Aniqlik {end.acc}%{end.prevAcc !== null ? ` · oldingi o'yinga nisbatan ${end.acc - end.prevAcc >= 0 ? '+' : ''}${end.acc - end.prevAcc}%` : ''}</T>
-              <T size={15} color={end.dRating >= 0 ? C.good : C.red}>Reyting {end.rating} ({end.dRating >= 0 ? '+' : ''}{end.dRating})</T>
-              <LabelCounts labels={g.labels} color={g.color} />
-              {g.retries > 0 && <T dim size={13}>Retry: {g.retries} marta (aniqlikka kiritildi)</T>}
-              {end.own > 0 && <T dim size={13}>📌 {end.own} ta xatoingiz "Xatolarim" masalalariga qo'shildi</T>}
-              <View style={{ alignSelf: 'stretch', gap: 8, marginTop: 4 }}>
-                <Button label="Yangi o'yin" onPress={() => { setPhase('setup'); setG(null); }} />
-                <Button kind="ghost" label="Yurishlarni ko'rish (‹ ›)" onPress={() => setView(0)} />
+      {phase !== 'setup' && g && (() => {
+        const N = fens.current.length - 1, cur = view ?? N;
+        const mine = (i: number) => (g.color === 'w' ? i % 2 === 0 : i % 2 === 1);
+        const vm = cur > 0 ? g.moves[cur - 1] : null, vl = cur > 0 ? g.labels[cur - 1] : null;
+        const go = (i: number) => setView(i >= N ? null : Math.max(0, i));
+        const jumpBad = (dir: 1 | -1) => {
+          for (let i = cur - 1 + dir; i >= 0 && i < g.moves.length; i += dir) {
+            const l = g.labels[i];
+            if (mine(i) && l && (BAD.includes(l) || l === 'inaccuracy')) return go(i + 1);
+          }
+        };
+        return (
+          <>
+            {/* Doska va boshqaruv — doim ko'rinib turadi (pastga aylantirish shart emas) */}
+            <View style={{ paddingHorizontal: 16, gap: 6 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={30} />
+                <View style={{ flex: 1 }}>
+                  <T bold size={14}>Farobiy <T dim size={12}>~{g.botElo}{thinking ? " · o'ylayapti…" : ''}</T></T>
+                  {bubble && view === null && <T size={13} color={bubble.color ?? C.text}>“{bubble.text}”</T>}
+                  {view !== null && <T size={13} color={vl ? LABEL[vl].color : C.dim}>{cur === 0 ? "Boshlang'ich pozitsiya" : `${Math.ceil(cur / 2)}-yurish${vl ? ` · ${LABEL[vl].sym} ${LABEL[vl].name}` : ''}`}</T>}
+                </View>
+                {g.tc > 0 && <T bold size={17} color={g.myTime < 30 ? C.red : C.text} style={{ fontVariant: ['tabular-nums'] }}>⏱ {clock(g.myTime)}</T>}
               </View>
-              {view !== null && (
-                <View style={{ flexDirection: 'row', gap: 8 }}>
-                  <Small label="‹" onPress={() => setView(Math.max(0, view - 1))} />
-                  <T dim>{view}/{fens.current.length - 1}</T>
-                  <Small label="›" onPress={() => setView(Math.min(fens.current.length - 1, view + 1))} />
+              <ChessBoard fen={shownFen} orientation={g.color} movable={phase === 'play' && view === null ? g.color : null}
+                premove={thinking || !myTurn} onPremove={(a, b) => { setPre([a, b]); preRef.current = [a, b]; }} premoveSq={pre}
+                lastMove={view === null ? last : vm ? [vm.slice(0, 2) as Square, vm.slice(2, 4) as Square] : null}
+                badge={view === null ? badge : vm && vl ? { sq: vm.slice(2, 4) as Square, text: LABEL[vl].sym, color: LABEL[vl].color } : null}
+                onMove={userMove} pen={pen} clearKey={g.moves.length} onBusy={setLock} />
+              <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+                <Small label="⏮" onPress={() => go(0)} />
+                <Small label="‹" onPress={() => go(cur - 1)} />
+                <Small label="›" onPress={() => go(cur + 1)} />
+                <Small label="⏭" onPress={() => go(N)} />
+                <Small label="‹⚠️" onPress={() => jumpBad(-1)} />
+                <Small label="⚠️›" onPress={() => jumpBad(1)} />
+                <T dim size={12} style={{ flex: 1, textAlign: 'right' }}>{cur}/{N}</T>
+              </View>
+            </View>
+
+            <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, paddingTop: 8, gap: 8, paddingBottom: insets.bottom + 30 }}>
+              {phase === 'play' && (
+                <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+                  {canRetry && <Small label="↺ Retry" onPress={retry} gold />}
+                  <Small label={pen ? '✏️ Reja ✓' : '✏️ Reja'} onPress={() => setPen(!pen)} />
+                  <Small label="🏳 Taslim" onPress={() => finish('loss', 'Taslim')} />
                 </View>
               )}
-            </Card>
-          )}
-        </ScrollView>
-      )}
+              {pre && <T dim size={12}>⏩ Oldindan yurish: {pre[0]}–{pre[1]} (bot yurgach bajariladi)</T>}
+              {(book.name || book.out) && <T dim size={13}>📖 {book.name ?? ''}{book.out ? ` · nazariyadan ${book.out}-yurishda chiqdingiz` : ''}</T>}
+
+              {phase === 'end' && end && (
+                <Card style={{ gap: 6, alignItems: 'center' }}>
+                  <T bold size={18}>{end.result === 'win' ? '🏆 Siz yutdingiz' : end.result === 'draw' ? '🤝 Durang' : '♚ Farobiy yutdi'} · {end.why}</T>
+                  <T size={14}>Aniqlik {end.acc}%{end.prevAcc !== null ? ` · oldingi o'yinga nisbatan ${end.acc - end.prevAcc >= 0 ? '+' : ''}${end.acc - end.prevAcc}%` : ''}</T>
+                  <T size={14} color={end.dRating >= 0 ? C.good : C.red}>Reyting {end.rating} ({end.dRating >= 0 ? '+' : ''}{end.dRating})</T>
+                  <LabelCounts labels={g.labels} color={g.color} />
+                  {g.retries > 0 && <T dim size={12}>Retry: {g.retries} marta (aniqlikka kiritildi)</T>}
+                  {end.own > 0 && <T dim size={12}>📌 {end.own} ta xatoingiz "Xatolarim" masalalariga qo'shildi</T>}
+                  <T dim size={12}>⚠️› — keyingi xatoingizga o'tish · yurishni bossangiz — doskada ochiladi</T>
+                  <View style={{ alignSelf: 'stretch' }}><Button label="Yangi o'yin" onPress={() => { setPhase('setup'); setG(null); }} /></View>
+                </Card>
+              )}
+              <MoveList moves={g.moves} labels={g.labels} start={fens.current[0]} cur={cur} onPick={(i) => go(i + 1)} />
+            </ScrollView>
+          </>
+        );
+      })()}
     </View>
   );
 }
@@ -365,18 +377,20 @@ function Small({ label, onPress, gold }: { label: string; onPress: () => void; g
     </Pressable>
   );
 }
-function MoveList({ moves, labels, start }: { moves: string[]; labels: (Label | null)[]; start: string }) {
+function MoveList({ moves, labels, start, cur, onPick }: { moves: string[]; labels: (Label | null)[]; start: string; cur?: number; onPick?: (i: number) => void }) {
   const g = new Chess(start), sans: string[] = [];
   for (const u of moves) { try { sans.push(g.move(uci(u)).san); } catch { sans.push(u); } }
   if (!sans.length) return null;
   return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4, padding: 8, borderRadius: 10, backgroundColor: C.card }}>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 8, borderRadius: 10, backgroundColor: C.card }}>
       {sans.map((s, i) => {
         const l = labels[i];
         return (
-          <T key={i} size={13} color={l && l !== 'best' && l !== 'good' ? LABEL[l].color : C.text}>
-            {i % 2 === 0 ? `${i / 2 + 1}.` : ''}{s}{l && l !== 'good' ? LABEL[l].sym.replace('★', '') : ''}{' '}
-          </T>
+          <Pressable key={i} onPress={() => onPick?.(i)} hitSlop={4} style={{ paddingHorizontal: 3, paddingVertical: 2, borderRadius: 6, backgroundColor: cur === i + 1 ? C.goldSoft : 'transparent' }}>
+            <T size={14} color={l && l !== 'best' && l !== 'good' ? LABEL[l].color : C.text}>
+              {i % 2 === 0 ? `${i / 2 + 1}.` : ''}{s}{l && l !== 'good' ? LABEL[l].sym.replace('★', '') : ''}
+            </T>
+          </Pressable>
         );
       })}
     </View>

@@ -46,6 +46,12 @@ export default function Review() {
 
   const moments = a.moves.filter((m) => m.drop >= 8 && !['best', 'good', 'brilliant'].includes(m.label)).sort((x, y) => y.drop - x.drop).slice(0, 5).sort((x, y) => x.ply - y.ply);
   const byPly = new Map(a.moves.map((m) => [m.ply, m]));
+  const sans = g.moves.map((u, i) => san(fens[i], u));
+  const jump = (dir: 1 | -1) => {
+    const bad = a.moves.filter((m) => !['best', 'good', 'brilliant'].includes(m.label)).map((m) => m.ply + 1);
+    const t = dir > 0 ? bad.find((p) => p > view) : [...bad].reverse().find((p) => p < view);
+    if (t !== undefined) { setView(t); setReveal(false); const m = a.moves.find((x) => x.ply === t - 1); if (m && m.drop >= 8) { setMom(m); setPlan(''); } }
+  };
   const goMoment = (m: MoveAn) => { setMom(m); setView(m.ply); setPlan(''); setReveal(false); setErr(''); };
   const ask = async (m: MoveAn) => {
     setBusy(true); setErr('');
@@ -78,16 +84,20 @@ O'zbekcha, qisqa (6–8 gap), maqtovsiz javob bering, 4 qism:
           <T dim size={12}>{g.result === 'win' ? "Yutgansiz" : g.result === 'draw' ? 'Durang' : 'Yutqazgansiz'} · aniqlik {a.acc}% · {a.opening ?? ''}{a.bookOut ? ` · nazariyadan ${a.bookOut}-yurishda chiqqansiz` : ''}</T>
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 0, gap: 10, paddingBottom: insets.bottom + 30 }}>
+      <View style={{ paddingHorizontal: 16, gap: 6 }}>
         <ChessBoard fen={fen} orientation={g.color} lastMove={lm ? [lm.slice(0, 2) as Square, lm.slice(2, 4) as Square] : null}
           badge={best ? { sq: best.slice(2, 4) as Square, text: '★', color: LABEL.best.color } : mv && lm ? { sq: lm.slice(2, 4) as Square, text: LABEL[mv.label].sym, color: LABEL[mv.label].color } : null} />
         <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
           {[['⏮', 0], ['‹', Math.max(0, view - 1)], ['›', Math.min(fens.length - 1, view + 1)], ['⏭', fens.length - 1]].map(([l, to]) => (
             <Pressable key={l as string} onPress={() => { setView(to as number); setReveal(false); }} style={{ width: 48, height: 38, borderRadius: 10, backgroundColor: C.subtle, alignItems: 'center', justifyContent: 'center' }}><T size={17}>{l as string}</T></Pressable>
           ))}
-          <T dim style={{ flex: 1, textAlign: 'right' }}>{Math.ceil(view / 2)}-yurish</T>
+          <Pressable onPress={() => jump(-1)} style={{ paddingHorizontal: 10, height: 38, borderRadius: 10, backgroundColor: C.subtle, justifyContent: 'center' }}><T size={14}>‹⚠️</T></Pressable>
+          <Pressable onPress={() => jump(1)} style={{ paddingHorizontal: 10, height: 38, borderRadius: 10, backgroundColor: C.subtle, justifyContent: 'center' }}><T size={14}>⚠️›</T></Pressable>
+          <T dim size={12} style={{ flex: 1, textAlign: 'right' }}>{Math.ceil(view / 2)}-yurish</T>
         </View>
-        {mv && <T size={13} color={LABEL[mv.label].color}>{san(fens[view - 1], g.moves[view - 1])} — {LABEL[mv.label].name}{mv.drop >= 5 ? ` (−${mv.drop}%)` : ''}{mv.cause !== 'none' ? ` · ${CAUSE[mv.cause].icon} ${CAUSE[mv.cause].name}` : ''}</T>}
+        <T size={13} color={mv ? LABEL[mv.label].color : C.dim}>{mv ? `${san(fens[view - 1], g.moves[view - 1])} — ${LABEL[mv.label].name}${mv.drop >= 5 ? ` (−${mv.drop}%)` : ''}${mv.cause !== 'none' ? ` · ${CAUSE[mv.cause].icon} ${CAUSE[mv.cause].name}` : ''}` : view > 0 ? `${san(fens[view - 1], g.moves[view - 1])} — raqib yurishi` : "Boshlang'ich pozitsiya"}</T>
+      </View>
+      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 8, gap: 10, paddingBottom: insets.bottom + 30 }}>
 
         <T bold>⚡ Hal qiluvchi lahzalar</T>
         {!moments.length && <T dim>Katta xato yo'q — yaxshi o'yin.</T>}
@@ -117,6 +127,18 @@ O'zbekcha, qisqa (6–8 gap), maqtovsiz javob bering, 4 qism:
             )}
           </Card>
         )}
+        <T bold>📜 Yurishlar <T dim size={12}>(bosing — doskada ochiladi)</T></T>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 8, borderRadius: 10, backgroundColor: C.card }}>
+          {g.moves.map((u, i) => {
+            const l = byPly.get(i)?.label;
+            const bad = l && !['best', 'good', 'brilliant'].includes(l);
+            return (
+              <Pressable key={i} onPress={() => { setView(i + 1); setReveal(false); }} hitSlop={4} style={{ paddingHorizontal: 3, paddingVertical: 2, borderRadius: 6, backgroundColor: view === i + 1 ? C.goldSoft : 'transparent' }}>
+                <T size={14} color={bad ? LABEL[l!].color : C.text}>{i % 2 === 0 ? `${i / 2 + 1}.` : ''}{sans[i]}{bad ? LABEL[l!].sym : l === 'brilliant' ? '!!' : ''}</T>
+              </Pressable>
+            );
+          })}
+        </View>
         <T dim size={11}>Baho — Stockfish 10 (telefonda, ~0.5 s har pozitsiya); tushuntirish — AI, dvigatel faktlari asosida.</T>
       </ScrollView>
     </View>

@@ -17,7 +17,9 @@ export interface ComGame {
   moves: string[]; clocks: (number | null)[];                          // har yurishdan keyingi soat (s)
 }
 export interface MoveAn { ply: number; label: Label; drop: number; best: string; pv: string[]; cause: Cause; winBefore: number; clock: number | null }
-export interface GameAn { id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[] }   // evals — oqlar uchun g'alaba % har pozitsiyada
+export const AN_V = 2;   // tahlil versiyasi — qoida o'zgarsa eski tahlillar qayta qilinadi
+export const fresh = (a?: GameAn) => !!a && (a.v ?? 1) >= AN_V;
+export interface GameAn { v?: number; id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[] }   // evals — oqlar uchun g'alaba % har pozitsiyada
 
 const API = 'https://api.chess.com/pub/player';
 const HEAD = { 'User-Agent': 'Farobiy-learning-app' };
@@ -99,18 +101,18 @@ export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => 
     if (!mine) continue;
     const inBook = bookMoves(fens[i]).length > 0, played = g.moves[i];
     if (bookOut === null && inBook && !bookMoves(fens[i]).includes(played)) bookOut = Math.floor(i / 2) + 1;
-    const k = classify({ fenBefore: fens[i], played, before: info[i], after: info[i + 1] });
+    const k = classify({ fenBefore: fens[i], played, before: info[i], after: info[i + 1], book: bookMoves(fens[i]).includes(played) });
     moves.push({ ply: i, label: k.label, drop: Math.round(k.drop * 10) / 10, best: info[i].best, pv: info[i].pv.slice(0, 6), winBefore: Math.round(k.winBefore),
       clock: g.clocks[i], cause: cause({ fenBefore: fens[i], fenAfter: fens[i + 1], label: k.label, after: info[i + 1], ply: i, inBook, bookMove: bookMoves(fens[i]).includes(played), played, clock: g.clocks[i], base: g.base }) });
   }
-  return { id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
+  return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
 }
 
 /** Navbatdagi tahlil qilinmagan o'yinlarni ketma-ket tahlil qilish (to'xtatish mumkin). */
 export async function analyseAll(onProgress: (done: number, total: number, ply: number, plies: number) => void, stop: () => boolean) {
   const { games } = await loadCom();
   const an = await loadAn();
-  const todo = games.filter((g) => !an[g.id]);
+  const todo = games.filter((g) => !fresh(an[g.id]));
   let done = 0;
   for (const g of todo) {
     if (stop()) break;

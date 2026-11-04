@@ -38,9 +38,10 @@ export function material(fen: string, color: 'w' | 'b') {
  * Yurish bahosi. before — yurishdan oldingi pozitsiya (yuruvchi navbatda), after — yurishdan keyingi (raqib navbatda).
  * drop — yuruvchining g'alaba ehtimoli qancha tushgani.
  */
-export function classify(x: { fenBefore: string; played: string; before: Info; after: Info }): { label: Label; drop: number; winBefore: number; winAfter: number } {
+export function classify(x: { fenBefore: string; played: string; before: Info; after: Info; book?: boolean }): { label: Label; drop: number; winBefore: number; winAfter: number } {
   const winBefore = winOf(x.before);
   const winAfter = 100 - winOf(x.after);
+  if (x.book) return { label: x.played === x.before.best ? 'best' : 'good', drop: 0, winBefore, winAfter };   // nazariya yurishi — xato emas (sayoz hisob shovqini)
   const isBest = x.played === x.before.best || winBefore - winAfter < 0.5;
   const drop = isBest ? 0 : Math.max(0, winBefore - winAfter);   // dvigatel tanlovi — yo'qotish 0 (chuqurlik farqi shovqini emas)
   let label: Label;
