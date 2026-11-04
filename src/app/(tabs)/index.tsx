@@ -58,7 +58,7 @@ export default function Today() {
     ...(ARCHIVE.brainGames ? [] : [{ icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
         done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) }]),
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',
-        done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/brain/chess') },
+        done: todayLog.some((e) => e.skill === 'chess'), go: () => router.push('/chess') },
       ...(() => {
         const sl = SCI.find((l) => !data.lessons[`sci-${l.id}`]);
         const doneToday = SCI.some((l) => data.lessons[`sci-${l.id}`]?.day === dayKey());

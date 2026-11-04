@@ -42,7 +42,7 @@ export default function Brain() {
               const lastE = mine[mine.length - 1];
               const best = mine.reduce((m, e) => Math.max(m, e.score), 0);
               return (
-                <Pressable key={g.id} onPress={() => router.push(`/brain/${g.id}`)}>
+                <Pressable key={g.id} onPress={() => router.push(g.id === 'chess' ? '/chess' : `/brain/${g.id}`)}>
                   <Card style={{ gap: 4 }}>
                     <T bold>{g.icon} {g.title}</T>
                     <T dim size={13}>{g.about}</T>

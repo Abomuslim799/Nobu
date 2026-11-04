@@ -35,6 +35,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="science/[id]" options={NO_SWIPE} />
           <Stack.Screen name="v2/[id]" options={NO_SWIPE} />
+          <Stack.Screen name="chess/index" options={NO_SWIPE} />
           <Stack.Screen name="test" options={NO_SWIPE} />
           <Stack.Screen name="library/quote/[id]" options={{ presentation: 'modal' }} />
         </Stack>

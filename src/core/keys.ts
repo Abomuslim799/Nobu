@@ -8,6 +8,8 @@ export const KEYS = {
   brainLog: 'farobiy.brain.log.v1',
   brainLevels: 'farobiy.brain.levels.v1',
   chess: 'farobiy.brain.chess.v1',
+  chessLook: 'farobiy.chess.look',        // doska, donalar, tovush
+  chessSprint: 'farobiy.chess.sprint',    // sprint rekordi
   scienceLog: 'farobiy.science.v1',
   skills: 'farobiy.skills.v1',          // ingliz tili ko'nikmalar jurnali
   tts: 'farobiy.tts.v1',                // Ustoz ovozi manzillari keshi
