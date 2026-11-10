@@ -4,7 +4,7 @@
 
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Platform, TextInput, View } from 'react-native';
+import { Alert, DevSettings, Platform, Pressable, TextInput, View } from 'react-native';
 
 import { C } from '@/core/theme';
 import { TRACKS } from '@/features/it/tracks';
@@ -12,6 +12,8 @@ import { useRating , useProgress } from '@/store';
 import { pickBackup, exportBackup , backupNow, lastBackup, restoreLatest } from '@/core/backup';
 import { lastDays } from '@/core/date';
 import { getConfig, saveConfig, testConnection } from '@/core/server';
+import { THEMES, THEME_ID, setTheme } from '@/core/theme';
+import * as Updates from 'expo-updates';
 import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 
 export default function Stats() {
@@ -83,6 +85,7 @@ export default function Stats() {
         </View>
       </Card>
 
+      <ThemePick />
       <ServerLink />
 
       {Platform.OS !== 'web' && <Card style={{ gap: 8 }}>
@@ -106,6 +109,25 @@ function Stat({ label, value }: { label: string; value: string }) {
     <Card style={{ flex: 1, alignItems: 'center' }}>
       <T size={24} bold>{value}</T>
       <T dim size={13}>{label}</T>
+    </Card>
+  );
+}
+
+/** 🎨 Ko'rinish: mavzu tanlash — ilova yangi ranglar bilan qayta ochiladi. */
+function ThemePick() {
+  return (
+    <Card style={{ gap: 8 }}>
+      <T bold>🎨 Ko'rinish</T>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        {THEMES.map((t) => (
+          <Pressable key={t.id} onPress={() => { if (t.id === THEME_ID) return; setTheme(t.id); Updates.reloadAsync().catch(() => DevSettings.reload()); }}
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 12, backgroundColor: t.c.bg, borderWidth: 1.5, borderColor: t.id === THEME_ID ? t.c.green : t.c.cardBorder }}>
+            <View style={{ flexDirection: 'row' }}>{[t.c.card, t.c.green, t.c.gold].map((x, i) => <View key={i} style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: x, marginLeft: i ? -3 : 0 }} />)}</View>
+            <T size={13} color={t.c.text}>{t.name}</T>
+          </Pressable>
+        ))}
+      </View>
+      <T dim size={11}>Tanlansa ilova qayta ochiladi.</T>
     </Card>
   );
 }

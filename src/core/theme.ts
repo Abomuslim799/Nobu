@@ -4,7 +4,7 @@
  * (_layout.tsx), shuning uchun barcha StyleSheet'lar to'g'ri rangni oladi.
  */
 
-import { Appearance } from 'react-native';
+import { getSync, setSync } from '@/core/theme-store';
 
 const TUN = {
   bg: '#0A1220',
@@ -52,8 +52,42 @@ const KUN: typeof TUN = {
   chalk: '#13403A',
 };
 
-export const SCHEME: 'dark' | 'light' = Appearance.getColorScheme() === 'light' ? 'light' : 'dark';
-export const C = SCHEME === 'light' ? KUN : TUN;
+/** Uch to'q mavzu (foydalanuvchi tanlaydi) — nafis: urg'u rangi faqat urg'u uchun, nozik chegaralar. */
+const SAMARQAND: typeof TUN = {
+  ...TUN, bg: '#0B1020', card: '#141B30', cardBorder: 'rgba(255,255,255,0.07)', surface2: '#1C2540', text: '#ECE7DC', dim: '#8C96AD',
+  green: '#2FC6C0', greenSoft: 'rgba(47,198,192,0.14)', onAccent: '#06201F', red: '#F07A7A', redSoft: 'rgba(240,122,122,0.14)', good: '#6BD49A',
+  fire: '#E3B860', gold: '#E3B860', goldSoft: 'rgba(227,184,96,0.15)', codeBg: '#0E1426', subtle: 'rgba(255,255,255,0.05)', subtle2: 'rgba(255,255,255,0.10)',
+  simBg: '#0E1528', chalk: '#0C2A2A',
+};
+const LOJUVARD: typeof TUN = {
+  ...TUN, bg: '#090D18', card: '#121A2C', cardBorder: 'rgba(255,255,255,0.07)', surface2: '#1A2440', text: '#E9EDF5', dim: '#8792AA',
+  green: '#6E97FF', greenSoft: 'rgba(110,151,255,0.15)', onAccent: '#0A1430', red: '#F07A7A', redSoft: 'rgba(240,122,122,0.14)', good: '#6BD49A',
+  fire: '#D9B36A', gold: '#D9B36A', goldSoft: 'rgba(217,179,106,0.15)', codeBg: '#0C1222', subtle: 'rgba(255,255,255,0.05)', subtle2: 'rgba(255,255,255,0.10)',
+  simBg: '#0C1324', chalk: '#101C3A',
+};
+const KOMIR: typeof TUN = {
+  ...TUN, bg: '#0E0E11', card: '#17171C', cardBorder: 'rgba(255,255,255,0.07)', surface2: '#212128', text: '#EDE6DA', dim: '#8E8A84',
+  green: '#D98A5F', greenSoft: 'rgba(217,138,95,0.15)', onAccent: '#2A140A', red: '#E9776E', redSoft: 'rgba(233,119,110,0.14)', good: '#8FB8A3',
+  fire: '#D9B07A', gold: '#D9B07A', goldSoft: 'rgba(217,176,122,0.15)', codeBg: '#131316', subtle: 'rgba(255,255,255,0.05)', subtle2: 'rgba(255,255,255,0.10)',
+  simBg: '#141418', chalk: '#23201C',
+};
+export const THEMES = [
+  { id: 'samarqand', name: 'Samarqand tuni', c: SAMARQAND },
+  { id: 'lojuvard', name: 'Lojuvard', c: LOJUVARD },
+  { id: 'komir', name: "Ko'mir va mis", c: KOMIR },
+  { id: 'klassik', name: 'Klassik', c: TUN },
+  { id: 'kun', name: 'Kunduzgi (yorug\')', c: KUN },
+] as const;
+export const THEME_KEY = 'farobiy.theme';
+/** Tanlangan mavzu ilova ochilganda sinxron o'qiladi (StyleSheet'lar shu ranglar bilan yasaladi). */
+function chosen(): string {
+  return getSync(THEME_KEY) ?? 'samarqand';
+}
+export const THEME_ID = chosen();
+export const SCHEME: 'dark' | 'light' = THEME_ID === 'kun' ? 'light' : 'dark';
+export const C = (THEMES.find((t) => t.id === THEME_ID) ?? THEMES[0]).c;
+/** Mavzuni almashtirish — saqlaydi va ilovani qayta yuklaydi. */
+export function setTheme(id: string) { setSync(THEME_KEY, id); }
 
 /** Sarlavha shrifti (madrasa kitobi ruhi). Yuklanmagan bo'lsa — tizim shrifti. */
 export const FONT_DISPLAY = 'YoungSerif_400Regular';

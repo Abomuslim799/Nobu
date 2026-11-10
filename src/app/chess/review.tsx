@@ -38,17 +38,18 @@ export default function Review() {
     loadCom().then((c) => setG(c.games.find((x) => x.id === id) ?? null));
     loadAn().then((m) => setA(m[id] ?? null));
   }, [id]);
-  useEffect(() => {
-    if (!auto) return;
-    const t = setInterval(() => setView((v) => { if (v + 1 >= fens.length - 1) setAuto(false); return Math.min(fens.length - 1, v + 1); }), 1500);
-    return () => clearInterval(t);
-  }, [auto, g?.moves.length]);
   const fens = useMemo(() => {
     if (!g) return [];
     const c = new Chess(), out = [c.fen()];
     for (const u of g.moves) { c.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); out.push(c.fen()); }
     return out;
   }, [g]);
+  const last = fens.length - 1;
+  useEffect(() => {
+    if (!auto) return;
+    const t = setInterval(() => setView((v) => { if (v + 1 >= last) setAuto(false); return Math.min(last, v + 1); }), 1500);
+    return () => clearInterval(t);
+  }, [auto, last]);
   if (!g || !a) return <View style={{ flex: 1, backgroundColor: C.bg, padding: 40 }}><ActivityIndicator color={C.green} /></View>;
 
   const moments = a.moves.filter((m) => m.drop >= 8 && !['best', 'good', 'brilliant'].includes(m.label)).sort((x, y) => y.drop - x.drop).slice(0, 5).sort((x, y) => x.ply - y.ply);

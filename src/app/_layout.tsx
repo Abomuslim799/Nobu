@@ -19,13 +19,6 @@ const NO_SWIPE = { gestureEnabled: false, fullScreenGestureEnabled: false };
 
 export default function RootLayout() {
   useFonts({ YoungSerif_400Regular });
-  // Telefon tun/kun rejimini almashtirsa — ilova yangi ranglar bilan qayta yuklanadi
-  useEffect(() => {
-    const sub = Appearance.addChangeListener(({ colorScheme }) => {
-      if ((colorScheme === 'light' ? 'light' : 'dark') !== SCHEME) Updates.reloadAsync().catch(() => DevSettings.reload());
-    });
-    return () => sub.remove();
-  }, []);
   return (
     <StoreProvider>
       <View style={{ flex: 1 }} onTouchStart={markActive}>
