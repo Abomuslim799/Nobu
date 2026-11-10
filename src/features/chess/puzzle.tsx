@@ -1,6 +1,7 @@
 /**
  * puzzle.tsx — bitta masala: raqib birinchi yuradi, siz yechimni topasiz.
- * To'g'ri yurish — ★ Best move, noto'g'ri — ✗ Miss (yurish ko'rsatiladi, keyin qaytarilib to'g'risi o'ynaladi).
+ * Noto'g'ri yurish — dona qaytadi, yana bir urinish (reyting uchun yechilmagan hisoblanadi); 2-xatoda yechim ko'rsatiladi.
+ * 💡 Ishora — qaysi dona yurishini ko'rsatadi (reyting oshmaydi). Keyingi masalaga — o'zingiz tugma bilan.
  * Tugagach ‹ › bilan yurishlarni qayta ko'rish; xato bo'lsa — "🤖 Nega?" (AI tushuntiradi).
  */
 
@@ -34,6 +35,10 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
   const [ai, setAi] = useState<ChessExplain | null>(null);
   const [aiBusy, setAiBusy] = useState(false);
   const [aiErr, setAiErr] = useState('');
+  const [missed, setMissed] = useState(false);       // bir marta adashdi — reyting uchun yechilmagan
+  const [hint, setHint] = useState(false);
+  const [hinted, setHinted] = useState(false);
+  const wait = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const later = (ms: number, f: () => void) => { timers.current.push(setTimeout(f, ms)); };
   const me = useMemo(() => (new Chess(fen0).turn() === 'w' ? 'b' : 'w'), [fen0]);
@@ -56,7 +61,7 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
   };
 
   const onMove = (from: Square, to: Square) => {
-    if (state !== 'play' || ply % 2 === 0 || view !== null) return;
+    if (state !== 'play' || ply % 2 === 0 || view !== null || wait.current) return;
     const want = moves[ply];
     const g = game.current, before = g.fen();
     const legal = g.moves({ verbose: true }).find((m) => m.from === from && m.to === to);
@@ -64,6 +69,7 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
     const mine = `${from}${to}${legal.promotion ? (want.slice(0, 4) === `${from}${to}` ? want[4] ?? 'q' : 'q') : ''}`;
     const test = new Chess(before); test.move(uci(mine));
     if (mine.slice(0, 4) === want.slice(0, 4) || test.isCheckmate()) {
+      setHint(false);
       push(mine, { sq: to, text: '★', color: GOOD });
       if (test.isCheckmate() || ply + 1 >= moves.length) return finish(true, test.isCheckmate());
       setPly(ply + 2);
@@ -71,8 +77,13 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
     } else {
       const m = push(mine, { sq: to, text: '✗', color: BAD });
       setWrong({ san: m.san, fen: before });
-      setState('fail');
       playSound('bad', look.sound);
+      if (!sprint && !missed) {                         // 1-xato: dona qaytadi, yana urinish
+        setMissed(true); wait.current = true;
+        later(700, () => { g.undo(); setHist((h) => h.slice(0, -1)); wait.current = false; });
+        return;
+      }
+      setState('fail');
       later(900, () => {                                  // xatoni qaytarib, to'g'ri yurishni ko'rsatamiz
         g.undo();
         setHist((h) => h.slice(0, -1));
@@ -104,7 +115,8 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
           <T size={14} color={pen ? '#2A1E0A' : C.text}>✏️ Reja</T>
         </Pressable>
       </View>
-      <ChessBoard fen={fr.fen} orientation={me} movable={!done && view === null ? me : null} lastMove={fr.last} badge={fr.badge}
+      <ChessBoard fen={fr.fen} orientation={me} movable={!done && view === null ? me : null} lastMove={fr.last}
+        badge={fr.badge} hint={hint && state === 'play' && ply % 2 === 1 && view === null ? (moves[ply].slice(0, 2) as Square) : null}
         onMove={onMove} pen={pen} clearKey={hist.length} onBusy={onBusy} />
 
       {!sprint && done && hist.length > 2 && (
@@ -118,18 +130,27 @@ export function PuzzleView({ row, sprint = false, onFinish, onBusy }: { row: Row
         </View>
       )}
 
-      {state === 'play' && <T dim size={13}>{ply % 2 === 1 ? "Eng kuchli yurishni toping. Bosib turib sudrasangiz — strelka (reja)." : '…'}</T>}
-      {state === 'ok' && !sprint && <T bold color={GOOD}>★ Best move — yechildi! · {themesUz(themes) || 'taktika'}</T>}
+      {state === 'play' && !sprint && (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 36 }}>
+          <T size={14} color={missed ? BAD : C.dim} style={{ flex: 1 }}>{missed ? `✗ ${wrong?.san} emas — yana urinib ko'ring` : ply % 2 === 1 ? 'Eng kuchli yurishni toping' : '…'}</T>
+          {ply % 2 === 1 && !hint && (
+            <Pressable onPress={() => { setHint(true); setHinted(true); }} hitSlop={8} style={{ paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10, backgroundColor: C.subtle }}>
+              <T size={14}>💡 Ishora</T>
+            </Pressable>
+          )}
+        </View>
+      )}
+      {state === 'ok' && !sprint && <T bold color={missed || hinted ? C.gold : GOOD}>{missed || hinted ? `✓ Yechildi, lekin ${missed ? 'xato bilan' : 'ishora bilan'} — reyting oshmaydi` : '★ Yechildi!'} · {themesUz(themes) || 'taktika'}</T>}
       {state === 'fail' && !sprint && (
         <View style={{ gap: 6 }}>
-          <T bold color={BAD}>✗ Miss — {wrong?.san} yechim emas. To'g'ri yurish ko'rsatildi.</T>
+          <T bold color={BAD}>✗ {wrong?.san} yechim emas. To'g'ri yurish ko'rsatildi.</T>
           <T dim size={13}>Mavzu: {themesUz(themes) || 'taktika'}</T>
           {!ai && <Button kind="ghost" label={aiBusy ? '⏳ AI tahlil qilmoqda...' : '🤖 Nega?'} disabled={aiBusy} onPress={explain} />}
           {!!aiErr && <T color={C.red} size={13}>{aiErr}</T>}
           {ai && <View style={{ gap: 4 }}><T size={14}>❌ {ai.why_wrong_uz}</T><T size={14}>✅ {ai.idea_uz}</T><T size={14}>💡 {ai.tip_uz}</T></View>}
         </View>
       )}
-      {done && !sprint && <Button label="Keyingi masala ›" onPress={() => onFinish(state === 'ok')} />}
+      {done && !sprint && <Button label="Keyingi masala ›" onPress={() => onFinish(state === 'ok' && !missed && !hinted)} />}
       {!sprint && <T dim size={11}>Masala #{id} · lichess.org (CC0)</T>}
     </View>
   );

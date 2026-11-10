@@ -16,14 +16,15 @@ import { chessResult, finishGame, getChess, type ChessState } from '@/features/b
 import { getOwn } from '@/features/chess/bot';
 import { ComTab } from '@/features/chess/com-tab';
 import { EngineHost } from '@/features/chess/engine/host';
+import { OpenTab } from '@/features/chess/open-tab';
 import { PuzzleView } from '@/features/chess/puzzle';
 import { preloadSounds } from '@/features/chess/sound';
 import { pick, SPRINT_LIVES, SPRINT_SEC, sprintRating, THEMES, themesUz, type Row } from '@/features/chess/puzzles';
 import { useProgress, useRating } from '@/store';
 
-type Tab = 'puzzles' | 'sprint' | 'themes' | 'bot' | 'analysis';
+type Tab = 'puzzles' | 'sprint' | 'themes' | 'open' | 'bot' | 'analysis';
 const TABS: { id: Tab; label: string }[] = [
-  { id: 'puzzles', label: '🧩 Masalalar' }, { id: 'sprint', label: '⚡ Sprint' }, { id: 'themes', label: '🎯 Mavzular' }, { id: 'bot', label: '🤖 Bot' }, { id: 'analysis', label: '🔍 Tahlil' },
+  { id: 'puzzles', label: '🧩 Masalalar' }, { id: 'sprint', label: '⚡ Sprint' }, { id: 'themes', label: '🎯 Mavzular' }, { id: 'open', label: '📖 Debyut' }, { id: 'bot', label: '🤖 Bot' }, { id: 'analysis', label: '🔍 Tahlil' },
 ];
 const SESSION = 5;
 
@@ -56,6 +57,7 @@ export default function ChessScreen() {
         {tab === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
         {tab === 'sprint' && st && <Sprint base={st.rating} onBusy={setLock} />}
         {tab === 'analysis' && <ComTab />}
+        {tab === 'open' && <OpenTab />}
         {tab === 'bot' && (
           <Card style={{ gap: 8 }}>
             <T bold size={17}>🤖 Farobiy bilan o'yin</T>
@@ -68,7 +70,7 @@ export default function ChessScreen() {
   );
 }
 
-/** 5 ta masala; mavzu berilsa — faqat shu mavzudan. Natija reyting, FR va kunlik rejaga yoziladi. */
+/** Masalalar ketma-ket (cheksiz); har 5 tasi FR va kunlik rejaga yoziladi. Mavzu berilsa — faqat shu mavzudan. */
 function Session({ st, onSt, theme, onExit, onBusy, pool }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void; onBusy?: (b: boolean) => void; pool?: Row[] }) {
   const next = (s: ChessState) => (pool?.length ? (pool.find((p) => !s.seen.includes(p[0])) ?? pool[Math.floor(Math.random() * pool.length)]) : pick(s.rating, s.seen, theme));
   const { recordGame } = useProgress();
@@ -76,45 +78,36 @@ function Session({ st, onSt, theme, onExit, onBusy, pool }: { st: ChessState; on
   const [n, setN] = useState(0);
   const [row, setRow] = useState<Row>(() => next(st));
   const [res, setRes] = useState<boolean[]>([]);
+  const [streak, setStreak] = useState(0);
+  const [delta, setDelta] = useState<number | null>(null);
   const fails = useRef<string[]>([]);
-  const done = res.length >= SESSION;
 
   const finish = async (ok: boolean) => {
     const s2 = await chessResult(row[3], ok, row[0]);
+    setDelta(s2.rating - st.rating);
     onSt(s2);
+    setStreak(ok ? streak + 1 : 0);
     if (!ok) fails.current.push(themesUz(row[4]) || 'taktika');
     const r2 = [...res, ok];
-    setRes(r2);
-    if (r2.length >= SESSION) {
+    if (r2.length >= SESSION) {                     // 5 talik blok — FR ga yoziladi, to'xtamasdan davom
       const score = (r2.filter(Boolean).length / SESSION) * 100;
-      await finishGame('chess', 'chess', score, 1, fails.current);
+      finishGame('chess', 'chess', score, 1, fails.current).catch(() => {});
       recordGame('chess', score);
       syncChess();
-    } else { setRow(next(s2)); setN(n + 1); }
+      fails.current = [];
+      setRes([]);
+    } else setRes(r2);
+    setRow(next(s2)); setN(n + 1);
   };
 
-  if (done) {
-    const ok = res.filter(Boolean).length;
-    return (
-      <Card style={{ alignItems: 'center', gap: 8 }}>
-        <T size={40}>{ok >= 4 ? '🏆' : ok >= 2 ? '👍' : '💪'}</T>
-        <T bold size={22}>{ok} / {SESSION}</T>
-        <T dim>Reyting: {st.rating}</T>
-        <View style={{ flexDirection: 'row', gap: 6 }}>{res.map((x, i) => <T key={i} size={20}>{x ? '★' : '✗'}</T>)}</View>
-        {fails.current.length > 0 && <T dim size={13}>Xato mavzular: {[...new Set(fails.current)].join(' · ')}</T>}
-        <View style={{ alignSelf: 'stretch', gap: 8 }}>
-          <Button label="Yana 5 ta" onPress={() => { fails.current = []; setRes([]); setN(0); setRow(next(st)); }} />
-          {onExit && <Button kind="ghost" label="Mavzular" onPress={onExit} />}
-        </View>
-      </Card>
-    );
-  }
   return (
     <View style={{ gap: 8 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
         {onExit && <Pressable onPress={onExit} hitSlop={8}><T dim>‹ Mavzular</T></Pressable>}
-        <T dim size={13} style={{ flex: 1 }}>{theme ? `${THEMES.find((t) => t.id === theme)?.name} · ` : ''}Masala {n + 1}/{SESSION}</T>
-        <View style={{ flexDirection: 'row', gap: 3 }}>{Array.from({ length: SESSION }, (_, i) => <T key={i} size={14} color={i < res.length ? (res[i] ? '#5B9E2E' : '#D64545') : C.dim}>{i < res.length ? (res[i] ? '★' : '✗') : '·'}</T>)}</View>
+        <T bold size={15}>{st.rating}{delta !== null && delta !== 0 ? <T size={13} color={delta > 0 ? '#5B9E2E' : '#D64545'}> {delta > 0 ? '+' : ''}{delta}</T> : ''}</T>
+        <T size={15} color={streak ? C.gold : C.dim}>🔥 {streak}</T>
+        <T dim size={13} style={{ flex: 1, textAlign: 'right' }} >{theme ? THEMES.find((t) => t.id === theme)?.name : pool ? '📌 Xatolarim' : ''}</T>
+        <View style={{ flexDirection: 'row', gap: 3 }}>{Array.from({ length: SESSION }, (_, i) => <T key={i} size={13} color={i < res.length ? (res[i] ? '#5B9E2E' : '#D64545') : C.dim}>{i < res.length ? (res[i] ? '★' : '✗') : '·'}</T>)}</View>
       </View>
       <PuzzleView key={row[0] + n} row={row} onFinish={finish} onBusy={onBusy} />
     </View>

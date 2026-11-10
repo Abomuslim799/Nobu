@@ -22,11 +22,12 @@ export interface Badge { sq: Square; text: string; color: string }
 type Arrow = { from: Square; to: Square; c: number };
 type Mark = { sq: Square; c: number };
 
-export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey, onBusy, premove = false, onPremove, premoveSq = null }: {
+export function ChessBoard({ fen, orientation, movable = null, lastMove = null, onMove, badge = null, pen = false, clearKey, onBusy, premove = false, onPremove, premoveSq = null, hint = null }: {
   fen: string; orientation: 'w' | 'b'; movable?: 'w' | 'b' | null; lastMove?: [Square, Square] | null;
   onMove?: (from: Square, to: Square) => void; badge?: Badge | null; pen?: boolean; clearKey?: unknown;
   onBusy?: (busy: boolean) => void;   // barmoq doskada — ota ScrollView aylanmasin
   premove?: boolean; onPremove?: (from: Square, to: Square) => void; premoveSq?: [Square, Square] | null;   // raqib o'ylayotganda oldindan yurish
+  hint?: Square | null;   // 💡 ishora — katak oltin rangda yonadi
 }) {
   const look = useLook();
   const th = boardOf(look);
@@ -172,7 +173,7 @@ export function ChessBoard({ fen, orientation, movable = null, lastMove = null, 
           {W > 0 && board.map((row, r) => row.map((_, c) => {
             const sq = `${FILES[c]}${8 - r}` as Square;
             const [x, y] = xy(sq), light = (r + c) % 2 === 0;
-            const hl = sel === sq ? th.sel : premoveSq && (premoveSq[0] === sq || premoveSq[1] === sq) ? 'rgba(60,110,220,0.5)' : lastMove && (lastMove[0] === sq || lastMove[1] === sq) ? th.last : null;
+            const hl = hint === sq ? 'rgba(232,184,74,0.75)' : sel === sq ? th.sel : premoveSq && (premoveSq[0] === sq || premoveSq[1] === sq) ? 'rgba(60,110,220,0.5)' : lastMove && (lastMove[0] === sq || lastMove[1] === sq) ? th.last : null;
             const fileLbl = (flip ? r === 0 : r === 7), rankLbl = (flip ? c === 7 : c === 0);
             return (
               <View key={sq} style={{ position: 'absolute', left: x, top: y, width: S, height: S, backgroundColor: light ? th.light : th.dark }}>

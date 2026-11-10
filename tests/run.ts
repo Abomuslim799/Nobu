@@ -16,6 +16,8 @@ import { update, START, dayXP, streakBonus, overall, rankOf } from '@/features/a
 import { TOPICS2 } from '@/features/lesson2/topics';
 import { botParams, classify, gameAccuracy, rateGame, winPct } from '@/features/chess/analysis';
 import { openingName, practiceNext, inPractice } from '@/features/chess/openings';
+import { bestGrab, evalText, mateIn1 } from '@/features/chess/review';
+import { LESSONS as OPEN, deviation, matches, nextBox, nextMoves, noteFor } from '@/features/chess/lessons';
 import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
@@ -191,6 +193,21 @@ for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0;
   ok(openingName('rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3')?.startsWith('Indian') || !!openingName('rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3'), 'openingName');
   ok(practiceNext('kid', []) === 'd2d4' && inPractice('kid', ['d2d4', 'g8f6']) && !inPractice('kid', ['e2e4']), 'practice KID');
   ok(practiceNext('austrian', ['e2e4']) === 'd7d6', 'practice Austrian');
+  // Tahlil izohi: osilgan dona va bir yurishda mat
+  ok(bestGrab('rnb1kbnr/pppp1ppp/8/4p1q1/4P3/3P4/PPP2PPP/RNBQKBNR w KQkq - 0 3')?.piece === 'farzin', 'bestGrab: farzin osilgan');
+  ok(bestGrab('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2') === null, 'bestGrab: hech narsa');
+  ok(mateIn1('rnbqkbnr/ppppp2p/5p2/6p1/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3') === 'Qh5#', 'mateIn1');
+  // Debyut darslari: hamma variant qonuniy (yuklanishda o'giriladi), izohlar variant ichida, mos kelish va chiqish joyi
+  for (const l of OPEN) for (const x of l.lines) {
+    ok(x.uci.length === x.san.length, `dars ${l.id}/${x.name}`);
+    for (const k of Object.keys(x.notes)) ok(Number(k) >= 1 && Number(k) <= x.uci.length, `izoh ${l.id}/${x.name} #${k}`);
+  }
+  const it = OPEN.find((l) => l.id === 'italian')!;
+  ok(nextMoves(it, ['e2e4', 'e7e5']).join() === 'g1f3' && noteFor(it, ['e2e4']) !== null, 'italian nextMoves/noteFor');
+  const gm = { color: 'w' as const, moves: ['e2e4', 'e7e5', 'g1f3', 'b8c6', 'f1c4', 'f8c5', 'b1c3'] };
+  ok(matches(it, gm) && deviation(it, { ...gm, id: 'x', url: '', at: 0, result: 'win', me: 0, opp: 0, oppName: '', tc: '', base: 0, clocks: [] })?.ply === 6, 'deviation: 4.Nc3 (c3 emas)');
+  ok(nextBox(undefined, true).box === 1 && nextBox({ box: 2, due: 0, done: 1 }, true).box === 3 && nextBox({ box: 4, due: 0, done: 1 }, false).box === 1, 'Leitner');
+  ok(evalText(winPct(150)) === '+1.5' && evalText(50) === '+0.0' && evalText(100) === 'M', 'evalText');
 }
 // Sana
 ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2025-12-31', 'addDays oy/yil');

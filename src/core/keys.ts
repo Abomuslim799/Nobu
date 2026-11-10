@@ -15,6 +15,7 @@ export const KEYS = {
   chessOwn: 'farobiy.chess.own',          // o'z xatolaringizdan yasalgan masalalar
   chessCom: 'farobiy.chess.com',          // chess.com o'yinlari (username, yurishlar, soat)
   chessComAn: 'farobiy.chess.com.an',     // ularning tahlili (yig'ilib boradi)
+  chessOpen: 'farobiy.chess.open',        // debyut darslari: takrorlash qutilari
   scienceLog: 'farobiy.science.v1',
   skills: 'farobiy.skills.v1',          // ingliz tili ko'nikmalar jurnali
   tts: 'farobiy.tts.v1',                // Ustoz ovozi manzillari keshi
