@@ -19,7 +19,7 @@ export interface ComGame {
 export interface MoveAn { ply: number; label: Label; drop: number; best: string; pv: string[]; cause: Cause; winBefore: number; clock: number | null }
 export const AN_V = 2;   // tahlil versiyasi — qoida o'zgarsa eski tahlillar qayta qilinadi
 export const fresh = (a?: GameAn) => !!a && (a.v ?? 1) >= AN_V;
-export interface GameAn { v?: number; id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[] }   // evals — oqlar uchun g'alaba % har pozitsiyada
+export interface GameAn { v?: number; src?: 'cloud'; id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[] }   // evals — oqlar uchun g'alaba % har pozitsiyada
 
 const API = 'https://api.chess.com/pub/player';
 const HEAD = { 'User-Agent': 'Farobiy-learning-app' };
@@ -48,11 +48,8 @@ export function parsePgn(pgn: string): { moves: string[]; clocks: (number | null
 type Raw = { url: string; pgn?: string; end_time: number; time_control: string; rules?: string;
   white: { username: string; rating: number; result: string }; black: { username: string; rating: number; result: string } };
 
-/** Yangi o'yinlarni yuklash (oxirgi oylardan), mavjudlariga qo'shish. Faqat oddiy shaxmat (chess). */
-export async function fetchCom(user: string, want = 30): Promise<{ user: string; games: ComGame[]; added: number }> {
-  const cur = await loadCom();
-  const same = cur.user.toLowerCase() === user.toLowerCase();
-  const have = new Set(same ? cur.games.map((g) => g.id) : []);
+/** chess.com'dan hali bizda yo'q o'yinlar (eng yangisidan). limit — nechta yangi o'yin yetarli. Telefon va bulut (GitHub) ishlatadi. */
+export async function fetchNew(user: string, have: Set<string>, limit: number): Promise<ComGame[]> {
   const ar = await fetch(`${API}/${user.toLowerCase()}/games/archives`, { headers: HEAD });
   if (!ar.ok) throw new Error(ar.status === 404 ? `chess.com'da "${user}" topilmadi` : `chess.com javob bermadi (${ar.status})`);
   const months: string[] = ((await ar.json()).archives ?? []).slice().reverse();
@@ -75,11 +72,18 @@ export async function fetchCom(user: string, want = 30): Promise<{ user: string;
         got.push({ id: x.url, url: x.url, at: x.end_time * 1000, color: white ? 'w' : 'b', result, me: meR.rating, opp: opR.rating, oppName: opR.username,
           tc: x.time_control, base: Number(x.time_control.split('+')[0]) || 0, moves, clocks });
       } catch { /* buzilgan PGN */ }
-      if (!same && got.length >= want) { stop = true; break; }
-      if (same && have.size + got.length >= cur.games.length + want) { stop = true; break; }
+      if (got.length >= limit) { stop = true; break; }
     }
-    if (stop || got.length >= want) break;
+    if (stop || got.length >= limit) break;
   }
+  return got;
+}
+
+/** Yangi o'yinlarni yuklash (oxirgi oylardan), mavjudlariga qo'shish. Faqat oddiy shaxmat (chess). */
+export async function fetchCom(user: string, want = 30): Promise<{ user: string; games: ComGame[]; added: number }> {
+  const cur = await loadCom();
+  const same = cur.user.toLowerCase() === user.toLowerCase();
+  const got = await fetchNew(user, new Set(same ? cur.games.map((g) => g.id) : []), want);
   const games = [...(same ? cur.games : []), ...got].sort((a, b) => b.at - a.at);
   const out = { user, games };
   await saveCom(out);
@@ -87,12 +91,12 @@ export async function fetchCom(user: string, want = 30): Promise<{ user: string;
 }
 
 /** Bitta o'yinni tahlil qilish: har pozitsiya bir marta baholanadi (yurishdan oldingisi va keyingisi shulardan olinadi). */
-export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450, resume: Info[] = [], onPart?: (info: Info[]) => void): Promise<GameAn> {
+export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450, resume: Info[] = [], onPart?: (info: Info[]) => void, depth = 12): Promise<GameAn> {
   const c = new Chess(), fens = [c.fen()];
   for (const u of g.moves) { c.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); fens.push(c.fen()); }
   const info: Info[] = resume.slice(0, fens.length);                // to'xtatilgan joydan davom
   for (let i = info.length; i < fens.length; i++) {
-    info.push(await analyse(fens[i], movetime, 12)); onPly?.(i + 1, fens.length);
+    info.push(await analyse(fens[i], movetime, depth)); onPly?.(i + 1, fens.length);
     if (i % 8 === 7) onPart?.(info);
   }
   const evals = info.map((x, i) => { const w = x.mate !== undefined ? (x.mate > 0 ? 100 : 0) : 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * (x.cp ?? 0))) - 1); return fens[i].split(' ')[1] === 'w' ? w : 100 - w; });
@@ -109,6 +113,26 @@ export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => 
       clock: g.clocks[i], cause: cause({ fenBefore: fens[i], fenAfter: fens[i + 1], label: k.label, after: info[i + 1], ply: i, inBook, bookMove: bookMoves(fens[i]).includes(played), played, clock: g.clocks[i], base: g.base }) });
   }
   return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
+}
+
+/** Bulut tahlili (GitHub Actions, har soatda, Stockfish 16): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */
+export const CLOUD_URL = (user: string) => `https://raw.githubusercontent.com/Abomuslim799/Nobu/chess-data/${user.toLowerCase()}.json`;
+export async function syncCloud(): Promise<{ added: number; analysed: number; updated: number } | null> {
+  const cur = await loadCom();
+  let d: { games: ComGame[]; an: Record<string, GameAn>; updated: number };
+  try {
+    const r = await fetch(`${CLOUD_URL(cur.user)}?t=${Date.now()}`);
+    if (!r.ok) return null;
+    d = await r.json();
+  } catch { return null; }
+  const ids = new Set(cur.games.map((g) => g.id));
+  const fresh_ = d.games.filter((g) => !ids.has(g.id));
+  await saveCom({ user: cur.user, games: [...cur.games, ...fresh_].sort((a, b) => b.at - a.at) });
+  const an = await loadAn();
+  let k = 0;
+  for (const [id, x] of Object.entries(d.an)) if (an[id]?.src !== 'cloud' || (an[id]?.acc !== x.acc)) { an[id] = x; k++; }   // bulut chuqurroq — ustun
+  await saveAn(an);
+  return { added: fresh_.length, analysed: k, updated: d.updated };
 }
 
 /** Bitta o'yinni (qayta) tahlil qilib saqlash. */

@@ -1,0 +1,36 @@
+# Shaxmat tahlili bulutda: har soatda chess.com'dan yangi o'yinlar → Stockfish 16 (depth 18) → chess-data bo'limi.
+# Ilova tayyor tahlilni raw.githubusercontent.com/<repo>/chess-data/abomuslim0.json dan oladi.
+name: chess
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: chess
+  cancel-in-progress: false
+jobs:
+  analyse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Stockfish
+        run: sudo apt-get update -q && sudo apt-get install -y -q stockfish
+      - name: Tahlil
+        run: |
+          npx -y esbuild@0.25.0 scripts/chess_cloud.ts --bundle --platform=node --outfile=/tmp/cc.js --alias:react-native=./scripts/stubs/react-native.ts --log-level=warning
+          node /tmp/cc.js Abomuslim0 /tmp/out
+      - name: chess-data bo'limiga yozish (tarix saqlanmaydi — bitta commit)
+        run: |
+          cd /tmp/out
+          git init -q -b chess-data
+          git add .
+          git -c user.name=farobiy-bot -c user.email=farobiy-bot@users.noreply.github.com commit -qm "tahlil $(date -u +%F\ %H:%M)"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" chess-data

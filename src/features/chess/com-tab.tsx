@@ -9,7 +9,7 @@ import { Pressable, TextInput, View } from 'react-native';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { CAUSE, LABEL, type Label } from '@/features/chess/analysis';
-import { analyseAll, fetchCom, loadAn, loadCom, type ComGame, type GameAn } from '@/features/chess/chesscom';
+import { analyseAll, fetchCom, loadAn, loadCom, syncCloud, type ComGame, type GameAn } from '@/features/chess/chesscom';
 import { diagnose, style, weeklyPlan } from '@/features/chess/coach';
 
 export function ComTab() {
@@ -20,12 +20,18 @@ export function ComTab() {
   const [err, setErr] = useState('');
   const [prog, setProg] = useState<{ done: number; total: number; ply: number; plies: number } | null>(null);
   const stop = useRef(false);
+  const [cloud, setCloud] = useState<string | null>(null);
 
   useEffect(() => {
-    Promise.all([loadCom(), loadAn()]).then(([c, m]) => {
-      setUser(c.user); setGames(c.games); setAn(m);
-      if (c.games.some((x) => !m[x.id])) run();            // navbatdagilar — o'zi davom etadi
-    });
+    (async () => {
+      const c0 = await loadCom(), m0 = await loadAn();
+      setUser(c0.user); setGames(c0.games); setAn(m0);
+      setCloud('☁️ Bulutdan olinmoqda…');
+      const s = c0.user.toLowerCase() === 'abomuslim0' ? await syncCloud() : null;   // tayyor tahlil (GitHub, har soatda)
+      setCloud(s ? `☁️ Bulut tahlili · ${new Date(s.updated).toLocaleString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}${s.added || s.analysed ? ` · +${s.added} o'yin, ${s.analysed} tahlil` : ''}` : null);
+      const [c, m] = await Promise.all([loadCom(), loadAn()]);
+      setGames(c.games); setAn(m);
+    })();
     return () => { stop.current = true; };
   }, []);
 
@@ -40,7 +46,6 @@ export function ComTab() {
     try {
       const r = await fetchCom(user.trim(), 30);
       setGames(r.games); setBusy(null);
-      run();
     } catch (e) { setErr(e instanceof Error ? e.message : String(e)); setBusy(null); }
   };
 
@@ -56,6 +61,7 @@ export function ComTab() {
           <View style={{ width: 130 }}><Button label={games.length ? '⬇ Yangilari' : '⬇ Yuklash'} onPress={load} disabled={!!busy || !!prog} /></View>
         </View>
         <T dim size={12}>{games.length} o'yin · tahlil qilingan {games.length - todo}{todo ? ` · navbatda ${todo}` : ''}. Birinchi marta oxirgi 30 o'yin olinadi, keyin yangilari qo'shiladi.</T>
+        {!!cloud && <T dim size={12}>{cloud}</T>}
         {!!busy && <T dim>{busy}</T>}
         {!!err && <T color={C.red} size={13}>{err}</T>}
         {prog && (
@@ -65,7 +71,7 @@ export function ComTab() {
             <Pressable onPress={() => { stop.current = true; }}><T dim size={12} style={{ textDecorationLine: 'underline' }}>⏸ To'xtatish (keyin davom etadi)</T></Pressable>
           </View>
         )}
-        {!prog && todo > 0 && !busy && <Button kind="ghost" label={`▶ Tahlilni davom ettirish (${todo})`} onPress={run} />}
+        {!prog && todo > 0 && !busy && <Button kind="ghost" label={`📱 Telefonda tahlil qilish (${todo}) — yoki bulutni kuting`} onPress={run} />}
       </Card>
 
       {d.games > 0 && (
