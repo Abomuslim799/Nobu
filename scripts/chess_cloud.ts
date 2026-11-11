@@ -19,7 +19,7 @@ const OUT = process.argv[3] ?? '/tmp/chess-out';
 const RAW = `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY ?? 'Abomuslim799/Nobu'}/chess-data/${USER.toLowerCase()}.json`;
 const BUDGET = Number(process.env.CC_MINUTES ?? 45) * 60000;   // bir ishga tushishda ko'pi bilan — qolgani keyingi soatda
 const DEPTH = Number(process.env.CC_DEPTH ?? 18), MOVETIME = Number(process.env.CC_MS ?? 1000);
-const FIRST = 200;                                              // birinchi marta olinadigan o'yinlar soni
+const FIRST = 60;                                               // birinchi marta: telefondagi ~55 ta va yangilari
 
 export interface CloudData { user: string; updated: number; games: ComGame[]; an: Record<string, GameAn> }
 
