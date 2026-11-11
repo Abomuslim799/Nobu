@@ -50,11 +50,11 @@ export function Title({ children, sub }: { children: ReactNode; sub?: string }) 
   );
 }
 
-export function T({ children, dim, size = 15, bold, color, style }: {
-  children: ReactNode; dim?: boolean; size?: number; bold?: boolean; color?: string; style?: TextStyle;
+export function T({ children, dim, size = 15, bold, color, style, lines }: {
+  children: ReactNode; dim?: boolean; size?: number; bold?: boolean; color?: string; style?: TextStyle; lines?: number;
 }) {
   return (
-    <Text style={[{ color: color ?? (dim ? C.dim : C.text), fontSize: size,
+    <Text numberOfLines={lines} style={[{ color: color ?? (dim ? C.dim : C.text), fontSize: size,
                    fontWeight: bold ? '700' : '400', lineHeight: size * 1.4 }, style]}>
       {children}
     </Text>

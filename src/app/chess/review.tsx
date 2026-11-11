@@ -7,7 +7,7 @@
 
 import { Chess, type Square } from 'chess.js';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';
@@ -21,8 +21,12 @@ import { fresh, loadAn, loadCom, reanalyse, type ComGame, type GameAn } from '@/
 import { analyse } from '@/features/chess/engine/engine';
 import { useLook } from '@/features/chess/look';
 import { BOOK, evalText, explain, fensOf, keyMoments, lineOf, plies, ROWS, sanOf, summary, UZ, type Kind, type Ply } from '@/features/chess/review';
+import { bookMoves, openingName } from '@/features/chess/openings';
 import { moveSound, playSound } from '@/features/chess/sound';
+import { decide, freshMem, seeded } from '@/features/chess/talk';
+import { lineOf as sayLine, useVoice, type Line as SayLine } from '@/features/chess/voice';
 
+const uci = (u: string) => ({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
 const meta = (k: Kind) => (k === 'book' ? BOOK : LABEL[k]);
 const isBad = (k: Kind) => k === 'inaccuracy' || k === 'mistake' || k === 'blunder' || k === 'miss';
 type Retry = { ply: number; fen: string; last: [Square, Square] | null; tries: number; msg: string; ok: boolean | null; busy: boolean };
@@ -52,17 +56,47 @@ export default function Review() {
   const fens = useMemo(() => (g ? fensOf(g) : []), [g]);
   const ps = useMemo(() => (g && a ? plies(g, a, fens) : []), [g, a, fens]);
   const last = fens.length - 1;
-  useEffect(() => {
-    if (!auto) return;
-    const t = setInterval(() => setView((v) => { if (v + 1 >= last) setAuto(false); return Math.min(last, v + 1); }), 1500);
-    return () => clearInterval(t);
-  }, [auto, last]);
+  const vo = useVoice();
+  const talking = useRef<Promise<void>>(Promise.resolve());
+  const step = useRef<() => void>(() => {});
+  /** Farobiy izohlari: qaysi yurishda nima deydi (har ochilganda bir xil). */
+  const script = useMemo(() => {
+    const out = new Map<number, SayLine>();
+    if (!g) return out;
+    const mem = freshMem();
+    let opening: string | null = null;
+    ps.forEach((p) => {
+      const i = p.ply, u = g.moves[i], bm = bookMoves(fens[i]);
+      opening = openingName(fens[i + 1]) ?? opening;
+      const label = p.mine ? (p.an?.label ?? (p.kind === 'book' ? 'best' : p.kind)) : p.kind === 'book' ? null : p.kind;
+      const s = decide({ mode: 'review', ply: i, mine: p.mine, fenBefore: fens[i], fenAfter: fens[i + 1], u, label, leftBook: bm.length > 0 && !bm.includes(u),
+        opening, time: g.clocks[i], base: g.base, rnd: seeded(i * 31 + 7) }, mem);
+      if (s) out.set(i, sayLine(s, seeded(i * 17 + 3)));
+    });
+    return out;
+  }, [g, ps, fens]);
+  useEffect(() => {                                     // ▶ — gap tugagach 1.2 s kutib, keyingi yurish
+    if (!auto || mode !== 'walk') return;
+    let alive = true;
+    talking.current.then(() => new Promise((r) => setTimeout(r, 1200))).then(() => { if (alive) step.current(); });
+    return () => { alive = false; };
+  }, [auto, view, mode]);
 
   if (!g || !a) return <View style={{ flex: 1, backgroundColor: C.bg, padding: 40 }}><ActivityIndicator color={C.green} /></View>;
 
   const sum = summary(ps), moments = keyMoments(ps);
   const flip = g.color === 'b';
-  const go = (v: number) => { setAuto(false); setRetry(null); setView(Math.max(0, Math.min(last, v))); };
+  const go = (v: number, fromAuto = false) => {
+    if (!fromAuto) setAuto(false);
+    setRetry(null);
+    const nv = Math.max(0, Math.min(last, v));
+    if (nv === view) return;
+    setView(nv);
+    if (nv > 0) { try { playSound(moveSound(new Chess(fens[nv - 1]).move(uci(g.moves[nv - 1]))), look.sound); } catch { /* jim */ } }
+    const l = nv === view + 1 ? script.get(nv - 1) : undefined;   // faqat oldinga bir qadamda gapiradi
+    if (l) talking.current = vo.play(l); else { vo.stop(); talking.current = Promise.resolve(); }
+  };
+  step.current = () => { if (view >= last) setAuto(false); else go(view + 1, true); };
   const openAt = (v: number) => { go(v); setMode('walk'); };
   const nextMoment = (dir: 1 | -1) => {
     const t = dir > 0 ? moments.find((m) => m.ply + 1 > view) : [...moments].reverse().find((m) => m.ply + 1 < view);
@@ -76,7 +110,8 @@ export default function Review() {
         <T bold size={16}>vs {g.oppName} <T dim size={13}>({g.opp})</T></T>
         <T dim size={12}>{g.result === 'win' ? 'Yutgansiz' : g.result === 'draw' ? 'Durang' : 'Yutqazgansiz'} · {g.tc}{a.opening ? ` · ${a.opening.split(':')[0]}` : ''}</T>
       </View>
-      {mode === 'walk' && <Pressable onPress={() => setMode('sum')} hitSlop={10}><T size={20}>📊</T></Pressable>}
+      {mode === 'walk' && <Pressable onPress={() => { vo.stop(); vo.setOn(!vo.on); }} hitSlop={10}><T size={20}>{vo.on ? '🗣️' : '🔇'}</T></Pressable>}
+      {mode === 'walk' && <Pressable onPress={() => { vo.stop(); setAuto(false); setMode('sum'); }} hitSlop={10}><T size={20}>📊</T></Pressable>}
     </View>
   );
 
@@ -138,6 +173,7 @@ export default function Review() {
 
   // ── ▶ Ko'rib chiqish ───────────────────────────────────────
   const cur = view > 0 ? ps[view - 1] : null;
+  const said = view > 0 && !retry ? script.get(view - 1) : undefined;
   const lm = view > 0 ? g.moves[view - 1] : null;
   const fen = retry ? retry.fen : fens[view];
   const lastMove: [Square, Square] | null = retry ? retry.last : lm ? [lm.slice(0, 2) as Square, lm.slice(2, 4) as Square] : null;
@@ -202,7 +238,7 @@ O'zbekcha, qisqa (5–6 gap), maqtovsiz: 1) rejasining xatosi, 2) nimani tekshir
           </View>
         </View>
 
-        <View style={{ minHeight: 62, padding: 10, borderRadius: 12, backgroundColor: C.card, borderWidth: 1, borderColor: retry ? C.gold : cur ? meta(cur.kind).color + '66' : C.cardBorder, flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+        <View style={{ height: 112, padding: 10, borderRadius: 12, backgroundColor: C.card, borderWidth: 1, borderColor: retry ? C.gold : cur ? meta(cur.kind).color + '66' : C.cardBorder, flexDirection: 'row', gap: 10, alignItems: 'center' }}>
           {cur && !retry && (
             <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: meta(cur.kind).color, alignItems: 'center', justifyContent: 'center' }}>
               <T bold size={12} color="#fff">{meta(cur.kind).sym}</T>
@@ -212,7 +248,8 @@ O'zbekcha, qisqa (5–6 gap), maqtovsiz: 1) rejasining xatosi, 2) nimani tekshir
             {retry ? <T size={14} color={retry.ok === true ? LABEL.best.color : retry.ok === false ? LABEL.blunder.color : C.text}>🔁 {retry.msg}</T>
               : cur ? <>
                 <T bold size={12} color={meta(cur.kind).color}>{Math.floor(cur.ply / 2) + 1}-yurish · {cur.mine ? UZ[cur.kind] : `Raqib · ${UZ[cur.kind].toLowerCase()}`}</T>
-                <T size={14}>{explain(cur, fens, g.moves)}</T>
+                <T size={14} lines={2}>{explain(cur, fens, g.moves)}</T>
+                {said && <T size={13} color={C.gold} lines={2} style={{ fontStyle: 'italic' }}>🗣 “{said.text}”</T>}
               </>
               : <T dim size={14}>Boshlang'ich pozitsiya. › bilan oldinga.</T>}
           </View>
@@ -222,17 +259,17 @@ O'zbekcha, qisqa (5–6 gap), maqtovsiz: 1) rejasining xatosi, 2) nimani tekshir
           {btn('⏮', () => go(0))}
           {btn('‹', () => go(view - 1), false, 52)}
           {btn('›', () => go(view + 1), false, 52)}
-          {btn(auto ? '⏸' : '▶', () => { setRetry(null); if (!auto && view >= last) setView(0); setAuto(!auto); }, auto)}
+          {btn(auto ? '⏸' : '▶', () => { setRetry(null); if (auto) { vo.stop(); setAuto(false); return; } if (view >= last) setView(0); talking.current = Promise.resolve(); setAuto(true); }, auto)}
           {btn('‹⚠️', () => nextMoment(-1))}
           {btn('⚠️›', () => nextMoment(1))}
           <View style={{ flex: 1 }} />
           {canRetry && !retry && btn('🔁', startRetry)}
           {retry && btn('✕', () => setRetry(null))}
         </View>
+        <EvalGraph evals={a.evals} flip={flip} ps={ps} view={view} onPick={(v) => go(v)} small />
       </View>
 
       <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 10, gap: 10, paddingBottom: insets.bottom + 30 }}>
-        <EvalGraph evals={a.evals} flip={flip} ps={ps} view={view} onPick={go} small />
         <Pressable onPress={() => setMore(!more)} hitSlop={6}><T dim size={13}>{more ? '▾ Batafsilni yopish' : '▸ Batafsil: murabbiy savoli, yurishlar, qayta tahlil'}</T></Pressable>
         {more && (
           <>

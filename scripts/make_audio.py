@@ -96,7 +96,9 @@ async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> boo
     async with sem:
         for _ in range(3):
             try:
-                await edge_tts.Communicate(text, voice).save(str(path))
+                slow = text.startswith("~")       # "~" — sekin, past, salmoqli ohang ("You... will... try.")
+                comm = edge_tts.Communicate(text[1:], voice, rate="-30%", pitch="-8Hz") if slow else edge_tts.Communicate(text, voice)
+                await comm.save(str(path))
                 if path.stat().st_size > 0:
                     manifest[path.name] = h
                     return True

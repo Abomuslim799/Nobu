@@ -1,14 +1,270 @@
 {
-  "brilliant": ["Brilliant! I didn't see that coming.", "Remarkable. A true sacrifice.", "Now that is chess."],
-  "best": ["Precise. Let's see how you handle this.", "Exactly the move I feared.", "Strong. My turn.", "Good eye. Now, what about this?"],
-  "good": ["Good move. My turn.", "Solid. Let's continue.", "Reasonable. But the game is long.", "Fine. Watch this."],
-  "inaccuracy": ["Not a bad idea… but what do you say to this?", "Hmm. There was something better.", "Playable, but not the best.", "Interesting choice. How about this?"],
-  "mistake": ["Hmm. That gives me a chance.", "A mistake. Watch closely.", "You'll want that move back.", "That was too quick."],
-  "blunder": ["A blunder! You'll regret that.", "Oh no. That was a gift.", "Careful! That loses a lot.", "Did you check my threats?"],
-  "miss": ["You missed something big there.", "You let your advantage slip.", "There was a win in that position.", "So close. Look again next time."],
-  "start": ["Let us begin. Show me what you have learned.", "A new game. Think before you move.", "I am ready. Your move."],
-  "win": ["Well played. You beat me fair and square.", "Impressive. You earned this win."],
-  "loss": ["Checkmate. Study this game — the lesson is in your mistakes.", "The game is mine this time. Try again."],
-  "draw": ["A draw. Neither of us gave in.", "Peace for today. A fair result."],
-  "resign": ["You resigned. Every lost game is a lesson."]
+ "brilliant": [
+  "Brilliant! I didn't see that coming.",
+  "Remarkable. A true sacrifice.",
+  "Now that is chess."
+ ],
+ "best": [
+  "Precise. Let's see how you handle this.",
+  "Exactly the move I feared.",
+  "Strong. My turn.",
+  "Good eye. Now, what about this?"
+ ],
+ "good": [
+  "Good move. My turn.",
+  "Solid. Let's continue.",
+  "Reasonable. But the game is long.",
+  "Fine. Watch this."
+ ],
+ "inaccuracy": [
+  "Hmm. Not the best.",
+  "Hmm. There was something better.",
+  "Interesting. Playable, but not the best.",
+  "Hmm. Interesting choice."
+ ],
+ "mistake": [
+  "Hmm. Interesting.",
+  "Hmm. That gives me a chance.",
+  "Interesting... You'll want that move back.",
+  "Hmm. That was too quick."
+ ],
+ "blunder": [
+  "A blunder! You'll regret that.",
+  "Oh no. That was a gift.",
+  "Careful! That loses a lot.",
+  "Did you check my threats?"
+ ],
+ "miss": [
+  "You missed something big there.",
+  "You let your advantage slip.",
+  "There was a win in that position.",
+  "So close. Look again next time."
+ ],
+ "start": [
+  "Let us begin. Show me what you have learned.",
+  "A new game. Think before you move.",
+  "I am ready. Your move."
+ ],
+ "win": [
+  "Well played. You beat me fair and square.",
+  "Impressive. You earned this win."
+ ],
+ "loss": [
+  "Checkmate. Study this game — the lesson is in your mistakes.",
+  "The game is mine this time. Try again."
+ ],
+ "draw": [
+  "A draw. Neither of us gave in.",
+  "Peace for today. A fair result."
+ ],
+ "resign": [
+  "You resigned. Every lost game is a lesson."
+ ],
+ "short": [
+  "Good.",
+  "Fine.",
+  "Okay.",
+  "Solid.",
+  "Hm. Fine.",
+  "Sure."
+ ],
+ "great": [
+  "Strong move. I didn't expect that.",
+  "Excellent. You saw it.",
+  "That hurts. Well played.",
+  "Now you are thinking like a player."
+ ],
+ "open_italian": [
+  "Ah, the Italian. That's fine.",
+  "The Italian Game. Old, but still dangerous."
+ ],
+ "open_ruy": [
+  "The Spanish. A serious choice.",
+  "Ruy Lopez. Let's see if you know the ideas."
+ ],
+ "open_scotch": [
+  "The Scotch. Open and direct. Fine."
+ ],
+ "open_sicilian": [
+  "The Sicilian. Sharp. Are you ready for that?",
+  "Sicilian. Now it gets interesting."
+ ],
+ "open_french": [
+  "The French. Solid, but cramped.",
+  "French Defense. Patience will be needed."
+ ],
+ "open_caro": [
+  "Caro-Kann. Very solid. Fine."
+ ],
+ "open_scandi": [
+  "The Scandinavian. Queen out early? Brave."
+ ],
+ "open_pirc": [
+  "The Pirc. Let the center come, then strike."
+ ],
+ "open_kid": [
+  "The King's Indian. Now we fight for the king.",
+  "King's Indian. Bold and aggressive. I like it."
+ ],
+ "open_qg": [
+  "The Queen's Gambit. A classic."
+ ],
+ "open_london": [
+  "The London. Simple and solid. Fine."
+ ],
+ "open_english": [
+  "The English. Quiet, but tricky."
+ ],
+ "open_vienna": [
+  "The Vienna. Something different. Fine."
+ ],
+ "open_kgambit": [
+  "The King's Gambit! Romantic. Dangerous for both of us."
+ ],
+ "open_petrov": [
+  "The Petrov. Symmetry. Careful with the copying."
+ ],
+ "open_philidor": [
+  "Philidor. Solid, but passive."
+ ],
+ "open_any": [
+  "Hm. An unusual opening. Let's see.",
+  "Off the main roads already. Fine."
+ ],
+ "outbook": [
+  "Leaving theory already? Brave.",
+  "Out of the book. Now you think for yourself."
+ ],
+ "outbook_bad": [
+  "That is not theory. And not good.",
+  "You left the book, and it costs you."
+ ],
+ "middle": [
+  "The opening is over. Now the real game begins.",
+  "Middlegame. Find a plan."
+ ],
+ "endgame": [
+  "Endgame. Every move counts now.",
+  "Few pieces left. Kings, come out."
+ ],
+ "lowtime": [
+  "Your clock is running out. Hurry.",
+  "Time is short. Think fast."
+ ],
+ "oppblunder": [
+  "Your opponent blundered here. Did you punish it?",
+  "A gift from your opponent. Look closely."
+ ],
+ "i_center": [
+  "Is your goal the center? Good.",
+  "Taking the center, I see. Good."
+ ],
+ "i_knight": [
+  "Going for my knight? Bold.",
+  "After my knight, are you? Bold."
+ ],
+ "i_bishop": [
+  "Hunting my bishop? Interesting.",
+  "Is my bishop your target? Bold."
+ ],
+ "i_rook": [
+  "Chasing my rook? Bold."
+ ],
+ "i_queen": [
+  "Attacking my queen? Bold.",
+  "You want my queen? Brave."
+ ],
+ "i_king": [
+  "Coming for my king? Brave.",
+  "Is that an attack on my king? Interesting."
+ ],
+ "i_castle": [
+  "Castling already? Afraid of me?",
+  "Your king goes to safety. Wise."
+ ],
+ "i_trade": [
+  "Trading pieces? Afraid of complications?",
+  "Simplifying. Fine."
+ ],
+ "i_push": [
+  "Pushing pawns. Is that a plan?"
+ ],
+ "i_promote": [
+  "A new queen. Impressive."
+ ],
+ "try": [
+  "~You... will... try."
+ ],
+ "i_check": [
+  "A check. Is that all you have?",
+  "Check. I have seen worse."
+ ],
+ "v_good": [
+  "Good move."
+ ],
+ "v_best": [
+  "Excellent! Best move."
+ ],
+ "v_careful": [
+  "Careful."
+ ],
+ "v_mistake": [
+  "Hmm. Interesting.",
+  "Hmm... a mistake.",
+  "Interesting choice. But no."
+ ],
+ "v_blunder": [
+  "Blunder!"
+ ],
+ "r_center": [
+  "You took the center."
+ ],
+ "r_knight": [
+  "You attacked my knight,"
+ ],
+ "r_bishop": [
+  "You attacked my bishop,"
+ ],
+ "r_rook": [
+  "You went after my rook,"
+ ],
+ "r_queen": [
+  "You attacked my queen,"
+ ],
+ "r_king": [
+  "Your plan was the king attack,"
+ ],
+ "r_castle": [
+  "You castled."
+ ],
+ "r_check": [
+  "You gave a check,"
+ ],
+ "r_trade": [
+  "You traded pieces,"
+ ],
+ "r_push": [
+  "You pushed your pawns,"
+ ],
+ "r_promote": [
+  "You promoted,"
+ ],
+ "hang_n": [
+  "but left your knight hanging."
+ ],
+ "hang_b": [
+  "but left your bishop hanging."
+ ],
+ "hang_r": [
+  "but left your rook hanging."
+ ],
+ "hang_q": [
+  "but left your queen hanging."
+ ],
+ "e_defence": [
+  "but defence came first."
+ ],
+ "e_tactic": [
+  "You saw the tactic."
+ ]
 }

@@ -17,6 +17,8 @@ import { TOPICS2 } from '@/features/lesson2/topics';
 import { botParams, classify, gameAccuracy, rateGame, winPct } from '@/features/chess/analysis';
 import { openingName, practiceNext, inPractice } from '@/features/chess/openings';
 import { bestGrab, evalText, mateIn1 } from '@/features/chess/review';
+import { decide, freshMem, hanging, intentOf, openKind } from '@/features/chess/talk';
+import phrasesJ from '@content/chess/phrases.json';
 import { LESSONS as OPEN, deviation, matches, nextBox, nextMoves, noteFor } from '@/features/chess/lessons';
 import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
@@ -207,6 +209,17 @@ for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0;
   const gm = { color: 'w' as const, moves: ['e2e4', 'e7e5', 'g1f3', 'b8c6', 'f1c4', 'f8c5', 'b1c3'] };
   ok(matches(it, gm) && deviation(it, { ...gm, id: 'x', url: '', at: 0, result: 'win', me: 0, opp: 0, oppName: '', tc: '', base: 0, clocks: [] })?.ply === 6, 'deviation: 4.Nc3 (c3 emas)');
   ok(nextBox(undefined, true).box === 1 && nextBox({ box: 2, due: 0, done: 1 }, true).box === 3 && nextBox({ box: 4, due: 0, done: 1 }, false).box === 1, 'Leitner');
+  // Farobiy gaplari: maqsad, osilgan dona, bo'laklar mavjud
+  const S0 = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+  ok(intentOf(S0, 'e2e4', 0) === 'center' && intentOf('rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2', 'e4e5', 2) === 'knight', 'intentOf');
+  ok(hanging('rnbqkbnr/pppp1ppp/8/4p1B1/4P3/8/PPPP1PPP/RN1QKBNR b KQkq - 1 2') === 'b', 'hanging bishop');
+  ok(openKind('Italian Game: Giuoco Pianissimo') === 'open_italian' && openKind('Mieses Opening') === 'open_any', 'openKind');
+  const sb = decide({ mode: 'review', ply: 20, mine: true, fenBefore: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2', fenAfter: 'rnbqkb1r/pppppppp/5n2/4P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2', u: 'e4e5', label: 'mistake', leftBook: false, opening: null, rnd: () => 0 }, freshMem());
+  ok(sb?.parts.join() === 'v_mistake,r_knight,e_defence', 'decide mistake parts');
+  const PJ = phrasesJ as Record<string, string[]>;
+  for (const k of ['short', 'great', 'outbook', 'middle', 'endgame', 'lowtime', 'oppblunder', 'try', 'v_good', 'e_tactic', 'open_any', 'hang_q', 'r_check', 'i_check', 'i_push', 'i_trade', 'i_promote', 'r_center', 'r_castle'])
+    ok((PJ[k] ?? []).length > 0, `phrase ${k}`);
+  for (const k of ['center', 'knight', 'bishop', 'rook', 'queen', 'king', 'check', 'castle', 'trade', 'push', 'promote']) ok(!!PJ[`i_${k}`] && !!PJ[`r_${k}`], `intent ${k}`);
   ok(evalText(winPct(150)) === '+1.5' && evalText(50) === '+0.0' && evalText(100) === 'M', 'evalText');
 }
 // Sana

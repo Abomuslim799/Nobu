@@ -6,25 +6,25 @@
  */
 
 import { Chess, type Square } from 'chess.js';
-import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AUDIO_BASE } from '@/core/config';
 import { C } from '@/core/theme';
 import { Avatar } from '@/core/ui/avatar';
 import { Button, Card, T } from '@/core/ui/kit';
 import { finishGame } from '@/features/brain/brain';
 import { BAD, BOT_GAP, LABEL, botParams, classify, gameAccuracy, rateGame, type Label } from '@/features/chess/analysis';
 import { ChessBoard, type Badge } from '@/features/chess/board';
-import { addOwn, getBot, getSaved, phrase, saveBot, saveGame, type BotState, type GameRec, type PhraseKind, type Saved } from '@/features/chess/bot';
+import { addOwn, getBot, getSaved, saveBot, saveGame, type BotState, type GameRec, type PhraseKind, type Saved } from '@/features/chess/bot';
 import { analyse, botMove, type Info } from '@/features/chess/engine/engine';
 import { useLook } from '@/features/chess/look';
 import { PRACTICES, bookMoves, inPractice, openingName, practiceNext, type Practice } from '@/features/chess/openings';
 import type { Row } from '@/features/chess/puzzles';
 import { moveSound, playSound, preloadSounds } from '@/features/chess/sound';
+import { decide, freshMem } from '@/features/chess/talk';
+import { lineOf, useVoice } from '@/features/chess/voice';
 import { useProgress } from '@/store';
 
 const TCS: { label: string; tc: number; inc: number }[] = [{ label: '∞', tc: 0, inc: 0 }, { label: '10+0', tc: 600, inc: 0 }, { label: '5+3', tc: 300, inc: 3 }];
@@ -57,7 +57,8 @@ export default function BotGame() {
   const [view, setView] = useState<number | null>(null);
   const [lock, setLock] = useState(false);
   const [pen, setPen] = useState(false);
-  const [voiceOn, setVoiceOn] = useState(true);
+  const vo = useVoice();
+  const mem = useRef(freshMem());
   const [book, setBook] = useState<{ name: string | null; out: number | null }>({ name: null, out: null });
   const [end, setEnd] = useState<End | null>(null);
   const [auto, setAuto] = useState(false);   // ▶ — har 1.5 s keyingi yurish
@@ -65,23 +66,21 @@ export default function BotGame() {
   const token = useRef(0);
   const extra = useRef<number[]>([]);                 // Retry qilingan yurishlar yo'qotishi (aniqlikka kiradi)
   const own = useRef<Row[]>([]);
-  const voice = useRef<AudioPlayer | null>(null);
   const gRef = useRef<Saved | null>(null);
   gRef.current = g;
-  const st = useRef({ phase, thinking, view, voiceOn, out: book.out });   // taymer va premove ichida eski qiymat qolmasin
-  st.current = { phase, thinking, view, voiceOn, out: book.out };
+  const st = useRef({ phase, thinking, view, out: book.out });   // taymer va premove ichida eski qiymat qolmasin
+  st.current = { phase, thinking, view, out: book.out };
 
   useEffect(() => {
     preloadSounds();
     getBot().then(setBot); getSaved().then(setSaved);
-    try { voice.current = createAudioPlayer(null); } catch { /* ovozsiz */ }
-    return () => { token.current++; voice.current?.remove(); };
+    return () => { token.current++; };
   }, []);
 
   const say = (kind: PhraseKind, color?: string) => {
-    const p = phrase(kind);
-    setBubble({ text: p.text, color });
-    if (st.current.voiceOn && voice.current) { try { voice.current.replace({ uri: AUDIO_BASE + p.file }); voice.current.play(); } catch { /* jim */ } }
+    const l = lineOf({ parts: [kind] });
+    setBubble({ text: l.text, color });
+    return vo.play(l);
   };
   const before = (f: string) => {
     let p = cache.current.get(f);
@@ -115,7 +114,7 @@ export default function BotGame() {
     const lm = x.moves.length ? x.moves[x.moves.length - 1] : null;
     setFen(game.current.fen()); setLast(lm ? [lm.slice(0, 2) as Square, lm.slice(2, 4) as Square] : null);
     setBadge(null); setPre(null); setView(null); setEnd(null); setThinking(false);
-    if (fresh) { extra.current = []; own.current = []; }
+    if (fresh) { extra.current = []; own.current = []; mem.current = freshMem(); }
     cache.current.clear();
     setBook({ name: x.opening ?? null, out: null });
     persist(x); setPhase('play'); st.current.phase = 'play'; st.current.view = null;
@@ -198,13 +197,20 @@ export default function BotGame() {
     const z: Saved = { ...y, labels: y.labels.map((l, i) => (i === ply ? c.label : l)), drops: y.drops.map((d, i) => (i === ply ? c.drop : d)) };
     persist(z);
     setBadge({ sq: to, text: LABEL[c.label].sym, color: LABEL[c.label].color });
-    say(c.label, LABEL[c.label].color);
+    const leftBook = bookMoves(fenBefore).length > 0 && !bookMoves(fenBefore).includes(u);
+    const s = decide({ mode: 'bot', ply, mine: true, fenBefore, fenAfter: game.current.fen(), u, label: c.label, leftBook, opening: z.opening ?? null, time: x.tc ? z.myTime : null, base: x.tc, rnd: Math.random }, mem.current);
     if (BAD.includes(c.label) && ply >= 1 && b.pv.length) {
       const line = b.pv.slice(0, b.pv.length >= 3 ? 3 : 1);
       own.current.push([`own-${Date.now()}`, fens.current[ply - 1], [z.moves[ply - 1], ...line].join(' '), z.botElo - BOT_GAP, `own ${c.label}`]);
     }
+    if (s) {                                             // avval gapiradi, keyin yuradi
+      const l = lineOf(s);
+      setBubble({ text: l.text, color: BAD.includes(c.label) ? LABEL[c.label].color : undefined });
+      await vo.play(l);
+      if (my !== token.current) return;
+    }
     setThinking(false); st.current.thinking = false;
-    botTurn(z, Math.max(0, 2000 - (Date.now() - t0)));
+    botTurn(z, Math.max(0, 1200 - (Date.now() - t0)));
   };
 
   const retry = () => {
@@ -254,7 +260,7 @@ export default function BotGame() {
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 8 }}>
         <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
         <T bold size={18} style={{ flex: 1 }}>🤖 Farobiy</T>
-        <Pressable onPress={() => setVoiceOn(!voiceOn)} hitSlop={10}><T size={18}>{voiceOn ? '🗣️' : '🔇'}</T></Pressable>
+        <Pressable onPress={() => { vo.stop(); vo.setOn(!vo.on); }} hitSlop={10}><T size={18}>{vo.on ? '🗣️' : '🔇'}</T></Pressable>
       </View>
 
       {phase === 'setup' && bot && (
