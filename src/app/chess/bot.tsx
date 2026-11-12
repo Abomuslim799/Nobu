@@ -314,40 +314,29 @@ export default function BotGame() {
           <>
             {/* Doska va boshqaruv — doim ko'rinib turadi (pastga aylantirish shart emas) */}
             <View style={{ paddingHorizontal: 16, gap: 6 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={30} />
-                <View style={{ flex: 1 }}>
-                  <T bold size={14}>Farobiy <T dim size={12}>~{g.botElo}{thinking ? " · o'ylayapti…" : ''}</T></T>
-                  {bubble && view === null && <T size={13} color={bubble.color ?? C.text}>“{bubble.text}”</T>}
-                  {view !== null && <T size={13} color={vl ? LABEL[vl].color : C.dim}>{cur === 0 ? "Boshlang'ich pozitsiya" : `${Math.ceil(cur / 2)}-yurish${vl ? ` · ${LABEL[vl].sym} ${LABEL[vl].name}` : ''}`}</T>}
+              {/* Farobiy yuzi + gap pufakchasi (chess.com murabbiyi uslubida) */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, height: 78 }}>
+                <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={54} />
+                <View style={{ flex: 1, alignSelf: 'stretch', justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16, borderTopLeftRadius: 4, backgroundColor: C.card, borderWidth: 1, borderColor: bubble?.color && view === null ? bubble.color + '88' : C.cardBorder, gap: 2 }}>
+                  <T dim size={11} lines={1}>Farobiy · ~{g.botElo}{thinking ? " · o'ylayapti…" : ''}</T>
+                  {view === null
+                    ? <T size={15} lines={2} color={bubble?.color ?? C.text}>{bubble ? `“${bubble.text}”` : myTurn ? 'Your move.' : '…'}</T>
+                    : <T size={14} lines={2} color={vl ? LABEL[vl].color : C.dim}>{cur === 0 ? "Boshlang'ich pozitsiya" : `${Math.ceil(cur / 2)}-yurish${vl ? ` · ${LABEL[vl].sym} ${LABEL[vl].name}` : ''}`}</T>}
                 </View>
-                {g.tc > 0 && <T bold size={17} color={g.myTime < 30 ? C.red : C.text} style={{ fontVariant: ['tabular-nums'] }}>⏱ {clock(g.myTime)}</T>}
+                {g.tc > 0 && (
+                  <View style={{ paddingHorizontal: 8, paddingVertical: 6, borderRadius: 10, backgroundColor: g.myTime < 30 ? C.red : '#EDEAE3' }}>
+                    <T bold size={17} color={g.myTime < 30 ? '#fff' : '#1A1A1A'} style={{ fontVariant: ['tabular-nums'] }}>{clock(g.myTime)}</T>
+                  </View>
+                )}
               </View>
               <ChessBoard fen={shownFen} orientation={g.color} movable={phase === 'play' && view === null ? g.color : null}
                 premove={thinking || !myTurn} onPremove={(a, b) => { setPre([a, b]); preRef.current = [a, b]; }} premoveSq={pre}
                 lastMove={view === null ? last : vm ? [vm.slice(0, 2) as Square, vm.slice(2, 4) as Square] : null}
                 badge={view === null ? badge : vm && vl ? { sq: vm.slice(2, 4) as Square, text: LABEL[vl].sym, color: LABEL[vl].color } : null}
                 onMove={userMove} pen={pen} clearKey={g.moves.length} onBusy={setLock} />
-              <View style={{ flexDirection: 'row', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
-                <Small label="⏮" onPress={() => { setAuto(false); go(0); }} />
-                <Small label="‹" onPress={() => { setAuto(false); go(cur - 1); }} />
-                <Small label="›" onPress={() => { setAuto(false); go(cur + 1); }} />
-                <Small label="⏭" onPress={() => { setAuto(false); go(N); }} />
-                {phase === 'end' && <Small label={auto ? '⏸' : '▶'} gold={auto} onPress={() => { if (!auto && view === null) setView(0); setAuto(!auto); }} />}
-                <Small label="‹⚠️" onPress={() => { setAuto(false); jumpBad(-1); }} />
-                <Small label="⚠️›" onPress={() => { setAuto(false); jumpBad(1); }} />
-                <T dim size={12} style={{ flex: 1, textAlign: 'right' }}>{cur}/{N}</T>
-              </View>
             </View>
 
             <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, paddingTop: 8, gap: 8, paddingBottom: insets.bottom + 30 }}>
-              {phase === 'play' && (
-                <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
-                  {canRetry && <Small label="↺ Retry" onPress={retry} gold />}
-                  <Small label={pen ? '✏️ Reja ✓' : '✏️ Reja'} onPress={() => setPen(!pen)} />
-                  <Small label="🏳 Taslim" onPress={() => finish('loss', 'Taslim')} />
-                </View>
-              )}
               {pre && <T dim size={12}>⏩ Oldindan yurish: {pre[0]}–{pre[1]} (bot yurgach bajariladi)</T>}
               {(book.name || book.out) && <T dim size={13}>📖 {book.name ?? ''}{book.out ? ` · nazariyadan ${book.out}-yurishda chiqdingiz` : ''}</T>}
 
@@ -365,10 +354,43 @@ export default function BotGame() {
               )}
               <MoveList moves={g.moves} labels={g.labels} start={fens.current[0]} cur={cur} onPick={(i) => go(i + 1)} />
             </ScrollView>
+
+            {/* Pastki panel — doim joyida: o'yin paytida Retry / Reja / Taslim, keyin ⚠️ va ▶ */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingTop: 8, paddingBottom: insets.bottom + 8, borderTopWidth: 1, borderTopColor: C.cardBorder, backgroundColor: C.bg }}>
+              {phase === 'play' ? (
+                <>
+                  <Tool icon="↺" label="Retry" on={canRetry} onPress={() => canRetry && retry()} />
+                  <Tool icon="✏️" label="Reja" on={pen} onPress={() => setPen(!pen)} />
+                  <Tool icon="🏳" label="Taslim" onPress={() => finish('loss', 'Taslim')} />
+                </>
+              ) : (
+                <>
+                  <Tool icon="⚠️" label="Xato" onPress={() => { setAuto(false); jumpBad(1); }} />
+                  <Tool icon={auto ? '⏸' : '▶'} label="Avto" on={auto} onPress={() => { if (!auto && view === null) setView(0); setAuto(!auto); }} />
+                </>
+              )}
+              <Big label="‹" onPress={() => { setAuto(false); go(cur - 1); }} />
+              <Big label="›" onPress={() => { setAuto(false); go(cur + 1); }} />
+            </View>
           </>
         );
       })()}
     </View>
+  );
+}
+
+function Tool({ icon, label, onPress, on }: { icon: string; label: string; onPress: () => void; on?: boolean }) {
+  return (
+    <Pressable onPress={onPress} hitSlop={4} style={({ pressed }) => ({ width: 58, height: 54, borderRadius: 14, backgroundColor: on ? C.goldSoft : 'transparent', alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.6 : 1 })}>
+      <T size={18}>{icon}</T><T dim size={10}>{label}</T>
+    </Pressable>
+  );
+}
+function Big({ label, onPress }: { label: string; onPress: () => void }) {
+  return (
+    <Pressable onPress={onPress} hitSlop={4} style={({ pressed }) => ({ flex: 1, height: 54, borderRadius: 14, backgroundColor: C.card, borderWidth: 1, borderColor: C.cardBorder, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.6 : 1 })}>
+      <T size={22} bold>{label}</T>
+    </Pressable>
   );
 }
 

@@ -15,7 +15,8 @@ import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';
 import { C } from '@/core/theme';
 import { Button, Card, T } from '@/core/ui/kit';
 import { nobuChat } from '@/features/assistant/ai';
-import { CAUSE, LABEL, winOf } from '@/features/chess/analysis';
+import { CAUSE, gameRating, LABEL, winOf } from '@/features/chess/analysis';
+import { Avatar } from '@/core/ui/avatar';
 import { ChessBoard } from '@/features/chess/board';
 import { fresh, loadAn, loadCom, reanalyse, type ComGame, type GameAn } from '@/features/chess/chesscom';
 import { analyse } from '@/features/chess/engine/engine';
@@ -42,6 +43,9 @@ export default function Review() {
   const [auto, setAuto] = useState(false);
   const [more, setMore] = useState(false);
   const [retry, setRetry] = useState<Retry | null>(null);
+  const [showBest, setShowBest] = useState(false);
+  const strip = useRef<{ scrollTo: (o: { x: number; animated?: boolean }) => void } | null>(null);
+  const xs = useRef<Record<number, number>>({});
   const [plan, setPlan] = useState('');
   const [coach, setCoach] = useState<Record<number, string>>({});
   const [busy, setBusy] = useState(false);
@@ -88,8 +92,9 @@ export default function Review() {
   const flip = g.color === 'b';
   const go = (v: number, fromAuto = false) => {
     if (!fromAuto) setAuto(false);
-    setRetry(null);
+    setRetry(null); setShowBest(false);
     const nv = Math.max(0, Math.min(last, v));
+    if (nv > 0) strip.current?.scrollTo({ x: Math.max(0, (xs.current[nv - 1] ?? 0) - 120), animated: true });
     if (nv === view) return;
     setView(nv);
     if (nv > 0) { try { playSound(moveSound(new Chess(fens[nv - 1]).move(uci(g.moves[nv - 1]))), look.sound); } catch { /* jim */ } }
@@ -115,35 +120,35 @@ export default function Review() {
     </View>
   );
 
+  const coachLine = g.result === 'win' ? (sum.me.acc >= 90 ? "Excellent game! Let's look at the key moments." : "Nice win. Let's see where it could be even cleaner.")
+    : g.result === 'draw' ? "A draw. Let's see who missed what."
+    : sum.me.acc >= 88 ? "You played well, but the result slipped. Let's find the turning point." : "Tough game. Every loss hides a lesson — let's find it.";
+
   // ── 📊 Xulosa ──────────────────────────────────────────────
   if (mode === 'sum') {
     return (
       <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
         {header}
-        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 12, paddingBottom: insets.bottom + 30 }}>
-          <Card style={{ gap: 10 }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Acc label="Siz" v={sum.me.acc} hi />
-              <Acc label={g.oppName} v={sum.opp.acc} />
-            </View>
-            <EvalGraph evals={a.evals} flip={flip} ps={ps} view={-1} onPick={(v) => openAt(v)} />
-            <T dim size={11}>Grafikni bosing — o'sha joydan ko'rib chiqasiz.</T>
-          </Card>
-
-          <Card style={{ gap: 2, paddingVertical: 10 }}>
-            <View style={{ flexDirection: 'row', paddingBottom: 4 }}>
+        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 12, paddingBottom: insets.bottom + 110 }}>
+          <Coach pose="kitob" text={coachLine} />
+          <EvalGraph evals={a.evals} flip={flip} ps={ps} view={-1} onPick={(v) => openAt(v)} />
+          <Card style={{ gap: 0, paddingVertical: 6 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
               <View style={{ flex: 1 }} />
-              <T dim size={12} style={{ width: 56, textAlign: 'center' }}>Siz</T>
-              <T dim size={12} style={{ width: 56, textAlign: 'center' }}>Raqib</T>
+              <T bold size={13} style={{ width: 92, textAlign: 'center' }} lines={1}>Siz</T>
+              <T bold size={13} style={{ width: 92, textAlign: 'center' }} lines={1}>{g.oppName}</T>
             </View>
-            {ROWS.map((k) => (
-              <View key={k} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 3 }}>
-                <View style={{ width: 26, height: 22, borderRadius: 11, backgroundColor: meta(k).color, alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
+            <Row label="Aniqlik" a={<Pill v={`${sum.me.acc}`} hi />} b={<Pill v={`${sum.opp.acc}`} />} />
+            <Row label="O'yin reytingi" a={<Pill v={`~${gameRating(sum.me.acc)}`} hi />} b={<Pill v={`~${gameRating(sum.opp.acc)}`} />} />
+            <View style={{ height: 1, backgroundColor: C.cardBorder, marginVertical: 6 }} />
+            {ROWS.filter((k) => sum.me.n[k] || sum.opp.n[k] || ['best', 'mistake', 'blunder'].includes(k)).map((k) => (
+              <View key={k} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5 }}>
+                <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: meta(k).color, alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
                   <T bold size={11} color="#fff">{meta(k).sym}</T>
                 </View>
-                <T size={14} style={{ flex: 1 }}>{UZ[k]}</T>
-                <T bold size={15} color={sum.me.n[k] ? meta(k).color : C.dim} style={{ width: 56, textAlign: 'center' }}>{sum.me.n[k]}</T>
-                <T size={15} color={C.dim} style={{ width: 56, textAlign: 'center' }}>{sum.opp.n[k]}</T>
+                <T size={15} style={{ flex: 1 }}>{UZ[k]}</T>
+                <T bold size={17} color={sum.me.n[k] ? meta(k).color : C.dim} style={{ width: 92, textAlign: 'center' }}>{sum.me.n[k]}</T>
+                <T bold size={17} color={sum.opp.n[k] ? meta(k).color + 'AA' : C.dim} style={{ width: 92, textAlign: 'center' }}>{sum.opp.n[k]}</T>
               </View>
             ))}
           </Card>
@@ -164,9 +169,14 @@ export default function Review() {
             </Pressable>
           ))}
           {a.bookOut && <T dim size={12}>📖 Nazariyadan {a.bookOut}-yurishda chiqdingiz.</T>}
-          <Button label="▶ Ko'rib chiqish" onPress={() => openAt(moments[0] ? moments[0].ply + 1 : 1)} />
-          {!fresh(a) && <T color={C.gold} size={12}>Bu o'yin eski qoida bilan tahlil qilingan — "Ko'rib chiqish → Batafsil" ichida qayta tahlil qiling.</T>}
+          {!fresh(a) && <T color={C.gold} size={12}>Bu o'yin eski qoida bilan tahlil qilingan — server yangisini tayyorlaydi (Tahlil → Hozir tahlil qil).</T>}
         </ScrollView>
+        <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16, paddingBottom: insets.bottom + 12, backgroundColor: C.bg + 'F2', borderTopWidth: 1, borderTopColor: C.cardBorder }}>
+          <Pressable onPress={() => openAt(moments[0] ? moments[0].ply + 1 : 1)}
+            style={({ pressed }) => ({ height: 58, borderRadius: 16, backgroundColor: C.green, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.8 : 1 })}>
+            <T bold size={20} color="#fff">▶ Ko'rib chiqish</T>
+          </Pressable>
+        </View>
       </View>
     );
   }
@@ -175,13 +185,16 @@ export default function Review() {
   const cur = view > 0 ? ps[view - 1] : null;
   const said = view > 0 && !retry ? script.get(view - 1) : undefined;
   const lm = view > 0 ? g.moves[view - 1] : null;
-  const fen = retry ? retry.fen : fens[view];
-  const lastMove: [Square, Square] | null = retry ? retry.last : lm ? [lm.slice(0, 2) as Square, lm.slice(2, 4) as Square] : null;
-  const badge = !retry && cur && lm ? { sq: lm.slice(2, 4) as Square, text: meta(cur.kind).sym, color: meta(cur.kind).color }
+  const bestPrev = showBest && cur?.an ? (() => { try { const c = new Chess(fens[cur.ply]); const mv = c.move(uci(cur.an.best)); return { fen: c.fen(), last: [mv.from, mv.to] as [Square, Square], san: mv.san }; } catch { return null; } })() : null;
+  const fen = retry ? retry.fen : bestPrev ? bestPrev.fen : fens[view];
+  const lastMove: [Square, Square] | null = retry ? retry.last : bestPrev ? bestPrev.last : lm ? [lm.slice(0, 2) as Square, lm.slice(2, 4) as Square] : null;
+  const badge = bestPrev ? { sq: bestPrev.last[1], text: '★', color: LABEL.best.color }
+    : !retry && cur && lm ? { sq: lm.slice(2, 4) as Square, text: meta(cur.kind).sym, color: meta(cur.kind).color }
     : retry && retry.last && retry.ok !== null ? { sq: retry.last[1], text: retry.ok ? '★' : '✗', color: retry.ok ? LABEL.best.color : LABEL.blunder.color } : null;
   const canRetry = !!cur && cur.mine && isBad(cur.kind) && !!cur.an;
+  const canBest = !!cur && cur.mine && !!cur.an && cur.an.best !== g.moves[cur.ply] && cur.kind !== 'book';
 
-  const startRetry = () => { if (!cur) return; setAuto(false); setRetry({ ply: cur.ply, fen: fens[cur.ply], last: null, tries: 0, msg: 'Yaxshiroq yurishni toping.', ok: null, busy: false }); };
+  const startRetry = () => { if (!cur) return; setAuto(false); setShowBest(false); setRetry({ ply: cur.ply, fen: fens[cur.ply], last: null, tries: 0, msg: 'Yaxshiroq yurishni toping.', ok: null, busy: false }); };
   const onTry = async (from: Square, to: Square) => {
     if (!retry || retry.busy || retry.ok === true || !cur?.an) return;
     const m = cur.an, base = fens[retry.ply];
@@ -219,58 +232,56 @@ O'zbekcha, qisqa (5–6 gap), maqtovsiz: 1) rejasining xatosi, 2) nimani tekshir
     } catch (e) { setErr(e instanceof Error ? e.message : String(e)); } finally { setBusy(false); }
   };
 
-  const btn = (label: string, onPress: () => void, on = false, w = 44) => (
-    <Pressable onPress={onPress} hitSlop={4} style={({ pressed }) => ({ minWidth: w, paddingHorizontal: 8, height: 42, borderRadius: 12, backgroundColor: on ? C.gold : C.subtle, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.6 : 1 })}>
-      <T size={17} color={on ? '#2A1E0A' : C.text}>{label}</T>
+  const big = (label: string, onPress: () => void, on = false, flex = 1) => (
+    <Pressable onPress={onPress} hitSlop={4} style={({ pressed }) => ({ flex, height: 54, borderRadius: 14, backgroundColor: on ? C.gold : C.card, borderWidth: 1, borderColor: C.cardBorder, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.6 : 1 })}>
+      <T size={22} bold color={on ? '#2A1E0A' : C.text}>{label}</T>
+    </Pressable>
+  );
+  const tool = (icon: string, label: string, onPress: () => void, on = false) => (
+    <Pressable onPress={onPress} hitSlop={4} style={({ pressed }) => ({ width: 58, height: 54, borderRadius: 14, backgroundColor: on ? C.goldSoft : 'transparent', alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.6 : 1 })}>
+      <T size={18}>{icon}</T><T dim size={10}>{label}</T>
     </Pressable>
   );
   const w = a.evals[retry ? retry.ply : view] ?? 50;
+  const bubble = retry ? <T size={14} color={retry.ok === true ? LABEL.best.color : retry.ok === false ? LABEL.blunder.color : C.text} lines={3}>🔁 {retry.msg}</T>
+    : bestPrev && cur?.an ? <><T bold size={13} color={LABEL.best.color}>★ Eng yaxshisi: {bestPrev.san}</T><T size={13} lines={2}>{lineOf(fens[cur.ply], cur.an.pv, 5)}</T></>
+    : cur ? <>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: meta(cur.kind).color, alignItems: 'center', justifyContent: 'center' }}><T bold size={9} color="#fff">{meta(cur.kind).sym}</T></View>
+        <T bold size={13} color={meta(cur.kind).color} lines={1}>{sanOf(fens[cur.ply], g.moves[cur.ply])} — {cur.mine ? UZ[cur.kind].toLowerCase() : `raqib: ${UZ[cur.kind].toLowerCase()}`}</T>
+      </View>
+      {said ? <T size={14} lines={2}>“{said.text}”</T> : <T size={14} lines={2}>{explain(cur, fens, g.moves)}</T>}
+      {said && <T dim size={12} lines={1}>{explain(cur, fens, g.moves)}</T>}
+    </> : <T size={14}>{coachLine}</T>;
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
       {header}
       <View style={{ paddingHorizontal: 12, gap: 8 }}>
+        <Coach pose={cur && isBad(cur.kind) && cur.mine ? 'tushuntir' : 'kitob'} height={86}>{bubble}</Coach>
         <View style={{ flexDirection: 'row', gap: 6 }}>
           <EvalBar w={w} flip={flip} />
           <View style={{ flex: 1 }}>
             <ChessBoard fen={fen} orientation={g.color} lastMove={lastMove} badge={badge}
-              movable={retry && !retry.busy && retry.ok !== true ? g.color : null} onMove={onTry} clearKey={`${view}-${retry?.fen ?? ''}`} />
+              movable={retry && !retry.busy && retry.ok !== true ? g.color : null} onMove={onTry} clearKey={`${view}-${retry?.fen ?? ''}-${showBest}`} />
           </View>
         </View>
-
-        <View style={{ height: 112, padding: 10, borderRadius: 12, backgroundColor: C.card, borderWidth: 1, borderColor: retry ? C.gold : cur ? meta(cur.kind).color + '66' : C.cardBorder, flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-          {cur && !retry && (
-            <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: meta(cur.kind).color, alignItems: 'center', justifyContent: 'center' }}>
-              <T bold size={12} color="#fff">{meta(cur.kind).sym}</T>
-            </View>
-          )}
-          <View style={{ flex: 1 }}>
-            {retry ? <T size={14} color={retry.ok === true ? LABEL.best.color : retry.ok === false ? LABEL.blunder.color : C.text}>🔁 {retry.msg}</T>
-              : cur ? <>
-                <T bold size={12} color={meta(cur.kind).color}>{Math.floor(cur.ply / 2) + 1}-yurish · {cur.mine ? UZ[cur.kind] : `Raqib · ${UZ[cur.kind].toLowerCase()}`}</T>
-                <T size={14} lines={2}>{explain(cur, fens, g.moves)}</T>
-                {said && <T size={13} color={C.gold} lines={2} style={{ fontStyle: 'italic' }}>🗣 “{said.text}”</T>}
-              </>
-              : <T dim size={14}>Boshlang'ich pozitsiya. › bilan oldinga.</T>}
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
-          {btn('⏮', () => go(0))}
-          {btn('‹', () => go(view - 1), false, 52)}
-          {btn('›', () => go(view + 1), false, 52)}
-          {btn(auto ? '⏸' : '▶', () => { setRetry(null); if (auto) { vo.stop(); setAuto(false); return; } if (view >= last) setView(0); talking.current = Promise.resolve(); setAuto(true); }, auto)}
-          {btn('‹⚠️', () => nextMoment(-1))}
-          {btn('⚠️›', () => nextMoment(1))}
-          <View style={{ flex: 1 }} />
-          {canRetry && !retry && btn('🔁', startRetry)}
-          {retry && btn('✕', () => setRetry(null))}
-        </View>
-        <EvalGraph evals={a.evals} flip={flip} ps={ps} view={view} onPick={(v) => go(v)} small />
+        <ScrollView ref={strip as never} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 2, paddingVertical: 2 }}>
+          {ps.map((p) => {
+            const mark = (p.mine && (isBad(p.kind) || p.kind === 'brilliant' || p.kind === 'great')) || (!p.mine && (p.kind === 'blunder' || p.kind === 'mistake'));
+            return (
+              <Pressable key={p.ply} onLayout={(e) => { xs.current[p.ply] = e.nativeEvent.layout.x; }} onPress={() => go(p.ply + 1)} hitSlop={4}
+                style={{ paddingHorizontal: 6, paddingVertical: 5, borderRadius: 8, backgroundColor: view === p.ply + 1 ? C.goldSoft : 'transparent' }}>
+                <T size={14} bold={view === p.ply + 1} color={mark ? meta(p.kind).color : p.mine ? C.text : C.dim}>{p.ply % 2 === 0 ? `${p.ply / 2 + 1}.` : ''}{sanOf(fens[p.ply], g.moves[p.ply])}{mark ? meta(p.kind).sym : ''}</T>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
 
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 10, gap: 10, paddingBottom: insets.bottom + 30 }}>
-        <Pressable onPress={() => setMore(!more)} hitSlop={6}><T dim size={13}>{more ? '▾ Batafsilni yopish' : '▸ Batafsil: murabbiy savoli, yurishlar, qayta tahlil'}</T></Pressable>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 12, paddingTop: 4, gap: 10, paddingBottom: 16 }}>
+        <EvalGraph evals={a.evals} flip={flip} ps={ps} view={view} onPick={(v) => go(v)} small />
+        <Pressable onPress={() => setMore(!more)} hitSlop={6}><T dim size={13}>{more ? '▾ Batafsilni yopish' : '▸ Batafsil: murabbiydan so\'rash, qayta tahlil'}</T></Pressable>
         {more && (
           <>
             {cur?.mine && isBad(cur.kind) && cur.an && (
@@ -287,34 +298,50 @@ O'zbekcha, qisqa (5–6 gap), maqtovsiz: 1) rejasining xatosi, 2) nimani tekshir
                 {coach[cur.ply] && <><T size={14}>{coach[cur.ply]}</T><T size={13} color={LABEL.best.color}>★ {lineOf(fens[cur.ply], cur.an.pv)}</T></>}
               </Card>
             )}
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 8, borderRadius: 10, backgroundColor: C.card }}>
-              {ps.map((p) => {
-                const bad = isBad(p.kind) && (p.mine || p.kind === 'blunder');
-                return (
-                  <Pressable key={p.ply} onPress={() => go(p.ply + 1)} hitSlop={4} style={{ paddingHorizontal: 3, paddingVertical: 2, borderRadius: 6, backgroundColor: view === p.ply + 1 ? C.goldSoft : 'transparent' }}>
-                    <T size={14} color={bad ? meta(p.kind).color : p.mine ? C.text : C.dim}>{p.ply % 2 === 0 ? `${p.ply / 2 + 1}.` : ''}{sanOf(fens[p.ply], g.moves[p.ply])}{bad || p.kind === 'brilliant' ? meta(p.kind).sym : ''}</T>
-                  </Pressable>
-                );
-              })}
-            </View>
-            <Button kind={fresh(a) ? 'ghost' : 'primary'} label={re ?? '🔍 Qayta tahlil qilish (~40 s)'} disabled={!!re}
+            <Button kind="ghost" label={re ?? '📱 Telefonda qayta tahlil (~40 s)'} disabled={!!re}
               onPress={async () => { setRe('⏳ Tahlil…'); try { const r = await reanalyse(g, (i, n) => setRe(`⏳ Tahlil: ${i}/${n}`)); setA(r); } finally { setRe(null); } }} />
-            <T dim size={11}>Baho — Stockfish 10 (telefonda). Izohlar — qoidalar asosida; murabbiy javobi — AI.</T>
+            <T dim size={11}>Baho — Stockfish ({a.src === 'cloud' ? 'server' : 'telefon'}). Izohlar — qoidalar asosida; murabbiy javobi — AI.</T>
           </>
         )}
       </ScrollView>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingTop: 8, paddingBottom: insets.bottom + 8, borderTopWidth: 1, borderTopColor: C.cardBorder, backgroundColor: C.bg }}>
+        {retry ? tool('✕', 'Yopish', () => setRetry(null), true) : tool('🔁', 'Qayta', canRetry ? startRetry : () => {}, false)}
+        {tool('★', 'Eng yaxshi', () => canBest && setShowBest(!showBest), showBest)}
+        {tool('⚠️', 'Keyingi', () => nextMoment(1))}
+        {big('‹', () => go(view - 1))}
+        {big(auto ? '⏸' : '▶', () => { setRetry(null); setShowBest(false); if (auto) { vo.stop(); setAuto(false); return; } if (view >= last) setView(0); talking.current = Promise.resolve(); setAuto(true); }, auto)}
+        {big('›', () => go(view + 1))}
+      </View>
     </View>
   );
 }
 
-function Acc({ label, v, hi }: { label: string; v: number; hi?: boolean }) {
+/** Farobiy yuzi + gap pufakchasi (chess.com murabbiyi uslubida). */
+function Coach({ pose, text, children, height }: { pose: 'kitob' | 'tushuntir' | 'oyla'; text?: string; children?: React.ReactNode; height?: number }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', gap: 2 }}>
-      <T dim size={12} style={{ maxWidth: 140 }}>{label}</T>
-      <View style={{ paddingHorizontal: 16, paddingVertical: 6, borderRadius: 10, backgroundColor: hi ? C.goldSoft : C.subtle }}>
-        <T bold size={26} color={hi ? C.gold : C.text}>{v}%</T>
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, height }}>
+      <Avatar who="ustoz" pose={pose} size={54} />
+      <View style={{ flex: 1, alignSelf: 'stretch', justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 16, borderTopLeftRadius: 4, backgroundColor: C.card, borderWidth: 1, borderColor: C.cardBorder, gap: 2 }}>
+        {children ?? <T size={15}>{text}</T>}
       </View>
-      <T dim size={11}>aniqlik</T>
+    </View>
+  );
+}
+
+function Row({ label, a, b }: { label: string; a: React.ReactNode; b: React.ReactNode }) {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5 }}>
+      <T size={15} style={{ flex: 1 }}>{label}</T>
+      <View style={{ width: 92, alignItems: 'center' }}>{a}</View>
+      <View style={{ width: 92, alignItems: 'center' }}>{b}</View>
+    </View>
+  );
+}
+function Pill({ v, hi }: { v: string; hi?: boolean }) {
+  return (
+    <View style={{ minWidth: 76, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 10, alignItems: 'center', backgroundColor: hi ? '#EDEAE3' : C.subtle }}>
+      <T bold size={20} color={hi ? '#1A1A1A' : C.text}>{v}</T>
     </View>
   );
 }
