@@ -323,8 +323,10 @@ function Acc({ label, v, hi }: { label: string; v: number; hi?: boolean }) {
 function EvalBar({ w, flip }: { w: number; flip: boolean }) {
   const mine = flip ? 100 - w : w;   // pastdagi tomon ulushi
   return (
-    <View style={{ width: 16, borderRadius: 4, overflow: 'hidden', backgroundColor: flip ? '#EDEAE3' : '#2B2B2E', justifyContent: 'flex-end' }}>
-      <View style={{ height: `${Math.max(2, Math.min(98, mine))}%`, backgroundColor: flip ? '#2B2B2E' : '#EDEAE3' }} />
+    <View style={{ width: 16, borderRadius: 4, overflow: 'hidden' }}>
+      {/* foiz balandlik iPhone'da (Yoga) ota balandligi noma'lum bo'lganda ekran bo'yi cho'ziladi — shuning uchun flex ulushlar */}
+      <View style={{ flex: 100 - Math.max(2, Math.min(98, mine)), backgroundColor: flip ? '#EDEAE3' : '#2B2B2E' }} />
+      <View style={{ flex: Math.max(2, Math.min(98, mine)), backgroundColor: flip ? '#2B2B2E' : '#EDEAE3' }} />
       <View style={{ position: 'absolute', left: 0, right: 0, bottom: mine >= 50 ? 2 : undefined, top: mine < 50 ? 2 : undefined, alignItems: 'center' }}>
         <T size={8} bold color={(mine >= 50) !== flip ? '#2B2B2E' : '#EDEAE3'}>{evalText(w).replace('+', '').replace('-', '')}</T>
       </View>
