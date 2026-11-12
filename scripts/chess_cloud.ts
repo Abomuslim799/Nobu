@@ -56,7 +56,7 @@ async function main() {
   let n = 0;
   for (const g of todo) {
     if (Date.now() - t0 > BUDGET) { console.log('vaqt tugadi — qolgani keyingi safar'); break; }
-    data.an[g.id] = { ...(await analyseGame(g, undefined, MOVETIME, [], undefined, DEPTH)), src: 'cloud' };
+    data.an[g.id] = { ...(await analyseGame(g, undefined, MOVETIME, [], undefined, DEPTH, 3)), src: "cloud" };
     n++;
     console.log(`tahlil ${n}/${todo.length}: ${g.oppName} · aniqlik ${data.an[g.id].acc}%`);
     save();                                          // har o'yindan keyin — ilova darhol ko'radi

@@ -12,9 +12,9 @@ import { bookMoves } from '@/features/chess/openings';
 
 export type Kind = Label | 'book';
 export const BOOK = { sym: '📖', name: 'Book', color: '#A88B5E' };
-export const ROWS: Kind[] = ['brilliant', 'best', 'good', 'book', 'inaccuracy', 'mistake', 'miss', 'blunder'];
+export const ROWS: Kind[] = ['brilliant', 'great', 'best', 'excellent', 'good', 'book', 'inaccuracy', 'mistake', 'miss', 'blunder'];
 export const UZ: Record<Kind, string> = {
-  brilliant: 'Ajoyib', best: 'Eng yaxshi', good: 'Yaxshi', book: 'Nazariya', inaccuracy: 'Noaniqlik', mistake: 'Xato', miss: "O'tkazib yuborildi", blunder: "Qo'pol xato",
+  brilliant: 'Ajoyib', great: 'Zo\'r', best: 'Eng yaxshi', excellent: 'A\'lo', good: 'Yaxshi', book: 'Nazariya', inaccuracy: 'Noaniqlik', mistake: 'Xato', miss: "O'tkazib yuborildi", blunder: "Qo'pol xato",
 };
 
 const VAL: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
@@ -38,11 +38,14 @@ export interface Ply { ply: number; mine: boolean; kind: Kind; drop: number; an?
 /** Har yurish: o'zingizniki — saqlangan tahlildan, raqibniki — evals (oqlar g'alaba %) dan. */
 export function plies(g: ComGame, a: GameAn, fens: string[]): Ply[] {
   const my = new Map(a.moves.map((m) => [m.ply, m]));
+  const op = new Map((a.opp ?? []).map((m) => [m.ply, m]));
   return g.moves.map((u, i) => {
     const mine = (g.color === 'w') === (i % 2 === 0);
     const book = bookMoves(fens[i]).includes(u);
     const m = my.get(i);
     if (mine && m) return { ply: i, mine, kind: book && m.drop < 5 ? 'book' : m.label, drop: m.drop, an: m };
+    const o = op.get(i);
+    if (!mine && o) return { ply: i, mine, kind: book && o.drop < 5 ? 'book' : o.label, drop: o.drop };   // server: to'liq baho
     const w = i % 2 === 0;
     const e0 = a.evals[i] ?? 50, e1 = a.evals[i + 1] ?? e0;
     const before = w ? e0 : 100 - e0, after = w ? e1 : 100 - e1;
@@ -120,7 +123,9 @@ export function explain(p: Ply, fens: string[], moves: string[]): string {
   switch (p.kind) {
     case 'book': return `${played} — nazariya yurishi.`;
     case 'brilliant': return `${played} — ajoyib qurbonlik, eng kuchli yurish!`;
+    case 'great': return `${played} — zo'r! Yagona kuchli yurishni topdingiz.`;
     case 'best': return `${played} — eng yaxshi yurish.`;
+    case 'excellent': return `${played} — a'lo yurish.`;
     case 'good': return same || !best ? `${played} — yaxshi yurish.` : `${played} — yaxshi. Eng kuchlisi ${best} edi.`;
     case 'inaccuracy': return `${played} — noaniqlik. Yaxshiroq: ${best}.`;
     case 'miss': {

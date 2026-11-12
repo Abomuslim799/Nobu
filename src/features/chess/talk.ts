@@ -116,6 +116,7 @@ export function decide(x: Ctx, mem: Mem): Say | null {
     return h ? say(v, `hang_${h}` as PhraseKind) : say(x.label as PhraseKind);
   }
   if (x.label === 'brilliant') return say('brilliant');
+  if (x.label === 'great') return say('v_best', 'e_tactic');
   if (x.label === 'best' && !x.leftBook && x.ply >= 10 && gap >= 2 && (it === 'queen' || it === 'rook' || it === 'king' || it === 'check')) return say('v_best', 'e_tactic');
   const ev = events(x, mem, say);
   if (ev) return ev;
@@ -129,7 +130,7 @@ export function decide(x: Ctx, mem: Mem): Say | null {
     return quiet ? say(`i_${it}` as PhraseKind) : say(`i_${it}` as PhraseKind, 'try');
   }
   if (x.mode === 'review' && (it === 'center' || it === 'castle') && gap >= 3 && x.rnd() < 0.5) return say('v_good', r!);   // "Good move. You took the center."
-  if ((x.label === 'best' || x.label === 'good') && gap >= 3 && x.rnd() < 0.25) return say('short');
+  if ((x.label === 'best' || x.label === 'excellent' || x.label === 'good') && gap >= 3 && x.rnd() < 0.25) return say('short');
   return null;
 }
 

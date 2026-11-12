@@ -18,9 +18,10 @@ export interface ComGame {
   moves: string[]; clocks: (number | null)[];                          // har yurishdan keyingi soat (s)
 }
 export interface MoveAn { ply: number; label: Label; drop: number; best: string; pv: string[]; cause: Cause; winBefore: number; clock: number | null }
-export const AN_V = 2;   // tahlil versiyasi — qoida o'zgarsa eski tahlillar qayta qilinadi
+export const AN_V = 3;   // tahlil versiyasi — qoida o'zgarsa eski tahlillar qayta qilinadi
 export const fresh = (a?: GameAn) => !!a && (a.v ?? 1) >= AN_V;
-export interface GameAn { v?: number; src?: 'cloud'; id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[] }   // evals — oqlar uchun g'alaba % har pozitsiyada
+export interface OppMove { ply: number; label: Label; drop: number; best: string }
+export interface GameAn { v?: number; src?: 'cloud'; id: string; acc: number; moves: MoveAn[]; opening: string | null; bookOut: number | null; evals: number[]; opp?: OppMove[]; oppAcc?: number }   // evals — oqlar uchun g'alaba % har pozitsiyada
 
 const API = 'https://api.chess.com/pub/player';
 const HEAD = { 'User-Agent': 'Farobiy-learning-app' };
@@ -92,28 +93,32 @@ export async function fetchCom(user: string, want = 30): Promise<{ user: string;
 }
 
 /** Bitta o'yinni tahlil qilish: har pozitsiya bir marta baholanadi (yurishdan oldingisi va keyingisi shulardan olinadi). */
-export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450, resume: Info[] = [], onPart?: (info: Info[]) => void, depth = 12): Promise<GameAn> {
+export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => void, movetime = 450, resume: Info[] = [], onPart?: (info: Info[]) => void, depth = 12, multipv = 1): Promise<GameAn> {
   const c = new Chess(), fens = [c.fen()];
   for (const u of g.moves) { c.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] }); fens.push(c.fen()); }
   const info: Info[] = resume.slice(0, fens.length);                // to'xtatilgan joydan davom
   for (let i = info.length; i < fens.length; i++) {
-    info.push(await analyse(fens[i], movetime, depth)); onPly?.(i + 1, fens.length);
+    info.push(await analyse(fens[i], movetime, depth, multipv)); onPly?.(i + 1, fens.length);
     if (i % 8 === 7) onPart?.(info);
   }
   const evals = info.map((x, i) => { const w = x.mate !== undefined ? (x.mate > 0 ? 100 : 0) : 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * (x.cp ?? 0))) - 1); return fens[i].split(' ')[1] === 'w' ? w : 100 - w; });
-  const moves: MoveAn[] = [];
-  let opening: string | null = null, bookOut: number | null = null;
+  const moves: MoveAn[] = [], opp: OppMove[] = [];
+  let opening: string | null = null, bookOut: number | null = null, prevBad = false;
+  const full = multipv > 1;                                          // server: ikkala tomon to'liq, Miss — raqib xatosidan keyin
   for (let i = 0; i < g.moves.length; i++) {
     const nm = openingName(fens[i + 1]); if (nm) opening = nm;
     const mine = (g.color === 'w') === (i % 2 === 0);
-    if (!mine) continue;
     const inBook = bookMoves(fens[i]).length > 0, played = g.moves[i];
+    const k = classify({ fenBefore: fens[i], played, before: info[i], after: info[i + 1], book: bookMoves(fens[i]).includes(played),
+      prevBad: full ? prevBad : undefined, prevTo: i ? g.moves[i - 1].slice(2, 4) : null });
+    prevBad = k.label === 'mistake' || k.label === 'blunder';
+    if (!mine) { if (full) opp.push({ ply: i, label: k.label, drop: Math.round(k.drop * 10) / 10, best: info[i].best }); continue; }
     if (bookOut === null && inBook && !bookMoves(fens[i]).includes(played)) bookOut = Math.floor(i / 2) + 1;
-    const k = classify({ fenBefore: fens[i], played, before: info[i], after: info[i + 1], book: bookMoves(fens[i]).includes(played) });
     moves.push({ ply: i, label: k.label, drop: Math.round(k.drop * 10) / 10, best: info[i].best, pv: info[i].pv.slice(0, 6), winBefore: Math.round(k.winBefore),
       clock: g.clocks[i], cause: cause({ fenBefore: fens[i], fenAfter: fens[i + 1], label: k.label, after: info[i + 1], ply: i, inBook, bookMove: bookMoves(fens[i]).includes(played), played, clock: g.clocks[i], base: g.base }) });
   }
-  return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
+  return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)),
+    ...(full ? { opp, oppAcc: gameAccuracy(opp.map((m) => m.drop)) } : {}) };
 }
 
 /** Server tahlili (Railway, har soatda va tugma bilan, Stockfish 17): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */

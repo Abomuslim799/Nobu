@@ -3,7 +3,7 @@
  * aniqlik %, bot kuchi va moslashuvchan reyting.
  */
 
-import { Chess } from 'chess.js';
+import { Chess, type Square } from 'chess.js';
 
 import type { Info } from '@/features/chess/engine/engine';
 
@@ -15,11 +15,13 @@ export function winOf(i: Pick<Info, 'cp' | 'mate'>): number {
   return winPct(i.cp ?? 0);
 }
 
-export type Label = 'brilliant' | 'best' | 'good' | 'inaccuracy' | 'mistake' | 'blunder' | 'miss';
+export type Label = 'brilliant' | 'great' | 'best' | 'excellent' | 'good' | 'inaccuracy' | 'mistake' | 'blunder' | 'miss';
 export const LABEL: Record<Label, { sym: string; name: string; color: string }> = {
   brilliant: { sym: '!!', name: 'Brilliant', color: '#1BACA6' },
+  great: { sym: '!', name: 'Great move', color: '#5C8BB0' },
   best: { sym: '★', name: 'Best move', color: '#5B9E2E' },
-  good: { sym: '✓', name: 'Good move', color: '#7FA650' },
+  excellent: { sym: '👍', name: 'Excellent', color: '#6FAA3C' },
+  good: { sym: '✓', name: 'Good move', color: '#8AAE6A' },
   inaccuracy: { sym: '?!', name: 'Inaccuracy', color: '#E6A817' },
   mistake: { sym: '?', name: 'Mistake', color: '#E07B2E' },
   blunder: { sym: '??', name: 'Blunder', color: '#D64545' },
@@ -34,25 +36,34 @@ export function material(fen: string, color: 'w' | 'b') {
   return s;
 }
 
+const isRecapture = (fenBefore: string, played: string, prevTo: string | null) => {
+  if (!prevTo || played.slice(2, 4) !== prevTo) return false;
+  try { return !!new Chess(fenBefore).get(prevTo as Square); } catch { return false; }
+};
+
 /**
  * Yurish bahosi. before — yurishdan oldingi pozitsiya (yuruvchi navbatda), after — yurishdan keyingi (raqib navbatda).
+ * before.multi bo'lsa (server, MultiPV 3) — o'ynalgan yurish shu qidiruvdagi bahosi bilan solishtiriladi: alohida qidiruvlar
+ * orasidagi "shovqin" xato bo'lib chiqmaydi (chess.com usuli). prevBad — raqibning oldingi yurishi xato edi (Miss uchun).
  * drop — yuruvchining g'alaba ehtimoli qancha tushgani.
  */
-export function classify(x: { fenBefore: string; played: string; before: Info; after: Info; book?: boolean }): { label: Label; drop: number; winBefore: number; winAfter: number } {
+export function classify(x: { fenBefore: string; played: string; before: Info; after: Info; book?: boolean; prevBad?: boolean; prevTo?: string | null }): { label: Label; drop: number; winBefore: number; winAfter: number } {
   const winBefore = winOf(x.before);
-  const winAfter = 100 - winOf(x.after);
-  if (x.book) return { label: x.played === x.before.best ? 'best' : 'good', drop: 0, winBefore, winAfter };   // nazariya yurishi — xato emas (sayoz hisob shovqini)
+  const alt = x.before.multi?.find((m) => m.move === x.played);
+  const winAfter = alt ? winOf(alt) : 100 - winOf(x.after);
+  if (x.book) return { label: x.played === x.before.best ? 'best' : 'good', drop: 0, winBefore, winAfter };   // nazariya yurishi — xato emas
   const isBest = x.played === x.before.best || winBefore - winAfter < 0.5;
-  const drop = isBest ? 0 : Math.max(0, winBefore - winAfter);   // dvigatel tanlovi — yo'qotish 0 (chuqurlik farqi shovqini emas)
+  const drop = isBest ? 0 : Math.max(0, winBefore - winAfter);   // dvigatel tanlovi — yo'qotish 0
   let label: Label;
   if (isBest) label = 'best';
+  else if (drop < 2) label = 'excellent';
   else if (drop < 5) label = 'good';
-  else if (winBefore >= 70 && winAfter >= 35 && drop >= 10) label = 'miss';       // yutuq bor edi, ko'rilmadi (lekin yutqazmadi)
+  else if (x.prevBad !== undefined ? x.prevBad && drop >= 10 && !(drop >= 20 && winAfter < 35) : winBefore >= 70 && winAfter >= 35 && drop >= 10) label = 'miss';   // raqib xatosini jazolamadi
   else if (drop < 10) label = 'inaccuracy';
   else if (drop < 20) label = 'mistake';
   else label = 'blunder';
-  // Brilliant: eng yaxshi yurish + qurbonlik (raqibning eng yaxshi javobidan keyin material kamaydi), pozitsiya hal qilinmagan edi
   if (label === 'best' && winBefore < 92 && winAfter >= 45 && x.after.pv[0]) {
+    // Brilliant: eng yaxshi yurish + qurbonlik (raqibning eng yaxshi javobidan keyin material kamaydi)
     try {
       const me = new Chess(x.fenBefore).turn();
       const g = new Chess(x.fenBefore); g.move({ from: x.played.slice(0, 2), to: x.played.slice(2, 4), promotion: x.played[4] });
@@ -61,7 +72,16 @@ export function classify(x: { fenBefore: string; played: string; before: Info; a
       if (material(g.fen(), me) - m0 <= -2) label = 'brilliant';
     } catch { /* variant noto'g'ri — oddiy best */ }
   }
+  // Great: yagona yaxshi yurish — ikkinchi variant ancha yomon (oddiy qaytarib olish emas)
+  const m = x.before.multi;
+  if (label === 'best' && m && m.length >= 2 && winBefore > 8 && winBefore < 92 && winOf(m[0]) - winOf(m[1]) >= 15 && !isRecapture(x.fenBefore, x.played, x.prevTo ?? null)) label = 'great';
   return { label, drop, winBefore, winAfter };
+}
+
+/** O'yin reytingi (taxminiy, aniqlikdan): chess.com namunasi — 77% ≈ 1400, 87% ≈ 1650; yuqorida tezroq o'sadi. */
+export function gameRating(acc: number) {
+  const r = 1400 + 26.6 * (acc - 77.3) + Math.max(0, acc - 87) ** 2 * 6;
+  return Math.round(Math.max(200, Math.min(3000, r)) / 50) * 50;
 }
 
 /** Bitta yurish aniqligi (chess.com uslubidagi formula). */
