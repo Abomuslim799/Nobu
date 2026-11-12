@@ -35,5 +35,5 @@ export type PhraseKind = keyof typeof phrases;
 export function phrase(kind: PhraseKind, rnd = Math.random): { text: string; file: string } {
   const arr = (phrases as Record<string, string[]>)[kind] ?? [];
   const i = Math.floor(rnd() * arr.length);
-  return { text: (arr[i] ?? '').replace(/^~/, ''), file: `chess-${kind}${i}.mp3` };
+  return { text: (arr[i] ?? '').replace(/^~/, '').replace(/\[[^\]]*\]\s*/g, ''), file: `chess-${kind}${i}.mp3` };   // [excited] kabi teglar — faqat ElevenLabs uchun
 }

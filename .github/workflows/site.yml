@@ -42,6 +42,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p dist/chess
+          cp content/chess/phrases.json dist/chess/phrases.json   # server ElevenLabs ovozlarini shu ro'yxatdan yasaydi
           npx -y esbuild@0.25.0 scripts/chess_cloud.ts --bundle --platform=node --outfile=dist/chess/cc.js --alias:react-native=./scripts/stubs/react-native.ts --log-level=warning
           cd /tmp && for a in avx2 sse41-popcnt; do
             gh release download sf_17 -R official-stockfish/Stockfish -p "stockfish-ubuntu-x86-64-$a.tar" --clobber

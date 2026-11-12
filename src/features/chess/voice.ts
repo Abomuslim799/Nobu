@@ -7,6 +7,7 @@ import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 import { useEffect, useRef, useState } from 'react';
 
 import { AUDIO_BASE } from '@/core/config';
+import { api, serverUrl } from '@/core/server';
 import { phrase } from '@/features/chess/bot';
 import type { Say } from '@/features/chess/talk';
 
@@ -20,14 +21,30 @@ export function lineOf(s: Say, rnd: () => number = Math.random): Line {
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+/** Ovoz manbai: server tayyor bo'lsa — ElevenLabs (jonli), bo'lmasa — saytdagi oddiy ovoz. Bir marta aniqlanadi. */
+let basePromise: Promise<string> | null = null;
+export function voiceBase(): Promise<string> {
+  if (!basePromise) basePromise = (async () => {
+    try {
+      const st = await api<{ ready: boolean }>('/chess/voice-status', undefined, { timeoutMs: 6000 });
+      const u = st.ready ? await serverUrl('/chess-voice/') : null;
+      if (u) return u;
+    } catch { /* server yo'q — oddiy ovoz */ }
+    return AUDIO_BASE;
+  })();
+  return basePromise;
+}
+
 export function useVoice() {
   const player = useRef<AudioPlayer | null>(null);
   const [on, setOn] = useState(true);
   const onRef = useRef(true);
   const seq = useRef(0);
+  const base = useRef(AUDIO_BASE);
   useEffect(() => { onRef.current = on; }, [on]);
   useEffect(() => {
     try { player.current = createAudioPlayer(null); } catch { /* ovozsiz */ }
+    voiceBase().then((b) => { base.current = b; });
     return () => { seq.current++; player.current?.remove(); };
   }, []);
 
@@ -39,7 +56,7 @@ export function useVoice() {
     const cap = setTimeout(done, Math.min(8000, 1500 + words * 500));   // fayl kelmasa ham osilib qolmasin
     try {
       sub = p.addListener('playbackStatusUpdate', (st) => { if (st.didJustFinish) done(); });
-      p.replace({ uri: AUDIO_BASE + file }); p.play();
+      p.replace({ uri: base.current + file }); p.play();
     } catch { done(); }
   });
 

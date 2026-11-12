@@ -96,6 +96,7 @@ async def make(text: str, voice: str, path: Path, sem: asyncio.Semaphore) -> boo
     async with sem:
         for _ in range(3):
             try:
+                text = re.sub(r"\[[^\]]*\]\s*", "", text)   # ElevenLabs teglari edge-tts uchun emas
                 slow = text.startswith("~")       # "~" — sekin, past, salmoqli ohang ("You... will... try.")
                 comm = edge_tts.Communicate(text[1:], voice, rate="-30%", pitch="-8Hz") if slow else edge_tts.Communicate(text, voice)
                 await comm.save(str(path))
