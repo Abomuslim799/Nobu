@@ -37,6 +37,20 @@ jobs:
         run: |
           pip install -q edge-tts
           SAY_JSON=/tmp/say.json python scripts/make_audio.py || echo "ovozlar yasalmadi"
+      - name: Shaxmat tahlili (server uchun) — cc.js va rasmiy Stockfish (statik, Linux)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p dist/chess
+          npx -y esbuild@0.25.0 scripts/chess_cloud.ts --bundle --platform=node --outfile=dist/chess/cc.js --alias:react-native=./scripts/stubs/react-native.ts --log-level=warning
+          cd /tmp && for a in avx2 sse41-popcnt; do
+            gh release download sf_17 -R official-stockfish/Stockfish -p "stockfish-ubuntu-x86-64-$a.tar" --clobber
+            tar xf "stockfish-ubuntu-x86-64-$a.tar"
+            f=$(find stockfish -type f -name "stockfish-ubuntu-x86-64-$a" | head -1)
+            echo "uci" | timeout 10 "$f" | grep -q uciok
+            cp "$f" "$GITHUB_WORKSPACE/dist/chess/sf-$a"
+          done
+          ls -la "$GITHUB_WORKSPACE/dist/chess"
       - name: Ovoz fayllari sayti (mp3 + say.json)
         run: |
           mkdir -p dist/audio && cp assets/audio/*.mp3 dist/audio/ 2>/dev/null || true   # ilova ovozlarni shu yerdan oladi

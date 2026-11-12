@@ -6,6 +6,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Chess } from 'chess.js';
 
+import { api } from '@/core/server';
 import { KEYS } from '@/core/storage';
 import { cause, classify, gameAccuracy, type Cause, type Label } from '@/features/chess/analysis';
 import { analyse, type Info } from '@/features/chess/engine/engine';
@@ -115,16 +116,14 @@ export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => 
   return { v: AN_V, id: g.id, acc: gameAccuracy(moves.map((m) => m.drop)), moves, opening, bookOut, evals: evals.map((e) => Math.round(e)) };
 }
 
-/** Bulut tahlili (GitHub Actions, har soatda, Stockfish 16): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */
-export const CLOUD_URL = (user: string) => `https://raw.githubusercontent.com/Abomuslim799/Nobu/chess-data/${user.toLowerCase()}.json`;
+/** Server tahlili (Railway, har soatda va tugma bilan, Stockfish 17): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */
+export interface CloudStatus { running: boolean; started: number | null; finished: number | null; done: number; total: number; game: string; error: string | null; next: number | null; updated: number | null }
+export const cloudStatus = () => api<CloudStatus>('/chess/status', undefined, { timeoutMs: 15000 });
+export const cloudRun = () => api<CloudStatus>('/chess/run', {}, { timeoutMs: 15000 });
 export async function syncCloud(): Promise<{ added: number; analysed: number; updated: number } | null> {
   const cur = await loadCom();
   let d: { games: ComGame[]; an: Record<string, GameAn>; updated: number };
-  try {
-    const r = await fetch(`${CLOUD_URL(cur.user)}?t=${Date.now()}`);
-    if (!r.ok) return null;
-    d = await r.json();
-  } catch { return null; }
+  try { d = await api(`/chess/data?user=${encodeURIComponent(cur.user)}`, undefined, { timeoutMs: 30000 }); } catch { return null; }
   const ids = new Set(cur.games.map((g) => g.id));
   const fresh_ = d.games.filter((g) => !ids.has(g.id));
   await saveCom({ user: cur.user, games: [...cur.games, ...fresh_].sort((a, b) => b.at - a.at) });

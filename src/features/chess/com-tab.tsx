@@ -9,8 +9,10 @@ import { Pressable, TextInput, View } from 'react-native';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { CAUSE, LABEL, type Label } from '@/features/chess/analysis';
-import { analyseAll, fetchCom, loadAn, loadCom, syncCloud, type ComGame, type GameAn } from '@/features/chess/chesscom';
+import { analyseAll, cloudRun, cloudStatus, fetchCom, loadAn, loadCom, syncCloud, type CloudStatus, type ComGame, type GameAn } from '@/features/chess/chesscom';
 import { diagnose, style, weeklyPlan } from '@/features/chess/coach';
+
+const hm = (s: number) => new Date(s * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 export function ComTab() {
   const [user, setUser] = useState('Abomuslim0');
@@ -21,19 +23,36 @@ export function ComTab() {
   const [prog, setProg] = useState<{ done: number; total: number; ply: number; plies: number } | null>(null);
   const stop = useRef(false);
   const [cloud, setCloud] = useState<string | null>(null);
+  const [cs, setCs] = useState<CloudStatus | null>(null);
+  const seen = useRef(-1);
 
   useEffect(() => {
     (async () => {
       const c0 = await loadCom(), m0 = await loadAn();
       setUser(c0.user); setGames(c0.games); setAn(m0);
-      setCloud('☁️ Bulutdan olinmoqda…');
-      const s = c0.user.toLowerCase() === 'abomuslim0' ? await syncCloud() : null;   // tayyor tahlil (GitHub, har soatda)
-      setCloud(s ? `☁️ Bulut tahlili · ${new Date(s.updated).toLocaleString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}${s.added || s.analysed ? ` · +${s.added} o'yin, ${s.analysed} tahlil` : ''}` : null);
-      const [c, m] = await Promise.all([loadCom(), loadAn()]);
-      setGames(c.games); setAn(m);
+      await pull();
+      cloudStatus().then(setCs).catch(() => {});
     })();
     return () => { stop.current = true; };
   }, []);
+
+  const pull = async () => {                              // serverdagi tayyor tahlilni olish
+    const s = await syncCloud();
+    if (s) setCloud(s.added || s.analysed ? `+${s.added} o'yin, ${s.analysed} tahlil olindi` : null);
+    const [c, m] = await Promise.all([loadCom(), loadAn()]);
+    setGames(c.games); setAn(m);
+  };
+  useEffect(() => {                                        // server ishlayotganda — 4 s da holat, har yangi o'yinda natija
+    if (!cs?.running) return;
+    const t = setInterval(async () => {
+      const s = await cloudStatus().catch(() => null);
+      if (!s) return;
+      if (s.done !== seen.current || !s.running) { seen.current = s.done; await pull(); }
+      setCs(s);
+    }, 4000);
+    return () => clearInterval(t);
+  }, [cs?.running]);
+  const runCloud = async () => { setErr(''); try { setCs(await cloudRun()); } catch (e) { setErr(e instanceof Error ? e.message : String(e)); } };
 
   const run = async () => {
     stop.current = false;
@@ -46,6 +65,7 @@ export function ComTab() {
     try {
       const r = await fetchCom(user.trim(), 30);
       setGames(r.games); setBusy(null);
+      runCloud();                                          // yangilarini server tahlil qilsin
     } catch (e) { setErr(e instanceof Error ? e.message : String(e)); setBusy(null); }
   };
 
@@ -61,7 +81,16 @@ export function ComTab() {
           <View style={{ width: 130 }}><Button label={games.length ? '⬇ Yangilari' : '⬇ Yuklash'} onPress={load} disabled={!!busy || !!prog} /></View>
         </View>
         <T dim size={12}>{games.length} o'yin · tahlil qilingan {games.length - todo}{todo ? ` · navbatda ${todo}` : ''}. Birinchi marta oxirgi 30 o'yin olinadi, keyin yangilari qo'shiladi.</T>
-        {!!cloud && <T dim size={12}>{cloud}</T>}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, padding: 10, borderRadius: 10, backgroundColor: C.subtle }}>
+          <View style={{ flex: 1, gap: 2 }}>
+            <T size={13}>{cs?.running ? `⏳ Server tahlil qilmoqda${cs.total ? ` · ${cs.done}/${cs.total}` : '…'}${cs.game ? ` · ${cs.game}` : ''}` : '☁️ Server tahlili'}</T>
+            <T dim size={11}>{cs ? [cs.updated ? `oxirgisi ${hm(cs.updated)}` : 'hali yo\'q', !cs.running && cs.next ? `keyingisi ~${hm(cs.next)}` : '', cs.error ? `⚠️ ${cs.error.slice(0, 80)}` : ''].filter(Boolean).join(' · ') : 'server ulanmagan yoki javob yo\'q'}</T>
+            {!!cloud && <T dim size={11}>{cloud}</T>}
+          </View>
+          <Pressable onPress={runCloud} disabled={!!cs?.running} style={({ pressed }) => ({ paddingHorizontal: 12, paddingVertical: 9, borderRadius: 10, backgroundColor: cs?.running ? C.card : C.gold, opacity: pressed ? 0.7 : 1 })}>
+            <T bold size={13} color={cs?.running ? C.dim : '#2A1E0A'}>{cs?.running ? '…' : 'Hozir tahlil qil'}</T>
+          </Pressable>
+        </View>
         {!!busy && <T dim>{busy}</T>}
         {!!err && <T color={C.red} size={13}>{err}</T>}
         {prog && (
@@ -71,7 +100,7 @@ export function ComTab() {
             <Pressable onPress={() => { stop.current = true; }}><T dim size={12} style={{ textDecorationLine: 'underline' }}>⏸ To'xtatish (keyin davom etadi)</T></Pressable>
           </View>
         )}
-        {!prog && todo > 0 && !busy && <Button kind="ghost" label={`📱 Telefonda tahlil qilish (${todo}) — yoki bulutni kuting`} onPress={run} />}
+        {!prog && todo > 0 && !busy && !cs?.running && <Pressable onPress={run} hitSlop={6}><T dim size={12} style={{ textDecorationLine: 'underline' }}>📱 yoki telefonda tahlil qilish ({todo})</T></Pressable>}
       </Card>
 
       {d.games > 0 && (
