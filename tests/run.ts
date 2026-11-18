@@ -1,3 +1,4 @@
+import { autoRank } from '@/features/assessment/rating';
 /**
  * run.ts — mantiq testlari (CI'da, har nashrdan oldin): fizika, darslar javoblari, test savollari, FR/XP, xotira ko'chirishi, sana.
  * Ishga tushirish: npm test
@@ -227,4 +228,7 @@ ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2
 ok(lastDays(3, '2026-11-02').join() === '2026-10-31,2026-11-01,2026-11-02', 'lastDays');
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
+{
+  ok(autoRank('shogird', 1405) === 'mudarris' && autoRank('mudarris', 1380) === 'mudarris' && autoRank('mudarris', 1340) === 'mutaallim' && autoRank('shogird', 1000) === 'shogird', 'autoRank: ko\'tarilish va 50 ballik zaxira');
+}
 console.log(`OK — ${LESSONS.length} dars, ${Object.keys(expect).length} mashq; fizika, savollar, FR, xotira, sana testlari o'tdi`);

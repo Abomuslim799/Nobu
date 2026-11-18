@@ -16,7 +16,7 @@ import { AppState } from 'react-native';
 import { getChess } from '@/features/brain/brain';
 import { useProgress } from '@/store/progress';
 import {
-  AREAS, MUZ_MAX, PRICE, START, offAreas, dayXP, overall, rankOf, streakBonus, update,
+  AREAS, MUZ_MAX, PRICE, START, autoRank, offAreas, dayXP, overall, rankOf, streakBonus, update,
   type Area, type FRState, type RankId, type TestKind,
 } from '@/features/assessment/rating';
 import type { Q } from '@/features/assessment/questions';
@@ -33,7 +33,7 @@ interface RatingData {
   v: 1;
   fr: FRState;
   hist: Record<string, number>;        // kun → umumiy FR (kun oxiridagi)
-  title: RankId;                       // daraja nomi — faqat imtihon bilan o'zgaradi
+  title: RankId;                       // daraja nomi — hozircha FR bo'yicha (autoRank); keyin imtihon bilan
   sec: Record<string, number>;         // kun → faol soniyalar
   frozen: string[];                    // muz bilan saqlangan kunlar
   muz: number;
@@ -95,6 +95,11 @@ export function RatingProvider({ children }: { children: ReactNode }) {
       .finally(() => setReady(true));
   }, []);
   useEffect(() => { if (ready) AsyncStorage.setItem(KEY, JSON.stringify(m)).catch(() => {}); }, [m, ready]);
+  useEffect(() => {                                      // daraja FR'ga ergashadi (imtihon moduli tayyor bo'lguncha)
+    if (!ready) return;
+    const t = autoRank(m.title, overall(m.fr, offAreas(m.disabled)));
+    if (t !== m.title) setM((x) => ({ ...x, title: t }));
+  }, [ready, m.fr, m.disabled, m.title]);
 
   // Faol vaqt hisoblagichi
   const pending = useRef(0);

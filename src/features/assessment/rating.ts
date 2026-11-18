@@ -67,6 +67,16 @@ export const RANKS = [
 export type RankId = (typeof RANKS)[number]['id'];
 export const rankOf = (fr: number) => [...RANKS].reverse().find((r) => fr >= r.min)!;
 export const nextRank = (id: RankId) => RANKS[RANKS.findIndex((r) => r.id === id) + 1];
+/** Daraja FR'ga qarab (imtihon moduli tayyor bo'lguncha): ko'tarilish — chegaraga yetganda,
+ * tushish — joriy daraja chegarasidan 50 ball past tushganda (har kuni almashib turmasin). */
+export const RANK_HYST = 50;
+export function autoRank(cur: RankId, fr: number): RankId {
+  const curMin = RANKS.find((r) => r.id === cur)?.min ?? 0;
+  const byFr = rankOf(fr);
+  if (byFr.min > curMin) return byFr.id;
+  if (fr < curMin - RANK_HYST) return rankOf(fr + RANK_HYST).id;
+  return cur;
+}
 
 // ── XP: faol vaqtdan ─────────────────────────────────────────────────────────
 /** Kunlik XP: <5 daq — 0; 5–19 — 1; 20 — 2; keyin har 5 daqiqaga +1 (35 daq = 5 XP). */
