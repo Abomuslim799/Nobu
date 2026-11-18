@@ -9,6 +9,7 @@ import { KEYS } from '@/core/storage';
 
 export interface BoardTheme { id: string; name: string; light: string; dark: string; last: string; sel: string }
 export const BOARDS: BoardTheme[] = [
+  { id: 'firuza', name: 'Firuza', light: '#EDE3CC', dark: '#3F7F86', last: 'rgba(226,200,110,0.78)', sel: 'rgba(217,180,106,0.55)' },
   { id: 'wood', name: "Yog'och", light: '#F0D9B5', dark: '#B58863', last: 'rgba(205,210,106,0.75)', sel: 'rgba(20,85,30,0.45)' },
   { id: 'green', name: 'Yashil', light: '#EBECD0', dark: '#779556', last: 'rgba(245,246,130,0.8)', sel: 'rgba(20,85,30,0.45)' },
   { id: 'blue', name: "Ko'k", light: '#DEE3E6', dark: '#8CA2AD', last: 'rgba(155,199,0,0.45)', sel: 'rgba(20,85,30,0.45)' },
@@ -22,7 +23,7 @@ export const PIECE_SETS: { id: string; name: string }[] = [
 ];
 
 export interface Look { board: string; pieces: string; sound: boolean; coords: boolean }
-const DEF: Look = { board: 'wood', pieces: 'klassik', sound: true, coords: true };
+const DEF: Look = { board: 'firuza', pieces: 'klassik', sound: true, coords: true };
 export const boardOf = (l: Look) => BOARDS.find((b) => b.id === l.board) ?? BOARDS[0];
 
 // Bir nechta ekran bir vaqtda ishlatadi — umumiy holat va obunachilar

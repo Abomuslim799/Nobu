@@ -1,20 +1,23 @@
 /**
- * chess/index.tsx — Shaxmat: 🧩 Masalalar (5 ta, reytingga mos) · ⚡ Sprint (3 daqiqa, 3 xato) · 🎯 Mavzular · 🤖 Bot (2-bosqich).
+ * chess/index.tsx — Shaxmat: bosh sahifa (girih medalyon, bo'limlar) → Masalalar (kunlik / sprint), Mavzular, Debyut,
+ * O'yinlarim, Statistika. Farobiy bilan o'yin — alohida ekran (chess/bot).
  * Masala reytingi Elo bo'yicha o'zgaradi va FR (shaxmat) ga yoziladi; sprint reytingga ta'sir qilmaydi — faqat rekord.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { BackHandler, Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { KEYS } from '@/core/storage';
-import { C } from '@/core/theme';
+import { C, FONT_INSCR } from '@/core/theme';
 import { Button, Card, T } from '@/core/ui/kit';
 import { chessResult, finishGame, getChess, type ChessState } from '@/features/brain/brain';
 import { getOwn } from '@/features/chess/bot';
-import { ComTab } from '@/features/chess/com-tab';
+import { GamesTab, StatsTab } from '@/features/chess/com-tab';
+import { markPuzzle } from '@/features/chess/day';
+import { ChessHome, type Section } from '@/features/chess/home';
 import { EngineHost } from '@/features/chess/engine/host';
 import { OpenTab } from '@/features/chess/open-tab';
 import { PuzzleView } from '@/features/chess/puzzle';
@@ -22,53 +25,55 @@ import { preloadSounds } from '@/features/chess/sound';
 import { pick, SPRINT_LIVES, SPRINT_SEC, sprintRating, THEMES, themesUz, type Row } from '@/features/chess/puzzles';
 import { useProgress, useRating } from '@/store';
 
-type Tab = 'puzzles' | 'sprint' | 'themes' | 'open' | 'bot' | 'analysis';
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'puzzles', label: '🧩 Masalalar' }, { id: 'sprint', label: '⚡ Sprint' }, { id: 'themes', label: '🎯 Mavzular' }, { id: 'open', label: '📖 Debyut' }, { id: 'bot', label: '🤖 Bot' }, { id: 'analysis', label: '🔍 Tahlil' },
-];
 const SESSION = 5;
+const TITLE: Record<Exclude<Section, 'home'>, string> = { puzzles: 'Masalalar', themes: 'Mavzular', open: 'Debyut', games: "O'yinlarim", stats: 'Statistika' };
 
 export default function ChessScreen() {
   const insets = useSafeAreaInsets();
-  const [tab, setTab] = useState<Tab>('puzzles');
+  const { width } = useWindowDimensions();
+  const [sec, setSec] = useState<Section>('home');
+  const [sub, setSub] = useState<'run' | 'sprint'>('run');
   const [st, setSt] = useState<ChessState | null>(null);
   const [lock, setLock] = useState(false);              // barmoq doskada — sahifa aylanmaydi
   useFocusEffect(useCallback(() => { getChess().then(setSt); }, []));
   useEffect(() => { preloadSounds(); }, []);
+  useEffect(() => {                                     // Android "orqaga" — avval bosh sahifaga
+    const h = BackHandler.addEventListener('hardwareBackPress', () => { if (sec !== 'home') { setSec('home'); return true; } return false; });
+    return () => h.remove();
+  }, [sec]);
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
       <EngineHost />{/* Stockfish — bitta, shu ekran ochiq ekan bot va tahlil ishlatadi */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 8 }}>
-        <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
-        <T bold size={18} style={{ flex: 1 }}>♟️ Shaxmat</T>
-        {st && <T dim size={13}>Reyting {st.rating}</T>}
-        <Pressable onPress={() => router.push('/chess/settings')} hitSlop={10}><T size={20}>⚙️</T></Pressable>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 18, paddingTop: 4, paddingBottom: 6, zIndex: 2 }}>
+        <Pressable onPress={() => (sec === 'home' ? router.back() : setSec('home'))} hitSlop={12}><T size={26} color={C.dim}>‹</T></Pressable>
+        <T size={sec === 'home' ? 28 : 24} style={{ flex: 1, fontFamily: FONT_INSCR }}>{sec === 'home' ? 'Shaxmat' : TITLE[sec]}</T>
+        {sec === 'games' && <Pressable onPress={() => setSec('stats')} hitSlop={8} style={round}><T size={15}>📈</T></Pressable>}
+        <Pressable onPress={() => router.push('/chess/settings')} hitSlop={8} style={round}><T size={15} color={C.dim}>⚙︎</T></Pressable>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, flexShrink: 0 }} contentContainerStyle={{ gap: 6, paddingHorizontal: 16, paddingBottom: 8 }}>
-        {TABS.map((t) => (
-          <Pressable key={t.id} onPress={() => setTab(t.id)} style={{ paddingHorizontal: 13, paddingVertical: 8, borderRadius: 999, backgroundColor: tab === t.id ? C.gold : C.card }}>
-            <T size={14} bold={tab === t.id} color={tab === t.id ? '#2A1E0A' : C.text}>{t.label}</T>
-          </Pressable>
-        ))}
-      </ScrollView>
-      <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 4, gap: 12, paddingBottom: insets.bottom + 30 }} scrollEnabled={!lock}>
-        {tab === 'puzzles' && st && <Session key="p" st={st} onSt={setSt} onBusy={setLock} />}
-        {tab === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
-        {tab === 'sprint' && st && <Sprint base={st.rating} onBusy={setLock} />}
-        {tab === 'analysis' && <ComTab />}
-        {tab === 'open' && <OpenTab />}
-        {tab === 'bot' && (
-          <Card style={{ gap: 8 }}>
-            <T bold size={17}>🤖 Farobiy bilan o'yin</T>
-            <T dim size={14}>Bot darajangizga moslashadi va doim sizdan kuchliroq. Har yurishingizni baholaydi (Best move, Mistake, Blunder…), 2 soniyadan keyin javob beradi. Debyut mashqi: King's Indian, Austrian Attack.</T>
-            <Button label="O'ynash" onPress={() => router.push('/chess/bot')} />
-          </Card>
-        )}
+      {sec === 'puzzles' && (
+        <View style={{ flexDirection: 'row', gap: 6, paddingHorizontal: 16, paddingBottom: 8 }}>
+          {([['run', 'Kunlik'], ['sprint', '⚡ Sprint']] as const).map(([id, l]) => (
+            <Pressable key={id} onPress={() => setSub(id)} style={{ paddingHorizontal: 14, paddingVertical: 7, borderRadius: 99, backgroundColor: sub === id ? C.text : 'transparent', borderWidth: 1, borderColor: sub === id ? C.text : C.cardBorder }}>
+              <T size={13} bold={sub === id} color={sub === id ? C.bg : C.dim}>{l}</T>
+            </Pressable>
+          ))}
+          <Pressable onPress={() => setSec('themes')} style={{ paddingHorizontal: 14, paddingVertical: 7, borderRadius: 99, borderWidth: 1, borderColor: C.cardBorder }}><T size={13} color={C.dim}>🎯 Mavzular</T></Pressable>
+        </View>
+      )}
+      <ScrollView key={sec} contentContainerStyle={{ padding: sec === 'home' ? 0 : 16, paddingTop: sec === 'home' ? 0 : 4, gap: 12, paddingBottom: insets.bottom + 30 }} scrollEnabled={!lock}>
+        {sec === 'home' && st && <ChessHome st={st} open={setSec} width={width} />}
+        {sec === 'puzzles' && st && sub === 'run' && <Session key="p" st={st} onSt={setSt} onBusy={setLock} />}
+        {sec === 'puzzles' && st && sub === 'sprint' && <Sprint base={st.rating} onBusy={setLock} />}
+        {sec === 'themes' && st && <Themes st={st} onSt={setSt} onBusy={setLock} />}
+        {sec === 'open' && <OpenTab />}
+        {sec === 'games' && <GamesTab />}
+        {sec === 'stats' && <StatsTab />}
       </ScrollView>
     </View>
   );
 }
+const round = { width: 36, height: 36, borderRadius: 18, borderWidth: 1, borderColor: C.cardBorder, alignItems: 'center', justifyContent: 'center' } as const;
 
 /** Masalalar ketma-ket (cheksiz); har 5 tasi FR va kunlik rejaga yoziladi. Mavzu berilsa — faqat shu mavzudan. */
 function Session({ st, onSt, theme, onExit, onBusy, pool }: { st: ChessState; onSt: (s: ChessState) => void; theme?: string; onExit?: () => void; onBusy?: (b: boolean) => void; pool?: Row[] }) {
@@ -83,6 +88,7 @@ function Session({ st, onSt, theme, onExit, onBusy, pool }: { st: ChessState; on
   const fails = useRef<string[]>([]);
 
   const finish = async (ok: boolean) => {
+    markPuzzle(st.rating).catch(() => {});
     const s2 = await chessResult(row[3], ok, row[0]);
     setDelta(s2.rating - st.rating);
     onSt(s2);

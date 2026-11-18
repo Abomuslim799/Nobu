@@ -5,6 +5,8 @@
  *   Stack — ekranlar o'ngdan kiradi, chapdan surib orqaga qaytiladi (dars va testda o'chirilgan — slayder/tasodifiy chiqish).
  */
 
+import { Manrope_400Regular, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope';
+import { Marcellus_400Regular } from '@expo-google-fonts/marcellus';
 import { useFonts, YoungSerif_400Regular } from '@expo-google-fonts/young-serif';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -18,7 +20,7 @@ import { C, SCHEME } from '@/core/theme';
 const NO_SWIPE = { gestureEnabled: false, fullScreenGestureEnabled: false };
 
 export default function RootLayout() {
-  useFonts({ YoungSerif_400Regular });
+  useFonts({ YoungSerif_400Regular, Marcellus_400Regular, Manrope_400Regular, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold });
   return (
     <StoreProvider>
       <View style={{ flex: 1 }} onTouchStart={markActive}>

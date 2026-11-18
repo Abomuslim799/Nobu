@@ -91,6 +91,9 @@ export function setTheme(id: string) { setSync(THEME_KEY, id); }
 
 /** Sarlavha shrifti (madrasa kitobi ruhi). Yuklanmagan bo'lsa — tizim shrifti. */
 export const FONT_DISPLAY = 'YoungSerif_400Regular';
+/** Shaxmat bo'limi ("Samarqand tuni"): sarlavha va raqamlar — Marcellus (tosh yozuv ruhi), matn — Manrope. */
+export const FONT_INSCR = 'Marcellus_400Regular';
+export const FONT_UI = { r: 'Manrope_400Regular', sb: 'Manrope_600SemiBold', b: 'Manrope_700Bold', xb: 'Manrope_800ExtraBold' };
 
 export const R = 16;              // burchak radiusi
 export const PAD = 16;            // ekran chetidan bo'shliq

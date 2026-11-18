@@ -4,13 +4,14 @@
 
 import { Chess, type Square } from 'chess.js';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { Image, Pressable, ScrollView, Switch, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image, Pressable, ScrollView, Switch, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C } from '@/core/theme';
 import { Card, T } from '@/core/ui/kit';
 import { ChessBoard } from '@/features/chess/board';
+import { loadCom, setComUser } from '@/features/chess/chesscom';
 import { BOARDS, PIECE_SETS, boardOf, setLook, useLook } from '@/features/chess/look';
 import { PIECE_IMG } from '@/features/chess/pieces';
 import { moveSound, playSound, type SoundKind } from '@/features/chess/sound';
@@ -26,6 +27,8 @@ export default function ChessSettings() {
   const insets = useSafeAreaInsets();
   const look = useLook();
   const [lock, setLock] = useState(false);
+  const [user, setUser] = useState('');
+  useEffect(() => { loadCom().then((c) => setUser(c.user)); }, []);
   const [demo, setDemo] = useState<{ fen: string; last: [Square, Square] }>({ fen: DEMO, last: ['f8', 'c5'] });
   const tryMove = (from: Square, to: Square) => {
     const g = new Chess(demo.fen);
@@ -41,6 +44,11 @@ export default function ChessSettings() {
       <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: insets.bottom + 30 }}>
         <ChessBoard fen={demo.fen} orientation="w" movable="w" lastMove={demo.last} onMove={tryMove} onBusy={setLock} />
         <Pressable onPress={() => setDemo({ fen: DEMO, last: ['f8', 'c5'] })}><T dim size={12} style={{ textAlign: 'center' }}>Doskada sinab ko'ring (oqlar) · ↺ qaytarish</T></Pressable>
+
+        <T bold>chess.com username</T>
+        <TextInput value={user} onChangeText={setUser} onEndEditing={() => setComUser(user)} autoCapitalize="none" autoCorrect={false} placeholder="username" placeholderTextColor={C.dim}
+          style={{ color: C.text, fontSize: 16, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: C.cardBorder, backgroundColor: C.card }} />
+        <T dim size={12}>O'yinlarim va server tahlili shu akkaunt bo'yicha.</T>
 
         <T bold>Donalar</T>
         {PIECE_SETS.map((p) => (

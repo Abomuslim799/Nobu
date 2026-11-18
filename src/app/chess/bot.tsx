@@ -9,9 +9,11 @@ import { Chess, type Square } from 'chess.js';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
+import Animated, { Easing, FadeIn, FadeOut, SlideInDown, ZoomIn } from 'react-native-reanimated';
+import Svg, { Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C } from '@/core/theme';
+import { C, FONT_INSCR, FONT_UI } from '@/core/theme';
 import { Avatar } from '@/core/ui/avatar';
 import { Button, Card, T } from '@/core/ui/kit';
 import { finishGame } from '@/features/brain/brain';
@@ -19,6 +21,8 @@ import { BAD, BOT_GAP, LABEL, botParams, classify, gameAccuracy, rateGame, type 
 import { ChessBoard, type Badge } from '@/features/chess/board';
 import { addOwn, getBot, getSaved, saveBot, saveGame, type BotState, type GameRec, type PhraseKind, type Saved } from '@/features/chess/bot';
 import { analyse, botMove, type Info } from '@/features/chess/engine/engine';
+import { starPts } from '@/features/chess/home';
+import { sanOf } from '@/features/chess/review';
 import { useLook } from '@/features/chess/look';
 import { PRACTICES, bookMoves, inPractice, openingName, practiceNext, type Practice } from '@/features/chess/openings';
 import type { Row } from '@/features/chess/puzzles';
@@ -52,6 +56,16 @@ export default function BotGame() {
   const [last, setLast] = useState<[Square, Square] | null>(null);
   const [badge, setBadge] = useState<Badge | null>(null);
   const [bubble, setBubble] = useState<{ text: string; color?: string } | null>(null);
+  const [bubOn, setBubOn] = useState(false);
+  const [hint, setHint] = useState<Square | null>(null);
+  const [showEnd, setShowEnd] = useState(false);
+  const strip = useRef<{ scrollToEnd: (o: { animated: boolean }) => void } | null>(null);
+  useEffect(() => {                                       // gap 4.5 s ko'rinadi, keyin ism qaytadi
+    if (!bubble) return;
+    setBubOn(true);
+    const t = setTimeout(() => setBubOn(false), 4500);
+    return () => clearTimeout(t);
+  }, [bubble]);
   const [thinking, setThinking] = useState(false);
   const [pre, setPre] = useState<[Square, Square] | null>(null);
   const [view, setView] = useState<number | null>(null);
@@ -173,7 +187,12 @@ export default function BotGame() {
   const preRef = useRef<[Square, Square] | null>(null);
 
   // ── sizning yurishingiz ────────────────────────────────────────────────
+  const askHint = async () => {                          // 💡 qaysi dona yurishi kerak (qayerga — o'zingiz toping)
+    if (!g || thinking || game.current.turn() !== g.color) return;
+    try { const inf = await analyse(game.current.fen(), 500, 12); if (inf.best) setHint(inf.best.slice(0, 2) as Square); } catch { /* dvigatel band */ }
+  };
   const userMove = async (from: Square, to: Square) => {
+    setHint(null);
     const x = gRef.current;
     const S = st.current;
     if (!x || S.phase !== 'play' || S.thinking || S.view !== null || game.current.turn() !== x.color) return;
@@ -244,6 +263,7 @@ export default function BotGame() {
     finishGame('chess', 'chess-bot', acc, 1, []).catch(() => {});
     recordGame('chess', acc);
     setEnd({ result, why, acc, rating, dRating: rating - bot.rating, prevAcc: prev?.acc ?? null, own: own.current.length });
+    setShowEnd(true); setHint(null);
     say(why === 'Taslim' ? 'resign' : result);
     setPhase('end');
   };
@@ -258,8 +278,8 @@ export default function BotGame() {
   return (
     <View style={{ flex: 1, backgroundColor: C.bg, paddingTop: insets.top }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 8 }}>
-        <Pressable onPress={() => router.back()} hitSlop={12}><T size={26}>‹</T></Pressable>
-        <T bold size={18} style={{ flex: 1 }}>🤖 Farobiy</T>
+        <Pressable onPress={() => router.back()} hitSlop={12}><T size={26} color={C.dim}>‹</T></Pressable>
+        <T size={22} style={{ flex: 1, fontFamily: FONT_INSCR }}>Farobiy bilan</T>
         <Pressable onPress={() => { vo.stop(); vo.setOn(!vo.on); }} hitSlop={10}><T size={18}>{vo.on ? '🗣️' : '🔇'}</T></Pressable>
       </View>
 
@@ -304,6 +324,7 @@ export default function BotGame() {
         const mine = (i: number) => (g.color === 'w' ? i % 2 === 0 : i % 2 === 1);
         const vm = cur > 0 ? g.moves[cur - 1] : null, vl = cur > 0 ? g.labels[cur - 1] : null;
         const go = (i: number) => setView(i >= N ? null : Math.max(0, i));
+        const sans = g.moves.map((u, i) => sanOf(fens.current[i], u));
         const jumpBad = (dir: 1 | -1) => {
           for (let i = cur - 1 + dir; i >= 0 && i < g.moves.length; i += dir) {
             const l = g.labels[i];
@@ -312,54 +333,73 @@ export default function BotGame() {
         };
         return (
           <>
-            {/* Doska va boshqaruv — doim ko'rinib turadi (pastga aylantirish shart emas) */}
-            <View style={{ paddingHorizontal: 16, gap: 6 }}>
-              {/* Farobiy yuzi + gap pufakchasi (chess.com murabbiyi uslubida) */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, height: 78 }}>
-                <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={54} />
-                <View style={{ flex: 1, alignSelf: 'stretch', justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16, borderTopLeftRadius: 4, backgroundColor: C.card, borderWidth: 1, borderColor: bubble?.color && view === null ? bubble.color + '88' : C.cardBorder, gap: 2 }}>
-                  <T dim size={11} lines={1}>Farobiy · ~{g.botElo}{thinking ? " · o'ylayapti…" : ''}</T>
-                  {view === null
-                    ? <T size={15} lines={2} color={bubble?.color ?? C.text}>{bubble ? `“${bubble.text}”` : myTurn ? 'Your move.' : '…'}</T>
-                    : <T size={14} lines={2} color={vl ? LABEL[vl].color : C.dim}>{cur === 0 ? "Boshlang'ich pozitsiya" : `${Math.ceil(cur / 2)}-yurish${vl ? ` · ${LABEL[vl].sym} ${LABEL[vl].name}` : ''}`}</T>}
-                </View>
-                {g.tc > 0 && (
-                  <View style={{ paddingHorizontal: 8, paddingVertical: 6, borderRadius: 10, backgroundColor: g.myTime < 30 ? C.red : '#EDEAE3' }}>
-                    <T bold size={17} color={g.myTime < 30 ? '#fff' : '#1A1A1A'} style={{ fontVariant: ['tabular-nums'] }}>{clock(g.myTime)}</T>
-                  </View>
+            {/* O'yinchi qatorlari (chess.com uslubida) — Farobiy gapi uning ismi o'rnida chiqib, so'nadi */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingVertical: 8, height: 62 }}>
+              <Avatar who="ustoz" pose={thinking ? 'tushuntir' : 'kitob'} size={42} />
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                {bubOn && bubble && view === null ? (
+                  <Animated.View key={bubble.text} entering={FadeIn.duration(260)} exiting={FadeOut.duration(400)}
+                    style={{ alignSelf: 'flex-start', maxWidth: '100%', paddingHorizontal: 12, paddingVertical: 7, borderRadius: 14, borderTopLeftRadius: 4, backgroundColor: '#EFE8DA' }}>
+                    <T size={13.5} lines={2} color={bubble.color && bubble.color !== C.text ? '#7a2a2f' : '#141B30'} style={{ fontFamily: FONT_UI.sb }}>{bubble.text}</T>
+                  </Animated.View>
+                ) : (
+                  <Animated.View entering={FadeIn.duration(300)}>
+                    <T size={14.5} style={{ fontFamily: FONT_UI.b }}>Farobiy <T dim size={12}>~{g.botElo}</T></T>
+                    <Captured fen={shownFen} side={g.color === 'w' ? 'b' : 'w'} />
+                  </Animated.View>
                 )}
               </View>
+              {thinking && view === null && !(bubOn && bubble) ? <T dim size={13} style={{ fontFamily: FONT_UI.sb }}>o'ylayapti…</T> : null}
+            </View>
+
+            <View>
               <ChessBoard fen={shownFen} orientation={g.color} movable={phase === 'play' && view === null ? g.color : null}
                 premove={thinking || !myTurn} onPremove={(a, b) => { setPre([a, b]); preRef.current = [a, b]; }} premoveSq={pre}
                 lastMove={view === null ? last : vm ? [vm.slice(0, 2) as Square, vm.slice(2, 4) as Square] : null}
                 badge={view === null ? badge : vm && vl ? { sq: vm.slice(2, 4) as Square, text: LABEL[vl].sym, color: LABEL[vl].color } : null}
+                hint={view === null ? hint : null}
                 onMove={userMove} pen={pen} clearKey={g.moves.length} onBusy={setLock} />
             </View>
 
-            <ScrollView scrollEnabled={!lock} contentContainerStyle={{ padding: 16, paddingTop: 8, gap: 8, paddingBottom: insets.bottom + 30 }}>
-              {pre && <T dim size={12}>⏩ Oldindan yurish: {pre[0]}–{pre[1]} (bot yurgach bajariladi)</T>}
-              {(book.name || book.out) && <T dim size={13}>📖 {book.name ?? ''}{book.out ? ` · nazariyadan ${book.out}-yurishda chiqdingiz` : ''}</T>}
-
-              {phase === 'end' && end && (
-                <Card style={{ gap: 6, alignItems: 'center' }}>
-                  <T bold size={18}>{end.result === 'win' ? '🏆 Siz yutdingiz' : end.result === 'draw' ? '🤝 Durang' : '♚ Farobiy yutdi'} · {end.why}</T>
-                  <T size={14}>Aniqlik {end.acc}%{end.prevAcc !== null ? ` · oldingi o'yinga nisbatan ${end.acc - end.prevAcc >= 0 ? '+' : ''}${end.acc - end.prevAcc}%` : ''}</T>
-                  <T size={14} color={end.dRating >= 0 ? C.good : C.red}>Reyting {end.rating} ({end.dRating >= 0 ? '+' : ''}{end.dRating})</T>
-                  <LabelCounts labels={g.labels} color={g.color} />
-                  {g.retries > 0 && <T dim size={12}>Retry: {g.retries} marta (aniqlikka kiritildi)</T>}
-                  {end.own > 0 && <T dim size={12}>📌 {end.own} ta xatoingiz "Xatolarim" masalalariga qo'shildi</T>}
-                  <T dim size={12}>⚠️› — keyingi xatoingizga o'tish · yurishni bossangiz — doskada ochiladi</T>
-                  <View style={{ alignSelf: 'stretch' }}><Button label="Yangi o'yin" onPress={() => { setPhase('setup'); setG(null); }} /></View>
-                </Card>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingVertical: 8 }}>
+              <View style={{ width: 42, height: 42, borderRadius: 14, backgroundColor: '#1D4D4A', alignItems: 'center', justifyContent: 'center' }}><T size={18} style={{ fontFamily: FONT_INSCR }}>S</T></View>
+              <View style={{ flex: 1 }}>
+                <T size={14.5} style={{ fontFamily: FONT_UI.b }}>Siz <T dim size={12}>{bot?.rating ?? ''}</T></T>
+                <Captured fen={shownFen} side={g.color} />
+              </View>
+              {g.tc > 0 && (
+                <View style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 12, backgroundColor: g.myTime < 30 ? C.red : myTurn && phase === 'play' ? '#EFE8DA' : 'transparent', borderWidth: 1, borderColor: myTurn ? 'transparent' : C.cardBorder }}>
+                  <T size={24} color={g.myTime < 30 ? '#fff' : myTurn && phase === 'play' ? '#0A1124' : C.dim} style={{ fontFamily: FONT_INSCR, fontVariant: ['tabular-nums'] }}>{clock(g.myTime)}</T>
+                </View>
               )}
-              <MoveList moves={g.moves} labels={g.labels} start={fens.current[0]} cur={cur} onPick={(i) => go(i + 1)} />
+            </View>
+
+            <ScrollView ref={strip as never} horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }} contentContainerStyle={{ gap: 10, paddingHorizontal: 18, paddingVertical: 4, alignItems: 'center' }}
+              onContentSizeChange={() => view === null && strip.current?.scrollToEnd({ animated: true })}>
+              {g.moves.map((u, i) => {
+                const l = g.labels[i], on = cur === i + 1, bad = !!l && mine(i) && (BAD.includes(l) || l === 'inaccuracy');
+                return (
+                  <Pressable key={i} onPress={() => go(i + 1)} hitSlop={4} style={{ flexDirection: 'row', gap: 4 }}>
+                    {i % 2 === 0 && <T dim size={13}>{i / 2 + 1}.</T>}
+                    <View style={{ paddingHorizontal: on ? 7 : 0, borderRadius: 7, backgroundColor: on ? '#36C2B4' : 'transparent' }}>
+                      <T size={14} color={on ? '#0A1124' : bad ? LABEL[l!].color : C.text} style={{ fontFamily: FONT_UI.sb }}>{sans[i]}{bad || l === 'brilliant' || l === 'great' ? LABEL[l!].sym : ''}</T>
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+
+            <ScrollView scrollEnabled={!lock} style={{ flex: 1 }} contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 6, gap: 6, paddingBottom: 12 }}>
+              {pre && <T dim size={12}>⏩ Oldindan yurish: {pre[0]}–{pre[1]} (bot yurgach bajariladi)</T>}
+              {(book.name || book.out) && <T dim size={12.5}>📖 {book.name ?? ''}{book.out ? `, nazariyadan ${book.out}-yurishda chiqdingiz` : ''}</T>}
+              {phase === 'end' && end && !showEnd && <Pressable onPress={() => setShowEnd(true)}><T size={13} color={C.gold}>Natijani ko'rish ›</T></Pressable>}
             </ScrollView>
 
             {/* Pastki panel — doim joyida: o'yin paytida Retry / Reja / Taslim, keyin ⚠️ va ▶ */}
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingTop: 8, paddingBottom: insets.bottom + 8, borderTopWidth: 1, borderTopColor: C.cardBorder, backgroundColor: C.bg }}>
               {phase === 'play' ? (
                 <>
-                  <Tool icon="↺" label="Retry" on={canRetry} onPress={() => canRetry && retry()} />
+                  {canRetry ? <Tool icon="↺" label="Retry" on onPress={retry} /> : <Tool icon="💡" label="Ishora" on={!!hint} onPress={askHint} />}
                   <Tool icon="✏️" label="Reja" on={pen} onPress={() => setPen(!pen)} />
                   <Tool icon="🏳" label="Taslim" onPress={() => finish('loss', 'Taslim')} />
                 </>
@@ -372,9 +412,67 @@ export default function BotGame() {
               <Big label="‹" onPress={() => { setAuto(false); go(cur - 1); }} />
               <Big label="›" onPress={() => { setAuto(false); go(cur + 1); }} />
             </View>
+
+            {phase === 'end' && end && showEnd && (
+              <Animated.View entering={FadeIn.duration(250)} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, backgroundColor: '#050914B8', justifyContent: 'center', padding: 22 }}>
+                <Animated.View entering={SlideInDown.duration(480).easing(Easing.out(Easing.cubic))}
+                  style={{ borderRadius: 28, padding: 22, alignItems: 'center', backgroundColor: '#14214A', borderWidth: 1, borderColor: '#2E4380', overflow: 'hidden' }}>
+                  <WinStar result={end.result} />
+                  <T size={32} style={{ fontFamily: FONT_INSCR, marginTop: 6 }}>{end.result === 'win' ? "G'alaba" : end.result === 'draw' ? 'Durang' : "Mag'lubiyat"}</T>
+                  <T dim size={13}>{end.why}</T>
+                  <View style={{ flexDirection: 'row', alignSelf: 'stretch', marginTop: 16, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#2A3C70' }}>
+                    <Stat v={`${end.acc}%`} l="aniqlik" />
+                    <Stat v={`${end.dRating >= 0 ? '+' : ''}${end.dRating}`} l="reyting" color={end.dRating >= 0 ? '#7CC27A' : '#D2555F'} border />
+                    <Stat v={`${g.labels.filter((l, i) => mine(i) && l && BAD.includes(l)).length}`} l="xato" border />
+                  </View>
+                  {end.own > 0 && <T dim size={12} style={{ marginTop: 10, textAlign: 'center' }}>📌 {end.own} ta xatoingiz masalalarga qo'shildi</T>}
+                  <View style={{ flexDirection: 'row', gap: 8, alignSelf: 'stretch', marginTop: 16 }}>
+                    <Pressable onPress={() => { setShowEnd(false); setView(0); }} style={({ pressed }) => ({ flex: 1, paddingVertical: 15, borderRadius: 16, backgroundColor: '#36C2B4', alignItems: 'center', opacity: pressed ? 0.8 : 1 })}>
+                      <T size={14.5} color="#06221F" style={{ fontFamily: FONT_UI.xb }}>O'yinni tahlil qilish</T>
+                    </Pressable>
+                    <Pressable onPress={() => { setShowEnd(false); setPhase('setup'); setG(null); }} style={({ pressed }) => ({ flex: 1, paddingVertical: 15, borderRadius: 16, borderWidth: 1, borderColor: '#2E4380', alignItems: 'center', opacity: pressed ? 0.7 : 1 })}>
+                      <T size={14.5} style={{ fontFamily: FONT_UI.b }}>Yana o'ynash</T>
+                    </Pressable>
+                  </View>
+                </Animated.View>
+              </Animated.View>
+            )}
           </>
         );
       })()}
+    </View>
+  );
+}
+
+const START: Record<string, number> = { p: 8, n: 2, b: 2, r: 2, q: 1 };
+const VAL: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9 };
+const GLYPH: Record<string, string> = { p: '♟', n: '♞', b: '♝', r: '♜', q: '♛' };
+/** side olgan donalar (raqibning yo'qolgan donalari) va material farqi. */
+function Captured({ fen, side }: { fen: string; side: 'w' | 'b' }) {
+  const board = fen.split(' ')[0];
+  const cnt = (c: 'w' | 'b', t: string) => [...board].filter((ch) => ch === (c === 'w' ? t.toUpperCase() : t)).length;
+  const opp = side === 'w' ? 'b' : 'w';
+  const took = ['q', 'r', 'b', 'n', 'p'].flatMap((t) => Array(Math.max(0, START[t] - cnt(opp, t))).fill(t));
+  const mat = (c: 'w' | 'b') => ['p', 'n', 'b', 'r', 'q'].reduce((s, t) => s + cnt(c, t) * VAL[t], 0);
+  const diff = mat(side) - mat(opp);
+  if (!took.length && diff <= 0) return null;
+  return <T dim size={12} style={{ letterSpacing: -1 }}>{took.map((t) => GLYPH[t]).join('')}{diff > 0 ? <T size={12} color="#7CC27A" style={{ letterSpacing: 0 }}>  +{diff}</T> : null}</T>;
+}
+function WinStar({ result }: { result: 'win' | 'loss' | 'draw' }) {
+  const big = starPts(90, 90, 80), small = starPts(90, 90, 56);
+  const [a, b] = result === 'win' ? ['#D9B46A', '#F3DFA8'] : result === 'draw' ? ['#8E97B3', '#C9CEDC'] : ['#5A6585', '#8E97B3'];
+  return (
+    <Animated.View entering={ZoomIn.delay(250).duration(500).springify()}>
+      <Svg width={68} height={68} viewBox="0 0 180 180"><Path d={big.d} fill={a} /><Path d={small.d} fill={b} /></Svg>
+      <View style={{ position: 'absolute', inset: 0, alignItems: 'center', justifyContent: 'center' }}><T size={26} color="#3b2a08">{result === 'loss' ? '♚' : '♔'}</T></View>
+    </Animated.View>
+  );
+}
+function Stat({ v, l, color, border }: { v: string; l: string; color?: string; border?: boolean }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', paddingVertical: 12, borderLeftWidth: border ? 1 : 0, borderColor: '#2A3C70' }}>
+      <T size={23} color={color} style={{ fontFamily: FONT_UI.xb }}>{v}</T>
+      <T dim size={11.5}>{l}</T>
     </View>
   );
 }
@@ -401,45 +499,6 @@ function Chips<V extends string | number | null>({ items, value, onChange }: { i
         <Pressable key={String(it.id)} onPress={() => onChange(it.id)} style={{ paddingHorizontal: 12, paddingVertical: 9, borderRadius: 12, backgroundColor: value === it.id ? C.gold : C.card, borderWidth: 1, borderColor: C.cardBorder }}>
           <T size={14} bold={value === it.id} color={value === it.id ? '#2A1E0A' : C.text}>{it.label}</T>
         </Pressable>
-      ))}
-    </View>
-  );
-}
-function Small({ label, onPress, gold }: { label: string; onPress: () => void; gold?: boolean }) {
-  return (
-    <Pressable onPress={onPress} style={{ paddingHorizontal: 10, paddingVertical: 9, borderRadius: 10, backgroundColor: gold ? C.gold : C.subtle }}>
-      <T size={14} bold={gold} color={gold ? '#2A1E0A' : C.text}>{label}</T>
-    </Pressable>
-  );
-}
-function MoveList({ moves, labels, start, cur, onPick }: { moves: string[]; labels: (Label | null)[]; start: string; cur?: number; onPick?: (i: number) => void }) {
-  const g = new Chess(start), sans: string[] = [];
-  for (const u of moves) { try { sans.push(g.move(uci(u)).san); } catch { sans.push(u); } }
-  if (!sans.length) return null;
-  return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 2, padding: 8, borderRadius: 10, backgroundColor: C.card }}>
-      {sans.map((s, i) => {
-        const l = labels[i];
-        return (
-          <Pressable key={i} onPress={() => onPick?.(i)} hitSlop={4} style={{ paddingHorizontal: 3, paddingVertical: 2, borderRadius: 6, backgroundColor: cur === i + 1 ? C.goldSoft : 'transparent' }}>
-            <T size={14} color={l && l !== 'best' && l !== 'good' ? LABEL[l].color : C.text}>
-              {i % 2 === 0 ? `${i / 2 + 1}.` : ''}{s}{l && l !== 'good' ? LABEL[l].sym.replace('★', '') : ''}
-            </T>
-          </Pressable>
-        );
-      })}
-    </View>
-  );
-}
-function LabelCounts({ labels, color }: { labels: (Label | null)[]; color: 'w' | 'b' }) {
-  const n: Partial<Record<Label, number>> = {};
-  labels.forEach((l, i) => { if (l && (color === 'w' ? i % 2 === 0 : i % 2 === 1)) n[l] = (n[l] ?? 0) + 1; });
-  return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, justifyContent: 'center' }}>
-      {(Object.keys(LABEL) as Label[]).filter((k) => n[k]).map((k) => (
-        <View key={k} style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, backgroundColor: LABEL[k].color }}>
-          <T size={12} bold color="#fff">{LABEL[k].sym} {LABEL[k].name} × {n[k]}</T>
-        </View>
       ))}
     </View>
   );

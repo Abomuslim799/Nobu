@@ -33,6 +33,12 @@ export async function loadAn(): Promise<Record<string, GameAn>> {
   try { return JSON.parse((await AsyncStorage.getItem(KEYS.chessComAn)) ?? '{}'); } catch { return {}; }
 }
 const saveCom = (x: { user: string; games: ComGame[] }) => AsyncStorage.setItem(KEYS.chessCom, JSON.stringify(x)).catch(() => {});
+/** chess.com username (sozlamalarda). Boshqa odamga o'zgarsa — o'yinlar ro'yxati yangidan yig'iladi. */
+export async function setComUser(user: string) {
+  const u = user.trim(); if (!u) return;
+  const cur = await loadCom();
+  if (cur.user.toLowerCase() !== u.toLowerCase()) await saveCom({ user: u, games: [] });
+}
 const saveAn = (x: Record<string, GameAn>) => AsyncStorage.setItem(KEYS.chessComAn, JSON.stringify(x)).catch(() => {});
 
 const clk = (s: string) => { const p = s.split(':').map(Number); return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p[0] * 60 + p[1]; };
