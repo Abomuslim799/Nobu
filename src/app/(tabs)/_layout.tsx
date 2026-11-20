@@ -1,6 +1,7 @@
 /**
- * (tabs)/_layout.tsx — pastdagi 5 ta tab (iPhone'da 5 tadan ko'pi "More"ga yashirinadi). NativeTabs — iPhone'ning o'z tab paneli
- * (iOS 26'da shisha ko'rinishida). sf — Apple SF Symbols belgilari; src — Android/web uchun.
+ * (tabs)/_layout.tsx — pastdagi 3 ta tab: Bugun · Bayt ul-mol · Farobiy.
+ * O'rganish, Miya, Kutubxona va Nobu endi Farobiy tabi ichida (alohida ekranlar: /learn, /brain, /library, /nobu).
+ * NativeTabs — iPhone'ning o'z tab paneli. sf — Apple SF Symbols belgilari; src — Android/web uchun.
  */
 
 import { NativeTabs } from 'expo-router/native-tabs';
@@ -17,21 +18,13 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>Bugun</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'flame', selected: 'flame.fill' }} src={home} />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="learn">
-        <NativeTabs.Trigger.Label>O'rganish</NativeTabs.Trigger.Label>
+      <NativeTabs.Trigger name="bayt">
+        <NativeTabs.Trigger.Label>Bayt ul-mol</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf={{ default: 'building.columns', selected: 'building.columns.fill' }} src={explore} />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="farobiy">
+        <NativeTabs.Trigger.Label>Farobiy</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'book', selected: 'book.fill' }} src={explore} />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="brain">
-        <NativeTabs.Trigger.Label>Miya</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="brain.head.profile" src={explore} />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="library">
-        <NativeTabs.Trigger.Label>Kutubxona</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{ default: 'books.vertical', selected: 'books.vertical.fill' }} src={explore} />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="nobu">
-        <NativeTabs.Trigger.Label>Nobu</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{ default: 'sparkles', selected: 'sparkles' }} src={explore} />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
