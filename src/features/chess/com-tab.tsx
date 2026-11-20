@@ -1,6 +1,6 @@
 /**
  * com-tab.tsx — chess.com o'yinlari:
- *   GamesTab — O'yinlarim: server holati bitta qatorda, filtrlar, kunlar bo'yicha ro'yxat (aniqlik va xatolar soni).
+ *   GamesTab — O'yinlarim: server holati bitta qatorda, tahlilsiz o'yinda ☁️ Tahlil (faqat shu o'yin serverda), filtrlar, kunlar bo'yicha ro'yxat (aniqlik va xatolar soni).
  *   StatsTab — Statistika: davr bo'yicha aniqlik grafigi, xato manbalari, bosqichlar, uslub, debyutlar, haftalik reja.
  * Username — Shaxmat → ⚙︎ sozlamalarida.
  */
@@ -75,8 +75,11 @@ export function GamesTab() {
   const refresh = async () => {
     setErr(''); setNote("chess.com'dan yangilari olinmoqda…");
     try { await fetchCom(user, 30); setNote(''); } catch (e) { setNote(''); setErr(e instanceof Error ? e.message : String(e)); }
-    try { setCs(await cloudRun()); } catch (e) { setErr(e instanceof Error ? e.message : String(e)); }
     const [c, m] = await Promise.all([loadCom(), loadAn()]); setGames(c.games); setAn(m);
+  };
+  const ask = async (g: ComGame) => {                     // faqat tanlangan o'yin — server Stockfish
+    setErr(''); setNote(`${g.oppName} bilan o'yin serverga yuborildi`);
+    try { setCs(await cloudRun(g.id)); } catch (e) { setNote(''); setErr(e instanceof Error ? e.message : String(e)); }
   };
   const phone = async () => {
     stop.current = false; setProg({ done: 0, total: 0 });
@@ -106,7 +109,7 @@ export function GamesTab() {
       {groups.map((g) => (
         <View key={g.day}>
           <T dim size={12} style={{ fontFamily: FONT_UI.sb, marginTop: 4 }}>{g.day[0].toUpperCase() + g.day.slice(1)}</T>
-          {g.gs.map((x) => <GameRow key={x.id} g={x} a={an[x.id]} />)}
+          {g.gs.map((x) => <GameRow key={x.id} g={x} a={an[x.id]} onAsk={ask} busy={!!cs?.running} />)}
         </View>
       ))}
       {todo > 0 && !cs?.running && (prog

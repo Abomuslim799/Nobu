@@ -127,10 +127,10 @@ export async function analyseGame(g: ComGame, onPly?: (i: number, n: number) => 
     ...(full ? { opp, oppAcc: gameAccuracy(opp.map((m) => m.drop)) } : {}) };
 }
 
-/** Server tahlili (Railway, har soatda va tugma bilan, Stockfish 17): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */
+/** Server tahlili (Railway, faqat tanlangan o'yin — tugma bilan, Stockfish 17): tayyor o'yinlar va tahlillarni olib, bizdagilarga qo'shish. */
 export interface CloudStatus { running: boolean; started: number | null; finished: number | null; done: number; total: number; game: string; error: string | null; next: number | null; updated: number | null }
 export const cloudStatus = () => api<CloudStatus>('/chess/status', undefined, { timeoutMs: 15000 });
-export const cloudRun = () => api<CloudStatus>('/chess/run', {}, { timeoutMs: 15000 });
+export const cloudRun = (id?: string) => api<CloudStatus>('/chess/run', id ? { id } : {}, { timeoutMs: 15000 });
 export async function syncCloud(): Promise<{ added: number; analysed: number; updated: number } | null> {
   const cur = await loadCom();
   let d: { games: ComGame[]; an: Record<string, GameAn>; updated: number };

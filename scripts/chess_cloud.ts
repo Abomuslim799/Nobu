@@ -1,11 +1,12 @@
 // @ts-nocheck -- Node skripti (GitHub Actions), esbuild bilan yigiladi; ilova tsconfigida Node tiplari yoq.
 /**
- * chess_cloud.ts — Railway serverida (har soatda va "Hozir tahlil qil" tugmasida): chess.com'dan yangi o'yinlarni olib,
+ * chess_cloud.ts — Railway serverida (faqat ilovadagi tugma bilan): chess.com'dan yangi o'yinlarni olib,
  * rasmiy Stockfish bilan tahlil qiladi va natijani faylga yozadi. Ilova tayyor tahlilni serverdan oladi.
  * Qoidalar telefondagi bilan bir xil (analyseGame), faqat chuqurroq: depth 18. Sayt (site.yml) uni dist/chess/cc.js ga yig'adi.
  *
  * Ishga tushirish: node cc.js <user> <chiqish papkasi>
  *   CC_IN — oldingi natija fayli (bo'lmasa chess-data bo'limidagi eski GitHub natijasi urug' sifatida olinadi)
+ *   CC_ONLY — faqat shu o'yin id'si tahlil qilinadi (ilovada tanlangan o'yin); bo'lmasa navbatdagi hammasi
  *   STOCKFISH, CC_THREADS, CC_MINUTES, CC_DEPTH, CC_MS; CC_MOCK=papka — chess.com o'rniga mahalliy json (test)
  */
 
@@ -52,7 +53,9 @@ async function main() {
   data.games = [...data.games, ...got].sort((a, b) => b.at - a.at);
   console.log(`o'yinlar: ${data.games.length} (yangi ${got.length}) · navbat ${data.games.filter((g) => !fresh(data.an[g.id])).length}`);
 
-  const todo = data.games.filter((g) => !fresh(data.an[g.id]));
+  const only = process.env.CC_ONLY;
+  if (only && !data.games.some((g) => g.id === only)) throw new Error(`o'yin topilmadi: ${only}`);
+  const todo = data.games.filter((g) => (only ? g.id === only : !fresh(data.an[g.id])));
   let n = 0;
   for (const g of todo) {
     if (Date.now() - t0 > BUDGET) { console.log('vaqt tugadi — qolgani keyingi safar'); break; }

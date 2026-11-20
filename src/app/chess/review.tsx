@@ -169,7 +169,7 @@ export default function Review() {
             </Pressable>
           ))}
           {a.bookOut && <T dim size={12}>📖 Nazariyadan {a.bookOut}-yurishda chiqdingiz.</T>}
-          {!fresh(a) && <T color={C.gold} size={12}>Bu o'yin eski qoida bilan tahlil qilingan — server yangisini tayyorlaydi (Tahlil → Hozir tahlil qil).</T>}
+          {!fresh(a) && <T color={C.gold} size={12}>Bu o'yin eski qoida bilan tahlil qilingan — pastdagi tugma bilan qayta tahlil qiling.</T>}
         </ScrollView>
         <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 16, paddingBottom: insets.bottom + 12, backgroundColor: C.bg + 'F2', borderTopWidth: 1, borderTopColor: C.cardBorder }}>
           <Pressable onPress={() => openAt(moments[0] ? moments[0].ply + 1 : 1)}

@@ -186,7 +186,7 @@ function MiniBoard() {
 }
 
 /** O'yin qatori: chapda natija chizig'i, o'rtada raqib va debyut, o'ngda aniqlik (Marcellus). */
-export function GameRow({ g, a }: { g: ComGame; a?: GameAn }) {
+export function GameRow({ g, a, onAsk, busy }: { g: ComGame; a?: GameAn; onAsk?: (g: ComGame) => void; busy?: boolean }) {
   const col = g.result === 'win' ? OK : g.result === 'draw' ? C.dim : ANOR;
   const word = g.result === 'win' ? "g'alaba" : g.result === 'draw' ? 'durang' : "mag'lubiyat";
   const bad = a ? a.moves.filter((m) => m.label === 'blunder' || m.label === 'mistake' || m.label === 'miss').length : 0;
@@ -199,7 +199,11 @@ export function GameRow({ g, a }: { g: ComGame; a?: GameAn }) {
         <T dim size={12} style={{ fontFamily: FONT_UI.r }} lines={1}>{[a?.opening?.split(':')[0], g.color === 'w' ? 'oqlar' : 'qoralar', ago(g.at)].filter(Boolean).join(', ')}</T>
       </View>
       <View style={{ alignItems: 'flex-end' }}>
-        <T size={17} style={{ fontFamily: FONT_UI.xb }}>{a ? `${a.acc}%` : '…'}</T>
+        {a || !onAsk
+          ? <T size={17} style={{ fontFamily: FONT_UI.xb }}>{a ? `${a.acc}%` : '…'}</T>
+          : <Pressable onPress={() => onAsk(g)} disabled={busy} hitSlop={8} style={{ paddingHorizontal: 10, paddingVertical: 5, borderRadius: 99, borderWidth: 1, borderColor: busy ? '#24345F' : '#36C2B4' }}>
+              <T size={12} color={busy ? C.dim : '#36C2B4'} style={{ fontFamily: FONT_UI.b }}>☁️ Tahlil</T>
+            </Pressable>}
         {!!a && <T size={11} color={bad ? ANOR : OK} style={{ fontFamily: FONT_UI.sb }}>{bad ? `${bad} xato` : 'toza'}</T>}
       </View>
     </Pressable>
