@@ -5,13 +5,13 @@
 
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, FONT_INSCR, FONT_UI } from '@/core/theme';
 import { Bar, Card, Screen, T } from '@/core/ui/kit';
-import { COLOR, dayLabel, fmt, getDevon, getSummary, LABEL, walletShort, type Summary, type Tx } from '@/features/bayt/api';
+import { COLOR, dayLabel, deleteTx, fmt, getDevon, getSummary, LABEL, walletShort, type Summary, type Tx } from '@/features/bayt/api';
 
 export default function Bayt() {
   const insets = useSafeAreaInsets();
@@ -19,13 +19,18 @@ export default function Bayt() {
   const [devon, setDevon] = useState<Tx[]>([]);
   const [err, setErr] = useState('');
 
-  useFocusEffect(useCallback(() => {
-    let alive = true;
+  const load = useCallback(() => {
     Promise.all([getSummary(), getDevon(6)])
-      .then(([s, d]) => { if (alive) { setSum(s); setDevon(d); setErr(''); } })
-      .catch((e) => alive && setErr(String(e.message ?? e)));
-    return () => { alive = false; };
-  }, []));
+      .then(([s, d]) => { setSum(s); setDevon(d); setErr(''); })
+      .catch((e) => setErr(String(e.message ?? e)));
+  }, []);
+  useFocusEffect(load);
+
+  /** Uzoq bosilganda — xato yozuvni o'chirish (tasdiq bilan). */
+  const remove = (t: Tx) => Alert.alert("Yozuvni o'chirish?", `${fmt(t.amount)} so'm · ${t.category || t.place || t.kind}`, [
+    { text: 'Bekor', style: 'cancel' },
+    { text: "O'chirish", style: 'destructive', onPress: () => { deleteTx(t.id).then(load).catch((e) => setErr(String(e.message ?? e))); } },
+  ]);
 
   const p = sum?.period;
   return (
@@ -107,16 +112,20 @@ export default function Bayt() {
             </Animated.View>
 
             <Animated.View entering={FadeInDown.delay(180).duration(320)}>
-              <Card style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-                <View style={s.icon}><Text style={{ color: COLOR.qora, fontSize: 18 }}>⛨</Text></View>
-                <View style={{ flex: 1 }}>
-                  <View style={s.row}>
-                    <T size={14} bold>Qora kun</T>
-                    <T size={14} bold>{fmt(sum.qora)}</T>
+              <Pressable onPress={() => router.push('/bayt/qora')} style={({ pressed }) => pressed && { opacity: 0.75 }}>
+                <Card style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+                  <View style={s.icon}><Text style={{ color: COLOR.qora, fontSize: 18 }}>⛨</Text></View>
+                  <View style={{ flex: 1 }}>
+                    <View style={s.row}>
+                      <T size={14} bold>Qora kun</T>
+                      <T size={14} bold>{fmt(sum.qora)}</T>
+                    </View>
+                    {sum.qora_due > 0
+                      ? <T size={12} color={COLOR.nafs}>Kartaga o'tkazish kerak: {fmt(sum.qora_due)}</T>
+                      : <T dim size={12}>Maqsad: 2 oylik Nafaqa</T>}
                   </View>
-                  <T dim size={12}>Maqsad: 2 oylik Nafaqa</T>
-                </View>
-              </Card>
+                </Card>
+              </Pressable>
             </Animated.View>
           </>
         ) : null}
@@ -134,9 +143,11 @@ export default function Bayt() {
         {devon.length ? (
           <View style={{ gap: 2, marginTop: 6 }}>
             <Text style={s.h2}>Devon</Text>
-            {devon.map((t) => <Row key={t.id} t={t} />)}
+            {devon.map((t) => <Row key={t.id} t={t} onLong={() => remove(t)} />)}
+            <T dim size={11}>Xato yozuvni o'chirish uchun uzoq bosing</T>
           </View>
         ) : null}
+        <View style={{ height: 64 }} />
       </Screen>
 
       {p ? (
@@ -149,20 +160,20 @@ export default function Bayt() {
   );
 }
 
-function Row({ t }: { t: Tx }) {
+function Row({ t, onLong }: { t: Tx; onLong: () => void }) {
   const inc = t.kind === 'income';
   const tr = t.kind === 'transfer';
   const title = t.pending ? (t.place || 'Yozuv') : tr ? `${walletShort(t.wallet)} → ${walletShort(t.to_wallet ?? '')}`
     : inc ? (t.place || 'Kirim') : (t.category || t.place || 'Xarajat');
   const sub = `${t.ts.slice(11, 16)} · ${t.pending ? 'Taqsimotda' : tr ? "O'tkazma" : inc ? 'Kirim' : LABEL[t.status ?? 'nafaqa']}`;
   return (
-    <View style={s.tx}>
+    <Pressable onLongPress={onLong} delayLongPress={400} style={({ pressed }) => [s.tx, pressed && { opacity: 0.6 }]}>
       <View style={{ flex: 1, gap: 2 }}>
         <T size={14} lines={1}>{title}</T>
         <T dim size={12}>{sub}</T>
       </View>
       <T size={14} bold color={inc ? COLOR.kirim : tr ? C.dim : C.text}>{inc ? '+' : tr ? '' : '−'}{fmt(t.amount)}</T>
-    </View>
+    </Pressable>
   );
 }
 

@@ -10,7 +10,7 @@ export type Status = 'nafaqa' | 'nafs' | 'maqsad' | 'qora';
 
 export interface Wallet { id: string; title: string; offbudget: boolean; balance: number; bank: number | null; diff: number | null }
 export interface Summary {
-  pending: number; wallets: Wallet[]; total: number; maqsad: number; qora: number;
+  pending: number; wallets: Wallet[]; total: number; maqsad: number; qora: number; qora_due: number;
   period: null | {
     id: number; start: string; checkpoint: string; days_left: number; spendable: number;
     nafaqa: { total: number; left: number; daily: number; today_spent: number; today_left: number; fixed_unpaid: number };
@@ -30,6 +30,9 @@ export const addExpense = (b: { amount: number; status: Status; category: string
   api<{ ok: boolean; summary: Summary }>(`${P}/expense`, b);
 export const addIncome = (b: { amount: number; wallet: string; mode: 'new' | 'add'; checkpoint?: string }) =>
   api<{ ok: boolean; summary: Summary }>(`${P}/income`, b);
+export const deleteTx = (id: number) => api<{ ok: boolean; summary: Summary }>(`${P}/delete`, { id });
+/** Qora kun kartasida avvaldan turgan pul (boshlang'ich summa). */
+export const setReserve = (opening: number) => api<{ ok: boolean; summary: Summary }>(`${P}/reserve`, { opening });
 export const sortTx = (b: { id: number; action: string; category?: string; mode?: 'new' | 'add'; checkpoint?: string }) =>
   api<{ ok: boolean; summary: Summary }>(`${P}/sort`, b);
 
@@ -52,4 +55,4 @@ const MONTHS = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avg
 export const dayLabel = (iso: string) => `${Number(iso.slice(8, 10))}-${MONTHS[Number(iso.slice(5, 7)) - 1]}`;
 
 /** Hamyon nomi: "card:3213" → "*3213", "cash" → "Naqd". */
-export const walletShort = (id: string) => (id === 'cash' ? 'Naqd' : id.startsWith('card:') ? `*${id.slice(5)}` : id);
+export const walletShort = (id: string) => (id === 'cash' ? 'Naqd' : id === 'qora' ? 'Qora kun' : id.startsWith('card:') ? `*${id.slice(5)}` : id);
