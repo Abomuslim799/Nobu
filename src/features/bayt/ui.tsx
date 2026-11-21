@@ -12,8 +12,9 @@ import { C, FONT_INSCR, FONT_UI } from '@/core/theme';
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '000', '0', 'del'];
 
-/** Summa klaviaturasi: digits — matn ("36980"), onChange — yangi matn. */
-export function Keypad({ digits, onChange, h = 52 }: { digits: string; onChange: (d: string) => void; h?: number }) {
+/** Summa klaviaturasi: digits — matn ("36980"), onChange — yangi matn.
+ *  Qolgan bo'sh joyni egallaydi (balandligi 176–236 pt) — ekranga doim sig'adi, pastdagi tugma chiqib ketmaydi. */
+export function Keypad({ digits, onChange }: { digits: string; onChange: (d: string) => void }) {
   const press = (k: string) => {
     Haptics.selectionAsync().catch(() => {});
     if (k === 'del') return onChange(digits.slice(0, -1));
@@ -22,11 +23,15 @@ export function Keypad({ digits, onChange, h = 52 }: { digits: string; onChange:
   };
   return (
     <View style={s.keys}>
-      {KEYS.map((k) => (
-        <Pressable key={k} onPress={() => press(k)} accessibilityLabel={k === 'del' ? "O'chirish" : k}
-          style={({ pressed }) => [s.key, { height: h }, pressed && { backgroundColor: C.surface2 }]}>
-          <Text style={s.keyText}>{k === 'del' ? '⌫' : k}</Text>
-        </Pressable>
+      {[0, 3, 6, 9].map((r) => (
+        <View key={r} style={s.keyRow}>
+          {KEYS.slice(r, r + 3).map((k) => (
+            <Pressable key={k} onPress={() => press(k)} accessibilityLabel={k === 'del' ? "O'chirish" : k}
+              style={({ pressed }) => [s.key, pressed && { backgroundColor: C.surface2 }]}>
+              <Text style={s.keyText}>{k === 'del' ? '⌫' : k}</Text>
+            </Pressable>
+          ))}
+        </View>
       ))}
     </View>
   );
@@ -62,9 +67,10 @@ export function Page({ children }: { children: ReactNode }) {
 }
 
 const s = StyleSheet.create({
-  page: { flex: 1, backgroundColor: C.bg, paddingHorizontal: 20, gap: 12 },
-  keys: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  key: { width: '31.9%', borderRadius: 14, backgroundColor: C.card, alignItems: 'center', justifyContent: 'center' },
+  page: { flex: 1, backgroundColor: C.bg, paddingHorizontal: 20, gap: 10 },
+  keys: { flex: 1, minHeight: 176, maxHeight: 236, gap: 8 },
+  keyRow: { flex: 1, flexDirection: 'row', gap: 8 },
+  key: { flex: 1, borderRadius: 14, backgroundColor: C.card, alignItems: 'center', justifyContent: 'center' },
   keyText: { color: C.text, fontSize: 22, fontFamily: FONT_UI.sb },
   chip: { minHeight: 44, paddingHorizontal: 14, borderRadius: 22, borderWidth: 1, borderColor: C.subtle2,
     backgroundColor: C.card, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },

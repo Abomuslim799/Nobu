@@ -116,7 +116,7 @@ const s = StyleSheet.create({
   amount: { color: C.text, fontSize: 36, fontFamily: FONT_UI.b, letterSpacing: -0.5 },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  choice: { width: '31.9%', minHeight: 52, borderRadius: 14, borderWidth: 1, borderColor: C.subtle2, backgroundColor: C.card,
+  choice: { flexGrow: 1, flexBasis: '30%', minHeight: 52, borderRadius: 14, borderWidth: 1, borderColor: C.subtle2, backgroundColor: C.card,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   choiceText: { color: C.text, fontSize: 14, fontFamily: FONT_UI.sb },
   dot: { width: 8, height: 8, borderRadius: 4 },

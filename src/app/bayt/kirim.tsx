@@ -79,7 +79,7 @@ export default function Kirim() {
           <T size={12} color={C.dim}>{walletShort(wallets[w] ?? 'cash')}</T>
         </Pressable>} />
 
-      <View style={{ flexDirection: 'row', alignItems: 'baseline', justifyContent: 'center', gap: 8, paddingVertical: 4 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', justifyContent: 'center', gap: 8, paddingVertical: 0 }}>
         <Text style={[s.amount, !amount && { color: C.subtle2 }]}>{amount ? fmt(amount) : '0'}</Text>
         <T dim size={15}>so'm</T>
       </View>
@@ -125,8 +125,7 @@ export default function Kirim() {
       </Pressable>
 
       {err ? <T size={13} color={C.red}>{err}</T> : null}
-      <View style={{ flex: 1 }} />
-      <Keypad digits={digits} onChange={setDigits} h={48} />
+      <Keypad digits={digits} onChange={setDigits} />
       <Pressable onPress={save} disabled={!ready} style={[s.save, { backgroundColor: ready ? C.gold : C.card }]}>
         <Text style={[s.saveText, { color: ready ? C.bg : C.dim }]}>{busy ? 'Saqlanmoqda…' : ready ? 'Taqsimlash' : 'Summani kiriting'}</Text>
       </Pressable>
@@ -137,8 +136,8 @@ export default function Kirim() {
 const s = StyleSheet.create({
   pill: { minWidth: 44, height: 44, paddingHorizontal: 12, borderRadius: 22, borderWidth: 1, borderColor: C.subtle2,
     backgroundColor: C.card, alignItems: 'center', justifyContent: 'center' },
-  amount: { color: C.text, fontSize: 44, fontFamily: FONT_UI.b, letterSpacing: -1 },
-  card: { padding: 14, borderRadius: 18, backgroundColor: C.card, borderWidth: 1, borderColor: C.subtle, gap: 12 },
+  amount: { color: C.text, fontSize: 40, fontFamily: FONT_UI.b, letterSpacing: -1 },
+  card: { padding: 12, borderRadius: 18, backgroundColor: C.card, borderWidth: 1, borderColor: C.subtle, gap: 10 },
   bar: { flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden', gap: 2, backgroundColor: C.subtle },
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 10 },
   line: { paddingTop: 10, borderTopWidth: 1, borderTopColor: C.subtle },
@@ -147,6 +146,6 @@ const s = StyleSheet.create({
   segText: { color: C.dim, fontSize: 13, fontFamily: FONT_UI.sb },
   cp: { minHeight: 44, paddingHorizontal: 14, borderRadius: 14, borderWidth: 1, borderStyle: 'dashed', borderColor: C.subtle2,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  save: { height: 54, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  save: { height: 52, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
   saveText: { fontSize: 16, fontFamily: FONT_UI.b },
 });

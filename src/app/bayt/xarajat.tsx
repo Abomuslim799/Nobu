@@ -91,7 +91,6 @@ export default function Xarajat() {
       </Animated.View>
 
       {err ? <T size={13} color={C.red}>{err}</T> : null}
-      <View style={{ flex: 1 }} />
       <Keypad digits={digits} onChange={setDigits} />
       <Pressable onPress={save} disabled={!ready}
         style={[s.save, { backgroundColor: ready ? COLOR[status] : C.card }]}>
