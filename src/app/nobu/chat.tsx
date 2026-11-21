@@ -21,6 +21,7 @@ const STARTERS: Record<string, string[]> = {
   lesson: ['Bu qonunni boshqacha tushuntirib bering', 'Menga qiyinroq masala bering', 'Bu kundalik hayotda qayerda uchraydi?'],
   stats: ['Eng zaif tomonim nima?', 'Bu hafta nimaga e\'tibor beray?', 'Qayerda o\'syapman?'],
   science: ['Qaysi mavzuni takrorlashim kerak?', 'Menga aralash masala bering'],
+  drill: ['Xatolarimni tushuntirib bering', 'Farqini oddiy misol bilan tushuntiring', 'Menga 5 ta qiyin gap bering'],
 };
 
 export default function NobuChat() {
@@ -84,7 +85,7 @@ export default function NobuChat() {
   };
   const cancel = () => { reqId.current++; setBusy(false); setErr("Bekor qilindi. Savolni qayta yuborishingiz mumkin."); };
   const call = () => ctx && router.push({ pathname: '/nobu/live', params: { mode: 'nobu', topic: ctx.topic, ctx: ctx.ctx.slice(0, 9000) } });
-  const kind = key.startsWith('lesson:') ? 'lesson' : key;
+  const kind = key.startsWith('lesson:') ? 'lesson' : key.startsWith('drill:') ? 'drill' : key;
   const who: Who = kind === 'stats' ? 'nobu' : 'ustoz';     // darslar va Science — Ustoz, statistika — Nobu
 
   return (
@@ -98,7 +99,7 @@ export default function NobuChat() {
         <Pressable onPress={call} style={s.call}><T bold color={C.onAccent}>📞 Jonli</T></Pressable>
       </View>
       <ScrollView ref={scroll} contentContainerStyle={{ padding: PAD, gap: 10 }} keyboardShouldPersistTaps="handled">
-        <Bubble who={who} pose="kitob" text={kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
+        <Bubble who={who} pose="kitob" text={kind === 'drill' ? "Grammar bo'yicha savolingizni bering — xatolaringiz oldimda." : kind === 'lesson' ? 'Dars bo\'yicha nimani muhokama qilamiz? Tushunmagan joyingizni ayting yoki men sizga savol beray.'
           : kind === 'stats' ? "Barcha natijalaringiz oldimda: ingliz tili, miya o'yinlari, shaxmat, science. Nimani muhokama qilamiz?"
             : 'Matematika, geometriya yoki fizika — nimani muhokama qilamiz?'} />
         {msgs.map((m, i) => m.role === 'nobu' ? (

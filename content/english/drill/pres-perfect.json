@@ -1,0 +1,271 @@
+{
+ "id": "pres-perfect",
+ "title": "Present perfect simple / continuous",
+ "recall": "Present perfect simple va continuous farqi nima? 'for' va 'since' farqini ayt.",
+ "formula": [
+  "Simple: natija hozir muhim, tajriba, nechta/necha marta — I have finished / I've been to London twice",
+  "Continuous: harakat davomiyligi, hali davom etyapti yoki yaqinda tugadi — I've been working for 3 hours",
+  "for + davomiylik (for 5 years), since + boshlanish nuqtasi (since 2020). State verbs — faqat simple: I've known him for years."
+ ],
+ "pairs": [
+  {
+   "a": "I've written the report.",
+   "b": "I've been writing the report all day.",
+   "note_uz": "natija ↔ jarayon"
+  },
+  {
+   "a": "I've read 100 pages.",
+   "b": "I've been reading for two hours.",
+   "note_uz": "nechta ↔ qancha vaqt"
+  },
+  {
+   "a": "Someone has drunk my tea!",
+   "b": "Someone has been drinking my tea!",
+   "note_uz": "hammasi ichilgan ↔ bir qismi"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men bu filmni allaqachon ko'rganman.",
+   "en": [
+    "I have already seen this film.",
+    "I have seen this film already.",
+    "I have already seen this movie.",
+    "I have seen this movie already."
+   ]
+  },
+  {
+   "uz": "Men hech qachon Londonda bo'lmaganman.",
+   "en": [
+    "I have never been to London.",
+    "I've never been in London."
+   ]
+  },
+  {
+   "uz": "Sen hech qachon sushi yeganmisan?",
+   "en": [
+    "Have you ever eaten sushi?",
+    "Have you ever tried sushi?",
+    "Have you ever had sushi?"
+   ]
+  },
+  {
+   "uz": "Men bu yerda 5 yildan beri ishlayman.",
+   "en": [
+    "I have been working here for 5 years.",
+    "I have worked here for 5 years.",
+    "I have been working here for five years.",
+    "I have worked here for five years."
+   ]
+  },
+  {
+   "uz": "Men ertalabdan beri seni kutyapman.",
+   "en": [
+    "I have been waiting for you since the morning.",
+    "I have been waiting for you since morning.",
+    "I've been waiting for you since this morning."
+   ]
+  },
+  {
+   "uz": "Yig'laganmisan? Ko'zlaring qizarib ketibdi.",
+   "en": [
+    "Have you been crying? Your eyes are red."
+   ]
+  },
+  {
+   "uz": "Men kalitlarimni yo'qotib qo'ydim. (hozir yo'q)",
+   "en": [
+    "I have lost my keys."
+   ]
+  },
+  {
+   "uz": "Ali hali kelmadi.",
+   "en": [
+    "Ali hasn't come yet.",
+    "Ali hasn't arrived yet.",
+    "Ali has not come yet."
+   ]
+  },
+  {
+   "uz": "Men hozirgina tushlik qildim.",
+   "en": [
+    "I have just had lunch.",
+    "I have just eaten lunch.",
+    "I've just had my lunch."
+   ]
+  },
+  {
+   "uz": "Biz bir-birimizni bolalikdan beri bilamiz.",
+   "en": [
+    "We have known each other since childhood.",
+    "We have known each other since we were children.",
+    "We have known each other since we were kids."
+   ]
+  },
+  {
+   "uz": "Men bugun uch piyola qahva ichdim.",
+   "en": [
+    "I have drunk three cups of coffee today.",
+    "I have had three cups of coffee today.",
+    "I have drunk 3 cups of coffee today.",
+    "I have had 3 cups of coffee today.",
+    "Today I have had three cups of coffee."
+   ]
+  },
+  {
+   "uz": "Men butun kun shu hisobotni yozyapman. (hali tugamagan)",
+   "en": [
+    "I have been writing this report all day.",
+    "I have been writing this report all day long."
+   ]
+  },
+  {
+   "uz": "Men hisobotni yozib bo'ldim.",
+   "en": [
+    "I have finished the report.",
+    "I have written the report.",
+    "I have finished writing the report."
+   ]
+  },
+  {
+   "uz": "Qancha vaqtdan beri ingliz tilini o'rganyapsan?",
+   "en": [
+    "How long have you been learning English?",
+    "How long have you been studying English?"
+   ]
+  },
+  {
+   "uz": "Men Alini ko'p yillardan beri ko'rmadim.",
+   "en": [
+    "I haven't seen Ali for many years.",
+    "I haven't seen Ali in years.",
+    "I haven't seen Ali for years.",
+    "I haven't seen Ali in many years."
+   ]
+  },
+  {
+   "uz": "Ertalabdan beri yomg'ir yog'yapti.",
+   "en": [
+    "It has been raining since the morning.",
+    "It has been raining since morning.",
+    "It has been raining since this morning."
+   ]
+  },
+  {
+   "uz": "Shu yil narxlar ikki baravar oshdi.",
+   "en": [
+    "Prices have doubled this year.",
+    "This year prices have doubled."
+   ]
+  },
+  {
+   "uz": "Bu kitobni o'qib chiqdingizmi?",
+   "en": [
+    "Have you read this book?",
+    "Have you finished this book?"
+   ]
+  },
+  {
+   "uz": "Men bu kitobning 100 sahifasini o'qidim.",
+   "en": [
+    "I have read 100 pages of this book.",
+    "I've read a hundred pages of this book."
+   ]
+  },
+  {
+   "uz": "Men bu kitobni ikki soatdan beri o'qiyapman.",
+   "en": [
+    "I have been reading this book for two hours.",
+    "I have been reading this book for 2 hours."
+   ]
+  },
+  {
+   "uz": "Nega qo'llaring iflos? — Mashinani tuzatayotgandim.",
+   "en": [
+    "I have been fixing the car.",
+    "I have been repairing the car.",
+    "I've been fixing my car.",
+    "I've been repairing my car."
+   ]
+  },
+  {
+   "uz": "Ali ishini tashlab ketdi. (hozir ishsiz)",
+   "en": [
+    "Ali has quit his job.",
+    "Ali has left his job."
+   ]
+  },
+  {
+   "uz": "Bu mening birinchi marta samolyotda uchishim.",
+   "en": [
+    "This is the first time I have flown.",
+    "This is the first time I have been on a plane.",
+    "It's the first time I have flown on a plane.",
+    "This is the first time I have flown on a plane.",
+    "It's the first time I've been on a plane."
+   ]
+  },
+  {
+   "uz": "Men hali qaror qilmadim.",
+   "en": [
+    "I haven't decided yet.",
+    "I haven't made a decision yet.",
+    "I have not decided yet."
+   ]
+  },
+  {
+   "uz": "Kimdir choyimni ichib qo'yibdi! (stakan bo'sh)",
+   "en": [
+    "Someone has drunk my tea!",
+    "Somebody has drunk my tea!"
+   ]
+  },
+  {
+   "uz": "Kimdir choyimdan ichibdi! (yarmi qolgan)",
+   "en": [
+    "Someone has been drinking my tea!",
+    "Somebody has been drinking my tea!"
+   ]
+  },
+  {
+   "uz": "Bu hafta men Malika bilan uch marta gaplashdim.",
+   "en": [
+    "I have talked to Malika three times this week.",
+    "I have spoken to Malika three times this week.",
+    "I have spoken with Malika three times this week.",
+    "I have talked to Malika 3 times this week.",
+    "This week I have talked to Malika three times.",
+    "I have talked with Malika three times this week."
+   ]
+  },
+  {
+   "uz": "Ular ikki soatdan beri gaplashishyapti.",
+   "en": [
+    "They have been talking for two hours.",
+    "They have been talking for 2 hours."
+   ]
+  },
+  {
+   "uz": "Senga necha marta aytdim!",
+   "en": [
+    "How many times have I told you!",
+    "How many times have I told you?"
+   ]
+  },
+  {
+   "uz": "Men 5 kilo vazn yo'qotdim.",
+   "en": [
+    "I have lost 5 kilos.",
+    "I have lost five kilos.",
+    "I have lost 5 kg.",
+    "I have lost 5 kilograms.",
+    "I have lost five kilograms."
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingdagi 5 ta tajriba haqida ayt: ever / never / already (present perfect).",
+  "Hozir nima bilan qancha vaqtdan beri shug'ullanasan? 5 ta gap: for / since (perfect continuous).",
+  "Bugun nimalarni qilib bo'lding va nimalar hali davom etyapti?"
+ ]
+}

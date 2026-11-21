@@ -7,6 +7,7 @@ import { getSciLog, sciSummary } from '@/features/science/log';
 import { getLog, summarize } from '@/features/english/skills';
 import { BOARDS } from '@/features/science/board';
 import { lessonById, lessonContext, type Block } from '@/features/science/lessons';
+import { drillContext } from '@/features/english/drill/context';
 
 /** Barcha bo'limlar bo'yicha ma'lumot (Nobu tahlili va "statistikam haqida gaplashish" uchun). */
 export async function allData() {
@@ -29,6 +30,7 @@ function stepText(b: Block): string {
 }
 
 export async function buildContext(key: string, step?: number): Promise<{ topic: string; ctx: string }> {
+  if (key.startsWith('drill:')) return drillContext(key.slice(6));
   if (key.startsWith('lesson:')) {
     const l = lessonById(key.slice(7));
     if (l) {

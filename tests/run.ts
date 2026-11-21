@@ -22,6 +22,9 @@ import { decide, freshMem, hanging, intentOf, openKind } from '@/features/chess/
 import phrasesJ from '@content/chess/phrases.json';
 import { LESSONS as OPEN, deviation, matches, nextBox, nextMoves, noteFor } from '@/features/chess/lessons';
 import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
+import { addMistake, answerMistake, dayPlan, drillCount, matches as enMatch, statusOf, weekOf, weekday } from '@/features/english/drill/logic';
+import { TOPICS as DRILL } from '@/features/english/drill/topics';
+import { ALL_CONTENT as DRILL_C } from '@/features/english/drill/content';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;
@@ -226,6 +229,26 @@ for (const t of Object.values(TOPICS2)) for (const m of MODES) for (let rep = 0;
 // Sana
 ok(addDays('2026-02-28', 1) === '2026-03-01' && addDays('2026-01-01', -1) === '2025-12-31', 'addDays oy/yil');
 ok(lastDays(3, '2026-11-02').join() === '2026-10-31,2026-11-01,2026-11-02', 'lastDays');
+
+// Grammar drill: javob solishtirish, sikl, holat, mistake bank, kontent
+ok(enMatch("I'm not working!", ['I am not working.']) && enMatch('i dont drink coffee', ["I don't drink coffee."]), 'drill: qisqartma va tinish');
+ok(enMatch("He's lost it", ['He has lost it.']) && !enMatch('I work', ['I am working.']), "drill: he's = has; noto'g'ri zamon o'tmaydi");
+ok(enMatch("I can't", ['I cannot']) && enMatch("won't go", ['will not go']), "drill: can't, won't");
+ok(weekday('2026-11-23') === 1 && weekday('2026-11-29') === 7 && weekOf('2026-11-22') === 0 && weekOf('2026-11-23') === 1 && weekOf('2026-11-30') === 2, 'drill: hafta kuni va hafta raqami');
+ok([1, 2, 3, 4, 5, 6, 7].every((d) => dayPlan(d as 1).b1.length > 0 && dayPlan(d as 1).b2.length > 0) && DRILL.length === 25, 'drill: har kunda B1 va B2, 25 mavzu');
+{
+  const r = (acc: number, avgSec = 5) => ({ topic: 'x', at: Math.random(), day: '2026-11-23', acc, avgSec, limit: 25, n: 10 });
+  ok(statusOf([], 'x') === 'new' && statusOf([r(60)], 'x') === 'zaif' && statusOf([r(80)], 'x') === 'orta' && statusOf([r(95)], 'x') === 'mustahkam' && statusOf([r(95, 22)], 'x') === 'orta', 'drill: holat (aniqlik + tezlik)');
+  let b = addMistake([], { topic: 'x', uz: 'a', en: ['A'], wrong: 'b' });
+  b = answerMistake(b, 'x', 'a', true); ok(b.length === 1 && b[0].hits === 1, 'drill: 1 marta to\'g\'ri — bankda qoladi');
+  b = answerMistake(b, 'x', 'a', false); ok(b[0].hits === 0, 'drill: xato — hisob nolga');
+  b = answerMistake(answerMistake(b, 'x', 'a', true), 'x', 'a', true); ok(b.length === 0, 'drill: 2 marta ketma-ket to\'g\'ri — chiqadi');
+  ok(drillCount(8) === 19 && drillCount(2) === 6, 'drill: savollar soni');
+}
+for (const c of DRILL_C) {
+  ok(DRILL.some((t) => t.id === c.id) && c.items.length >= 20 && c.items.every((i) => i.uz && i.en.length && i.en.every((e) => enMatch(e, i.en))), `drill kontent ${c.id}`);
+  ok(new Set(c.items.map((i) => i.uz)).size === c.items.length, `drill kontent ${c.id}: takroriy gap yo'q`);
+}
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
 {

@@ -10,6 +10,13 @@ import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
 export function EnglishFolder({ unitSteps }: { unitSteps: Record<string, string[]> }) {
   return (
     <>
+      <Pressable onPress={() => router.push('/english/drill')}>
+        <Card style={{ gap: 6, borderColor: C.gold }}>
+          <T bold size={18}>🔁 6 oylik reja — Grammar drill</T>
+          <T dim size={13}>25 mavzu har hafta · kuniga 3 blok · UZ → EN tezkor tarjima · mistake bank · Zaif/O'rta/Mustahkam</T>
+        </Card>
+      </Pressable>
+
       <T bold size={18}>🎬 Movies</T>
       {UNITS.map((u) => {
         const done = stepsDone(unitSteps[u.id]);

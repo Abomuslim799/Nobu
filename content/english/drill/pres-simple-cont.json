@@ -1,0 +1,246 @@
+{
+ "id": "pres-simple-cont",
+ "title": "Present simple / continuous",
+ "recall": "Present simple va continuous qachon ishlatiladi? Har biriga 2 ta qoida va state verb'larga 3 ta misol ayt.",
+ "formula": [
+  "Simple: odat, doimiy holat, fakt, jadval — I work / She works / Do you work?",
+  "Continuous: hozir yoki shu kunlarda, vaqtinchalik, o'zgarish — I am working / Are you working?",
+  "State verbs continuous'da ishlatilmaydi: know, understand, believe, belong, need, want, mean, like"
+ ],
+ "pairs": [
+  {
+   "a": "I live in Tashkent.",
+   "b": "I'm living with my parents this month.",
+   "note_uz": "doimiy ↔ vaqtinchalik"
+  },
+  {
+   "a": "What do you do?",
+   "b": "What are you doing?",
+   "note_uz": "kasb ↔ hozirgi harakat"
+  },
+  {
+   "a": "This soup smells good.",
+   "b": "The chef is smelling the soup.",
+   "note_uz": "holat ↔ harakat"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Ali har kuni ertalab yuguradi.",
+   "en": [
+    "Ali runs every morning."
+   ]
+  },
+  {
+   "uz": "Ali hozir yuguryapti.",
+   "en": [
+    "Ali is running now.",
+    "Ali is running right now."
+   ]
+  },
+  {
+   "uz": "Men qahva ichmayman.",
+   "en": [
+    "I don't drink coffee."
+   ]
+  },
+  {
+   "uz": "Men hozir qahva ichmayapman, choy ichyapman.",
+   "en": [
+    "I'm not drinking coffee now, I'm drinking tea.",
+    "I'm not drinking coffee, I'm drinking tea.",
+    "I'm not drinking coffee right now, I'm drinking tea."
+   ]
+  },
+  {
+   "uz": "Suv 100 darajada qaynaydi.",
+   "en": [
+    "Water boils at 100 degrees.",
+    "Water boils at 100 degrees Celsius."
+   ]
+  },
+  {
+   "uz": "Qara, suv qaynayapti!",
+   "en": [
+    "Look, the water is boiling!",
+    "Look, the water's boiling!"
+   ]
+  },
+  {
+   "uz": "Sen nima qilyapsan?",
+   "en": [
+    "What are you doing?"
+   ]
+  },
+  {
+   "uz": "Sen nima ish qilasan? (kasbing)",
+   "en": [
+    "What do you do?",
+    "What do you do for a living?"
+   ]
+  },
+  {
+   "uz": "Malika shu hafta onasinikida turibdi.",
+   "en": [
+    "Malika is staying with her mother this week.",
+    "Malika is staying at her mother's this week.",
+    "Malika is living with her mother this week."
+   ]
+  },
+  {
+   "uz": "Malika Toshkentda yashaydi.",
+   "en": [
+    "Malika lives in Tashkent."
+   ]
+  },
+  {
+   "uz": "Men seni tushunmayapman.",
+   "en": [
+    "I don't understand you."
+   ]
+  },
+  {
+   "uz": "Bu sumka menga tegishli.",
+   "en": [
+    "This bag belongs to me.",
+    "This bag is mine."
+   ]
+  },
+  {
+   "uz": "Bu sho'rvaning hidi juda yoqimli.",
+   "en": [
+    "This soup smells very good.",
+    "This soup smells delicious.",
+    "This soup smells really good."
+   ]
+  },
+  {
+   "uz": "Oshpaz sho'rvani hidlab ko'ryapti.",
+   "en": [
+    "The chef is smelling the soup.",
+    "The cook is smelling the soup."
+   ]
+  },
+  {
+   "uz": "Men senga ishonaman.",
+   "en": [
+    "I believe you.",
+    "I trust you."
+   ]
+  },
+  {
+   "uz": "Jasur doim kalitlarini yo'qotadi! (jahl bilan)",
+   "en": [
+    "Jasur is always losing his keys!",
+    "Jasur always loses his keys!"
+   ]
+  },
+  {
+   "uz": "Narxlar har oy oshib boryapti.",
+   "en": [
+    "Prices are rising every month.",
+    "Prices are going up every month."
+   ]
+  },
+  {
+   "uz": "Ingliz tilim yaxshilanyapti.",
+   "en": [
+    "My English is improving.",
+    "My English is getting better."
+   ]
+  },
+  {
+   "uz": "Poyezd soat 8 da jo'naydi. (jadval)",
+   "en": [
+    "The train leaves at 8.",
+    "The train leaves at 8 o'clock.",
+    "The train departs at 8.",
+    "The train leaves at eight."
+   ]
+  },
+  {
+   "uz": "Men ertaga Samarqandga ketyapman. (reja)",
+   "en": [
+    "I'm going to Samarkand tomorrow.",
+    "I'm leaving for Samarkand tomorrow.",
+    "I'm going to Samarqand tomorrow."
+   ]
+  },
+  {
+   "uz": "Sen nima haqida o'ylayapsan?",
+   "en": [
+    "What are you thinking about?"
+   ]
+  },
+  {
+   "uz": "Sen nima deb o'ylaysan? (fikr)",
+   "en": [
+    "What do you think?"
+   ]
+  },
+  {
+   "uz": "Men shu kunlarda bu kitobni o'qiyapman.",
+   "en": [
+    "I'm reading this book at the moment.",
+    "I'm reading this book these days.",
+    "These days I'm reading this book.",
+    "I'm reading this book now."
+   ]
+  },
+  {
+   "uz": "Akam odatda shanba kunlari ishlamaydi.",
+   "en": [
+    "My brother usually doesn't work on Saturdays.",
+    "My brother doesn't usually work on Saturdays.",
+    "My brother usually doesn't work on Saturday."
+   ]
+  },
+  {
+   "uz": "Nega menga bunday qarayapsan?",
+   "en": [
+    "Why are you looking at me like that?"
+   ]
+  },
+  {
+   "uz": "Bu ko'ylak senga yarashadi.",
+   "en": [
+    "This shirt suits you.",
+    "This dress suits you.",
+    "This shirt looks good on you.",
+    "This dress looks good on you."
+   ]
+  },
+  {
+   "uz": "Menga yordam kerak.",
+   "en": [
+    "I need help.",
+    "I need some help."
+   ]
+  },
+  {
+   "uz": "Sen bugun juda ehtiyotsizlik qilyapsan.",
+   "en": [
+    "You're being very careless today.",
+    "You are being really careless today."
+   ]
+  },
+  {
+   "uz": "Bolalar televizor ko'rishyapti.",
+   "en": [
+    "The children are watching TV.",
+    "The kids are watching TV."
+   ]
+  },
+  {
+   "uz": "Bu so'z nimani anglatadi?",
+   "en": [
+    "What does this word mean?"
+   ]
+  }
+ ],
+ "speak": [
+  "Har kuni nima qilishing haqida 5 ta gap ayt (present simple).",
+  "Shu hafta hayotingda nima o'zgaryapti — 5 ta gap (present continuous).",
+  "Ikkalasini aralashtir: odatda nima qilasan va shu kunlarda nima boshqacha?"
+ ]
+}
