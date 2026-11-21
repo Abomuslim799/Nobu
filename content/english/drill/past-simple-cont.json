@@ -1,0 +1,266 @@
+{
+ "id": "past-simple-cont",
+ "title": "Past simple / continuous",
+ "recall": "Past simple va past continuous farqi nima? 'when' va 'while' bilan bittadan misol ayt.",
+ "formula": [
+  "Simple: tugagan harakat, ketma-ket voqealar — I worked / Did you work? / I didn't work",
+  "Continuous: o'tmishdagi bir lahzada davom etayotgan fon — I was working / Were you working?",
+  "Uzun fon (was -ing) + qisqa voqea (past simple): I was cooking when you called."
+ ],
+ "pairs": [
+  {
+   "a": "I cooked dinner.",
+   "b": "I was cooking dinner when you called.",
+   "note_uz": "tugagan ↔ davom etayotgan fon"
+  },
+  {
+   "a": "When you called, I left.",
+   "b": "When you called, I was leaving.",
+   "note_uz": "qo'ng'iroqdan keyin ↔ o'sha paytda"
+  },
+  {
+   "a": "I read a book yesterday.",
+   "b": "At 9 pm I was reading a book.",
+   "note_uz": "butun voqea ↔ bir lahza"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Kecha men 8 soat ishladim.",
+   "en": [
+    "I worked for 8 hours yesterday.",
+    "I worked 8 hours yesterday.",
+    "Yesterday I worked for 8 hours.",
+    "I worked for eight hours yesterday."
+   ]
+  },
+  {
+   "uz": "Sen qo'ng'iroq qilganingda men ovqat pishirayotgan edim.",
+   "en": [
+    "I was cooking when you called.",
+    "When you called, I was cooking."
+   ]
+  },
+  {
+   "uz": "Biz ovqatlanayotganimizda chiroq o'chib qoldi.",
+   "en": [
+    "The lights went out while we were eating.",
+    "While we were eating, the lights went out.",
+    "The power went out while we were eating.",
+    "The light went out while we were eating."
+   ]
+  },
+  {
+   "uz": "Ali kelganda men uxlayotgan edim.",
+   "en": [
+    "I was sleeping when Ali came.",
+    "When Ali came, I was sleeping.",
+    "I was sleeping when Ali arrived.",
+    "When Ali arrived, I was sleeping.",
+    "I was asleep when Ali came."
+   ]
+  },
+  {
+   "uz": "Kecha soat 9 da nima qilayotgan eding?",
+   "en": [
+    "What were you doing at 9 yesterday?",
+    "What were you doing at 9 o'clock yesterday?",
+    "What were you doing yesterday at 9?",
+    "What were you doing at nine yesterday?"
+   ]
+  },
+  {
+   "uz": "Men Malikani ko'rdim, lekin u meni ko'rmadi.",
+   "en": [
+    "I saw Malika, but she didn't see me."
+   ]
+  },
+  {
+   "uz": "Men eshikni ochdim, ichkariga kirdim va chiroqni yoqdim.",
+   "en": [
+    "I opened the door, went in and turned on the light.",
+    "I opened the door, went inside and turned on the light.",
+    "I opened the door, went in and switched on the light.",
+    "I opened the door, went inside and switched on the light."
+   ]
+  },
+  {
+   "uz": "Yo'lni kesib o'tayotganimda telefonimni tushirib yubordim.",
+   "en": [
+    "I dropped my phone while I was crossing the road.",
+    "While I was crossing the road, I dropped my phone.",
+    "I dropped my phone while crossing the road."
+   ]
+  },
+  {
+   "uz": "Yomg'ir yog'ayotgan edi, shuning uchun biz uyda qoldik.",
+   "en": [
+    "It was raining, so we stayed at home.",
+    "It was raining, so we stayed home."
+   ]
+  },
+  {
+   "uz": "Siz meni chaqirdingizmi?",
+   "en": [
+    "Did you call me?"
+   ]
+  },
+  {
+   "uz": "Men kecha ishga bormadim.",
+   "en": [
+    "I didn't go to work yesterday.",
+    "Yesterday I didn't go to work."
+   ]
+  },
+  {
+   "uz": "Ular kecha soat 5 dan 7 gacha futbol o'ynashayotgan edi.",
+   "en": [
+    "They were playing football from 5 to 7 yesterday.",
+    "Yesterday they were playing football from 5 to 7.",
+    "They were playing football from 5 till 7 yesterday."
+   ]
+  },
+  {
+   "uz": "Men uyg'onganimda quyosh charaqlab turgan edi.",
+   "en": [
+    "When I woke up, the sun was shining.",
+    "The sun was shining when I woke up."
+   ]
+  },
+  {
+   "uz": "Sen bu filmni qachon ko'rding?",
+   "en": [
+    "When did you see this film?",
+    "When did you watch this film?",
+    "When did you see this movie?",
+    "When did you watch this movie?"
+   ]
+  },
+  {
+   "uz": "Men u yerga 2020 yilda bordim.",
+   "en": [
+    "I went there in 2020."
+   ]
+  },
+  {
+   "uz": "Men ishlayotganimda akam televizor ko'rayotgan edi.",
+   "en": [
+    "While I was working, my brother was watching TV.",
+    "My brother was watching TV while I was working."
+   ]
+  },
+  {
+   "uz": "Men kitob o'qiyotgan edim, birdan telefon jiringladi.",
+   "en": [
+    "I was reading a book when suddenly the phone rang.",
+    "I was reading a book when the phone suddenly rang.",
+    "I was reading a book and suddenly the phone rang."
+   ]
+  },
+  {
+   "uz": "Kecha nima bo'ldi?",
+   "en": [
+    "What happened yesterday?"
+   ]
+  },
+  {
+   "uz": "Men Londonda yashayotganimda ingliz tilini o'rgandim.",
+   "en": [
+    "I learned English while I was living in London.",
+    "I learnt English while I was living in London.",
+    "I learned English when I was living in London.",
+    "When I was living in London, I learned English.",
+    "While I was living in London, I learned English."
+   ]
+  },
+  {
+   "uz": "Biz uchrashuvga kechikdik.",
+   "en": [
+    "We were late for the meeting."
+   ]
+  },
+  {
+   "uz": "Malika menga hech narsa demadi.",
+   "en": [
+    "Malika didn't tell me anything.",
+    "Malika didn't say anything to me."
+   ]
+  },
+  {
+   "uz": "Mashina juda tez ketayotgan edi.",
+   "en": [
+    "The car was going very fast.",
+    "The car was moving very fast.",
+    "The car was driving very fast."
+   ]
+  },
+  {
+   "uz": "Seni ko'rganimda xursand bo'ldim.",
+   "en": [
+    "I was happy when I saw you.",
+    "When I saw you, I was happy.",
+    "I was glad when I saw you."
+   ]
+  },
+  {
+   "uz": "O'sha paytda qayerda ishlayotgan edingiz?",
+   "en": [
+    "Where were you working at that time?",
+    "Where were you working then?",
+    "Where were you working at the time?"
+   ]
+  },
+  {
+   "uz": "Men kalitlarimni yo'qotdim va ularni ikki soat qidirdim.",
+   "en": [
+    "I lost my keys and looked for them for two hours.",
+    "I lost my keys and searched for them for two hours.",
+    "I lost my keys and looked for them for 2 hours."
+   ]
+  },
+  {
+   "uz": "Avtobus kelmadi, shuning uchun taksi oldim.",
+   "en": [
+    "The bus didn't come, so I took a taxi.",
+    "The bus didn't come, so I got a taxi."
+   ]
+  },
+  {
+   "uz": "Hamma gaplashayotgan edi, shuning uchun men hech narsa eshitmadim.",
+   "en": [
+    "Everyone was talking, so I didn't hear anything.",
+    "Everybody was talking, so I didn't hear anything.",
+    "Everyone was talking, so I couldn't hear anything.",
+    "Everybody was talking, so I couldn't hear anything."
+   ]
+  },
+  {
+   "uz": "Men dush qabul qilayotganimda kimdir eshikni taqillatdi.",
+   "en": [
+    "Someone knocked on the door while I was taking a shower.",
+    "While I was taking a shower, someone knocked on the door.",
+    "Someone knocked on the door while I was having a shower.",
+    "While I was having a shower, someone knocked on the door.",
+    "Somebody knocked on the door while I was taking a shower."
+   ]
+  },
+  {
+   "uz": "Sen nega kecha kelmading?",
+   "en": [
+    "Why didn't you come yesterday?"
+   ]
+  },
+  {
+   "uz": "Biz yarim tungacha gaplashdik.",
+   "en": [
+    "We talked until midnight.",
+    "We talked till midnight."
+   ]
+  }
+ ],
+ "speak": [
+  "Kechagi kuning haqida 5 ta gap ayt (past simple, ketma-ket voqealar).",
+  "Kecha soat 8, 12 va 18 da nima qilayotgan eding? (past continuous)",
+  "Bir voqeani gapir: nima bo'layotgan edi va birdan nima sodir bo'ldi (when / while)."
+ ]
+}

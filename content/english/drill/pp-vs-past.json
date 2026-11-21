@@ -1,0 +1,276 @@
+{
+ "id": "pp-vs-past",
+ "title": "Present perfect vs Past simple",
+ "recall": "Qachon present perfect, qachon past simple? Vaqt so'zlari bo'yicha 3 tadan misol ayt.",
+ "formula": [
+  "Past simple: aniq o'tgan vaqt (yesterday, in 2019, last week, ago, when?) — voqea tugagan",
+  "Present perfect: vaqt aytilmagan yoki tugamagan davr (today, this week, ever, yet, since) — hozirga bog'liq",
+  "Savol 'When…?' — doim past simple: When did you arrive? (When have you arrived — xato)"
+ ],
+ "pairs": [
+  {
+   "a": "I've lost my phone.",
+   "b": "I lost my phone last week.",
+   "note_uz": "hozir yo'q ↔ aniq vaqt"
+  },
+  {
+   "a": "My father has worked here for 10 years.",
+   "b": "My grandfather worked there for 10 years.",
+   "note_uz": "hali ishlaydi ↔ tugagan"
+  },
+  {
+   "a": "Have you had breakfast?",
+   "b": "What did you eat for breakfast?",
+   "note_uz": "umumiy ↔ tafsilot"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men bu filmni kecha ko'rdim.",
+   "en": [
+    "I saw this film yesterday.",
+    "I watched this film yesterday.",
+    "I saw this movie yesterday.",
+    "I watched this movie yesterday.",
+    "Yesterday I saw this film."
+   ]
+  },
+  {
+   "uz": "Men bu filmni ko'rganman.",
+   "en": [
+    "I have seen this film.",
+    "I have seen this movie.",
+    "I have watched this film.",
+    "I have watched this movie."
+   ]
+  },
+  {
+   "uz": "Sen qachon kelding?",
+   "en": [
+    "When did you come?",
+    "When did you arrive?",
+    "When did you get here?"
+   ]
+  },
+  {
+   "uz": "Men 2019 yilda Londonga bordim.",
+   "en": [
+    "I went to London in 2019.",
+    "In 2019 I went to London."
+   ]
+  },
+  {
+   "uz": "Men Londonda ikki marta bo'lganman.",
+   "en": [
+    "I have been to London twice.",
+    "I have been to London two times."
+   ]
+  },
+  {
+   "uz": "Bobom Rossiyada 10 yil ishlagan. (u vafot etgan)",
+   "en": [
+    "My grandfather worked in Russia for 10 years.",
+    "My grandfather worked in Russia for ten years."
+   ]
+  },
+  {
+   "uz": "Otam 10 yildan beri shu zavodda ishlaydi.",
+   "en": [
+    "My father has worked at this factory for 10 years.",
+    "My father has been working at this factory for 10 years.",
+    "My father has worked in this factory for 10 years.",
+    "My father has been working in this factory for 10 years.",
+    "My father has worked at this factory for ten years.",
+    "My father has been working at this factory for ten years."
+   ]
+  },
+  {
+   "uz": "Bugun ertalab qahva ichdim. (hozir kechqurun)",
+   "en": [
+    "I drank coffee this morning.",
+    "I had coffee this morning.",
+    "This morning I had coffee.",
+    "This morning I drank coffee."
+   ]
+  },
+  {
+   "uz": "Men bugun ko'p ishladim. (kun hali tugamagan)",
+   "en": [
+    "I have worked a lot today.",
+    "I have done a lot of work today.",
+    "Today I have worked a lot."
+   ]
+  },
+  {
+   "uz": "Yangilikni eshitdingmi?",
+   "en": [
+    "Have you heard the news?"
+   ]
+  },
+  {
+   "uz": "Qachon eshitding?",
+   "en": [
+    "When did you hear it?",
+    "When did you hear about it?",
+    "When did you hear?"
+   ]
+  },
+  {
+   "uz": "Telefonimni yo'qotib qo'ydim, topa olmayapman.",
+   "en": [
+    "I have lost my phone and I can't find it.",
+    "I have lost my phone, I can't find it.",
+    "I have lost my phone and can't find it."
+   ]
+  },
+  {
+   "uz": "Men telefonimni o'tgan hafta yo'qotdim.",
+   "en": [
+    "I lost my phone last week.",
+    "Last week I lost my phone."
+   ]
+  },
+  {
+   "uz": "Ali hali qo'ng'iroq qilmadi.",
+   "en": [
+    "Ali hasn't called yet.",
+    "Ali hasn't phoned yet.",
+    "Ali has not called yet."
+   ]
+  },
+  {
+   "uz": "Ali kecha qo'ng'iroq qilmadi.",
+   "en": [
+    "Ali didn't call yesterday.",
+    "Ali didn't phone yesterday.",
+    "Yesterday Ali didn't call."
+   ]
+  },
+  {
+   "uz": "Men Alini bolaligimdan beri bilaman.",
+   "en": [
+    "I have known Ali since I was a child.",
+    "I have known Ali since childhood.",
+    "I have known Ali since I was a kid."
+   ]
+  },
+  {
+   "uz": "Men Ali bilan maktabda tanishdim.",
+   "en": [
+    "I met Ali at school.",
+    "I got to know Ali at school."
+   ]
+  },
+  {
+   "uz": "Nonushta qildingmi? (hali ertalab)",
+   "en": [
+    "Have you had breakfast?",
+    "Have you eaten breakfast?",
+    "Have you had breakfast yet?",
+    "Have you had your breakfast?"
+   ]
+  },
+  {
+   "uz": "Nonushtaga nima yeding?",
+   "en": [
+    "What did you eat for breakfast?",
+    "What did you have for breakfast?"
+   ]
+  },
+  {
+   "uz": "Ular turmush qurishdi! (yangilik)",
+   "en": [
+    "They have got married!",
+    "They have gotten married!",
+    "They got married!"
+   ]
+  },
+  {
+   "uz": "Ular 2015 yilda turmush qurishgan.",
+   "en": [
+    "They got married in 2015.",
+    "They were married in 2015."
+   ]
+  },
+  {
+   "uz": "Bu hafta hali sport qilmadim.",
+   "en": [
+    "I haven't exercised this week yet.",
+    "I haven't exercised yet this week.",
+    "I haven't worked out this week yet.",
+    "I haven't done any sport this week.",
+    "I haven't exercised this week."
+   ]
+  },
+  {
+   "uz": "O'tgan hafta har kuni sport qildim.",
+   "en": [
+    "I exercised every day last week.",
+    "Last week I exercised every day.",
+    "I worked out every day last week.",
+    "Last week I worked out every day.",
+    "I did sport every day last week."
+   ]
+  },
+  {
+   "uz": "Bu kompaniya 1990 yilda tashkil topgan.",
+   "en": [
+    "This company was founded in 1990.",
+    "This company was established in 1990."
+   ]
+  },
+  {
+   "uz": "Kompaniya o'shandan beri juda o'sdi.",
+   "en": [
+    "The company has grown a lot since then.",
+    "Since then the company has grown a lot.",
+    "The company has grown a lot since that time."
+   ]
+  },
+  {
+   "uz": "Qachondan beri bu yerda yashaysan?",
+   "en": [
+    "How long have you lived here?",
+    "How long have you been living here?"
+   ]
+  },
+  {
+   "uz": "Bu uyga qachon ko'chib kelding?",
+   "en": [
+    "When did you move to this house?",
+    "When did you move into this house?"
+   ]
+  },
+  {
+   "uz": "Hayotimda bunday mazali ovqat yemaganman.",
+   "en": [
+    "I have never eaten such delicious food.",
+    "I have never eaten such delicious food in my life.",
+    "I have never had such delicious food in my life.",
+    "I have never had such delicious food.",
+    "I have never eaten such tasty food in my life."
+   ]
+  },
+  {
+   "uz": "O'tgan yili bir marta kasal bo'ldim.",
+   "en": [
+    "I was ill once last year.",
+    "I got sick once last year.",
+    "I was sick once last year.",
+    "Last year I was ill once.",
+    "Last year I got sick once."
+   ]
+  },
+  {
+   "uz": "Kalitlarimni ko'rdingmi? (hozir qidiryapman)",
+   "en": [
+    "Have you seen my keys?"
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingdagi 3 ta tajribani ayt (present perfect), keyin har biri qachon bo'lganini ayt (past simple).",
+  "Bu hafta nima qilding va o'tgan hafta nima qilding — farqini ko'rsat.",
+  "Ishing haqida: qachon boshlading va o'shandan beri nima o'zgardi?"
+ ]
+}
