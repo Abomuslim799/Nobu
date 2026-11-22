@@ -65,6 +65,7 @@ interface Progress {
   completeLesson: (id: string, correct: number, total: number) => void;
   recordGame: (id: string, score: number) => void;
   reviewCard: (wordId: string, knew: boolean) => void;
+  countCards: (n?: number) => void;                         // so'z bazasi (vocab) faolligi — kunlik streak/XP uchun
   addWord: (word: Omit<CustomWord, 'id'>) => void;
   removeWord: (id: string) => void;
   // Kutubxona
@@ -221,6 +222,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const countCards = useCallback((n = 1) => {
+    setData((d) => ({ ...d, days: bump(d, 'cards', n) }));
+  }, []);
+
   const addWord = useCallback((word: Omit<CustomWord, 'id'>) => {
     setData((d) => ({ ...d, myWords: [...d.myWords, { ...word, id: `my-${Date.now()}` }] }));
   }, []);
@@ -259,6 +264,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       completeLesson,
       recordGame,
       reviewCard,
+      countCards,
       addWord,
       removeWord,
       todayRead: data.days[dayKey()]?.read ?? 0,
@@ -266,7 +272,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep,
       reset,
     };
-  }, [data, ready, completeLesson, recordGame, reviewCard, addWord, removeWord, reset,
+  }, [data, ready, completeLesson, recordGame, reviewCard, countCards, addWord, removeWord, reset,
       saveBook, removeBook, startReading, cancelReading, finishReading, removeSession,
       saveQuote, removeQuote, setReadGoal, exportJSON, importJSON, completeUnitStep]);
 

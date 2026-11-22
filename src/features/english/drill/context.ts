@@ -25,6 +25,7 @@ export async function drillContext(topic: string): Promise<{ topic: string; ctx:
       topic: t.title,
       ctx: [RULES, `Topic: ${t.title} (Murphy ${t.murphy}).`, `Rules: ${c.formula.join(' ')}`,
         `Contrast pairs: ${c.pairs.map((p) => `${p.a} / ${p.b} (${p.note_uz})`).join('; ')}`,
+        c.film?.length ? `Film examples he knows (use them when explaining): ${c.film.map((f) => `${f.src}: "${f.en}"`).join('; ')}` : '',
         `Status: ${STATUS[statusOf(d.results, topic)].label}.`,
         mistakes.length ? `His recent mistakes:\n${mistakes.join('\n')}` : 'No mistakes recorded yet.'].join('\n'),
     };

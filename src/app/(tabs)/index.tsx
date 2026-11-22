@@ -18,7 +18,9 @@ import { Astrolabe, fmtN } from '@/features/assessment/astrolabe';
 import { ALL_LESSONS } from '@/features/it/tracks';
 import { AUDIO } from '@/features/english/data/audio';
 import { quoteOfDay } from '@/features/library/reading';
-import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
+import { summary as vocabSummary, useVocab } from '@/features/english/vocab/store';
+import { REVIEW_MIN } from '@/features/english/vocab/srs';
+import { useDrill } from '@/features/english/drill/store';
 import { APP_NAME, VERSION } from '@/core/config';
 import { QuoteCard } from '@/features/library/quote-card';
 import { Button, Card, Screen, T } from '@/core/ui/kit';
@@ -26,17 +28,17 @@ import { Button, Card, Screen, T } from '@/core/ui/kit';
 const WEEKDAYS = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];   // Date.getDay(): 0 = yakshanba
 
 export default function Today() {
-  const { data, today, todayRead } = useProgress();
+  const { data, todayRead } = useProgress();
   const readGoal = data.settings.readGoal;
   const quote = quoteOfDay(data.quotes);
   // Keyingi dars — hali tugatilmaganlarning birinchisi.
   const next = ALL_LESSONS.find(({ lesson }) => !data.lessons[lesson.id]);
-  const unit = UNITS.find((u) => stepsDone(data.unitSteps[u.id]) < STEPS.length) ?? UNITS[0];
-  const nextStep = STEPS.find((st) => !(data.unitSteps[unit.id] ?? []).includes(st.id)) ?? STEPS[0];
+  const { v: vocab, items: vocabItems, reload: reloadVocab } = useVocab();
+  const { data: drill, reload: reloadDrill } = useDrill();
 
   // Miya jurnali — ekranga qaytganda yangilanadi
   const [log, setLog] = useState<BrainEntry[]>([]);
-  useFocusEffect(useCallback(() => { getBrainLog().then(setLog); }, []));
+  useFocusEffect(useCallback(() => { getBrainLog().then(setLog); reloadVocab(); reloadDrill(); }, [reloadVocab, reloadDrill]));
   const start = new Date(); start.setHours(0, 0, 0, 0);
   const todayLog = log.filter((e) => e.at >= start.getTime());
 
@@ -47,14 +49,15 @@ export default function Today() {
   const weakGame = weakGames[new Date().getDate() % Math.max(1, weakGames.length)] ?? GAMES[1];
   const weakTitle = BRAIN_SKILLS.find((x) => x.id === weak.skill)?.title ?? '';
 
-  const due = Object.values(data.cards).filter((c) => c.due <= Date.now()).length;
-  const cardGoal = Math.min(20, Math.max(10, due + (today.cards ?? 0)));
+  const vs = vocab ? vocabSummary(vocab, vocabItems, 'word') : null;
+  const drillToday = drill?.results.filter((r) => r.day === dayKey()).length ?? 0;
 
   const goals = [
-    { icon: '🎴', label: `So'z takrori · ${today.cards ?? 0}/${cardGoal}`, sub: due ? `${due} ta so'z takror kutmoqda` : 'Yangi so\'zlar',
-      done: (today.cards ?? 0) >= cardGoal, go: () => router.push('/english/cards') },
-    { icon: unit.emoji, label: `Movie: ${unit.source} — ${nextStep.title}`, sub: `${stepsDone(data.unitSteps[unit.id])}/${STEPS.length} qadam`,
-      done: (today.steps ?? 0) >= 1, go: () => router.push(`/english/unit/${unit.id}`) },
+    { icon: '🎴', label: `So'zlar · yangi ${vs?.plan.doneToday ?? 0}/${vs?.plan.quota ?? 30} · takror ${vs?.reviewed ?? 0}/${REVIEW_MIN}`,
+      sub: vs?.plan.debt ? `qarz: ${vs.plan.debt} ta` : 'yangi + takror',
+      done: !!vs && vs.plan.left === 0 && vs.reviewed >= REVIEW_MIN, go: () => router.push('/english/vocab') },
+    { icon: '🔁', label: 'Grammar: 6 oylik reja', sub: drillToday ? `bugun ${drillToday} ta mavzu` : 'bugungi bloklar',
+      done: drillToday > 0, go: () => router.push('/english/drill') },
     ...(ARCHIVE.brainGames ? [] : [{ icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
         done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) }]),
       { icon: '♟️', label: 'Shaxmat: 5 masala', sub: 'taktika — har kuni',

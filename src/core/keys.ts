@@ -19,6 +19,7 @@ export const KEYS = {
   chessDay: 'farobiy.chess.day',          // bugungi masalalar, kun boshidagi reyting, ketma-ket kunlar
   scienceLog: 'farobiy.science.v1',
   skills: 'farobiy.skills.v1',          // ingliz tili ko'nikmalar jurnali
+  vocab: 'farobiy.vocab.v1',            // so'z bazasi: hard/normal/easy holatlari, kunlik reja, bazalar
   drill: 'farobiy.drill.v1',            // 6 oylik grammar reja: sessiyalar, mistake bank, qabul qilingan javoblar
   tts: 'farobiy.tts.v1',                // Ustoz ovozi manzillari keshi
   autoread: 'farobiy.sci.autoread',
