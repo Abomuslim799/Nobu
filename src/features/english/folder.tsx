@@ -1,6 +1,7 @@
-/** Ingliz tili papkasi: filmlar (unitlar), kartochkalar, alohida mashqlar. */
+/** Ingliz tili papkasi: so'z bazasi, 6 oylik grammar reja, alohida mashqlar; filmlar — arxivda (material grammar mavzularida ishlatiladi). */
 
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { C } from '@/core/theme';
@@ -8,8 +9,16 @@ import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { STEPS, UNITS, stepsDone } from '@/features/english/data/units';
 
 export function EnglishFolder({ unitSteps }: { unitSteps: Record<string, string[]> }) {
+  const [films, setFilms] = useState(false);
   return (
     <>
+      <Pressable onPress={() => router.push('/english/vocab')}>
+        <Card style={{ gap: 6, borderColor: C.green }}>
+          <T bold size={18}>🎴 So'z bazasi</T>
+          <T dim size={13}>So'zlar va Collocation · kuniga 30 + 10 yangi · cheksiz takror · Hard / Normal / Easy</T>
+        </Card>
+      </Pressable>
+
       <Pressable onPress={() => router.push('/english/drill')}>
         <Card style={{ gap: 6, borderColor: C.gold }}>
           <T bold size={18}>🔁 6 oylik reja — Grammar drill</T>
@@ -17,8 +26,10 @@ export function EnglishFolder({ unitSteps }: { unitSteps: Record<string, string[
         </Card>
       </Pressable>
 
-      <T bold size={18}>🎬 Movies</T>
-      {UNITS.map((u) => {
+      <Pressable onPress={() => setFilms(!films)}>
+        <T bold size={18}>🗄 Filmlar (arxiv) {films ? '▴' : '▾'}</T>
+      </Pressable>
+      {films && UNITS.map((u) => {
         const done = stepsDone(unitSteps[u.id]);
         return (
           <Pressable key={u.id} onPress={() => router.push(`/english/unit/${u.id}`)}>
@@ -36,14 +47,6 @@ export function EnglishFolder({ unitSteps }: { unitSteps: Record<string, string[
           </Pressable>
         );
       })}
-
-      <T bold size={18}>🎴 So'z boyligi</T>
-      <Card style={{ gap: 8 }}>
-        <T dim size={14}>Barcha so'zlar — Leitner takrorlash bilan. Test — har bir to'plam bo'yicha 3 bosqich.</T>
-        <T dim size={14}>📚 Core: eng ko'p ishlatiladigan 2 801 so'z, 200 tadan to'plamlarda — "Test" ro'yxatidan boshlang.</T>
-        <T dim size={11}>Core ro'yxati: New General Service List 1.2 (Browne, Culligan, Phillips), CC BY-SA 4.0.</T>
-        <Button label="Kartochkalar va testlar" onPress={() => router.push('/english/cards')} />
-      </Card>
 
       <T bold size={18}>🏋️ Mashq — alohida ko'nikmalar</T>
       <Card style={{ gap: 8 }}>

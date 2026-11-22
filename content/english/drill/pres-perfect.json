@@ -267,5 +267,22 @@
   "Hayotingdagi 5 ta tajriba haqida ayt: ever / never / already (present perfect).",
   "Hozir nima bilan qancha vaqtdan beri shug'ullanasan? 5 ta gap: for / since (perfect continuous).",
   "Bugun nimalarni qilib bo'lding va nimalar hali davom etyapti?"
+ ],
+ "film": [
+  {
+   "src": "Interstellar",
+   "en": "Their colleague has been waiting for them for twenty-three years.",
+   "note_uz": "perfect continuous + for — davomiylik"
+  },
+  {
+   "src": "Harry Potter",
+   "en": "He has already become famous, but he has never heard of it.",
+   "note_uz": "already / never — natija va tajriba"
+  },
+  {
+   "src": "Interstellar",
+   "en": "She has been trying to solve the equation.",
+   "note_uz": "hali davom etyapti — continuous"
+  }
  ]
 }

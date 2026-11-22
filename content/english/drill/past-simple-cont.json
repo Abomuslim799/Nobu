@@ -262,5 +262,22 @@
   "Kechagi kuning haqida 5 ta gap ayt (past simple, ketma-ket voqealar).",
   "Kecha soat 8, 12 va 18 da nima qilayotgan eding? (past continuous)",
   "Bir voqeani gapir: nima bo'layotgan edi va birdan nima sodir bo'ldi (when / while)."
+ ],
+ "film": [
+  {
+   "src": "The Shining",
+   "en": "While he was riding along the corridors, he saw two little girls.",
+   "note_uz": "was riding — fon, saw — qisqa voqea"
+  },
+  {
+   "src": "The Shining",
+   "en": "As the snow was falling outside, they realised they were trapped.",
+   "note_uz": "was falling — fon, realised — voqea"
+  },
+  {
+   "src": "Breaking Bad",
+   "en": "He told his wife that he was working late at school.",
+   "note_uz": "told — tugagan, was working — o'sha paytdagi (bahona)"
+  }
  ]
 }

@@ -16,6 +16,7 @@ export interface DrillContent {
   pairs: { a: string; b: string; note_uz: string }[]; // qarama-qarshi juftlar
   items: DrillItem[];                                // UZ → EN tarjima
   speak: string[];                                   // o'z hayotingdan gap tuzish topshiriqlari
+  film?: { src: string; en: string; note_uz: string }[]; // 🎬 Filmda — film bazasidan 2–3 misol (sahna/iqtibos)
 }
 
 const ALL: DrillContent[] = [presSimpleCont, pastSimpleCont, presPerfect, ppVsPast];

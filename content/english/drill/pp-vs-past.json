@@ -272,5 +272,22 @@
   "Hayotingdagi 3 ta tajribani ayt (present perfect), keyin har biri qachon bo'lganini ayt (past simple).",
   "Bu hafta nima qilding va o'tgan hafta nima qilding — farqini ko'rsat.",
   "Ishing haqida: qachon boshlading va o'shandan beri nima o'zgardi?"
+ ],
+ "film": [
+  {
+   "src": "Harry Potter",
+   "en": "Harry has lived with his aunt and uncle since he was a baby.",
+   "note_uz": "has lived — hozirgacha; since + past simple (was) — boshlanish nuqtasi"
+  },
+  {
+   "src": "Harry Potter",
+   "en": "They have never loved him.",
+   "note_uz": "vaqt aytilmagan, hozirgacha — present perfect"
+  },
+  {
+   "src": "Breaking Bad",
+   "en": "He told his wife that he was working late at school.",
+   "note_uz": "aniq o'tgan voqea — past simple"
+  }
  ]
 }

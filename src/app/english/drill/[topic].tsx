@@ -132,6 +132,12 @@ function Recall({ content, onStart }: { content: NonNullable<ReturnType<typeof c
               <T>{p.a}</T><T>{p.b}</T><T dim size={13}>{p.note_uz}</T>
             </Card>
           ))}
+          {!!content.film?.length && <T bold>🎬 Filmda</T>}
+          {content.film?.map((f, k) => (
+            <Card key={`f${k}`} style={{ gap: 4 }}>
+              <T dim size={12}>{f.src}</T><T>{f.en}</T><T dim size={13}>{f.note_uz}</T>
+            </Card>
+          ))}
         </>
       )}
       <Button label="Drill'ni boshlash →" onPress={onStart} />

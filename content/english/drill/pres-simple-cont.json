@@ -242,5 +242,22 @@
   "Har kuni nima qilishing haqida 5 ta gap ayt (present simple).",
   "Shu hafta hayotingda nima o'zgaryapti — 5 ta gap (present continuous).",
   "Ikkalasini aralashtir: odatda nima qilasan va shu kunlarda nima boshqacha?"
+ ],
+ "film": [
+  {
+   "src": "Game of Thrones",
+   "en": "Winter is coming.",
+   "note_uz": "continuous — yaqinlashib kelayotgan narsa, hozir davom etyapti"
+  },
+  {
+   "src": "Breaking Bad",
+   "en": "He tells his wife that he is working late at school.",
+   "note_uz": "tells — hikoya (simple), is working — vaqtinchalik (yolg'on bahona)"
+  },
+  {
+   "src": "Peaky Blinders",
+   "en": "He prefers to think quietly while everyone else is shouting.",
+   "note_uz": "prefer — state verb (simple), is shouting — ayni paytdagi harakat"
+  }
  ]
 }

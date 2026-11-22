@@ -55,7 +55,7 @@ export default function DrillHome() {
             <Card style={{ gap: 8 }}>
               <T bold>B3 · ~20 daq</T>
               <Row icon="🔁" title="Mistake bank" sub={`${data.mistakes.length} ta gap · 10 daq`} onPress={() => router.push('/english/drill/mistakes')} />
-              <Row icon="🧩" title="Collocation" sub="10 daq · hozircha kartochkalar (1000 ta ro'yxat — keyingi qadam)" onPress={() => router.push('/english/cards')} />
+              <Row icon="🧩" title="Collocation" sub="10 daq · yangi 10 ta + takror" onPress={() => router.push('/english/vocab?kind=colloc')} />
               {day === 7 && <Row icon="📝" title="Haftalik test" sub="tez orada" />}
             </Card>
 

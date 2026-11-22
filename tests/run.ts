@@ -25,6 +25,9 @@ import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/featur
 import { addMistake, answerMistake, dayPlan, drillCount, matches as enMatch, statusOf, weekOf, weekday } from '@/features/english/drill/logic';
 import { TOPICS as DRILL } from '@/features/english/drill/topics';
 import { ALL_CONTENT as DRILL_C } from '@/features/english/drill/content';
+import { decay, fromBox, grade, learned as vLearned, newPlan, reviewOrder } from '@/features/english/vocab/srs';
+import { ITEMS as V_ITEMS, pickNew } from '@/features/english/vocab/base';
+import { makeQuestion } from '@/features/english/vocab/question';
 const BOARDS: Record<string, { steps: { say: string; draw: { t: string; ids?: string[]; id?: string }[] }[] }> = { m0: m0b, m1: m1b };
 
 let fails = 0;
@@ -248,6 +251,29 @@ ok([1, 2, 3, 4, 5, 6, 7].every((d) => dayPlan(d as 1).b1.length > 0 && dayPlan(d
 for (const c of DRILL_C) {
   ok(DRILL.some((t) => t.id === c.id) && c.items.length >= 20 && c.items.every((i) => i.uz && i.en.length && i.en.every((e) => enMatch(e, i.en))), `drill kontent ${c.id}`);
   ok(new Set(c.items.map((i) => i.uz)).size === c.items.length, `drill kontent ${c.id}: takroriy gap yo'q`);
+}
+
+// So'z bazasi: status, navbat, kvota, yagona baza, savol
+{
+  const D = 86_400_000, t = 1_800_000_000_000;
+  const a = vLearned(t);
+  ok(a.st === 'hard' && grade(a, 'normal', t + 60_000).st === 'normal' && grade(a, 'easy', t).easySince === t, "vocab: status — foydalanuvchi tanlovi");
+  const n = grade(a, 'normal', t), e = grade(n, 'easy', t + 86_400_000);
+  ok(grade(e, 'easy', t + 5 * 86_400_000).easySince === e.easySince && grade(e, 'hard', t + D).easySince === undefined, 'vocab: easySince saqlanadi / tozalanadi');
+  ok(decay(e, t + D + 31 * D).st === 'normal' && decay(e, t + D + 10 * D).st === 'easy', 'vocab: easy 30 kundan keyin normal');
+  const states = { h: { ...a, last: t }, nn: { ...n, last: t }, ee: { ...e, last: t - 3 * D } };
+  const ord = reviewOrder(states, ['h', 'nn', 'ee'], t + 5 * 3_600_000);
+  ok(ord.indexOf('h') < ord.indexOf('nn') && ord.includes('ee') && reviewOrder(states, ['h', 'nn'], t + 60_000).length === 0, 'vocab: hard birinchi, kutish vaqti ishlaydi');
+  const p = newPlan('word', '2026-11-22', '2026-11-24', 40, 10);
+  ok(p.left === 50 && p.debt === 30 && newPlan('word', '2026-11-22', '2026-11-22', 30, 30).left === 0, 'vocab: kunlik kvota va qarz');
+  ok(fromBox(0, t).st === 'hard' && fromBox(3, t).st === 'normal' && fromBox(4, t).st === 'easy', 'vocab: eski qutilar ko\'chadi');
+  const ids = new Set(V_ITEMS.map((w) => `${w.kind}|${w.word.toLowerCase()}`));
+  ok(ids.size === V_ITEMS.length && new Set(V_ITEMS.map((w) => w.id)).size === V_ITEMS.length, 'vocab: yagona bazada takror yo\'q');
+  const fresh = pickNew(V_ITEMS, 'word', new Set(), {}, 30);
+  ok(fresh.length === 30 && new Set(fresh.map((w) => w.base)).size >= 3, 'vocab: yangi so\'zlar bazalar aralash');
+  ok(pickNew(V_ITEMS, 'colloc', new Set(), {}, 10).every((w) => w.kind === 'colloc') && pickNew(V_ITEMS, 'word', new Set(), { core: false, film: false, work: false, it: false }, 5).length === 0, 'vocab: collocation alohida, bazani o\'chirish');
+  const q = makeQuestion(fresh[0], () => 0.9);
+  ok(q.type === 'meaning' && q.prompt === fresh[0].translation, 'vocab: savol — ma\'no (variantsiz)');
 }
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
