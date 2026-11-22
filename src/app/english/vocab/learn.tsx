@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { s } from '@/features/english/practice/kit';
 import { say, stopSpeaking } from '@/features/english/speak';
