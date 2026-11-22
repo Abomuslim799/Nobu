@@ -257,11 +257,9 @@ for (const c of DRILL_C) {
 {
   const D = 86_400_000, t = 1_800_000_000_000;
   const a = vLearned(t);
-  ok(a.st === 'hard' && grade(a, true, 2, t + 60_000).st === 'normal' && grade(a, true, 9, t + 60_000).st === 'hard', 'vocab: hard → normal faqat tez');
-  const n = { ...a, st: 'normal' as const };
-  ok(grade(n, true, 2, t + 3_600_000).st === 'normal' && grade(n, true, 2, t + D).st === 'easy', 'vocab: normal → easy 1 kundan keyin');
-  const e = grade(n, true, 2, t + D);
-  ok(grade(e, false, 1, t + 2 * D).st === 'hard' && grade(e, true, 8, t + 2 * D).st === 'normal', 'vocab: xato → hard, sekin easy → normal');
+  ok(a.st === 'hard' && grade(a, 'normal', t + 60_000).st === 'normal' && grade(a, 'easy', t).easySince === t, "vocab: status — foydalanuvchi tanlovi");
+  const n = grade(a, 'normal', t), e = grade(n, 'easy', t + 86_400_000);
+  ok(grade(e, 'easy', t + 5 * 86_400_000).easySince === e.easySince && grade(e, 'hard', t + D).easySince === undefined, 'vocab: easySince saqlanadi / tozalanadi');
   ok(decay(e, t + D + 31 * D).st === 'normal' && decay(e, t + D + 10 * D).st === 'easy', 'vocab: easy 30 kundan keyin normal');
   const states = { h: { ...a, last: t }, nn: { ...n, last: t }, ee: { ...e, last: t - 3 * D } };
   const ord = reviewOrder(states, ['h', 'nn', 'ee'], t + 5 * 3_600_000);
@@ -274,8 +272,8 @@ for (const c of DRILL_C) {
   const fresh = pickNew(V_ITEMS, 'word', new Set(), {}, 30);
   ok(fresh.length === 30 && new Set(fresh.map((w) => w.base)).size >= 3, 'vocab: yangi so\'zlar bazalar aralash');
   ok(pickNew(V_ITEMS, 'colloc', new Set(), {}, 10).every((w) => w.kind === 'colloc') && pickNew(V_ITEMS, 'word', new Set(), { core: false, film: false, work: false, it: false }, 5).length === 0, 'vocab: collocation alohida, bazani o\'chirish');
-  const q = makeQuestion(fresh[0], fresh);
-  ok(q.options.length === 4 && q.options.includes(q.answer) && new Set(q.options).size === 4, 'vocab: savol 4 variant');
+  const q = makeQuestion(fresh[0], () => 0.9);
+  ok(q.type === 'meaning' && q.prompt === fresh[0].translation, 'vocab: savol — ma\'no (variantsiz)');
 }
 
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }

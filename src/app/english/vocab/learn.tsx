@@ -4,7 +4,7 @@
  */
 
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -13,10 +13,10 @@ import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { s } from '@/features/english/practice/kit';
 import { say, stopSpeaking } from '@/features/english/speak';
 import { pickNew, type Item } from '@/features/english/vocab/base';
-import { makeQuestion, QTYPE_LABEL, type VQuestion } from '@/features/english/vocab/question';
-import type { Kind } from '@/features/english/vocab/srs';
+import { makeQuestion, type VQuestion } from '@/features/english/vocab/question';
+import type { Kind, Status } from '@/features/english/vocab/srs';
 import { summary, useVocab } from '@/features/english/vocab/store';
-import { LearnCard, PicturePop, Prompt, s as vs } from '@/features/english/vocab/ui';
+import { LearnCard, RevealCard } from '@/features/english/vocab/ui';
 
 const BATCH = 10;
 
@@ -24,7 +24,7 @@ export default function Learn() {
   const insets = useSafeAreaInsets();
   const { kind: k } = useLocalSearchParams<{ kind?: string }>();
   const kind: Kind = k === 'colloc' ? 'colloc' : 'word';
-  const { v, items, learn } = useVocab();
+  const { v, items, learn, setStatus } = useVocab();
 
   const [batch, setBatch] = useState<Item[] | null>(null);
   const [i, setI] = useState(0);
@@ -74,12 +74,12 @@ export default function Learn() {
           </>
         )}
         {batch && phase === 'check' && (
-          <Check key={round} batch={batch} pool={items.filter((w) => w.kind === kind)} onDone={() => setPhase('done')} />
+          <Check key={round} batch={batch} onRate={setStatus} onDone={() => setPhase('done')} />
         )}
         {phase === 'done' && (
           <Card style={{ alignItems: 'center', gap: 10 }}>
             <T bold size={20}>✅ {batch?.length} ta yangi so'z o'rganildi</T>
-            <T dim>Ular Hard holatida — takrorda tez-tez chiqadi.</T>
+            <T dim>Tanlagan statusingiz bo'yicha takrorda chiqadi (Hard — tez-tez).</T>
             {left > 0 && <Button label={`Yana ${Math.min(BATCH, left)} ta`} onPress={again} />}
             <Button kind="ghost" label="Orqaga" onPress={() => router.back()} />
           </Card>
@@ -89,51 +89,21 @@ export default function Learn() {
   );
 }
 
-/** To'plam tekshiruvi: har so'zga 1 savol; xato qilinganlar oxirida bir marta qaytadi. */
-function Check({ batch, pool, onDone }: { batch: Item[]; pool: Item[]; onDone: () => void }) {
-  const [queue, setQueue] = useState<VQuestion[]>(() => batch.map((w) => makeQuestion(w, pool)).sort(() => Math.random() - 0.5));
+/** To'plam tekshiruvi: har so'z bir marta, bosib ochish — statusni o'zingiz tanlaysiz ("Bilmayman" → Hard). */
+function Check({ batch, onRate, onDone }: { batch: Item[]; onRate: (id: string, st: Status) => void; onDone: () => void }) {
+  const [queue] = useState<VQuestion[]>(() => [...batch].sort(() => Math.random() - 0.5).map((w) => makeQuestion(w)));
   const [n, setN] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
-  const [retried] = useState(() => new Set<string>());
+  const [waiting, setWaiting] = useState(false);
   const q = queue[n];
+  useEffect(() => stopSpeaking, [q]);
 
-  useEffect(() => {
-    if (q?.type === 'audio') say(q.item.id, 'w', q.item.word);
-    return stopSpeaking;
-  }, [q]);
-
-  const choose = (o: string) => {
-    if (picked || !q) return;
-    setPicked(o);
-    if (o !== q.answer && !retried.has(q.item.id)) { retried.add(q.item.id); setQueue((x) => [...x, makeQuestion(q.item, pool)]); }
-  };
-  const next = () => { setPicked(null); if (n + 1 < queue.length) setN(n + 1); else onDone(); };
-  const total = useMemo(() => queue.length, [queue]);
-
+  const next = () => { setWaiting(false); if (n + 1 < queue.length) setN(n + 1); else onDone(); };
   if (!q) return null;
   return (
     <>
-      <T dim size={13}>{n + 1}/{total} · {QTYPE_LABEL[q.type]}</T>
-      <Prompt q={q} />
-      {q.options.map((o) => {
-        const show = picked !== null;
-        const color = show && o === q.answer ? C.good : show && o === picked ? C.red : C.cardBorder;
-        return (
-          <Pressable key={o} onPress={() => choose(o)} style={[vs.opt, { borderColor: color }]}>
-            <T size={17}>{o}</T>
-          </Pressable>
-        );
-      })}
-      {picked !== null && (
-        <>
-          <Card style={{ alignItems: 'center', gap: 6 }}>
-            <PicturePop item={q.item} size={64} />
-            <T bold size={18}>{q.item.word}</T>
-            <T dim>{q.item.translation}</T>
-          </Card>
-          <Button label="Keyingi →" onPress={next} />
-        </>
-      )}
+      <T dim size={13}>Tekshiruv {n + 1}/{queue.length} · eslang va oching</T>
+      <RevealCard key={n} q={q} onRate={(st, unknown) => { onRate(q.item.id, st); if (unknown) setWaiting(true); else next(); }} />
+      {waiting && <Button label="Keyingi →" onPress={next} />}
     </>
   );
 }

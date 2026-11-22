@@ -14,6 +14,7 @@ import { SoundButton } from '@/features/english/ui/sound';
 import { Stress } from '@/features/english/ui/stress';
 import type { Item } from '@/features/english/vocab/base';
 import type { VQuestion } from '@/features/english/vocab/question';
+import { STATUS_UI, type Status } from '@/features/english/vocab/srs';
 
 /** Rasm: o'z surati yoki emoji. */
 export function Picture({ item, size = 96 }: { item: Item; size?: number }) {
@@ -50,20 +51,55 @@ export function LearnCard({ item }: { item: Item }) {
   );
 }
 
-/** Savol matni (ovozli savolda — qayta eshitish tugmasi). */
-export function Prompt({ q }: { q: VQuestion }) {
-  if (q.type === 'audio') {
-    return (
-      <Pressable onPress={() => say(q.item.id, 'w', q.item.word)}>
-        <Card style={{ alignItems: 'center', paddingVertical: 28 }}><T size={44}>🔊</T><T dim>bosing — qayta eshitish</T></Card>
-      </Pressable>
-    );
-  }
-  return <Card style={{ paddingVertical: 24 }}><T bold size={q.type === 'cloze' ? 18 : 24} style={{ textAlign: 'center' }}>{q.prompt}</T></Card>;
+/**
+ * Bosib ochish: ma'no (yoki bo'sh joyli gap) → eslang → "Ochish" → so'z + rasm animatsiya bilan → statusni tanlaysiz.
+ * "Bilmayman" → so'z ko'rsatiladi va avtomatik Hard (so'ralmaydi).
+ */
+export function RevealCard({ q, onRate }: { q: VQuestion; onRate: (st: Status, unknown: boolean) => void }) {
+  const [open, setOpen] = useState<'no' | 'yes' | 'unknown'>('no');
+  const w = q.item;
+  const show = (how: 'yes' | 'unknown') => {
+    setOpen(how);
+    say(w.id, 'w', w.word);
+    if (how === 'unknown') onRate('hard', true);
+  };
+  return (
+    <>
+      <Card style={{ paddingVertical: 26, gap: 8 }}>
+        <T bold size={q.type === 'cloze' ? 18 : 24} style={{ textAlign: 'center' }}>{q.prompt}</T>
+        {q.type === 'cloze' ? <T dim style={{ textAlign: 'center' }}>{w.translation}</T> : null}
+      </Card>
+      {open === 'no' ? (
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <Pressable onPress={() => show('unknown')} style={[s.btn, { borderColor: C.red }]}><T bold color={C.red}>Bilmayman</T></Pressable>
+          <Pressable onPress={() => show('yes')} style={[s.btn, { flex: 2, backgroundColor: C.green, borderColor: C.green }]}><T bold color={C.bg}>Ochish</T></Pressable>
+        </View>
+      ) : (
+        <>
+          <Card style={{ alignItems: 'center', gap: 6 }}>
+            <PicturePop item={w} size={72} />
+            <Text style={[s.word, { fontSize: 32 }]}>{w.word}</Text>
+            {w.ipa ? <Stress ipa={w.ipa} /> : null}
+            {q.type === 'meaning' ? null : <T dim>{w.translation}</T>}
+            {w.example ? <T dim size={13} style={{ textAlign: 'center' }}>{w.example}</T> : null}
+          </Card>
+          {open === 'yes' ? (
+            <View style={{ flexDirection: 'row', gap: 8 }}>
+              {(['hard', 'normal', 'easy'] as const).map((st) => (
+                <Pressable key={st} onPress={() => onRate(st, false)} style={({ pressed }) => [s.btn, { borderColor: STATUS_UI[st].color, opacity: pressed ? 0.6 : 1 }]}>
+                  <T bold color={STATUS_UI[st].color}>{STATUS_UI[st].label}</T>
+                </Pressable>
+              ))}
+            </View>
+          ) : null}
+        </>
+      )}
+    </>
+  );
 }
 
 export const s = StyleSheet.create({
   card: { backgroundColor: C.card, borderRadius: R * 1.5, borderWidth: 1, borderColor: C.cardBorder, padding: 22, alignItems: 'center', gap: 12 },
   word: { color: C.text, fontSize: 40, fontWeight: '800', textAlign: 'center' },
-  opt: { borderRadius: R, borderWidth: 1, borderColor: C.cardBorder, backgroundColor: C.card, paddingVertical: 16, paddingHorizontal: 14 },
+  btn: { flex: 1, alignItems: 'center', borderRadius: R, borderWidth: 1.5, paddingVertical: 16 },
 });

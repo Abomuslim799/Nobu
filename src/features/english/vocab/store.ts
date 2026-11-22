@@ -11,7 +11,7 @@ import { dayKey } from '@/core/date';
 import { KEYS, readJSON, writeJSON } from '@/core/storage';
 import { useProgress } from '@/store';
 import { ITEMS, myItems, type Item } from '@/features/english/vocab/base';
-import { decay, fromBox, grade, learned, newPlan, type ItemState, type Kind } from '@/features/english/vocab/srs';
+import { decay, fromBox, grade, learned, newPlan, type ItemState, type Kind, type Status } from '@/features/english/vocab/srs';
 
 export interface VocabData {
   start: string | null;
@@ -64,24 +64,29 @@ export function useVocab() {
     countCards();
   }, [save, countCards]);
 
-  /** Takror javobi. */
-  const answer = useCallback((id: string, kind: Kind, right: boolean, sec: number, fastSec?: number) => {
+  /** Takror: tanlangan status. */
+  const answer = useCallback((id: string, kind: Kind, st: Status) => {
     const today = dayKey();
     save((d) => {
       const prev = d.states[id] ?? learned();
       const day = d.rev[today] ?? {};
       return {
         ...d,
-        states: { ...d.states, [id]: grade(prev, right, sec, Date.now(), fastSec) },
+        states: { ...d.states, [id]: grade(prev, st) },
         rev: { ...d.rev, [today]: { ...day, [kind]: (day[kind] ?? 0) + 1 } },
       };
     });
     countCards();
   }, [save, countCards]);
 
+  /** Yangi so'z tekshiruvida tanlangan status (takror soniga kirmaydi). */
+  const setStatus = useCallback((id: string, st: Status) => {
+    save((d) => ({ ...d, states: { ...d.states, [id]: { ...(d.states[id] ?? learned()), st, ...(st === 'easy' ? { easySince: Date.now() } : { easySince: undefined }) } } }));
+  }, [save]);
+
   const setEnabled = useCallback((base: string, on: boolean) => save((d) => ({ ...d, enabled: { ...d.enabled, [base]: on } })), [save]);
 
-  return { v, items, reload, learn, answer, setEnabled };
+  return { v, items, reload, learn, answer, setStatus, setEnabled };
 }
 
 /** Bo'lim xulosasi: kunlik yangi reja, bugungi takror, statuslar soni. */
