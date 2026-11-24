@@ -54,7 +54,8 @@ jobs:
           ls -la "$GITHUB_WORKSPACE/dist/chess"
       - name: Ovoz fayllari sayti (mp3 + say.json)
         run: |
-          mkdir -p dist/audio && cp assets/audio/*.mp3 dist/audio/ 2>/dev/null || true   # ilova ovozlarni shu yerdan oladi
+          mkdir -p dist/audio && cp assets/audio/*.mp3 dist/audio/ 2>/dev/null || true
+          cp assets/audio/.manifest.json dist/audio/manifest.json 2>/dev/null || true   # ilova "Bazani yangilash"da eskirgan fayllarni topadi   # ilova ovozlarni shu yerdan oladi
           cp /tmp/say.json dist/say.json   # server Ustoz ovozlarini shu ro'yxat bo'yicha yasaydi
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
