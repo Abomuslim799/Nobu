@@ -82,6 +82,10 @@ export function RevealCard({ q, onRate }: { q: VQuestion; onRate: (st: Status, u
             {w.ipa ? <Stress ipa={w.ipa} /> : null}
             {q.type === 'meaning' ? null : <T dim>{w.translation}</T>}
             {w.example ? <T dim size={13} style={{ textAlign: 'center' }}>{w.example}</T> : null}
+            <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
+              <SoundButton id={w.id} part="w" text={w.word} label="So'z" />
+              {w.example ? <SoundButton id={w.id} part="s" text={w.example} label="Gap" /> : null}
+            </View>
           </Card>
           {open === 'yes' ? (
             <View style={{ flexDirection: 'row', gap: 8 }}>

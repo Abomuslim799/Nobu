@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Alert, Platform, Pressable, View } from 'react-native';
 
 import { exportBackup, pickBackup } from '@/core/backup';
+import { BUILT, NOTE, VERSION } from '@/core/config';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, Screen, T, Title } from '@/core/ui/kit';
 import { SCOPES, clearAudio, compare, syncAudio, usage, type Scope, type SyncState } from '@/features/english/audioCache';
@@ -67,9 +68,19 @@ export default function Settings() {
           { text: 'Bekor', style: 'cancel' },
           { text: "O'chirish", style: 'destructive', onPress: reset },
         ])} />
+
+      <Card style={{ gap: 4 }}>
+        <T dim size={12}>Ishlayotgan versiya</T>
+        <T bold>v{VERSION}{BUILT ? ` · ${fmtBuilt(BUILT)}` : ''}</T>
+        {!!NOTE && <T dim size={12}>{NOTE}</T>}
+      </Card>
     </Screen>
   );
 }
+
+const MON = ['yan', 'fev', 'mar', 'apr', 'may', 'iyun', 'iyul', 'avg', 'sen', 'okt', 'noy', 'dek'];
+/** "2026-11-24 13:17" → "24-noy 13:17" */
+const fmtBuilt = (b: string) => { const [d, t] = b.split(' '); const [, m, day] = d.split('-').map(Number); return `${day}-${MON[m - 1]} ${t}`; };
 
 /** 🔊 Ovoz: tezlik + ovozlarni telefonga saqlash (bazani server bilan solishtirib yangilash). */
 function AudioBox() {

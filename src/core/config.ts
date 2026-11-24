@@ -5,5 +5,8 @@
  */
 export const APP_NAME = 'Farobiy';
 export const VERSION = process.env.EXPO_PUBLIC_VERSION ?? 'dev';
+/** Nashr vaqti (Toshkent, "YYYY-MM-DD HH:MM") va commit'ning birinchi qatori — Sozlamalarda ko'rinadi. */
+export const BUILT = process.env.EXPO_PUBLIC_BUILT ?? '';
+export const NOTE = process.env.EXPO_PUBLIC_NOTE ?? '';
 export const SITE_BASE = 'https://abomuslim799.github.io/Nobu/';   // repo Farobiy deb nomlangach — /Farobiy/
 export const AUDIO_BASE = `${SITE_BASE}audio/`;

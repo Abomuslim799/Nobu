@@ -27,6 +27,13 @@ jobs:
           n=$(( ${{ github.run_number }} - 3 ))
           v="$(( 1 + n / 100 )).$(printf '%02d' $(( n % 100 )))"
           echo "EXPO_PUBLIC_VERSION=$v" >> "$GITHUB_ENV"
+          # Ilovadagi "Ishlayotgan versiya" qatori: nashr vaqti (Toshkent) va commit'ning birinchi qatori
+          echo "EXPO_PUBLIC_BUILT=$(TZ=Asia/Tashkent date '+%Y-%m-%d %H:%M')" >> "$GITHUB_ENV"
+          note="$(printf '%s' "$COMMIT_MSG" | head -n 1 | tr -d '\r')"
+          export LC_ALL=C.UTF-8; note="${note:0:70}"   # harf bo'yicha kesish (UTF-8)
+          printf 'EXPO_PUBLIC_NOTE=%s\n' "$note" >> "$GITHUB_ENV"
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message || 'manual' }}
 
       # Ovozlar: London erkak (en-GB Ryan) va o'zbekcha (uz-UZ Sardor). Xato bo'lsa — telefon ovozi.
       - run: npm ci

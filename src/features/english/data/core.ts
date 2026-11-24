@@ -7,12 +7,14 @@
 
 import type { Word } from '@/features/english/data/words';
 import rows from '@content/english/core.json';
+import emoji from '@content/english/core-emoji.json';   // scripts/core_emoji.cjs — ~500 ta aniq so'zga emoji
 
 const CORE_SIZE = 200;
 const deckOf = (i: number) => `ng${String(Math.floor(i / CORE_SIZE) + 1).padStart(2, '0')}`;
 
 export const CORE_WORDS: Word[] = (rows as [string, string, string, string][]).map(([word, ipa, translation, example], i) => ({
   id: `ng-${word.toLowerCase().replace(/[^a-z]/g, '')}`, word, ipa, translation, example, deck: deckOf(i),
+  emoji: (emoji as Record<string, string>)[word.toLowerCase()],
 }));
 
 /** "📚 Core 1–200", "📚 Core 201–400" ... */
