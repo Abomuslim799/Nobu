@@ -95,6 +95,9 @@ export default function Today() {
           <View style={[s.chip, { backgroundColor: C.goldSoft }]}><T bold size={13} color={rating.widget === 'ok' ? C.gold : C.dim}>🔥 {rating.streak}</T></View>
           <View style={s.chip}><T bold size={13}>🧊 {rating.m.muz}</T></View>
         </Pressable>
+        <Pressable onPress={() => router.push('/settings')} hitSlop={10} style={{ paddingHorizontal: 6, paddingVertical: 4 }}>
+          <T bold size={22} color={C.dim}>⋮</T>
+        </Pressable>
       </View>
       <Pressable onPress={() => router.push('/xp')}>
         <Card style={{ alignItems: 'center', paddingTop: 8, paddingBottom: 12, gap: 6 }}>

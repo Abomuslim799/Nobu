@@ -1,7 +1,7 @@
 /**
  * speak.ts — so'z, gap va tarjimani ovozda o'qish.
  *
- * 1-navbat: tayyor mp3 (Microsoft neyron ovozlari, GitHub'da yasaladi):
+ * 1-navbat: tayyor mp3 (Microsoft neyron ovozlari, GitHub'da yasaladi) — telefonda saqlangan bo'lsa, o'shandan:
  *    inglizcha — en-GB Ryan (London erkak ovozi), o'zbekcha — uz-UZ Sardor.
  * 2-navbat (o'zingiz qo'shgan so'zlar yoki mp3 yo'q bo'lsa): telefonning britan erkak
  *    ovozi — Daniel / Arthur. O'zbekcha uchun telefonda ovoz yo'q → false qaytadi.
@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { AUDIO_BASE } from '@/core/config';
 
 import { AUDIO } from '@/features/english/data/audio';
+import { cacheInBackground, localUri } from '@/features/english/audioCache';
 import { KEYS } from '@/core/storage';
 
 /** w — so'z, s — misol gap, uz — o'zbekcha tarjima; unitlarda: p0.. (matn), d0.. (diktant), sh0.., q (iqtibos). */
@@ -49,6 +50,7 @@ export function useRate(): [number, (r: number) => void] {
 // ── Ijro ────────────────────────────────────────────────────────────────────
 let player: AudioPlayer | null = null;
 let ready = false;
+let current = '';   // player'dagi fayl — qayta bosilganda qayta yuklanmaydi
 
 function getPlayer() {
   if (!ready) {
@@ -87,7 +89,12 @@ export async function say(id: string, part: Part, text: string): Promise<boolean
   stopSpeaking();
   if (AUDIO[id]?.includes(part)) {
     const p = getPlayer();
-    p.replace({ uri: `${AUDIO_BASE}${id}-${part}.mp3` });
+    // Telefonda bo'lsa — mahalliy fayl (internetsiz, darhol); yo'q bo'lsa — serverdan va fonda saqlanadi.
+    const local = localUri(id, part);
+    const uri = local ?? `${AUDIO_BASE}${id}-${part}.mp3`;
+    if (!local) cacheInBackground(id, part);
+    if (uri === current) p.seekTo(0).catch(() => {});   // qayta eshitish: o'sha fayl — boshiga qaytariladi
+    else { p.replace({ uri }); current = uri; }
     p.setPlaybackRate(rate, 'high');      // 'high' — sekinlashganda ovoz pasaymaydi
     p.play();
     return true;
