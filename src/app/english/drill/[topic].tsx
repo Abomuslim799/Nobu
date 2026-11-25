@@ -14,6 +14,8 @@ import { dayKey } from '@/core/date';
 import { C } from '@/core/theme';
 import { Bar, Button, Card, T } from '@/core/ui/kit';
 import { s } from '@/features/english/practice/kit';
+import { ComicPlayer } from '@/features/english/comic/player';
+import { scenesOf } from '@/features/english/comic/scenes';
 import { judge, speakCheck } from '@/features/english/drill/ai';
 import { contentOf, type DrillItem } from '@/features/english/drill/content';
 import {
@@ -22,7 +24,7 @@ import {
 import { extraKey, loadDrill, saveDrill, type DrillData } from '@/features/english/drill/store';
 import { topicById } from '@/features/english/drill/topics';
 
-type Step = 'recall' | 'drill' | 'speak' | 'done';
+type Step = 'lesson' | 'recall' | 'drill' | 'speak' | 'done';
 interface Q { topic: string; item: DrillItem; fromBank: boolean }
 interface Answer { q: Q; text: string; right: boolean; sec: number; timeout: boolean }
 
@@ -52,7 +54,8 @@ export default function DrillSession() {
   const limit = phaseOf(Math.max(1, weekOf(today))).limit;
 
   const [data, setData] = useState<DrillData | null>(null);
-  const [step, setStep] = useState<Step>(isBank ? 'drill' : 'recall');
+  const scenes = scenesOf(topic);
+  const [step, setStep] = useState<Step>(isBank ? 'drill' : scenes.length ? 'lesson' : 'recall');
   const [queue, setQueue] = useState<Q[]>([]);
   const [i, setI] = useState(0);
   useEffect(() => {
@@ -89,6 +92,7 @@ export default function DrillSession() {
     <KeyboardAvoidingView style={[s.root, { paddingTop: insets.top }]} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       {header}
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
+        {step === 'lesson' && <Lesson scenes={scenes} onDone={() => setStep('recall')} />}
         {step === 'recall' && content && <Recall content={content} onStart={() => setStep('drill')} />}
         {step === 'drill' && (
           queue.length === 0
@@ -116,6 +120,18 @@ export default function DrillSession() {
 
 // Sessiya javoblari — ref'da (onNext va taymer ichida eskirib qolmasligi uchun)
 const answersRef = { current: [] as Answer[] };
+
+// ── 0. Dars: komiks sahnalar (manga uslubi) ───────────────────────────────────
+function Lesson({ scenes, onDone }: { scenes: ReturnType<typeof scenesOf>; onDone: () => void }) {
+  const [i, setI] = useState(0);
+  return (
+    <>
+      <T dim size={13}>DARS · {i + 1}/{scenes.length} sahna · panelga bosing — pauza</T>
+      <ComicPlayer key={scenes[i].id} scene={scenes[i]} onDone={() => (i + 1 < scenes.length ? setI(i + 1) : onDone())} />
+      <Pressable onPress={onDone} hitSlop={8}><T dim size={13} style={{ textAlign: 'center' }}>Darsni o'tkazib yuborish →</T></Pressable>
+    </>
+  );
+}
 
 // ── 1. Recall: avval o'zing ayt, keyin tekshir ───────────────────────────────
 function Recall({ content, onStart }: { content: NonNullable<ReturnType<typeof contentOf>>; onStart: () => void }) {
