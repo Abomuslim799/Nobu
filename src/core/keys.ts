@@ -21,6 +21,7 @@ export const KEYS = {
   skills: 'farobiy.skills.v1',          // ingliz tili ko'nikmalar jurnali
   vocab: 'farobiy.vocab.v1',            // so'z bazasi: hard/normal/easy holatlari, kunlik reja, bazalar
   drill: 'farobiy.drill.v1',            // 6 oylik grammar reja: sessiyalar, mistake bank, qabul qilingan javoblar
+  guideLevel: 'farobiy.guide.level',   // qo'llanma darajasi: 0 hammasi, 1 Asos, 2 O'rta, 3 Advanced
   tts: 'farobiy.tts.v1',                // Ustoz ovozi manzillari keshi
   autoread: 'farobiy.sci.autoread',
   speakRate: 'farobiy.speak.rate',

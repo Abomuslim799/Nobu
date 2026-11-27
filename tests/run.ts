@@ -24,6 +24,7 @@ import { LESSONS as OPEN, deviation, matches, nextBox, nextMoves, noteFor } from
 import { MODES, feynScore, parseNum, slope, standalone, type XY } from '@/features/lesson2/types';
 import { addMistake, answerMistake, dayPlan, drillCount, matches as enMatch, statusOf, weekOf, weekday } from '@/features/english/drill/logic';
 import { TOPICS as DRILL } from '@/features/english/drill/topics';
+import { DAY_EXTRA, guideOf, spans, visibleSections } from '@/features/english/guide/guide';
 import { ALL_CONTENT as DRILL_C } from '@/features/english/drill/content';
 import { decay, fromBox, grade, learned as vLearned, newPlan, reviewOrder } from '@/features/english/vocab/srs';
 import { ITEMS as V_ITEMS, pickNew } from '@/features/english/vocab/base';
@@ -276,6 +277,14 @@ for (const c of DRILL_C) {
   ok(q.type === 'meaning' && q.prompt === fresh[0].translation, 'vocab: savol — ma\'no (variantsiz)');
 }
 
+{
+  const miss = [...DRILL.map((t) => t.id), ...Object.values(DAY_EXTRA).flatMap((d) => [d.speak, d.pron, d.skill]), 'vocab'].filter((id) => !guideOf(id));
+  ok(!miss.length, `guide: har mavzu va kun bandi uchun qo'llanma bor (${miss.join(', ')})`);
+  const g = guideOf('pres-simple-cont')!;
+  ok(visibleSections(g, 1).length < g.sections.length && visibleSections(g, 0).length === g.sections.length, 'guide: daraja filtri');
+  const sp = spans('a **b** ~~c~~ *d*');
+  ok(sp.length === 6 && !!sp[1].b && !!sp[3].s && !!sp[5].i, 'guide: inline qalin/o\'chirilgan/kursiv');
+}
 if (fails) { console.error(`\n${fails} ta xato`); process.exit(1); }
 {
   ok(autoRank('shogird', 1405) === 'mudarris' && autoRank('mudarris', 1380) === 'mudarris' && autoRank('mudarris', 1340) === 'mutaallim' && autoRank('shogird', 1000) === 'shogird', 'autoRank: ko\'tarilish va 50 ballik zaxira');
