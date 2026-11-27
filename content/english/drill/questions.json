@@ -1,0 +1,168 @@
+{
+ "id": "questions",
+ "title": "Indirect questions + tags",
+ "recall": "Indirect savolda so'z tartibi qanday? Question tag qanday yasaladi, I'm va Let's bilan nima bo'ladi?",
+ "formula": [
+  "Could you tell me / Do you know + savol so'zi + EGA + FE'L — Do you know where the station is?",
+  "yes/no savol: if / whether — I wonder if he's coming",
+  "tag: tasdiq → inkor tag (You're coming, aren't you?); I'm → aren't I; Let's → shall we; imperative → will you"
+ ],
+ "pairs": [
+  {
+   "a": "Where is the station?",
+   "b": "Could you tell me where the station is?",
+   "note_uz": "to'g'ri ↔ muloyim, tartib o'zgaradi"
+  },
+  {
+   "a": "Do you know what time is it? ❌",
+   "b": "Do you know what time it is?",
+   "note_uz": "indirect'da so'roq tartibi yo'q"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Bekat qayerdaligini ayta olasizmi?",
+   "en": [
+    "Could you tell me where the station is?",
+    "Can you tell me where the station is?"
+   ]
+  },
+  {
+   "uz": "Soat necha ekanini bilasizmi?",
+   "en": [
+    "Do you know what time it is?"
+   ]
+  },
+  {
+   "uz": "U kelyaptimi-yo'qmi, bilmayman.",
+   "en": [
+    "I don't know if he's coming.",
+    "I don't know whether he is coming or not.",
+    "I don't know whether he's coming."
+   ]
+  },
+  {
+   "uz": "Bu qancha turishini ayta olasizmi?",
+   "en": [
+    "Could you tell me how much this costs?",
+    "Can you tell me how much this is?"
+   ]
+  },
+  {
+   "uz": "U nima demoqchi ekanini tushunmadim.",
+   "en": [
+    "I didn't understand what he meant.",
+    "I don't understand what he means."
+   ]
+  },
+  {
+   "uz": "Qiziq, u qayerda yashaydi.",
+   "en": [
+    "I wonder where he lives.",
+    "I wonder where she lives."
+   ]
+  },
+  {
+   "uz": "Sen ertaga kelasan, shundaymi?",
+   "en": [
+    "You're coming tomorrow, aren't you?",
+    "You'll come tomorrow, won't you?"
+   ]
+  },
+  {
+   "uz": "U shifokor emas, shundaymi?",
+   "en": [
+    "She isn't a doctor, is she?",
+    "He isn't a doctor, is he?"
+   ]
+  },
+  {
+   "uz": "Men haqman, shundaymi?",
+   "en": [
+    "I'm right, aren't I?"
+   ]
+  },
+  {
+   "uz": "Keling, boshlaymiz, xo'pmi?",
+   "en": [
+    "Let's start, shall we?",
+    "Let's begin, shall we?"
+   ]
+  },
+  {
+   "uz": "Sen bu filmni ko'rgansan, shundaymi?",
+   "en": [
+    "You've seen this film, haven't you?",
+    "You've seen this movie, haven't you?"
+   ]
+  },
+  {
+   "uz": "U kecha kelmadi, shundaymi?",
+   "en": [
+    "He didn't come yesterday, did he?",
+    "She didn't come yesterday, did she?"
+   ]
+  },
+  {
+   "uz": "Eshikni yop, iltimos, xo'pmi?",
+   "en": [
+    "Close the door, will you?",
+    "Shut the door, will you?"
+   ]
+  },
+  {
+   "uz": "Bu yaqin atrofda bank bormi, bilasizmi?",
+   "en": [
+    "Do you know if there's a bank near here?",
+    "Do you know whether there is a bank nearby?"
+   ]
+  },
+  {
+   "uz": "Kim kelganini menga ayta olasizmi?",
+   "en": [
+    "Could you tell me who came?",
+    "Can you tell me who has arrived?"
+   ]
+  },
+  {
+   "uz": "U nega xafa bo'lganini bilmayman.",
+   "en": [
+    "I don't know why she's upset.",
+    "I don't know why he was upset.",
+    "I don't know why she is upset."
+   ]
+  },
+  {
+   "uz": "Siz ingliz tilida gapirasiz, to'g'rimi?",
+   "en": [
+    "You speak English, don't you?"
+   ]
+  },
+  {
+   "uz": "Bu juda qimmat emas, shundaymi?",
+   "en": [
+    "It isn't very expensive, is it?",
+    "This isn't too expensive, is it?"
+   ]
+  },
+  {
+   "uz": "Yig'ilish qachon boshlanishini bilasizmi?",
+   "en": [
+    "Do you know when the meeting starts?",
+    "Do you know what time the meeting starts?"
+   ]
+  },
+  {
+   "uz": "U haydashni biladi, shundaymi?",
+   "en": [
+    "He can drive, can't he?",
+    "She can drive, can't she?"
+   ]
+  }
+ ],
+ "speak": [
+  "Notanish shaharda 5 ta muloyim savol bering (Could you tell me…).",
+  "Do'stingizga 5 ta question tag bilan gap ayting.",
+  "Nimani bilmaysiz va qiziqasiz? (I wonder…, I don't know if…)"
+ ]
+}

@@ -1,0 +1,173 @@
+{
+ "id": "have-done",
+ "title": "have sth done / it is said",
+ "recall": "have something done nima uchun ishlatiladi? It is said that va He is said to farqini ayt.",
+ "formula": [
+  "have / get + narsa + V3: ishni boshqa odamga qildirish — I had my hair cut",
+  "noxush hodisa ham: I had my phone stolen",
+  "It is said / believed / thought that + gap; He is said to be / to have done (o'tmish)"
+ ],
+ "pairs": [
+  {
+   "a": "I cut my hair.",
+   "b": "I had my hair cut.",
+   "note_uz": "o'zim ↔ sartaroshda qildirdim"
+  },
+  {
+   "a": "It is said that he is rich.",
+   "b": "He is said to be rich.",
+   "note_uz": "ikki xil tuzilma, bir ma'no"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men sochimni oldirdim.",
+   "en": [
+    "I had my hair cut.",
+    "I got my hair cut."
+   ]
+  },
+  {
+   "uz": "Mashinamni ta'mirlatishim kerak.",
+   "en": [
+    "I need to have my car repaired.",
+    "I need to get my car repaired.",
+    "I have to have my car repaired."
+   ]
+  },
+  {
+   "uz": "Men telefonimni o'g'irlatib qo'ydim.",
+   "en": [
+    "I had my phone stolen.",
+    "I've had my phone stolen."
+   ]
+  },
+  {
+   "uz": "Biz uyimizni bo'yatyapmiz.",
+   "en": [
+    "We're having our house painted.",
+    "We are getting our house painted."
+   ]
+  },
+  {
+   "uz": "Sen kompyuteringni qachon tuzattirding?",
+   "en": [
+    "When did you have your computer fixed?",
+    "When did you get your computer repaired?"
+   ]
+  },
+  {
+   "uz": "Men ko'zimni tekshirtirishim kerak.",
+   "en": [
+    "I need to have my eyes tested.",
+    "I should get my eyes checked."
+   ]
+  },
+  {
+   "uz": "Aytishlaricha, u juda boy.",
+   "en": [
+    "It is said that he is very rich.",
+    "He is said to be very rich."
+   ]
+  },
+  {
+   "uz": "U eng yaxshi o'yinchi deb hisoblanadi.",
+   "en": [
+    "He is considered the best player.",
+    "He is considered to be the best player."
+   ]
+  },
+  {
+   "uz": "Aytishlaricha, u 100 yoshda.",
+   "en": [
+    "She is said to be 100 years old.",
+    "It is said that she is 100 years old."
+   ]
+  },
+  {
+   "uz": "O'g'ri Toshkentga qochib ketgan deb taxmin qilinmoqda.",
+   "en": [
+    "The thief is believed to have escaped to Tashkent.",
+    "It is believed that the thief escaped to Tashkent.",
+    "It is believed that the thief has escaped to Tashkent."
+   ]
+  },
+  {
+   "uz": "Men kostyumimni tozalatdim.",
+   "en": [
+    "I had my suit cleaned.",
+    "I got my suit cleaned."
+   ]
+  },
+  {
+   "uz": "U uyiga yangi oshxona qurdirdi.",
+   "en": [
+    "He had a new kitchen built.",
+    "He had a new kitchen built in his house."
+   ]
+  },
+  {
+   "uz": "Aytishlaricha, bu yerda qadimda shahar bo'lgan.",
+   "en": [
+    "It is said that there was a city here in ancient times.",
+    "There is said to have been a city here long ago."
+   ]
+  },
+  {
+   "uz": "Men tishimni oldirdim.",
+   "en": [
+    "I had a tooth pulled out.",
+    "I had my tooth taken out.",
+    "I had a tooth removed."
+   ]
+  },
+  {
+   "uz": "Narxlar oshadi deb kutilmoqda.",
+   "en": [
+    "Prices are expected to rise.",
+    "It is expected that prices will rise."
+   ]
+  },
+  {
+   "uz": "Siz pasportingizni yangilatishingiz kerak.",
+   "en": [
+    "You need to have your passport renewed.",
+    "You should get your passport renewed."
+   ]
+  },
+  {
+   "uz": "Ular eng yaxshi restoran deb tan olingan.",
+   "en": [
+    "It is known as the best restaurant.",
+    "It is recognised as the best restaurant.",
+    "It is considered the best restaurant."
+   ]
+  },
+  {
+   "uz": "Men har oy sochimni oldiraman.",
+   "en": [
+    "I have my hair cut every month.",
+    "I get my hair cut every month."
+   ]
+  },
+  {
+   "uz": "U dunyodagi eng tez odam deb ishoniladi.",
+   "en": [
+    "He is believed to be the fastest man in the world.",
+    "It is believed that he is the fastest man in the world."
+   ]
+  },
+  {
+   "uz": "Biz deraza oynasini almashtirdik. (usta)",
+   "en": [
+    "We had the window replaced.",
+    "We got the window replaced."
+   ]
+  }
+ ],
+ "speak": [
+  "Oxirgi oyda nimalarni qildirdingiz? (have sth done) — 5 ta gap.",
+  "Shahringiz yoki mashhur odam haqida 3 ta 'It is said / He is said to'.",
+  "Kelasi oyda nimani qildirishingiz kerak?"
+ ]
+}

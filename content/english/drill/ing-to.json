@@ -1,0 +1,173 @@
+{
+ "id": "ing-to",
+ "title": "-ing vs to",
+ "recall": "Qaysi fe'llardan keyin -ing, qaysilaridan keyin to keladi? remember / stop / try ma'nosi qanday o'zgaradi?",
+ "formula": [
+  "-ing: enjoy, avoid, mind, finish, suggest, keep, consider, can't stand, look forward to, be used to",
+  "to: want, decide, hope, plan, manage, refuse, promise, afford, seem, would like",
+  "ma'no o'zgaradi: remember/forget doing (o'tmish) vs to do (vazifa); stop doing vs stop to do; try doing (sinab ko'rish) vs try to do (urinish)"
+ ],
+ "pairs": [
+  {
+   "a": "I stopped smoking.",
+   "b": "I stopped to smoke.",
+   "note_uz": "tashladim ↔ chekish uchun to'xtadim"
+  },
+  {
+   "a": "I remember locking the door.",
+   "b": "Remember to lock the door.",
+   "note_uz": "esimda ↔ unutma"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men kitob o'qishni yoqtiraman.",
+   "en": [
+    "I enjoy reading books.",
+    "I enjoy reading."
+   ]
+  },
+  {
+   "uz": "U ishdan ketishga qaror qildi.",
+   "en": [
+    "He decided to leave his job.",
+    "She decided to quit her job.",
+    "He decided to quit his job."
+   ]
+  },
+  {
+   "uz": "Men chekishni tashladim.",
+   "en": [
+    "I stopped smoking.",
+    "I gave up smoking.",
+    "I quit smoking."
+   ]
+  },
+  {
+   "uz": "Yo'lda kofe ichish uchun to'xtadik.",
+   "en": [
+    "We stopped to have a coffee on the way.",
+    "We stopped to drink coffee on the way.",
+    "We stopped for a coffee on the way."
+   ]
+  },
+  {
+   "uz": "Eshikni qulflashni unutma.",
+   "en": [
+    "Don't forget to lock the door.",
+    "Remember to lock the door."
+   ]
+  },
+  {
+   "uz": "Eshikni qulflaganim esimda.",
+   "en": [
+    "I remember locking the door."
+   ]
+  },
+  {
+   "uz": "Seni ko'rishni intiqlik bilan kutyapman.",
+   "en": [
+    "I'm looking forward to seeing you.",
+    "I look forward to seeing you."
+   ]
+  },
+  {
+   "uz": "Deraza ochsam qarshi emasmisiz?",
+   "en": [
+    "Do you mind if I open the window?",
+    "Would you mind me opening the window?"
+   ]
+  },
+  {
+   "uz": "U menga yordam berishdan bosh tortdi.",
+   "en": [
+    "He refused to help me.",
+    "She refused to help me."
+   ]
+  },
+  {
+   "uz": "Men uni ishontirishga harakat qildim.",
+   "en": [
+    "I tried to convince him.",
+    "I tried to persuade him."
+   ]
+  },
+  {
+   "uz": "Bosh og'riganda choy ichib ko'r.",
+   "en": [
+    "Try drinking tea when you have a headache.",
+    "When you have a headache, try drinking tea."
+   ]
+  },
+  {
+   "uz": "Biz yangi uy sotib olishga qodir emasmiz.",
+   "en": [
+    "We can't afford to buy a new house.",
+    "We can't afford a new house."
+   ]
+  },
+  {
+   "uz": "U gapirishda davom etdi.",
+   "en": [
+    "He kept talking.",
+    "She kept on talking.",
+    "He kept on talking."
+   ]
+  },
+  {
+   "uz": "Men navbatda kutishni yomon ko'raman.",
+   "en": [
+    "I can't stand waiting in queues.",
+    "I hate waiting in line.",
+    "I can't stand waiting in line."
+   ]
+  },
+  {
+   "uz": "Ular kinoga borishni taklif qilishdi.",
+   "en": [
+    "They suggested going to the cinema.",
+    "They suggested going to the movies."
+   ]
+  },
+  {
+   "uz": "U o'z vaqtida yetib kelishga ulgurdi.",
+   "en": [
+    "He managed to arrive on time.",
+    "She managed to get there on time."
+   ]
+  },
+  {
+   "uz": "Men senga qo'ng'iroq qilishni unutibman, kechir.",
+   "en": [
+    "Sorry, I forgot to call you.",
+    "I'm sorry, I forgot to call you."
+   ]
+  },
+  {
+   "uz": "Sen haydashni o'rganishni o'ylayapsanmi?",
+   "en": [
+    "Are you thinking of learning to drive?",
+    "Are you considering learning to drive?"
+   ]
+  },
+  {
+   "uz": "Bu ishni tugatib, uyga ketaman.",
+   "en": [
+    "I'll finish doing this and go home.",
+    "When I finish doing this, I'll go home."
+   ]
+  },
+  {
+   "uz": "U menga qachon kelishini va'da qildi.",
+   "en": [
+    "He promised to tell me when he would come.",
+    "She promised to let me know when she'd come."
+   ]
+  }
+ ],
+ "speak": [
+  "Bo'sh vaqtda nima qilishni yoqtirasiz va nimani yomon ko'rasiz? (-ing)",
+  "Bu yil nima qilishga qaror qildingiz va nimani rejalashtiryapsiz? (to)",
+  "remember / stop / try bilan ikki ma'noli 3 juft gap."
+ ]
+}

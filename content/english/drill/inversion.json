@@ -1,0 +1,170 @@
+{
+ "id": "inversion",
+ "title": "Inversion",
+ "recall": "Inversiya qachon ishlatiladi? Never, Not only, No sooner, Hardly, Only then bilan gap tuzilishini ayt.",
+ "formula": [
+  "inkor ma'noli so'z boshda → yordamchi fe'l + ega: Never have I seen…",
+  "Not only did he…, but he also…; No sooner had I… than…; Hardly had I… when…",
+  "Only then / Only after / Little did I know / Under no circumstances should you…"
+ ],
+ "pairs": [
+  {
+   "a": "I have never seen such a mess.",
+   "b": "Never have I seen such a mess.",
+   "note_uz": "oddiy ↔ ta'kidli, rasmiy"
+  },
+  {
+   "a": "As soon as I sat down, the phone rang.",
+   "b": "No sooner had I sat down than the phone rang.",
+   "note_uz": "oddiy ↔ C1"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men hech qachon bunday go'zallikni ko'rmaganman.",
+   "en": [
+    "Never have I seen such beauty.",
+    "Never have I seen anything so beautiful."
+   ]
+  },
+  {
+   "uz": "U nafaqat kech qoldi, balki uzr ham so'ramadi.",
+   "en": [
+    "Not only was he late, but he also didn't apologise.",
+    "Not only was he late, but he didn't apologize either."
+   ]
+  },
+  {
+   "uz": "Men o'tirishim bilan telefon jiringladi.",
+   "en": [
+    "No sooner had I sat down than the phone rang.",
+    "Hardly had I sat down when the phone rang."
+   ]
+  },
+  {
+   "uz": "Men nima bo'lishini umuman bilmasdim.",
+   "en": [
+    "Little did I know what would happen.",
+    "Little did I know what was going to happen."
+   ]
+  },
+  {
+   "uz": "Hech qanday holatda bu tugmani bosmang.",
+   "en": [
+    "Under no circumstances should you press this button.",
+    "Under no circumstances press this button."
+   ]
+  },
+  {
+   "uz": "Faqat o'shanda men haqiqatni tushundim.",
+   "en": [
+    "Only then did I understand the truth.",
+    "Only then did I realise the truth."
+   ]
+  },
+  {
+   "uz": "Kamdan-kam hollarda bunday yaxshi xizmat ko'ramiz.",
+   "en": [
+    "Rarely do we see such good service.",
+    "Seldom do we see such good service."
+   ]
+  },
+  {
+   "uz": "U nafaqat ingliz, balki fransuz tilida ham gapiradi.",
+   "en": [
+    "Not only does she speak English, but she also speaks French.",
+    "Not only does he speak English, but also French."
+   ]
+  },
+  {
+   "uz": "Uyga kelishim bilan yomg'ir boshlandi.",
+   "en": [
+    "Hardly had I got home when it started to rain.",
+    "No sooner had I got home than it started raining.",
+    "Hardly had I arrived home when it began to rain."
+   ]
+  },
+  {
+   "uz": "Hayotimda hech qachon bunchalik charchamaganman.",
+   "en": [
+    "Never in my life have I been so tired."
+   ]
+  },
+  {
+   "uz": "Faqat ishni tugatgandan keyin uyga ketishingiz mumkin.",
+   "en": [
+    "Only after finishing the work can you go home.",
+    "Only after you finish the work can you go home."
+   ]
+  },
+  {
+   "uz": "Bunday imkoniyat hech qachon boshqa kelmaydi.",
+   "en": [
+    "Never again will such a chance come.",
+    "Never will such an opportunity come again.",
+    "Never again will you get such a chance."
+   ]
+  },
+  {
+   "uz": "U bu haqda bilishi kerak emas edi.",
+   "en": [
+    "On no account should he know about this.",
+    "Under no circumstances should he find out about this."
+   ]
+  },
+  {
+   "uz": "Men uni ko'rishim bilan tanidim.",
+   "en": [
+    "No sooner had I seen him than I recognised him.",
+    "Hardly had I seen him when I recognized him."
+   ]
+  },
+  {
+   "uz": "Bunday qiyin imtihonni hech qachon topshirmaganmiz.",
+   "en": [
+    "Never have we taken such a difficult exam.",
+    "Never have we had such a hard exam."
+   ]
+  },
+  {
+   "uz": "Kamdan-kam u kechikadi.",
+   "en": [
+    "Rarely is he late.",
+    "Seldom is he late."
+   ]
+  },
+  {
+   "uz": "Shundagina men qanchalik xato qilganimni tushundim.",
+   "en": [
+    "Only then did I realise how wrong I had been.",
+    "Only then did I understand how wrong I was."
+   ]
+  },
+  {
+   "uz": "U nafaqat aqlli, balki juda mehribon.",
+   "en": [
+    "Not only is she clever, but she is also very kind.",
+    "Not only is he smart, but he's also very kind."
+   ]
+  },
+  {
+   "uz": "Men u yerda qancha qolishimizni bilmasdim.",
+   "en": [
+    "Little did I know how long we would stay there.",
+    "Little did I know how long we'd be there."
+   ]
+  },
+  {
+   "uz": "Hech qachon bunchalik ko'p odamni bir joyda ko'rmagan edim.",
+   "en": [
+    "Never had I seen so many people in one place.",
+    "Never before had I seen so many people in one place."
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingizdagi eng ta'sirli tajriba: Never have I… bilan 3 ta gap.",
+  "Bitta voqea: No sooner had… than / Hardly had… when.",
+  "O'zingiz haqingizda: Not only… but also… (3 ta)."
+ ]
+}

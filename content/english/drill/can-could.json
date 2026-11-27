@@ -1,0 +1,172 @@
+{
+ "id": "can-could",
+ "title": "can / could / be able to",
+ "recall": "can, could va be able to farqi nima? O'tmishdagi bir martalik uddalashni qanday aytasiz?",
+ "formula": [
+  "can / can't: hozirgi qobiliyat, ruxsat, imkoniyat",
+  "could: o'tmishdagi UMUMIY qobiliyat (I could swim at 5), muloyim so'rov, taxmin",
+  "be able to: boshqa zamonlarda (will be able to, have been able to); o'tmishdagi BIR MARTALIK uddalash — was able to / managed to"
+ ],
+ "pairs": [
+  {
+   "a": "I could swim when I was six.",
+   "b": "I was able to swim across the river yesterday.",
+   "note_uz": "umumiy qobiliyat ↔ bir marta uddaladim"
+  },
+  {
+   "a": "Can you help me?",
+   "b": "Could you help me?",
+   "note_uz": "oddiy ↔ muloyimroq"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men suzishni bilaman.",
+   "en": [
+    "I can swim."
+   ]
+  },
+  {
+   "uz": "Besh yoshimda o'qiy olardim.",
+   "en": [
+    "I could read when I was five.",
+    "I was able to read when I was five.",
+    "When I was five, I could read."
+   ]
+  },
+  {
+   "uz": "Kecha muammoni hal qila oldim.",
+   "en": [
+    "I was able to solve the problem yesterday.",
+    "I managed to solve the problem yesterday."
+   ]
+  },
+  {
+   "uz": "Eshikni ocholmadim.",
+   "en": [
+    "I couldn't open the door.",
+    "I wasn't able to open the door."
+   ]
+  },
+  {
+   "uz": "Menga yordam bera olasizmi? (muloyim)",
+   "en": [
+    "Could you help me?",
+    "Could you help me, please?",
+    "Could you please help me?"
+   ]
+  },
+  {
+   "uz": "Kelasi yil ingliz tilida erkin gapira olaman.",
+   "en": [
+    "Next year I'll be able to speak English fluently.",
+    "I'll be able to speak English fluently next year.",
+    "I will be able to speak English fluently next year."
+   ]
+  },
+  {
+   "uz": "Men hech qachon gitara chalishni o'rgana olmaganman.",
+   "en": [
+    "I've never been able to play the guitar.",
+    "I have never been able to learn the guitar."
+   ]
+  },
+  {
+   "uz": "Bu yerda chekish mumkin emas.",
+   "en": [
+    "You can't smoke here.",
+    "You cannot smoke here."
+   ]
+  },
+  {
+   "uz": "Shovqin tufayli uxlay olmadim.",
+   "en": [
+    "I couldn't sleep because of the noise.",
+    "I wasn't able to sleep because of the noise."
+   ]
+  },
+  {
+   "uz": "Yong'indan hamma chiqib keta oldi.",
+   "en": [
+    "Everyone was able to get out of the fire.",
+    "Everyone managed to escape the fire.",
+    "Everyone was able to escape the fire."
+   ]
+  },
+  {
+   "uz": "Bu rost bo'lishi mumkin emas.",
+   "en": [
+    "It can't be true.",
+    "That can't be true."
+   ]
+  },
+  {
+   "uz": "Erta kelsang, men bilan uchrasha olasan.",
+   "en": [
+    "If you come early, you'll be able to meet me.",
+    "If you come early, you can meet me."
+   ]
+  },
+  {
+   "uz": "Kirsam bo'ladimi?",
+   "en": [
+    "Can I come in?",
+    "May I come in?",
+    "Could I come in?"
+   ]
+  },
+  {
+   "uz": "Ko'zoynaksiz hech narsani ko'ra olmayman.",
+   "en": [
+    "I can't see anything without my glasses."
+   ]
+  },
+  {
+   "uz": "Bir necha urinishdan keyin u imtihondan o'ta oldi.",
+   "en": [
+    "After several attempts, he was able to pass the exam.",
+    "He managed to pass the exam after several attempts.",
+    "After several tries, he managed to pass the exam."
+   ]
+  },
+  {
+   "uz": "Siz kompyutersiz ishlay olasizmi?",
+   "en": [
+    "Can you work without a computer?",
+    "Are you able to work without a computer?"
+   ]
+  },
+  {
+   "uz": "Haydashni bilmasdim, shuning uchun taksi oldim.",
+   "en": [
+    "I couldn't drive, so I took a taxi.",
+    "I couldn't drive, so I got a taxi."
+   ]
+  },
+  {
+   "uz": "Ertaga kela olmayman.",
+   "en": [
+    "I can't come tomorrow.",
+    "I won't be able to come tomorrow."
+   ]
+  },
+  {
+   "uz": "Pulni qaytarib ololmasligimizdan qo'rqaman.",
+   "en": [
+    "I'm afraid we won't be able to get the money back.",
+    "I'm afraid we can't get the money back."
+   ]
+  },
+  {
+   "uz": "Yangi telefon bilan suratga yaxshi tushira olaman.",
+   "en": [
+    "I can take good photos with my new phone."
+   ]
+  }
+ ],
+ "speak": [
+  "Bolaligingizda nima qila olardingiz, hozir esa qila olmaysiz? (could / can't)",
+  "O'tmishdagi bitta qiyin vaziyat: qanday uddaladingiz? (was able to / managed to)",
+  "6 oydan keyin nimalarni qila olasiz? (will be able to)"
+ ]
+}

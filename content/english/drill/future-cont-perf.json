@@ -1,0 +1,182 @@
+{
+ "id": "future-cont-perf",
+ "title": "Future continuous / perfect",
+ "recall": "Future continuous va future perfect nima uchun kerak? by bilan misol keltir.",
+ "formula": [
+  "will be + -ing: kelajakdagi bir lahzada davom etayotgan — This time tomorrow I'll be flying",
+  "will have + V3: kelajakdagi nuqtagacha tugagan — By Friday I'll have finished the report",
+  "will have been + -ing: kelajakdagi nuqtagacha davomiylik — By June I'll have been working here for 5 years"
+ ],
+ "pairs": [
+  {
+   "a": "At 8 I'll have dinner.",
+   "b": "At 8 I'll be having dinner.",
+   "note_uz": "8 da boshlayman ↔ 8 da ovqatlanayotgan bo'laman"
+  },
+  {
+   "a": "I'll finish by 5.",
+   "b": "I'll have finished by 5.",
+   "note_uz": "5 da tugataman ↔ 5 gacha tugatib bo'laman"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Ertaga shu vaqtda men samolyotda uchayotgan bo'laman.",
+   "en": [
+    "This time tomorrow I'll be flying.",
+    "This time tomorrow I will be flying.",
+    "This time tomorrow I'll be on the plane."
+   ]
+  },
+  {
+   "uz": "Juma kuniga qadar hisobotni tugatib bo'laman.",
+   "en": [
+    "I'll have finished the report by Friday.",
+    "By Friday I'll have finished the report.",
+    "I will have finished the report by Friday."
+   ]
+  },
+  {
+   "uz": "Soat 9 da qo'ng'iroq qilma — ovqatlanayotgan bo'laman.",
+   "en": [
+    "Don't call at 9 — I'll be having dinner.",
+    "Don't call me at 9, I'll be having dinner.",
+    "Don't call at 9; I'll be eating dinner."
+   ]
+  },
+  {
+   "uz": "Kelasi yilga qadar 1000 so'z o'rganib bo'laman.",
+   "en": [
+    "By next year I'll have learned 1000 words.",
+    "I'll have learnt 1000 words by next year.",
+    "By next year, I will have learned 1000 words."
+   ]
+  },
+  {
+   "uz": "Iyunga kelib bu yerda 5 yil ishlagan bo'laman.",
+   "en": [
+    "By June I'll have been working here for 5 years.",
+    "By June I'll have worked here for 5 years.",
+    "By June I will have been working here for five years."
+   ]
+  },
+  {
+   "uz": "Sen kelganingda men uxlayotgan bo'laman.",
+   "en": [
+    "I'll be sleeping when you arrive.",
+    "When you arrive, I'll be sleeping.",
+    "I'll be asleep when you come."
+   ]
+  },
+  {
+   "uz": "Ertaga do'konga borasanmi? Menga non olib kel. (so'rov)",
+   "en": [
+    "Will you be going to the shop tomorrow? Can you get me some bread?",
+    "Will you be going to the shop tomorrow? Could you buy me some bread?"
+   ]
+  },
+  {
+   "uz": "Film tugaganida ular kelib bo'lishadi.",
+   "en": [
+    "They'll have arrived by the time the film ends.",
+    "By the time the film ends, they'll have arrived."
+   ]
+  },
+  {
+   "uz": "Kelasi hafta shu paytda men dengizda dam olayotgan bo'laman.",
+   "en": [
+    "This time next week I'll be relaxing on the beach.",
+    "This time next week I'll be lying on the beach.",
+    "This time next week I will be relaxing by the sea."
+   ]
+  },
+  {
+   "uz": "Yil oxiriga qadar marafonga tayyorlanib bo'laman.",
+   "en": [
+    "I'll have prepared for the marathon by the end of the year.",
+    "By the end of the year I'll have prepared for the marathon."
+   ]
+  },
+  {
+   "uz": "Soat 10 da u hali ham ishlayotgan bo'ladi.",
+   "en": [
+    "At 10 he'll still be working.",
+    "He'll still be working at 10.",
+    "At ten he will still be working."
+   ]
+  },
+  {
+   "uz": "Pul tugab qoladi oy oxirigacha.",
+   "en": [
+    "The money will have run out by the end of the month.",
+    "We'll have run out of money by the end of the month."
+   ]
+  },
+  {
+   "uz": "Siz bugun kechqurun ofisda bo'lasizmi?",
+   "en": [
+    "Will you be staying at the office tonight?",
+    "Will you be working at the office this evening?",
+    "Will you be in the office this evening?"
+   ]
+  },
+  {
+   "uz": "Ertaga shu vaqtda imtihon topshirayotgan bo'laman.",
+   "en": [
+    "This time tomorrow I'll be taking the exam.",
+    "This time tomorrow I'll be sitting the exam.",
+    "This time tomorrow I will be taking my exam."
+   ]
+  },
+  {
+   "uz": "U uyga kelguncha men ovqat pishirib bo'laman.",
+   "en": [
+    "I'll have cooked dinner by the time she gets home.",
+    "By the time she gets home, I'll have cooked dinner."
+   ]
+  },
+  {
+   "uz": "2030-yilga kelib ular uy qurib bo'lishadi.",
+   "en": [
+    "By 2030 they'll have built the house.",
+    "They'll have built the house by 2030."
+   ]
+  },
+  {
+   "uz": "Kechqurun men kitob o'qiyotgan bo'laman, kelaver.",
+   "en": [
+    "I'll be reading in the evening, so come over.",
+    "I'll be reading this evening, just come."
+   ]
+  },
+  {
+   "uz": "Siz kelganingizda biz ketib bo'lamiz.",
+   "en": [
+    "We'll have left by the time you arrive.",
+    "By the time you arrive, we'll have left.",
+    "We will have left when you arrive."
+   ]
+  },
+  {
+   "uz": "Soat 7 da yuguryotgan bo'laman.",
+   "en": [
+    "At 7 I'll be running.",
+    "I'll be running at 7.",
+    "At seven I'll be running."
+   ]
+  },
+  {
+   "uz": "Bir oydan keyin bu kitobni o'qib chiqqan bo'laman.",
+   "en": [
+    "In a month I'll have finished this book.",
+    "I'll have read this book in a month.",
+    "In a month I'll have read this book."
+   ]
+  }
+ ],
+ "speak": [
+  "Ertaga soat 8, 12 va 18 da nima qilayotgan bo'lasiz? (future continuous)",
+  "Yil oxiriga qadar nimalarni qilib bo'lasiz? (future perfect) — 5 ta gap.",
+  "6 oydan keyin ingliz tilingiz qanday bo'ladi? (will have)"
+ ]
+}

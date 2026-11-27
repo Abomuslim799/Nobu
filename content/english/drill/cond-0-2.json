@@ -1,0 +1,172 @@
+{
+ "id": "cond-0-2",
+ "title": "Conditionals 0–2",
+ "recall": "0, 1 va 2-shart gaplarning tuzilishi va farqi nima? unless va in case qanday ishlatiladi?",
+ "formula": [
+  "0: if + present, present — fakt (If you heat ice, it melts)",
+  "1: if + present, will — real kelajak (If it rains, I'll stay home)",
+  "2: if + past, would — xayoliy hozir/kelajak (If I had money, I'd travel); If I were you…; unless = if not"
+ ],
+ "pairs": [
+  {
+   "a": "If I have time, I'll call you.",
+   "b": "If I had time, I'd call you.",
+   "note_uz": "real imkoniyat ↔ xayoliy (vaqtim yo'q)"
+  },
+  {
+   "a": "If I will see him ❌",
+   "b": "If I see him, I'll tell him.",
+   "note_uz": "if dan keyin will yo'q"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Muzni qizdirsang, eriydi.",
+   "en": [
+    "If you heat ice, it melts."
+   ]
+  },
+  {
+   "uz": "Agar yomg'ir yog'sa, uyda qolaman.",
+   "en": [
+    "If it rains, I'll stay at home.",
+    "I'll stay at home if it rains.",
+    "If it rains, I'll stay home."
+   ]
+  },
+  {
+   "uz": "Agar pulim bo'lganda, dunyo bo'ylab sayohat qilardim.",
+   "en": [
+    "If I had money, I would travel around the world.",
+    "If I had money, I'd travel around the world.",
+    "I would travel around the world if I had money."
+   ]
+  },
+  {
+   "uz": "Men sening o'rningda bo'lganimda, bu ishni olmasdim.",
+   "en": [
+    "If I were you, I wouldn't take this job.",
+    "If I were you, I wouldn't take that job."
+   ]
+  },
+  {
+   "uz": "Shoshilmasang, kechikasan.",
+   "en": [
+    "If you don't hurry, you'll be late.",
+    "Unless you hurry, you'll be late."
+   ]
+  },
+  {
+   "uz": "Agar u qo'ng'iroq qilsa, menga ayt.",
+   "en": [
+    "If he calls, tell me.",
+    "If he calls, let me know."
+   ]
+  },
+  {
+   "uz": "Agar ingliz tilini yaxshi bilganimda, chet elda ishlardim.",
+   "en": [
+    "If I spoke English well, I would work abroad.",
+    "If I knew English well, I'd work abroad.",
+    "If my English were good, I would work abroad."
+   ]
+  },
+  {
+   "uz": "Ko'p ishlamasang, imtihondan o'tolmaysan.",
+   "en": [
+    "Unless you study hard, you won't pass the exam.",
+    "If you don't study hard, you won't pass the exam."
+   ]
+  },
+  {
+   "uz": "Agar vaqtim bo'lsa, senga yordam beraman.",
+   "en": [
+    "If I have time, I'll help you.",
+    "I'll help you if I have time."
+   ]
+  },
+  {
+   "uz": "Agar sen bo'lmaganingda, nima qilardim?",
+   "en": [
+    "What would I do if you weren't here?",
+    "What would I do without you?"
+   ]
+  },
+  {
+   "uz": "Yomg'ir yog'ib qolsa deb soyabon ol.",
+   "en": [
+    "Take an umbrella in case it rains."
+   ]
+  },
+  {
+   "uz": "Agar avtobus kelmasa, taksi olamiz.",
+   "en": [
+    "If the bus doesn't come, we'll take a taxi.",
+    "If the bus doesn't come, we'll get a taxi."
+   ]
+  },
+  {
+   "uz": "O'simliklarni sug'ormasang, ular quriydi.",
+   "en": [
+    "If you don't water plants, they die.",
+    "Plants die if you don't water them."
+   ]
+  },
+  {
+   "uz": "Agar u yerda yashaganimda, har kuni dengizga borardim.",
+   "en": [
+    "If I lived there, I would go to the sea every day.",
+    "If I lived there, I'd go to the beach every day."
+   ]
+  },
+  {
+   "uz": "Agar tushlikdan keyin kelsang, men ofisda bo'laman.",
+   "en": [
+    "If you come after lunch, I'll be in the office.",
+    "I'll be in the office if you come after lunch."
+   ]
+  },
+  {
+   "uz": "U menga qo'ng'iroq qilmasa, xavotir olaman.",
+   "en": [
+    "If he doesn't call me, I'll worry.",
+    "I'll worry if he doesn't call me."
+   ]
+  },
+  {
+   "uz": "Sizda savol bo'lsa, so'rang.",
+   "en": [
+    "If you have any questions, ask.",
+    "If you have any questions, please ask."
+   ]
+  },
+  {
+   "uz": "Agar men boy bo'lganimda, katta uy sotib olardim.",
+   "en": [
+    "If I were rich, I would buy a big house.",
+    "If I were rich, I'd buy a big house.",
+    "If I was rich, I would buy a big house."
+   ]
+  },
+  {
+   "uz": "Kech qolmasang, birga ovqatlanamiz.",
+   "en": [
+    "As long as you're not late, we'll have dinner together.",
+    "If you aren't late, we'll eat together.",
+    "If you're not late, we'll have dinner together."
+   ]
+  },
+  {
+   "uz": "Agar men sening telefon raqamingni bilganimda, qo'ng'iroq qilardim.",
+   "en": [
+    "If I knew your phone number, I would call you.",
+    "If I knew your number, I'd call you."
+   ]
+  }
+ ],
+ "speak": [
+  "Bu hafta oxiri ob-havoga qarab nima qilasiz? (1-shart) — 5 ta gap.",
+  "Agar 1 million dollar bo'lsa nima qilardingiz? (2-shart)",
+  "Do'stingizga 'If I were you…' bilan 3 ta maslahat."
+ ]
+}

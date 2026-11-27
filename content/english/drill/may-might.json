@@ -1,0 +1,172 @@
+{
+ "id": "may-might",
+ "title": "may / might / could — taxmin",
+ "recall": "Taxmin darajalarini ayt: must, should, may, might, could, can't. Qaysi biri qanchalik ishonchli?",
+ "formula": [
+  "must: deyarli aniq (bor) — He must be at home, the lights are on",
+  "may / might / could: balki (50% va undan kam) — It might rain later",
+  "can't / couldn't: deyarli aniq (yo'q) — That can't be Ali, he's in London"
+ ],
+ "pairs": [
+  {
+   "a": "He must be tired.",
+   "b": "He might be tired.",
+   "note_uz": "aniq ↔ balki"
+  },
+  {
+   "a": "It can't be true.",
+   "b": "It might not be true.",
+   "note_uz": "imkonsiz ↔ balki emas"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Balki ertaga yomg'ir yog'ar.",
+   "en": [
+    "It might rain tomorrow.",
+    "It may rain tomorrow.",
+    "It could rain tomorrow."
+   ]
+  },
+  {
+   "uz": "U uyda bo'lsa kerak — chiroq yonib turibdi.",
+   "en": [
+    "He must be at home — the lights are on.",
+    "He must be home, the lights are on."
+   ]
+  },
+  {
+   "uz": "Bu Ali bo'lishi mumkin emas — u Londonda.",
+   "en": [
+    "That can't be Ali — he's in London.",
+    "It can't be Ali, he's in London."
+   ]
+  },
+  {
+   "uz": "Men kechikishim mumkin.",
+   "en": [
+    "I might be late.",
+    "I may be late."
+   ]
+  },
+  {
+   "uz": "U charchagan bo'lsa kerak — tun bo'yi ishladi.",
+   "en": [
+    "She must be tired — she worked all night.",
+    "She must be tired; she worked all night."
+   ]
+  },
+  {
+   "uz": "Balki u kelmas.",
+   "en": [
+    "He might not come.",
+    "He may not come."
+   ]
+  },
+  {
+   "uz": "Bu kalitlar seniki bo'lishi mumkinmi?",
+   "en": [
+    "Could these keys be yours?",
+    "Might these keys be yours?"
+   ]
+  },
+  {
+   "uz": "Siz adashgan bo'lishingiz mumkin.",
+   "en": [
+    "You might be wrong.",
+    "You may be wrong.",
+    "You could be wrong."
+   ]
+  },
+  {
+   "uz": "U javob bermayapti — uxlayotgan bo'lsa kerak.",
+   "en": [
+    "He's not answering — he must be sleeping.",
+    "He isn't answering; he must be asleep.",
+    "He isn't answering, he must be sleeping."
+   ]
+  },
+  {
+   "uz": "Bu narx to'g'ri bo'lishi mumkin emas — juda arzon.",
+   "en": [
+    "This price can't be right — it's too cheap.",
+    "That price can't be right, it's too cheap."
+   ]
+  },
+  {
+   "uz": "Kelasi yil boshqa shaharga ko'chishimiz mumkin.",
+   "en": [
+    "We might move to another city next year.",
+    "We may move to another city next year."
+   ]
+  },
+  {
+   "uz": "U haqiqatni aytayotgan bo'lishi mumkin.",
+   "en": [
+    "He might be telling the truth.",
+    "He may be telling the truth.",
+    "He could be telling the truth."
+   ]
+  },
+  {
+   "uz": "Jim bo'l — chaqaloq uxlayotgan bo'lishi mumkin.",
+   "en": [
+    "Be quiet — the baby might be sleeping.",
+    "Be quiet, the baby may be sleeping."
+   ]
+  },
+  {
+   "uz": "Bu yerda qayerdadir do'kon bo'lsa kerak.",
+   "en": [
+    "There must be a shop somewhere here.",
+    "There must be a shop around here."
+   ]
+  },
+  {
+   "uz": "Ular hali yetib kelmagan bo'lishi mumkin.",
+   "en": [
+    "They might not have arrived yet.",
+    "They may not have arrived yet."
+   ]
+  },
+  {
+   "uz": "U shunchalik yosh bo'lishi mumkin emas!",
+   "en": [
+    "She can't be that young!"
+   ]
+  },
+  {
+   "uz": "Imtihon qiyin bo'lishi mumkin, tayyorlan.",
+   "en": [
+    "The exam could be difficult, so prepare.",
+    "The exam might be hard, so get ready."
+   ]
+  },
+  {
+   "uz": "Sen hazillashayotgan bo'lsang kerak!",
+   "en": [
+    "You must be joking!"
+   ]
+  },
+  {
+   "uz": "Bu xato bo'lishi mumkin.",
+   "en": [
+    "This might be a mistake.",
+    "This may be a mistake.",
+    "This could be a mistake."
+   ]
+  },
+  {
+   "uz": "U ishda bo'lmasa kerak — bugun yakshanba.",
+   "en": [
+    "He can't be at work — it's Sunday.",
+    "He can't be at work, it's Sunday today."
+   ]
+  }
+ ],
+ "speak": [
+  "Rasmga qarab taxmin qiling: odam kim, qayerda, nima qilyapti? (must / might / can't)",
+  "Ertaga nima bo'lishi mumkin? 5 ta gap (might / may / could).",
+  "Do'stingiz telefonni olmayapti — 3 xil taxmin."
+ ]
+}

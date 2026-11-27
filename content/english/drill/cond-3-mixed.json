@@ -1,0 +1,163 @@
+{
+ "id": "cond-3-mixed",
+ "title": "3rd + mixed conditionals",
+ "recall": "3-shart va aralash shart gap tuzilishi qanday? Had I known… inversiyasini ayt.",
+ "formula": [
+  "3: if + had V3, would have V3 — o'tmishdagi xayoliy (If I had left earlier, I wouldn't have missed the bus)",
+  "mixed: if + had V3, would + V1 (o'tmish → hozirgi natija) — If I had studied medicine, I'd be a doctor now",
+  "inversiya: Had I known… / Were I you… / Should you need…"
+ ],
+ "pairs": [
+  {
+   "a": "If I had known, I would have come.",
+   "b": "If I had known, I would be there now.",
+   "note_uz": "o'tmish natija ↔ hozirgi natija"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Agar ertaroq chiqqanimda, avtobusga ulgurgan bo'lardim.",
+   "en": [
+    "If I had left earlier, I would have caught the bus.",
+    "If I'd left earlier, I'd have caught the bus."
+   ]
+  },
+  {
+   "uz": "Agar bilganimda, senga aytgan bo'lardim.",
+   "en": [
+    "If I had known, I would have told you.",
+    "If I'd known, I'd have told you."
+   ]
+  },
+  {
+   "uz": "Agar u ogohlantirmaganda, biz adashib qolgan bo'lardik.",
+   "en": [
+    "If he hadn't warned us, we would have got lost.",
+    "If he hadn't warned us, we would have gotten lost."
+   ]
+  },
+  {
+   "uz": "Agar tibbiyotni o'qiganimda, hozir shifokor bo'lardim.",
+   "en": [
+    "If I had studied medicine, I would be a doctor now.",
+    "If I'd studied medicine, I'd be a doctor now."
+   ]
+  },
+  {
+   "uz": "Agar kecha kechgacha o'tirmaganimda, hozir charchamagan bo'lardim.",
+   "en": [
+    "If I hadn't stayed up late last night, I wouldn't be tired now.",
+    "If I hadn't gone to bed late, I wouldn't be tired now."
+   ]
+  },
+  {
+   "uz": "Agar u aqlliroq bo'lganda, bu xatoni qilmagan bo'lardi.",
+   "en": [
+    "If he were smarter, he wouldn't have made that mistake.",
+    "If he was cleverer, he wouldn't have made this mistake."
+   ]
+  },
+  {
+   "uz": "Agar xaritani olganimizda, yo'lni topgan bo'lardik.",
+   "en": [
+    "If we had taken a map, we would have found the way.",
+    "If we'd taken a map, we'd have found the way."
+   ]
+  },
+  {
+   "uz": "Bilganimda, kelgan bo'lardim. (inversiya)",
+   "en": [
+    "Had I known, I would have come."
+   ]
+  },
+  {
+   "uz": "Agar yomg'ir yog'maganda, o'yin bo'lib o'tgan bo'lardi.",
+   "en": [
+    "If it hadn't rained, the match would have taken place.",
+    "If it hadn't rained, the game would have happened."
+   ]
+  },
+  {
+   "uz": "Agar u yordam bermaganda, men hali ham ishsiz bo'lardim.",
+   "en": [
+    "If he hadn't helped me, I would still be unemployed.",
+    "If he hadn't helped me, I'd still be without a job."
+   ]
+  },
+  {
+   "uz": "Agar men o'sha ishni olganimda, hozir Toshkentda yashardim.",
+   "en": [
+    "If I had taken that job, I would live in Tashkent now.",
+    "If I'd taken that job, I'd be living in Tashkent now."
+   ]
+  },
+  {
+   "uz": "Agar sen qo'ng'iroq qilganingda, kutib turgan bo'lardim.",
+   "en": [
+    "If you had called, I would have waited.",
+    "If you'd called, I'd have waited."
+   ]
+  },
+  {
+   "uz": "Agar u shunchalik tez haydamaganda, avariya bo'lmagan bo'lardi.",
+   "en": [
+    "If he hadn't driven so fast, the accident wouldn't have happened.",
+    "If he hadn't been driving so fast, there wouldn't have been an accident."
+   ]
+  },
+  {
+   "uz": "Agar ingliz tilini bolaligimda o'rganganimda, hozir erkin gapirardim.",
+   "en": [
+    "If I had learned English as a child, I would speak it fluently now.",
+    "If I'd learnt English as a child, I'd speak fluently now."
+   ]
+  },
+  {
+   "uz": "Agar biz yutganimizda, finalga chiqqan bo'lardik.",
+   "en": [
+    "If we had won, we would have reached the final.",
+    "If we'd won, we'd have got to the final."
+   ]
+  },
+  {
+   "uz": "Agar men sen bo'lganimda, u pulni olmagan bo'lardim.",
+   "en": [
+    "If I were you, I wouldn't have taken that money.",
+    "If I'd been you, I wouldn't have taken the money."
+   ]
+  },
+  {
+   "uz": "Agar u o'sha samolyotga chiqqanda, hozir tirik bo'lmasdi.",
+   "en": [
+    "If he had got on that plane, he wouldn't be alive now.",
+    "If he had taken that plane, he wouldn't be alive today."
+   ]
+  },
+  {
+   "uz": "Agar ertaroq uxlaganimda, imtihonda yaxshiroq natija ko'rsatgan bo'lardim.",
+   "en": [
+    "If I had slept earlier, I would have done better in the exam.",
+    "If I'd gone to bed earlier, I'd have done better in the exam."
+   ]
+  },
+  {
+   "uz": "Agar sizga yordam kerak bo'lsa, qo'ng'iroq qiling. (inversiya, rasmiy)",
+   "en": [
+    "Should you need any help, please call.",
+    "Should you need help, please call us."
+   ]
+  },
+  {
+   "uz": "Agar u kechirim so'raganda, men uni kechirgan bo'lardim.",
+   "en": [
+    "If he had apologised, I would have forgiven him.",
+    "If he had apologized, I would have forgiven him."
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingizdagi 3 ta muhim qaror: boshqacha qilganingizda nima bo'lardi? (3-shart)",
+  "O'tmishdagi bir voqea hozirgi hayotingizga qanday ta'sir qildi? (mixed)",
+  "Rasmiy xat uslubida 2 ta inversiya: Should you… / Had we…"
+ ]
+}

@@ -1,0 +1,175 @@
+{
+ "id": "hedging",
+ "title": "Hedging + discourse markers",
+ "recall": "Fikrni yumshatishning 5 ta usuli va 5 ta bog'lovchini (however, whereas…) ayt.",
+ "formula": [
+  "hedging: It seems / appears that, tend to, likely, arguably, to some extent, I'd say, might",
+  "qarama-qarshilik: however, whereas, on the other hand, having said that, even so",
+  "sabab/natija/qo'shimcha: as a result, therefore, in fact, moreover, in other words"
+ ],
+ "pairs": [
+  {
+   "a": "This is the best solution.",
+   "b": "This seems to be the best solution.",
+   "note_uz": "qat'iy ↔ yumshoq"
+  },
+  {
+   "a": "He's lazy.",
+   "b": "He tends to be a bit lazy.",
+   "note_uz": "qo'pol ↔ diplomatik"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Bu eng yaxshi yechim bo'lsa kerak.",
+   "en": [
+    "This seems to be the best solution.",
+    "It seems that this is the best solution.",
+    "This appears to be the best solution."
+   ]
+  },
+  {
+   "uz": "Odamlar ko'pincha kechqurun ko'proq ovqat yeydi.",
+   "en": [
+    "People tend to eat more in the evening."
+   ]
+  },
+  {
+   "uz": "Menimcha, bu qisman to'g'ri.",
+   "en": [
+    "I'd say that's partly true.",
+    "I think it's true to some extent.",
+    "I'd say it's partly true."
+   ]
+  },
+  {
+   "uz": "Bu qimmat. Shunga qaramay, sifatli.",
+   "en": [
+    "It's expensive. However, it's good quality.",
+    "It's expensive. Having said that, it's high quality.",
+    "It's expensive; however, it's good quality."
+   ]
+  },
+  {
+   "uz": "Men choyni yaxshi ko'raman, akam esa kofeni.",
+   "en": [
+    "I like tea, whereas my brother likes coffee.",
+    "I love tea, whereas my brother loves coffee."
+   ]
+  },
+  {
+   "uz": "Natijada biz poyezdga kechikdik.",
+   "en": [
+    "As a result, we missed the train."
+   ]
+  },
+  {
+   "uz": "Aslida, u menga hech narsa demagan.",
+   "en": [
+    "In fact, he didn't tell me anything.",
+    "Actually, he didn't tell me anything.",
+    "In fact, he told me nothing."
+   ]
+  },
+  {
+   "uz": "Bir tomondan, shahar qulay; boshqa tomondan, shovqinli.",
+   "en": [
+    "On the one hand, the city is convenient; on the other hand, it's noisy.",
+    "On the one hand the city is convenient, on the other hand it is noisy."
+   ]
+  },
+  {
+   "uz": "Bu, ehtimol, eng muhim muammo.",
+   "en": [
+    "This is arguably the most important problem.",
+    "This is probably the most important issue.",
+    "This is likely the most important problem."
+   ]
+  },
+  {
+   "uz": "Boshqacha qilib aytganda, bizda pul yo'q.",
+   "en": [
+    "In other words, we don't have any money.",
+    "In other words, we have no money."
+   ]
+  },
+  {
+   "uz": "Bundan tashqari, u juda tajribali.",
+   "en": [
+    "Moreover, he is very experienced.",
+    "What's more, he's very experienced.",
+    "Furthermore, he is very experienced."
+   ]
+  },
+  {
+   "uz": "Narxlar oshishi mumkin.",
+   "en": [
+    "Prices are likely to rise.",
+    "Prices might go up.",
+    "Prices may rise."
+   ]
+  },
+  {
+   "uz": "Shunday bo'lsa ham, men urinib ko'raman.",
+   "en": [
+    "Even so, I'll try.",
+    "Even so, I'm going to try."
+   ]
+  },
+  {
+   "uz": "Ko'rinishidan, u xafa.",
+   "en": [
+    "It seems that he's upset.",
+    "He seems to be upset.",
+    "She seems upset."
+   ]
+  },
+  {
+   "uz": "Shuning uchun men ishdan ketdim.",
+   "en": [
+    "That's why I left my job.",
+    "Therefore, I left my job."
+   ]
+  },
+  {
+   "uz": "Bu ma'lum darajada sizning aybingiz.",
+   "en": [
+    "To some extent, it's your fault.",
+    "It's your fault to some extent."
+   ]
+  },
+  {
+   "uz": "Masalan, siz har kuni 10 daqiqa o'qishingiz mumkin.",
+   "en": [
+    "For example, you could read for 10 minutes every day.",
+    "For instance, you can read for ten minutes a day."
+   ]
+  },
+  {
+   "uz": "Umuman olganda, loyiha muvaffaqiyatli bo'ldi.",
+   "en": [
+    "Overall, the project was successful.",
+    "All in all, the project was a success."
+   ]
+  },
+  {
+   "uz": "Tan olish kerakki, men adashgan edim.",
+   "en": [
+    "Admittedly, I was wrong.",
+    "I have to admit that I was wrong."
+   ]
+  },
+  {
+   "uz": "Yomg'irga qaramay, biz sayr qildik.",
+   "en": [
+    "Despite the rain, we went for a walk.",
+    "In spite of the rain, we went for a walk."
+   ]
+  }
+ ],
+ "speak": [
+  "Bahsli mavzu (masalan, ijtimoiy tarmoqlar): 2 daqiqa, kamida 5 ta hedging va 5 ta bog'lovchi.",
+  "Ishxonangiz haqida: ijobiy va salbiy tomonlar (on the one hand…).",
+  "Kimnidir yumshoq tanqid qiling: tends to, a bit, might want to."
+ ]
+}
