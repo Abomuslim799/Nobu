@@ -1,0 +1,176 @@
+{
+ "id": "wish",
+ "title": "wish / if only / I'd rather / it's time",
+ "recall": "wish + past, wish + had V3 va wish + would farqi nima? I'd rather va it's time qanday ishlatiladi?",
+ "formula": [
+  "wish / if only + past: hozirgi holatdan norozilik — I wish I had more time",
+  "wish + had V3: o'tmishdagi afsus — I wish I hadn't said that; wish + would: boshqaning xatti-harakati — I wish you would stop",
+  "I'd rather (you) + past / I'd rather do; It's (high) time we + past / to do"
+ ],
+ "pairs": [
+  {
+   "a": "I wish I knew.",
+   "b": "I wish I had known.",
+   "note_uz": "hozir bilmayman ↔ o'shanda bilmagandim"
+  },
+  {
+   "a": "I'd rather stay.",
+   "b": "I'd rather you stayed.",
+   "note_uz": "men ↔ boshqa odam"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Qani endi ko'proq vaqtim bo'lsa.",
+   "en": [
+    "I wish I had more time.",
+    "If only I had more time."
+   ]
+  },
+  {
+   "uz": "Qani endi u gapni aytmagan bo'lsam.",
+   "en": [
+    "I wish I hadn't said that.",
+    "If only I hadn't said that."
+   ]
+  },
+  {
+   "uz": "Qani endi sen shovqin qilmasang. (jahl bilan)",
+   "en": [
+    "I wish you would stop making noise.",
+    "I wish you wouldn't make so much noise.",
+    "I wish you'd stop making noise."
+   ]
+  },
+  {
+   "uz": "Qani endi ingliz tilini yaxshi bilsam.",
+   "en": [
+    "I wish I spoke English well.",
+    "I wish I knew English well.",
+    "I wish my English were better."
+   ]
+  },
+  {
+   "uz": "Qani endi o'sha kuni u yerda bo'lsam edi.",
+   "en": [
+    "I wish I had been there that day.",
+    "If only I had been there that day."
+   ]
+  },
+  {
+   "uz": "Men uyda qolishni afzal ko'raman.",
+   "en": [
+    "I'd rather stay at home.",
+    "I would rather stay at home.",
+    "I'd rather stay home."
+   ]
+  },
+  {
+   "uz": "Men sen bu haqda hech kimga aytmasligingni xohlardim.",
+   "en": [
+    "I'd rather you didn't tell anyone about it.",
+    "I would rather you didn't tell anyone."
+   ]
+  },
+  {
+   "uz": "Ketish vaqti keldi.",
+   "en": [
+    "It's time to go.",
+    "It's time we left.",
+    "It's time for us to go."
+   ]
+  },
+  {
+   "uz": "Sen allaqachon ish topishing vaqti keldi.",
+   "en": [
+    "It's high time you found a job.",
+    "It's time you found a job."
+   ]
+  },
+  {
+   "uz": "Qani endi bu yerda dengiz bo'lsa.",
+   "en": [
+    "I wish there was a sea here.",
+    "I wish there were a sea here.",
+    "If only there was a sea here."
+   ]
+  },
+  {
+   "uz": "Qani endi ertaroq turganimda.",
+   "en": [
+    "I wish I had got up earlier.",
+    "If only I had got up earlier.",
+    "I wish I'd woken up earlier."
+   ]
+  },
+  {
+   "uz": "Qani endi yomg'ir to'xtasa.",
+   "en": [
+    "I wish it would stop raining.",
+    "If only it would stop raining."
+   ]
+  },
+  {
+   "uz": "Men taksi emas, avtobusda borishni afzal ko'raman.",
+   "en": [
+    "I'd rather take the bus than a taxi.",
+    "I would rather go by bus than by taxi."
+   ]
+  },
+  {
+   "uz": "Qani endi men ham siz bilan bora olsam.",
+   "en": [
+    "I wish I could come with you.",
+    "If only I could go with you."
+   ]
+  },
+  {
+   "uz": "Qani endi men o'sha mashinani sotib olmagan bo'lsam.",
+   "en": [
+    "I wish I hadn't bought that car.",
+    "If only I hadn't bought that car."
+   ]
+  },
+  {
+   "uz": "Sen mendan qolishimni xohlaysanmi yoki ketishimni?",
+   "en": [
+    "Would you rather I stayed or left?",
+    "Would you rather I stay or go?"
+   ]
+  },
+  {
+   "uz": "Qani endi u menga qo'ng'iroq qilsa.",
+   "en": [
+    "I wish he would call me.",
+    "If only he would call me."
+   ]
+  },
+  {
+   "uz": "Endi o'zgarish vaqti keldi.",
+   "en": [
+    "It's time for a change.",
+    "It's time to change."
+   ]
+  },
+  {
+   "uz": "Qani endi men uni oldinroq uchratgan bo'lsam.",
+   "en": [
+    "I wish I had met her earlier.",
+    "If only I had met her earlier."
+   ]
+  },
+  {
+   "uz": "Qani endi u yerda bo'lmasam.",
+   "en": [
+    "I wish I weren't here.",
+    "I wish I wasn't here.",
+    "If only I weren't here."
+   ]
+  }
+ ],
+ "speak": [
+  "Hozirgi hayotingizdagi 3 ta 'I wish' (hozir).",
+  "O'tmishdagi 3 ta afsus (wish + had).",
+  "Atrofingizdagi odamlar haqida 2 ta 'I wish you would…'"
+ ]
+}

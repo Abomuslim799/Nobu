@@ -1,0 +1,166 @@
+{
+ "id": "articles",
+ "title": "Articles",
+ "recall": "a/an, the va artiklsiz holatlarni ayt. Umumiy ma'noda ko'plik va sanalmaydigan otlar bilan nima bo'ladi?",
+ "formula": [
+  "a/an: birinchi marta, biror bitta, kasb (She's a teacher)",
+  "the: ma'lum, yagona (the sun), oldin aytilgan, superlative (the best), daryo/okean/tog' tizmasi",
+  "artiklsiz: umumiy ma'noda ko'plik/sanalmaydigan (Dogs are loyal, Water is important), ko'p mamlakat va shahar nomlari, ovqat nomlari, go to school/work/bed"
+ ],
+ "pairs": [
+  {
+   "a": "I saw a dog. The dog was black.",
+   "b": "Dogs are loyal.",
+   "note_uz": "birinchi ↔ ma'lum ↔ umumiy"
+  },
+  {
+   "a": "He's in hospital.",
+   "b": "He's at the hospital.",
+   "note_uz": "bemor ↔ binoda"
+  }
+ ],
+ "items": [
+  {
+   "uz": "U o'qituvchi.",
+   "en": [
+    "She's a teacher.",
+    "He's a teacher.",
+    "She is a teacher."
+   ]
+  },
+  {
+   "uz": "Men kecha bir film ko'rdim. Film juda zo'r edi.",
+   "en": [
+    "I saw a film yesterday. The film was great.",
+    "I watched a movie yesterday. The movie was great."
+   ]
+  },
+  {
+   "uz": "Itlar sodiq hayvonlar.",
+   "en": [
+    "Dogs are loyal animals."
+   ]
+  },
+  {
+   "uz": "Quyosh sharqdan chiqadi.",
+   "en": [
+    "The sun rises in the east."
+   ]
+  },
+  {
+   "uz": "Men kofesiz yashay olmayman.",
+   "en": [
+    "I can't live without coffee."
+   ]
+  },
+  {
+   "uz": "U dunyodagi eng baland bino.",
+   "en": [
+    "It's the tallest building in the world.",
+    "It is the highest building in the world."
+   ]
+  },
+  {
+   "uz": "Men soat 11 da uxlashga yotaman.",
+   "en": [
+    "I go to bed at 11.",
+    "I go to bed at eleven."
+   ]
+  },
+  {
+   "uz": "Sevgi hamma narsadan muhim.",
+   "en": [
+    "Love is more important than anything.",
+    "Love is the most important thing."
+   ]
+  },
+  {
+   "uz": "Amudaryo Orol dengiziga quyiladi.",
+   "en": [
+    "The Amu Darya flows into the Aral Sea."
+   ]
+  },
+  {
+   "uz": "Men Toshkentda yashayman.",
+   "en": [
+    "I live in Tashkent."
+   ]
+  },
+  {
+   "uz": "U Qo'shma Shtatlarda o'qiydi.",
+   "en": [
+    "He studies in the United States.",
+    "She studies in the USA.",
+    "He studies in the US."
+   ]
+  },
+  {
+   "uz": "Menga maslahat kerak.",
+   "en": [
+    "I need some advice.",
+    "I need advice."
+   ]
+  },
+  {
+   "uz": "Pianino chalishni bilasanmi?",
+   "en": [
+    "Can you play the piano?"
+   ]
+  },
+  {
+   "uz": "Nonushtaga nima yeding?",
+   "en": [
+    "What did you have for breakfast?",
+    "What did you eat for breakfast?"
+   ]
+  },
+  {
+   "uz": "U kasalxonada yotibdi.",
+   "en": [
+    "He's in hospital.",
+    "She is in hospital.",
+    "He's in the hospital."
+   ]
+  },
+  {
+   "uz": "Men har kuni ishga avtobusda boraman.",
+   "en": [
+    "I go to work by bus every day.",
+    "I take the bus to work every day."
+   ]
+  },
+  {
+   "uz": "Bu juda qiziq kitob ekan.",
+   "en": [
+    "It's a very interesting book.",
+    "This is a very interesting book."
+   ]
+  },
+  {
+   "uz": "Odamlar hayvonlardan aqlliroq.",
+   "en": [
+    "People are smarter than animals.",
+    "Humans are cleverer than animals."
+   ]
+  },
+  {
+   "uz": "U yilda bir marta Londonga boradi.",
+   "en": [
+    "She goes to London once a year.",
+    "He goes to London once a year."
+   ]
+  },
+  {
+   "uz": "Bolalarni mening onam maktabga olib boradi.",
+   "en": [
+    "My mother takes the children to school.",
+    "My mum takes the kids to school."
+   ]
+  }
+ ],
+ "speak": [
+  "Kecha ko'rgan narsalaringizni gapiring: a → the (5 ta gap).",
+  "Umumiy fikrlar: hayvonlar, pul, sport haqida 3 ta gap (artiklsiz).",
+  "Dunyodagi eng … narsalar: 3 ta superlative (the)."
+ ]
+}

@@ -56,7 +56,7 @@ export default function Today() {
     { icon: '🎴', label: `So'zlar · yangi ${vs?.plan.doneToday ?? 0}/${vs?.plan.quota ?? 30} · takror ${vs?.reviewed ?? 0}/${REVIEW_MIN}`,
       sub: vs?.plan.debt ? `qarz: ${vs.plan.debt} ta` : 'yangi + takror',
       done: !!vs && vs.plan.left === 0 && vs.reviewed >= REVIEW_MIN, go: () => router.push('/english/vocab') },
-    { icon: '🔁', label: 'Grammar: 6 oylik reja', sub: drillToday ? `bugun ${drillToday} ta mavzu` : 'bugungi bloklar',
+    { icon: '🔁', label: 'English: bugungi reja', sub: drillToday ? `bugun ${drillToday} ta mavzu` : 'bugungi bloklar',
       done: drillToday > 0, go: () => router.push('/english/drill') },
     ...(ARCHIVE.brainGames ? [] : [{ icon: weakGame.icon, label: `Miya: ${weakGame.title}`, sub: `zaif tomon — ${weakTitle}${weak.count ? ` (oxirgi ${weak.recent}%)` : ' (hali sinalmagan)'}`,
         done: todayLog.some((e) => e.skill !== 'chess'), go: () => router.push(`/brain/${weakGame.id}`) }]),

@@ -7,6 +7,7 @@ import { contentOf } from '@/features/english/drill/content';
 import { STATUS, statusOf } from '@/features/english/drill/logic';
 import { loadDrill } from '@/features/english/drill/store';
 import { TOPICS, topicById } from '@/features/english/drill/topics';
+import { guideOf } from '@/features/english/guide/guide';
 
 const RULES = [
   'You are Ustoz Farobiy, a strict English grammar teacher for an Uzbek B2 learner aiming for C1.',
@@ -29,6 +30,11 @@ export async function drillContext(topic: string): Promise<{ topic: string; ctx:
         `Status: ${STATUS[statusOf(d.results, topic)].label}.`,
         mistakes.length ? `His recent mistakes:\n${mistakes.join('\n')}` : 'No mistakes recorded yet.'].join('\n'),
     };
+  }
+  const g = guideOf(topic);
+  if (g) {
+    const text = g.sections.map((s) => `${s.title}: ${JSON.stringify(s.blocks)}`).join('\n').slice(0, 4000);
+    return { topic: g.title, ctx: [RULES.replace('grammar teacher', 'English teacher'), `Lesson: ${g.title} (${g.meta}).`, `Lesson text (Uzbek notes):\n${text}`].join('\n') };
   }
   const states = TOPICS.map((x) => `${x.title}: ${STATUS[statusOf(d.results, x.id)].label}`).join('; ');
   const recent = d.mistakes.slice(-20).map((m) => `[${m.topic}] ${m.wrong || '(timeout)'} → ${m.en[0]}`).join('\n');

@@ -1,0 +1,169 @@
+{
+ "id": "relative",
+ "title": "Relative clauses",
+ "recall": "who, which, that, whose, where qachon ishlatiladi? Defining va non-defining farqi nima?",
+ "formula": [
+  "who (odam), which (narsa), that (ikkalasi, faqat defining), whose (egalik), where (joy), when (vaqt)",
+  "defining: kimligini aniqlaydi, vergulsiz — The man who called is my boss",
+  "non-defining: qo'shimcha ma'lumot, vergul bilan, that YO'Q — My brother, who lives in London, is a doctor"
+ ],
+ "pairs": [
+  {
+   "a": "My sister who lives in Paris…",
+   "b": "My sister, who lives in Paris, …",
+   "note_uz": "bir nechta opa ↔ bitta opa, qo'shimcha ma'lumot"
+  },
+  {
+   "a": "The book that I read",
+   "b": "The book I read",
+   "note_uz": "to'ldiruvchi bo'lsa — who/that tushib qolishi mumkin"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Qo'ng'iroq qilgan odam mening boshlig'im.",
+   "en": [
+    "The man who called is my boss.",
+    "The man that called is my boss.",
+    "The person who called is my boss."
+   ]
+  },
+  {
+   "uz": "Men sotib olgan kitob juda qiziq.",
+   "en": [
+    "The book I bought is very interesting.",
+    "The book that I bought is very interesting.",
+    "The book which I bought is very interesting."
+   ]
+  },
+  {
+   "uz": "Otasi shifokor bo'lgan qiz mening sinfdoshim.",
+   "en": [
+    "The girl whose father is a doctor is my classmate."
+   ]
+  },
+  {
+   "uz": "Men tug'ilgan shahar juda kichik.",
+   "en": [
+    "The town where I was born is very small.",
+    "The city where I was born is very small."
+   ]
+  },
+  {
+   "uz": "Londonda yashaydigan akam shifokor.",
+   "en": [
+    "My brother, who lives in London, is a doctor."
+   ]
+  },
+  {
+   "uz": "Bu men sizga aytgan restoran.",
+   "en": [
+    "This is the restaurant I told you about.",
+    "This is the restaurant that I told you about."
+   ]
+  },
+  {
+   "uz": "U imtihondan o'tdi, bu hammani hayron qoldirdi.",
+   "en": [
+    "He passed the exam, which surprised everyone.",
+    "She passed the exam, which surprised everyone."
+   ]
+  },
+  {
+   "uz": "Men ingliz tilini o'rgata oladigan odamni qidiryapman.",
+   "en": [
+    "I'm looking for someone who can teach English.",
+    "I'm looking for a person who can teach me English."
+   ]
+  },
+  {
+   "uz": "Biz uchrashgan kun yomg'irli edi.",
+   "en": [
+    "The day we met was rainy.",
+    "The day when we met was rainy."
+   ]
+  },
+  {
+   "uz": "Mashinasi o'g'irlangan ayol politsiyaga qo'ng'iroq qildi.",
+   "en": [
+    "The woman whose car was stolen called the police."
+   ]
+  },
+  {
+   "uz": "Toshkent, O'zbekiston poytaxti, katta shahar.",
+   "en": [
+    "Tashkent, which is the capital of Uzbekistan, is a big city."
+   ]
+  },
+  {
+   "uz": "Bu men eng yaxshi ko'rgan film.",
+   "en": [
+    "This is the film I like most.",
+    "This is my favourite film.",
+    "This is the film that I like the most."
+   ]
+  },
+  {
+   "uz": "Menga yordam bergan hamma odamlarga rahmat.",
+   "en": [
+    "Thanks to everyone who helped me.",
+    "Thank you to all the people who helped me."
+   ]
+  },
+  {
+   "uz": "U hech qachon ishlamaydigan telefon sotib oldi.",
+   "en": [
+    "He bought a phone that never works.",
+    "She bought a phone which never works."
+   ]
+  },
+  {
+   "uz": "Bu men ishlaydigan kompaniya.",
+   "en": [
+    "This is the company I work for.",
+    "This is the company where I work.",
+    "This is the company that I work for."
+   ]
+  },
+  {
+   "uz": "Bobom, 90 yoshda, hali ham yuguradi.",
+   "en": [
+    "My grandfather, who is 90, still runs.",
+    "My grandfather, who is ninety, still runs."
+   ]
+  },
+  {
+   "uz": "U menga bergan maslahat juda foydali bo'ldi.",
+   "en": [
+    "The advice he gave me was very useful.",
+    "The advice that he gave me was really useful."
+   ]
+  },
+  {
+   "uz": "Men ishonadigan yagona odam — onam.",
+   "en": [
+    "The only person I trust is my mother.",
+    "The only person I trust is my mum."
+   ]
+  },
+  {
+   "uz": "Siz gaplashgan ayol mening opam.",
+   "en": [
+    "The woman you spoke to is my sister.",
+    "The woman you talked to is my sister."
+   ]
+  },
+  {
+   "uz": "U meni kutmadi, bu meni xafa qildi.",
+   "en": [
+    "He didn't wait for me, which upset me.",
+    "She didn't wait for me, which made me sad."
+   ]
+  }
+ ],
+ "speak": [
+  "Oilangizdagi 3 kishini non-defining gap bilan tanishtiring (, who …,).",
+  "Sevimli joy, kitob va filmingizni defining gap bilan ta'riflang.",
+  "Kecha bo'lgan voqea va unga munosabatingiz: …, which …"
+ ]
+}

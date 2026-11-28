@@ -1,0 +1,171 @@
+{
+ "id": "used-to",
+ "title": "used to / would / be used to",
+ "recall": "used to va would farqi nima? be used to va get used to qanday ishlatiladi?",
+ "formula": [
+  "used to + V1: o'tmish odati yoki holati (hozir emas) — I used to live in Samarkand",
+  "would + V1: o'tmishdagi takroriy HARAKAT (holat emas) — Every summer we would go to the mountains",
+  "be used to + -ing / ot: ko'nikkan; get used to: ko'nika boshlash — I'm used to getting up early"
+ ],
+ "pairs": [
+  {
+   "a": "I used to have long hair.",
+   "b": "I would have long hair. ❌",
+   "note_uz": "holatga would ishlatilmaydi"
+  },
+  {
+   "a": "I used to get up early.",
+   "b": "I'm used to getting up early.",
+   "note_uz": "oldin shunday edi ↔ hozir ko'nikkanman"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men ilgari chekar edim.",
+   "en": [
+    "I used to smoke."
+   ]
+  },
+  {
+   "uz": "Bolaligimda Samarqandda yashar edim.",
+   "en": [
+    "I used to live in Samarkand when I was a child.",
+    "When I was a child, I used to live in Samarkand.",
+    "I used to live in Samarqand when I was a child."
+   ]
+  },
+  {
+   "uz": "Sen ilgari futbol o'ynarmiding?",
+   "en": [
+    "Did you use to play football?"
+   ]
+  },
+  {
+   "uz": "U ilgari kofe ichmas edi.",
+   "en": [
+    "She didn't use to drink coffee.",
+    "She never used to drink coffee."
+   ]
+  },
+  {
+   "uz": "Har yozda bobomnikiga borar edik.",
+   "en": [
+    "Every summer we would go to my grandfather's.",
+    "Every summer we used to go to my grandfather's.",
+    "We would go to my grandfather's every summer.",
+    "We used to go to my grandfather's every summer."
+   ]
+  },
+  {
+   "uz": "Bu yerda ilgari kinoteatr bo'lgan.",
+   "en": [
+    "There used to be a cinema here."
+   ]
+  },
+  {
+   "uz": "Men erta turishga ko'nikkanman.",
+   "en": [
+    "I'm used to getting up early.",
+    "I am used to waking up early.",
+    "I'm used to waking up early."
+   ]
+  },
+  {
+   "uz": "Men hali bu shaharga ko'nikmadim.",
+   "en": [
+    "I'm not used to this city yet.",
+    "I haven't got used to this city yet.",
+    "I haven't gotten used to this city yet."
+   ]
+  },
+  {
+   "uz": "Tez orada yangi ishingga ko'nikib qolasan.",
+   "en": [
+    "You'll soon get used to your new job.",
+    "You will get used to your new job soon."
+   ]
+  },
+  {
+   "uz": "Men chap tomonda haydashga ko'nika olmayapman.",
+   "en": [
+    "I can't get used to driving on the left."
+   ]
+  },
+  {
+   "uz": "U ilgari juda uyatchan edi.",
+   "en": [
+    "He used to be very shy."
+   ]
+  },
+  {
+   "uz": "Onam har kecha bizga ertak o'qib berar edi.",
+   "en": [
+    "My mother would read us a story every night.",
+    "My mother used to read us a story every night.",
+    "My mother would read us stories every night.",
+    "My mother used to read us stories every night."
+   ]
+  },
+  {
+   "uz": "Ilgari bu yerda ko'p daraxtlar bor edi.",
+   "en": [
+    "There used to be a lot of trees here.",
+    "There used to be many trees here."
+   ]
+  },
+  {
+   "uz": "Men shovqinga ko'nikkanman, xalaqit bermaydi.",
+   "en": [
+    "I'm used to the noise; it doesn't bother me.",
+    "I'm used to the noise, it doesn't bother me."
+   ]
+  },
+  {
+   "uz": "U uzoq ishlashga ko'nikmagan.",
+   "en": [
+    "She isn't used to working long hours.",
+    "She's not used to working long hours.",
+    "She isn't used to working long."
+   ]
+  },
+  {
+   "uz": "Ilgari ikkalamiz yaqin do'st edik.",
+   "en": [
+    "We used to be close friends."
+   ]
+  },
+  {
+   "uz": "Men ilgari kitob o'qimas edim, hozir har kuni o'qiyman.",
+   "en": [
+    "I didn't use to read books, but now I read every day.",
+    "I didn't use to read books; now I read every day."
+   ]
+  },
+  {
+   "uz": "Siz bu yerda ilgari ishlarmidingiz?",
+   "en": [
+    "Did you use to work here?"
+   ]
+  },
+  {
+   "uz": "Bolaligimda soatlab multfilm ko'rar edim.",
+   "en": [
+    "When I was a child, I would watch cartoons for hours.",
+    "When I was a child, I used to watch cartoons for hours.",
+    "As a child, I would watch cartoons for hours."
+   ]
+  },
+  {
+   "uz": "Ko'p o'tmay achchiq ovqatga ko'nikdim.",
+   "en": [
+    "I soon got used to spicy food.",
+    "Soon I got used to spicy food."
+   ]
+  }
+ ],
+ "speak": [
+  "Bolaligingizdagi 5 ta odat: used to / would.",
+  "Hozir nimaga ko'nikkansiz va nimaga hali ko'nikmagansiz? (be used to)",
+  "Shahringiz ilgari qanday edi? (there used to be)"
+ ]
+}

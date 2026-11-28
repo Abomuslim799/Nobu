@@ -1,0 +1,162 @@
+{
+ "id": "perfect-modals",
+ "title": "should / would / could / must have",
+ "recall": "Perfect modal'lar: o'tmish haqida taxmin va afsusni qanday aytasiz? 4 ta tuzilmani misol bilan ayt.",
+ "formula": [
+  "must / might / can't have + V3: o'tmish haqida taxmin — He must have forgotten",
+  "should / shouldn't have + V3: afsus, tanqid — You should have told me",
+  "could have + V3: imkoniyat bor edi, lekin bo'lmadi; would have + V3: shart bajarilganda bo'lardi"
+ ],
+ "pairs": [
+  {
+   "a": "You should tell him.",
+   "b": "You should have told him.",
+   "note_uz": "hozir maslahat ↔ o'tmishdagi afsus"
+  },
+  {
+   "a": "He must be late.",
+   "b": "He must have been late.",
+   "note_uz": "hozirgi taxmin ↔ o'tmish taxmini"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Sen menga aytishing kerak edi.",
+   "en": [
+    "You should have told me."
+   ]
+  },
+  {
+   "uz": "U unutib qo'ygan bo'lsa kerak.",
+   "en": [
+    "He must have forgotten.",
+    "She must have forgotten."
+   ]
+  },
+  {
+   "uz": "Men ko'proq o'qishim kerak edi.",
+   "en": [
+    "I should have studied more."
+   ]
+  },
+  {
+   "uz": "Sen bunchalik ko'p yemasliging kerak edi.",
+   "en": [
+    "You shouldn't have eaten so much."
+   ]
+  },
+  {
+   "uz": "Biz yutishimiz mumkin edi.",
+   "en": [
+    "We could have won."
+   ]
+  },
+  {
+   "uz": "Agar bilganimda, yordam bergan bo'lardim.",
+   "en": [
+    "If I had known, I would have helped.",
+    "I would have helped if I had known."
+   ]
+  },
+  {
+   "uz": "U poyezdga ulgurmagan bo'lsa kerak.",
+   "en": [
+    "He must have missed the train.",
+    "She must have missed the train."
+   ]
+  },
+  {
+   "uz": "U buni qilgan bo'lishi mumkin emas — u shu yerda edi.",
+   "en": [
+    "He can't have done it — he was here.",
+    "He couldn't have done it, he was here."
+   ]
+  },
+  {
+   "uz": "Ular adashib qolgan bo'lishi mumkin.",
+   "en": [
+    "They might have got lost.",
+    "They may have got lost.",
+    "They might have gotten lost."
+   ]
+  },
+  {
+   "uz": "Kechikding! Taksi olishing mumkin edi.",
+   "en": [
+    "You're late! You could have taken a taxi.",
+    "You're late! You could have got a taxi."
+   ]
+  },
+  {
+   "uz": "Men u gapni aytmasligim kerak edi.",
+   "en": [
+    "I shouldn't have said that."
+   ]
+  },
+  {
+   "uz": "Kalitlarimni avtobusda qoldirgan bo'lsam kerak.",
+   "en": [
+    "I must have left my keys on the bus."
+   ]
+  },
+  {
+   "uz": "Sen yiqilib tushishing mumkin edi — ehtiyot bo'l!",
+   "en": [
+    "You could have fallen — be careful!",
+    "You could have fallen, be careful!"
+   ]
+  },
+  {
+   "uz": "U xabarni ko'rmagan bo'lishi mumkin.",
+   "en": [
+    "She might not have seen the message.",
+    "She may not have seen the message."
+   ]
+  },
+  {
+   "uz": "Biz ertaroq chiqishimiz kerak edi.",
+   "en": [
+    "We should have left earlier."
+   ]
+  },
+  {
+   "uz": "Men senga qo'ng'iroq qilardim, lekin telefonim o'chgan edi.",
+   "en": [
+    "I would have called you, but my phone was dead.",
+    "I would have phoned you, but my phone was off."
+   ]
+  },
+  {
+   "uz": "U juda qimmat to'lagan bo'lsa kerak.",
+   "en": [
+    "He must have paid a lot.",
+    "She must have paid a lot."
+   ]
+  },
+  {
+   "uz": "Sen kelmaganing yaxshi bo'ldi — zerikarli edi. (kelishing shart emas edi)",
+   "en": [
+    "You needn't have come — it was boring.",
+    "You didn't need to come, it was boring."
+   ]
+  },
+  {
+   "uz": "U imtihondan o'tolmagan bo'lishi mumkin emas — u a'lochi.",
+   "en": [
+    "He can't have failed the exam — he's a top student.",
+    "She can't have failed the exam, she's an excellent student."
+   ]
+  },
+  {
+   "uz": "Bunday qilishing kerak emas edi!",
+   "en": [
+    "You shouldn't have done that!"
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingizdagi 3 ta afsus: I should have / shouldn't have.",
+  "Do'stingiz kechikdi — 4 xil taxmin (must have / might have / can't have).",
+  "Agar boshqacha qilganingizda nima bo'lardi? (would / could have)"
+ ]
+}

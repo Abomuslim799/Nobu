@@ -1,0 +1,175 @@
+{
+ "id": "cleft",
+ "title": "Cleft + emphasis",
+ "recall": "Cleft gap qanday tuziladi (What…, It was… who/that)? Fe'lni qanday ta'kidlaysiz (do/did)?",
+ "formula": [
+  "What I need is… / What happened was… / All I want is… / The thing is…",
+  "It was John who called (boshqa odam emas); It's the price that worries me",
+  "do / does / did + V1 urg'u bilan: I DO like it; She DID call you"
+ ],
+ "pairs": [
+  {
+   "a": "I need a holiday.",
+   "b": "What I need is a holiday.",
+   "note_uz": "oddiy ↔ ta'kidli"
+  },
+  {
+   "a": "Ali broke the window.",
+   "b": "It was Ali who broke the window.",
+   "note_uz": "neytral ↔ aynan Ali"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Menga kerak narsa — dam olish.",
+   "en": [
+    "What I need is a holiday.",
+    "What I need is a rest.",
+    "What I need is a break."
+   ]
+  },
+  {
+   "uz": "Derazani aynan Ali sindirdi.",
+   "en": [
+    "It was Ali who broke the window.",
+    "It was Ali that broke the window."
+   ]
+  },
+  {
+   "uz": "Meni xavotirga solayotgan narsa — narx.",
+   "en": [
+    "What worries me is the price.",
+    "It's the price that worries me."
+   ]
+  },
+  {
+   "uz": "Men bu filmni haqiqatan ham yoqtiraman.",
+   "en": [
+    "I do like this film.",
+    "I really do like this film.",
+    "I do like this movie."
+   ]
+  },
+  {
+   "uz": "U senga qo'ng'iroq qildi-ku! (rost)",
+   "en": [
+    "She did call you!",
+    "He did call you!"
+   ]
+  },
+  {
+   "uz": "Men xohlagan yagona narsa — tinchlik.",
+   "en": [
+    "All I want is peace.",
+    "All I want is some peace."
+   ]
+  },
+  {
+   "uz": "Gap shundaki, menda vaqt yo'q.",
+   "en": [
+    "The thing is, I don't have time.",
+    "The thing is that I don't have time."
+   ]
+  },
+  {
+   "uz": "Biz aynan kecha uchrashdik.",
+   "en": [
+    "It was yesterday that we met.",
+    "It was yesterday when we met."
+   ]
+  },
+  {
+   "uz": "Bo'lgan voqea shunday: mashina buzilib qoldi.",
+   "en": [
+    "What happened was that the car broke down.",
+    "What happened was the car broke down."
+   ]
+  },
+  {
+   "uz": "Meni hayron qoldirgan narsa — uning xotirjamligi edi.",
+   "en": [
+    "What surprised me was his calmness.",
+    "What surprised me was how calm he was."
+   ]
+  },
+  {
+   "uz": "Menga yoqmaydigan narsa — yolg'on.",
+   "en": [
+    "What I don't like is lying.",
+    "What I hate is lies.",
+    "What I don't like is lies."
+   ]
+  },
+  {
+   "uz": "Aynan sen menga yordam berding.",
+   "en": [
+    "It was you who helped me.",
+    "It was you that helped me."
+   ]
+  },
+  {
+   "uz": "U haqiqatan ham harakat qildi.",
+   "en": [
+    "He did try.",
+    "She did try.",
+    "He really did try."
+   ]
+  },
+  {
+   "uz": "Biz qilishimiz kerak bo'lgan narsa — kutish.",
+   "en": [
+    "What we need to do is wait.",
+    "What we have to do is wait."
+   ]
+  },
+  {
+   "uz": "Meni aynan uning gaplari xafa qildi.",
+   "en": [
+    "It was what he said that upset me.",
+    "It was his words that upset me."
+   ]
+  },
+  {
+   "uz": "Men uni qayerda uchratganimni eslay olmayman — aynan Samarqandda edi.",
+   "en": [
+    "It was in Samarkand that I met him.",
+    "It was in Samarqand where I met him."
+   ]
+  },
+  {
+   "uz": "Menga eng yoqqan narsa — uning hazili.",
+   "en": [
+    "What I liked most was his sense of humour.",
+    "What I liked most was his humour.",
+    "What I liked best was his sense of humor."
+   ]
+  },
+  {
+   "uz": "Men shunchaki dam olmoqchiman.",
+   "en": [
+    "All I want to do is relax.",
+    "All I want is to relax."
+   ]
+  },
+  {
+   "uz": "Siz haqsiz, men xato qildim.",
+   "en": [
+    "You're right, I did make a mistake.",
+    "You are right; I did make a mistake."
+   ]
+  },
+  {
+   "uz": "Muammoning sababi — vaqt yetishmasligi.",
+   "en": [
+    "What causes the problem is a lack of time.",
+    "The reason for the problem is a lack of time.",
+    "What causes the problem is lack of time."
+   ]
+  }
+ ],
+ "speak": [
+  "Hayotingizda nima muhim? 5 ta 'What … is …' gap.",
+  "Bir voqea: It was … who/that … bilan aniqlang (3 ta).",
+  "Kimdir sizga ishonmayapti — do/did bilan 3 ta ta'kidli gap."
+ ]
+}

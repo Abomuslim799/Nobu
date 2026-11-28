@@ -1,0 +1,182 @@
+{
+ "id": "future-forms",
+ "title": "Future: will / going to / present continuous",
+ "recall": "Kelajak uchun qachon will, qachon going to, qachon present continuous? when/if dan keyin nima bo'ladi?",
+ "formula": [
+  "will: shu zahoti qaror, va'da, taklif, fikr — I'll help you",
+  "going to: oldindan reja yoki hozirgi dalil — Look at the clouds, it's going to rain",
+  "present continuous: kelishilgan uchrashuv; present simple: jadval; when/if/as soon as + PRESENT"
+ ],
+ "pairs": [
+  {
+   "a": "I'll call him.",
+   "b": "I'm going to call him.",
+   "note_uz": "hozir qaror qildim ↔ oldindan reja"
+  },
+  {
+   "a": "I'm meeting Ali at 6.",
+   "b": "I'll meet Ali at 6.",
+   "note_uz": "kelishilgan ↔ hozir qaror"
+  },
+  {
+   "a": "When I will finish ❌",
+   "b": "When I finish, I'll call you.",
+   "note_uz": "when dan keyin present"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Telefon jiringlayapti — men olaman.",
+   "en": [
+    "The phone's ringing — I'll get it.",
+    "The phone is ringing. I'll get it.",
+    "The phone's ringing, I'll answer it."
+   ]
+  },
+  {
+   "uz": "Men yangi mashina sotib olmoqchiman. (reja)",
+   "en": [
+    "I'm going to buy a new car."
+   ]
+  },
+  {
+   "uz": "Bulutlarga qara — yomg'ir yog'adi.",
+   "en": [
+    "Look at the clouds — it's going to rain.",
+    "Look at those clouds, it's going to rain."
+   ]
+  },
+  {
+   "uz": "Ertaga soat 6 da Ali bilan uchrashaman. (kelishilgan)",
+   "en": [
+    "I'm meeting Ali at 6 tomorrow.",
+    "I'm meeting Ali tomorrow at 6.",
+    "I'm meeting Ali at six tomorrow."
+   ]
+  },
+  {
+   "uz": "Poyezd soat 7:30 da jo'naydi.",
+   "en": [
+    "The train leaves at 7:30.",
+    "The train departs at 7:30."
+   ]
+  },
+  {
+   "uz": "Va'da beraman, hech kimga aytmayman.",
+   "en": [
+    "I promise I won't tell anyone.",
+    "I promise I will not tell anyone."
+   ]
+  },
+  {
+   "uz": "Ishni tugatishim bilan senga qo'ng'iroq qilaman.",
+   "en": [
+    "I'll call you as soon as I finish work.",
+    "As soon as I finish work, I'll call you.",
+    "I'll call you when I finish work."
+   ]
+  },
+  {
+   "uz": "Agar yomg'ir yog'sa, uyda qolamiz.",
+   "en": [
+    "If it rains, we'll stay at home.",
+    "We'll stay at home if it rains.",
+    "If it rains, we'll stay home."
+   ]
+  },
+  {
+   "uz": "Menimcha, u kelmaydi.",
+   "en": [
+    "I don't think he'll come.",
+    "I don't think he will come."
+   ]
+  },
+  {
+   "uz": "Sen kechki ovqatga nima pishirmoqchisan?",
+   "en": [
+    "What are you going to cook for dinner?",
+    "What are you going to make for dinner?"
+   ]
+  },
+  {
+   "uz": "Sumkangni ko'tarishga yordam beraymi?",
+   "en": [
+    "Shall I help you with your bag?",
+    "Shall I carry your bag?",
+    "I'll help you with your bag."
+   ]
+  },
+  {
+   "uz": "Ehtiyot bo'l — yiqilasan!",
+   "en": [
+    "Be careful — you're going to fall!",
+    "Be careful, you're going to fall!"
+   ]
+  },
+  {
+   "uz": "Shanba kuni nima qilyapsan? (reja)",
+   "en": [
+    "What are you doing on Saturday?"
+   ]
+  },
+  {
+   "uz": "Kelasi oy ishdan ketaman. (qaror qilingan)",
+   "en": [
+    "I'm going to leave my job next month.",
+    "I'm leaving my job next month."
+   ]
+  },
+  {
+   "uz": "Uyga kelganimda senga xabar yozaman.",
+   "en": [
+    "I'll text you when I get home.",
+    "When I get home, I'll text you.",
+    "I'll message you when I get home."
+   ]
+  },
+  {
+   "uz": "2050-yilda odamlar Marsda yashaydi deb o'ylayman.",
+   "en": [
+    "I think people will live on Mars in 2050.",
+    "I think that people will live on Mars by 2050.",
+    "I think people will live on Mars by 2050."
+   ]
+  },
+  {
+   "uz": "Kino soat 8 da boshlanadi.",
+   "en": [
+    "The film starts at 8.",
+    "The movie starts at 8.",
+    "The film starts at eight."
+   ]
+  },
+  {
+   "uz": "Hammasi yaxshi bo'ladi.",
+   "en": [
+    "Everything will be fine.",
+    "Everything's going to be fine.",
+    "Everything is going to be fine.",
+    "Everything will be okay."
+   ]
+  },
+  {
+   "uz": "U imtihondan yiqiladi — hech narsa o'qimagan.",
+   "en": [
+    "He's going to fail the exam — he hasn't studied anything.",
+    "He's going to fail the exam; he hasn't studied at all."
+   ]
+  },
+  {
+   "uz": "Men senga keyinroq qo'ng'iroq qilaman, hozir bandman.",
+   "en": [
+    "I'll call you later, I'm busy now.",
+    "I'll call you later; I'm busy right now."
+   ]
+  }
+ ],
+ "speak": [
+  "Kelasi hafta rejalaringiz: going to / present continuous — 5 ta gap.",
+  "10 yildan keyin dunyo qanday bo'ladi? (will — fikr)",
+  "Do'stingizga 3 ta va'da bering (will)."
+ ]
+}

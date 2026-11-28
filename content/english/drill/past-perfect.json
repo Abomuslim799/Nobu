@@ -1,0 +1,178 @@
+{
+ "id": "past-perfect",
+ "title": "Past perfect simple / continuous",
+ "recall": "Past perfect qachon kerak? Simple va continuous farqini by the time bilan bitta misolda ayt.",
+ "formula": [
+  "had + V3: o'tmishdagi nuqtadan OLDIN tugagan — When I arrived, the film had started",
+  "had been + -ing: o'tmishdagi nuqtagacha davom etgan — She was tired because she had been working all day",
+  "by the time, before, after, already, just, never… before"
+ ],
+ "pairs": [
+  {
+   "a": "When I arrived, the film started.",
+   "b": "When I arrived, the film had started.",
+   "note_uz": "birga boshlandi ↔ men kelganda allaqachon boshlangan edi"
+  },
+  {
+   "a": "I had read the book.",
+   "b": "I had been reading for two hours.",
+   "note_uz": "natija ↔ davomiylik"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men kelganimda film boshlanib bo'lgan edi.",
+   "en": [
+    "When I arrived, the film had already started.",
+    "The film had already started when I arrived.",
+    "When I arrived, the film had started.",
+    "The film had started when I arrived."
+   ]
+  },
+  {
+   "uz": "Avtobus ketib qolgan edi, shuning uchun piyoda bordim.",
+   "en": [
+    "The bus had left, so I walked.",
+    "The bus had already left, so I walked."
+   ]
+  },
+  {
+   "uz": "U ilgari hech qachon samolyotda uchmagan edi.",
+   "en": [
+    "Malika had never flown before.",
+    "Malika had never been on a plane before."
+   ]
+  },
+  {
+   "uz": "Men u bilan tanishishdan oldin uni ko'p eshitgan edim. (Ali haqida)",
+   "en": [
+    "I had heard a lot about Ali before I met him.",
+    "Before I met Ali, I had heard a lot about him."
+   ]
+  },
+  {
+   "uz": "Ish soat 9 ga qadar tugab bo'lgan edi.",
+   "en": [
+    "The work had finished by 9.",
+    "The work had been finished by 9.",
+    "The work had been done by 9."
+   ]
+  },
+  {
+   "uz": "Ko'zlari qizarib ketgan edi — u yig'layotgan ekan.",
+   "en": [
+    "Her eyes were red because she had been crying.",
+    "Her eyes were red; she had been crying."
+   ]
+  },
+  {
+   "uz": "Men ikki soatdan beri kutayotgan edim, keyin u keldi.",
+   "en": [
+    "I had been waiting for two hours when he came.",
+    "I had been waiting for two hours when he arrived.",
+    "I had been waiting for 2 hours when he came."
+   ]
+  },
+  {
+   "uz": "Yer ho'l edi, chunki tun bo'yi yomg'ir yog'gan edi.",
+   "en": [
+    "The ground was wet because it had been raining all night.",
+    "The ground was wet because it had rained all night."
+   ]
+  },
+  {
+   "uz": "Men uyga kelganimda hamma uxlab qolgan edi.",
+   "en": [
+    "When I got home, everyone had gone to bed.",
+    "When I came home, everyone had fallen asleep.",
+    "When I got home, everyone had fallen asleep."
+   ]
+  },
+  {
+   "uz": "U kelguncha biz ovqatlanib bo'lgan edik.",
+   "en": [
+    "By the time he arrived, we had eaten.",
+    "By the time he came, we had already eaten.",
+    "By the time he arrived, we had already eaten."
+   ]
+  },
+  {
+   "uz": "Men kalitimni uyda qoldirganimni tushundim.",
+   "en": [
+    "I realised I had left my key at home.",
+    "I realized that I had left my key at home.",
+    "I realised that I had left my keys at home."
+   ]
+  },
+  {
+   "uz": "U 10 yil ishlagandan keyin nafaqaga chiqdi.",
+   "en": [
+    "He retired after he had worked for 10 years.",
+    "He retired after he had been working for 10 years.",
+    "After he had worked for 10 years, he retired."
+   ]
+  },
+  {
+   "uz": "Shuncha yugurgandan keyin charchagan edim.",
+   "en": [
+    "I was tired because I had been running.",
+    "I was tired because I had been running so much."
+   ]
+  },
+  {
+   "uz": "Bu filmni oldin ko'rgan edingmi?",
+   "en": [
+    "Had you seen this film before?",
+    "Had you seen this movie before?"
+   ]
+  },
+  {
+   "uz": "Do'konga yetib borganimda u yopilib bo'lgan edi.",
+   "en": [
+    "When I got to the shop, it had closed.",
+    "The shop had closed when I got there.",
+    "When I got to the shop, it had already closed."
+   ]
+  },
+  {
+   "uz": "U menga oldin u yerda ishlaganini aytdi.",
+   "en": [
+    "He told me he had worked there before.",
+    "He told me that he had worked there before."
+   ]
+  },
+  {
+   "uz": "Biz uchrashishdan oldin xat yozishib turgan edik.",
+   "en": [
+    "We had been writing to each other before we met.",
+    "We had been writing letters to each other before we met."
+   ]
+  },
+  {
+   "uz": "U imtihondan o'tolmadi, chunki tayyorlanmagan edi.",
+   "en": [
+    "He failed the exam because he hadn't prepared.",
+    "He failed the exam because he had not prepared."
+   ]
+  },
+  {
+   "uz": "Men hech qachon bunday chiroyli joyni ko'rmagan edim.",
+   "en": [
+    "I had never seen such a beautiful place.",
+    "I had never seen such a beautiful place before."
+   ]
+  },
+  {
+   "uz": "Qancha vaqtdan beri kutayotgan eding, u kelganida?",
+   "en": [
+    "How long had you been waiting when he came?",
+    "How long had you been waiting when he arrived?"
+   ]
+  }
+ ],
+ "speak": [
+  "Kecha nima bo'ldi va undan OLDIN nima bo'lgan edi? 5 ta gap.",
+  "Charchagan, xursand yoki asabiy bo'lgan bir kuningiz: nima sababdan edi? (had been -ing)",
+  "Hikoya: by the time … had … bilan 3 ta gap."
+ ]
+}

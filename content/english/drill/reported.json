@@ -1,0 +1,181 @@
+{
+ "id": "reported",
+ "title": "Reported speech",
+ "recall": "Reported speech'da zamonlar qanday o'zgaradi? say va tell farqi? Savol va buyruqni qanday ko'chirasiz?",
+ "formula": [
+  "zamon bir qadam orqaga: am → was, will → would, have done → had done, did → had done",
+  "say (something) / tell + KIMGA: He said that… / He told me that…",
+  "savol: asked if / where + oddiy tartib; buyruq: told me to / not to; admit, deny, suggest, refuse, warn"
+ ],
+ "pairs": [
+  {
+   "a": "\"I'm tired,\" he said.",
+   "b": "He said (that) he was tired.",
+   "note_uz": "zamon orqaga"
+  },
+  {
+   "a": "She asked, \"Where do you live?\"",
+   "b": "She asked where I lived.",
+   "note_uz": "so'roq tartibi yo'qoladi"
+  }
+ ],
+ "items": [
+  {
+   "uz": "U charchaganini aytdi.",
+   "en": [
+    "He said he was tired.",
+    "He said that he was tired.",
+    "She said she was tired."
+   ]
+  },
+  {
+   "uz": "U menga kech qolishini aytdi.",
+   "en": [
+    "He told me he would be late.",
+    "He told me that he would be late.",
+    "She told me she would be late."
+   ]
+  },
+  {
+   "uz": "U mendan qayerda yashashimni so'radi.",
+   "en": [
+    "She asked me where I lived.",
+    "He asked me where I lived."
+   ]
+  },
+  {
+   "uz": "U mendan ingliz tilini bilishimni so'radi.",
+   "en": [
+    "He asked me if I spoke English.",
+    "She asked me whether I spoke English.",
+    "He asked if I spoke English."
+   ]
+  },
+  {
+   "uz": "U menga eshikni yopishimni aytdi.",
+   "en": [
+    "He told me to close the door.",
+    "She told me to close the door."
+   ]
+  },
+  {
+   "uz": "U menga kechikmaslikni aytdi.",
+   "en": [
+    "She told me not to be late.",
+    "He told me not to be late."
+   ]
+  },
+  {
+   "uz": "U o'sha filmni ko'rganini aytdi.",
+   "en": [
+    "He said he had seen that film.",
+    "She said that she had seen that movie."
+   ]
+  },
+  {
+   "uz": "U ertaga kelishini aytdi.",
+   "en": [
+    "He said he would come the next day.",
+    "She said she would come the following day.",
+    "He said he would come tomorrow."
+   ]
+  },
+  {
+   "uz": "U xatoga yo'l qo'yganini tan oldi.",
+   "en": [
+    "He admitted making a mistake.",
+    "He admitted that he had made a mistake.",
+    "She admitted making a mistake."
+   ]
+  },
+  {
+   "uz": "U pulni olganini rad etdi.",
+   "en": [
+    "He denied taking the money.",
+    "She denied taking the money.",
+    "He denied that he had taken the money."
+   ]
+  },
+  {
+   "uz": "U kinoga borishni taklif qildi.",
+   "en": [
+    "She suggested going to the cinema.",
+    "He suggested going to the cinema.",
+    "She suggested that we go to the cinema."
+   ]
+  },
+  {
+   "uz": "U yordam berishdan bosh tortdi.",
+   "en": [
+    "He refused to help.",
+    "She refused to help me.",
+    "He refused to help me."
+   ]
+  },
+  {
+   "uz": "U meni u yerga bormaslik haqida ogohlantirdi.",
+   "en": [
+    "She warned me not to go there.",
+    "He warned me not to go there."
+   ]
+  },
+  {
+   "uz": "U mendan qachon kelganimni so'radi.",
+   "en": [
+    "He asked me when I had arrived.",
+    "She asked when I had arrived.",
+    "He asked me when I arrived."
+   ]
+  },
+  {
+   "uz": "Ular uylanishmoqchi ekanliklarini aytishdi.",
+   "en": [
+    "They said they were going to get married.",
+    "They said that they were getting married."
+   ]
+  },
+  {
+   "uz": "U menga meni sevishini aytdi.",
+   "en": [
+    "She told me she loved me.",
+    "He told me he loved me."
+   ]
+  },
+  {
+   "uz": "U menga ertaroq kelishga va'da berdi.",
+   "en": [
+    "He promised to come earlier.",
+    "She promised to come early.",
+    "He promised me he would come earlier."
+   ]
+  },
+  {
+   "uz": "U bu yerda ishlashini aytdi.",
+   "en": [
+    "She said she worked here.",
+    "He said that he worked here.",
+    "She said she worked there."
+   ]
+  },
+  {
+   "uz": "O'qituvchi bizdan uy vazifasini qilganimizni so'radi.",
+   "en": [
+    "The teacher asked us if we had done our homework.",
+    "The teacher asked whether we had done our homework."
+   ]
+  },
+  {
+   "uz": "U menga kechirim so'radi.",
+   "en": [
+    "He apologised to me.",
+    "She apologized to me.",
+    "He said sorry to me."
+   ]
+  }
+ ],
+ "speak": [
+  "Kecha kimdir sizga nima dedi? 5 ta gapni reported speech'da ayting.",
+  "Oxirgi yig'ilishda kim nima taklif qildi, nimani rad etdi?",
+  "Sizga berilgan 3 ta savolni ko'chiring (asked if / where)."
+ ]
+}

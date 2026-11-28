@@ -1,0 +1,171 @@
+{
+ "id": "must-should",
+ "title": "must / have to / should",
+ "recall": "must va have to farqi? mustn't va don't have to farqi? should qachon?",
+ "formula": [
+  "must: o'zim zarur deb bilaman / qat'iy; have to: tashqi qoida, majburiyat",
+  "mustn't = taqiqlangan; don't have to = shart emas (lekin mumkin)",
+  "should / ought to: maslahat; had better: aks holda yomon bo'ladi; need to / needn't"
+ ],
+ "pairs": [
+  {
+   "a": "You mustn't park here.",
+   "b": "You don't have to park here.",
+   "note_uz": "taqiq ↔ shart emas"
+  },
+  {
+   "a": "I must call my mum.",
+   "b": "I have to wear a uniform.",
+   "note_uz": "o'zim xohlayman ↔ qoida"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Men onamga qo'ng'iroq qilishim kerak. (o'zim shunday deb bilaman)",
+   "en": [
+    "I must call my mum.",
+    "I must call my mother."
+   ]
+  },
+  {
+   "uz": "Ishda forma kiyishim kerak. (qoida)",
+   "en": [
+    "I have to wear a uniform at work."
+   ]
+  },
+  {
+   "uz": "Bu yerda chekmang. (taqiq)",
+   "en": [
+    "You mustn't smoke here.",
+    "You must not smoke here."
+   ]
+  },
+  {
+   "uz": "Ertaga erta turishing shart emas — dam olish kuni.",
+   "en": [
+    "You don't have to get up early tomorrow — it's a day off.",
+    "You don't have to get up early tomorrow, it's a day off.",
+    "You don't need to get up early tomorrow — it's a holiday."
+   ]
+  },
+  {
+   "uz": "Sen ko'proq dam olishing kerak. (maslahat)",
+   "en": [
+    "You should rest more.",
+    "You should get more rest.",
+    "You ought to rest more."
+   ]
+  },
+  {
+   "uz": "Kecha kechgacha ishlashim kerak bo'ldi.",
+   "en": [
+    "I had to work late yesterday.",
+    "Yesterday I had to work late."
+   ]
+  },
+  {
+   "uz": "Ertaga hisobot topshirishim kerak bo'ladi.",
+   "en": [
+    "I'll have to submit the report tomorrow.",
+    "I will have to hand in the report tomorrow."
+   ]
+  },
+  {
+   "uz": "Shoshilganing ma'qul, aks holda kechikasan.",
+   "en": [
+    "You'd better hurry, or you'll be late.",
+    "You had better hurry or you'll be late."
+   ]
+  },
+  {
+   "uz": "Sen shifokorga borishing kerak.",
+   "en": [
+    "You should see a doctor.",
+    "You should go to the doctor.",
+    "You ought to see a doctor."
+   ]
+  },
+  {
+   "uz": "Biz chipta sotib olishimiz kerakmi?",
+   "en": [
+    "Do we have to buy tickets?",
+    "Do we need to buy tickets?"
+   ]
+  },
+  {
+   "uz": "Siz bu yerda pul to'lashingiz shart emas.",
+   "en": [
+    "You don't have to pay here.",
+    "You don't need to pay here."
+   ]
+  },
+  {
+   "uz": "Haydovchilar xavfsizlik kamarini taqishi shart.",
+   "en": [
+    "Drivers must wear seat belts.",
+    "Drivers have to wear seat belts."
+   ]
+  },
+  {
+   "uz": "U ko'p ishlamasligi kerak edi — kasal bo'lib qoldi.",
+   "en": [
+    "He shouldn't have worked so much — he got ill.",
+    "He shouldn't have worked so hard; he got sick."
+   ]
+  },
+  {
+   "uz": "Bu muzeyni albatta ko'rishing kerak!",
+   "en": [
+    "You must see this museum!",
+    "You must visit this museum!"
+   ]
+  },
+  {
+   "uz": "Menga yordam berishing shart emas edi, lekin rahmat.",
+   "en": [
+    "You didn't have to help me, but thanks.",
+    "You didn't need to help me, but thank you."
+   ]
+  },
+  {
+   "uz": "Imtihonda telefon ishlatish mumkin emas.",
+   "en": [
+    "You mustn't use your phone in the exam.",
+    "You can't use your phone during the exam."
+   ]
+  },
+  {
+   "uz": "Men har kuni 30 ta so'z o'rganishim kerak.",
+   "en": [
+    "I have to learn 30 words every day.",
+    "I must learn 30 words every day.",
+    "I need to learn 30 words every day."
+   ]
+  },
+  {
+   "uz": "Sen unga haqiqatni aytishing kerak.",
+   "en": [
+    "You should tell him the truth.",
+    "You ought to tell him the truth."
+   ]
+  },
+  {
+   "uz": "Bugun ishlashim kerak emas.",
+   "en": [
+    "I don't have to work today.",
+    "I don't need to work today."
+   ]
+  },
+  {
+   "uz": "Biz kutishimizga to'g'ri keldi.",
+   "en": [
+    "We had to wait."
+   ]
+  }
+ ],
+ "speak": [
+  "Ishingizdagi 5 ta qoida: have to / don't have to / mustn't.",
+  "Do'stingizga 5 ta maslahat bering: should / had better.",
+  "Kecha nima qilishga majbur bo'ldingiz? (had to)"
+ ]
+}

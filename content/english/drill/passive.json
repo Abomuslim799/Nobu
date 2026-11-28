@@ -1,0 +1,166 @@
+{
+ "id": "passive",
+ "title": "Passive — barcha zamonlarda",
+ "recall": "Passive qanday yasaladi? Present perfect va continuous passive'ni ayt. by qachon kerak?",
+ "formula": [
+  "be + V3: zamon 'be' da — is made, was made, has been made, is being made, will be made",
+  "ish qiluvchi muhim bo'lmasa yoki noma'lum bo'lsa; by + kim — faqat muhim bo'lsa",
+  "ikki to'ldiruvchi: I was given a book / A book was given to me; modal: must be done"
+ ],
+ "pairs": [
+  {
+   "a": "They built the bridge in 1990.",
+   "b": "The bridge was built in 1990.",
+   "note_uz": "faol ↔ majhul"
+  },
+  {
+   "a": "The road is repaired.",
+   "b": "The road is being repaired.",
+   "note_uz": "umuman ↔ hozir jarayonda"
+  }
+ ],
+ "items": [
+  {
+   "uz": "Bu ko'prik 1990-yilda qurilgan.",
+   "en": [
+    "This bridge was built in 1990."
+   ]
+  },
+  {
+   "uz": "Ingliz tili butun dunyoda gapiriladi.",
+   "en": [
+    "English is spoken all over the world.",
+    "English is spoken around the world."
+   ]
+  },
+  {
+   "uz": "Mening mashinam o'g'irlandi.",
+   "en": [
+    "My car has been stolen.",
+    "My car was stolen."
+   ]
+  },
+  {
+   "uz": "Yo'l hozir ta'mirlanyapti.",
+   "en": [
+    "The road is being repaired.",
+    "The road is being repaired now."
+   ]
+  },
+  {
+   "uz": "Xat ertaga yuboriladi.",
+   "en": [
+    "The letter will be sent tomorrow."
+   ]
+  },
+  {
+   "uz": "Menga sovg'a berildi.",
+   "en": [
+    "I was given a present.",
+    "I was given a gift."
+   ]
+  },
+  {
+   "uz": "Bu kitob Tolstoy tomonidan yozilgan.",
+   "en": [
+    "This book was written by Tolstoy."
+   ]
+  },
+  {
+   "uz": "Hisobot hali tugatilmagan.",
+   "en": [
+    "The report hasn't been finished yet.",
+    "The report has not been finished yet."
+   ]
+  },
+  {
+   "uz": "Bu xona har kuni tozalanadi.",
+   "en": [
+    "This room is cleaned every day."
+   ]
+  },
+  {
+   "uz": "Biz kelganimizda uy bo'yalayotgan edi.",
+   "en": [
+    "When we arrived, the house was being painted.",
+    "The house was being painted when we arrived."
+   ]
+  },
+  {
+   "uz": "Natijalar kelasi haftada e'lon qilinadi.",
+   "en": [
+    "The results will be announced next week."
+   ]
+  },
+  {
+   "uz": "Bu ish bugun bajarilishi kerak.",
+   "en": [
+    "This work must be done today.",
+    "This job has to be done today."
+   ]
+  },
+  {
+   "uz": "U ishdan bo'shatildi.",
+   "en": [
+    "He was fired.",
+    "He has been fired.",
+    "He was dismissed."
+   ]
+  },
+  {
+   "uz": "Bino buzib tashlangan edi.",
+   "en": [
+    "The building had been demolished.",
+    "The building had been knocked down."
+   ]
+  },
+  {
+   "uz": "Yig'ilish keyinga qoldirildi.",
+   "en": [
+    "The meeting has been postponed.",
+    "The meeting was postponed."
+   ]
+  },
+  {
+   "uz": "Bu telefon Xitoyda ishlab chiqarilgan.",
+   "en": [
+    "This phone was made in China.",
+    "This phone is made in China."
+   ]
+  },
+  {
+   "uz": "Sizga qo'ng'iroq qilinadi.",
+   "en": [
+    "You will be called.",
+    "You'll be called."
+   ]
+  },
+  {
+   "uz": "Bolalarga bu haqda aytilmagan.",
+   "en": [
+    "The children weren't told about it.",
+    "The children haven't been told about it."
+   ]
+  },
+  {
+   "uz": "Bu muammo muhokama qilinmoqda.",
+   "en": [
+    "This problem is being discussed.",
+    "This issue is being discussed."
+   ]
+  },
+  {
+   "uz": "Bu yerda chekish taqiqlangan.",
+   "en": [
+    "Smoking is not allowed here.",
+    "Smoking is forbidden here.",
+    "Smoking is prohibited here."
+   ]
+  }
+ ],
+ "speak": [
+  "Shahringizda nima qurilgan, nima qurilmoqda, nima quriladi? (passive, 3 zamon)",
+  "Ishxonangizda qanday ishlar bajariladi? 5 ta gap.",
+  "Bitta mashhur ixtiro: qachon, kim tomonidan yaratilgan?"
+ ]
+}
